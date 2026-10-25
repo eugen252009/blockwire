@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blockwire-example-skills"
+version = "0.1.0"
+description = "Explicitly enabled Blockwire skill-provider example"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["blockwire>=0.2.0a2"]
+
+[project.entry-points."blockwire.skills"]
+inventory_example = "blockwire_example:register"
+
+[tool.setuptools.packages.find]
+where = ["src"]

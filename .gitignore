@@ -1,0 +1,11 @@
+.gradle/
+build/
+run/
+logs/
+crash-reports/
+.venv/
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+.cocoindex_code/

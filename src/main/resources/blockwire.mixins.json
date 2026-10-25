@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "dev.blockwire.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "MinecraftInputMixin",
+    "MinecraftActions"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

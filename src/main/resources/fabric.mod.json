@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "blockwire",
+  "version": "${version}",
+  "name": "Blockwire",
+  "description": "Local, authenticated player control and readable game observations for Python scripts and MCP agents.",
+  "authors": [
+    "Blockwire contributors"
+  ],
+  "license": "MIT",
+  "icon": "assets/blockwire/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.blockwire.Blockwire"
+    ]
+  },
+  "mixins": [
+    "blockwire.mixins.json"
+  ],
+  "breaks": {
+    "block_bridge": "*"
+  },
+  "depends": {
+    "fabricloader": ">=0.20.1",
+    "minecraft": "26.3",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}

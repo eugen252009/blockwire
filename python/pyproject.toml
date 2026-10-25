@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blockwire"
+version = "0.2.0a2"
+description = "Python scripting and MCP tools for the Blockwire Minecraft client mod"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["websockets>=15,<17", "pydantic>=2.11,<3"]
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3"]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.12,<2"]
+
+[project.scripts]
+blockwire = "blockwire.cli:main"
+blockwire-mcp = "blockwire.mcp_server:main"
+# Compatibility commands for existing agent-host configurations.
+block-bridge = "blockwire.cli:main"
+block-bridge-mcp = "blockwire.mcp_server:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

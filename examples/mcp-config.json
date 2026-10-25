@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "blockwire": {
+      "command": "/absolute/path/to/blockwire/.venv/bin/blockwire-mcp",
+      "env": {
+        "BLOCKWIRE_CONFIG": "/absolute/path/to/instance/minecraft/config/blockwire/settings.json",
+        "BLOCKWIRE_URL": "wss://127.0.0.1:8765/v1"
+      }
+    }
+  }
+}
