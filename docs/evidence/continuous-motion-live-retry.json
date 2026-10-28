@@ -1,0 +1,157 @@
+{
+  "scope": "Operator-authorized user-world retry after operator reported killing a guardian; not an isolated acceptance fixture",
+  "target": {
+    "id": "minecraft:chest",
+    "position": [
+      2855,
+      44,
+      -332
+    ]
+  },
+  "approach": {
+    "id": "788f4058-b406-4f24-bad7-f0dd09a3b942",
+    "skill": "approach",
+    "status": "blocked",
+    "progress": {
+      "phase": "walking",
+      "target": {
+        "id": "minecraft:chest",
+        "position": [
+          2855,
+          44,
+          -332
+        ]
+      },
+      "position": [
+        2858.4968774560684,
+        44,
+        -334.2954923342832
+      ],
+      "standing_destination": [
+        2857.5,
+        44,
+        -333.5
+      ],
+      "route_is_partial": false,
+      "steps": 32,
+      "control_mode": "rolling",
+      "owned_input_lease": true
+    },
+    "result": {
+      "status": "blocked",
+      "reason": "known_danger_nearby",
+      "text": "known danger nearby",
+      "details": {},
+      "cleanup": "released"
+    }
+  },
+  "before": {
+    "position": [
+      2858.1679256322345,
+      44,
+      -338.6221740049948
+    ],
+    "health": 20
+  },
+  "manual_interaction": {
+    "movement_requested_after_block": false,
+    "position": [
+      2858.4976204280856,
+      44,
+      -333.72120732280695
+    ],
+    "health": 20,
+    "native_target": {
+      "kind": "block",
+      "id": "minecraft:chest",
+      "position": [
+        2855,
+        44,
+        -332
+      ],
+      "face": "up"
+    },
+    "action": "use",
+    "transfer": {
+      "action": "quick_move",
+      "source_menu_slot": 81,
+      "destination_observed_menu_slot": 48,
+      "item": "minecraft:netherite_sword",
+      "name": "Probleme",
+      "count": 1
+    },
+    "observed_postcondition": {
+      "menu_id": 49,
+      "state_id": 1,
+      "container_open": true,
+      "carried": {
+        "empty": true
+      },
+      "player_sword": [],
+      "sword_slots": [
+        {
+          "empty": false,
+          "item": "minecraft:netherite_sword",
+          "name": "Probleme",
+          "count": 1,
+          "damage": 0,
+          "max_damage": 2031,
+          "enchantments": [
+            {
+              "id": "minecraft:sweeping_edge",
+              "level": 3
+            },
+            {
+              "id": "minecraft:sharpness",
+              "level": 5
+            },
+            {
+              "id": "minecraft:unbreaking",
+              "level": 3
+            },
+            {
+              "id": "minecraft:looting",
+              "level": 3
+            },
+            {
+              "id": "minecraft:mending",
+              "level": 1
+            }
+          ],
+          "slot": 48,
+          "active": true,
+          "x": 62,
+          "y": 108
+        }
+      ],
+      "source_slot": {
+        "empty": true,
+        "slot": 81,
+        "active": true,
+        "x": 8,
+        "y": 197
+      }
+    }
+  },
+  "after": {
+    "container_open": false,
+    "carried": {
+      "empty": true
+    },
+    "player_sword": [],
+    "health": 20,
+    "position": [
+      2858.4976204280856,
+      44,
+      -333.72120732280695
+    ]
+  },
+  "qualification": {
+    "partial_route": "Observed movement and rolling controller progress through 32 movement updates, then known_danger_nearby with released cleanup; NOT a successful approach job.",
+    "sword_transfer": "Confirmed sword in chest slot 48, absent from player inventory, source slot 81 empty, cursor empty; chest subsequently observed closed.",
+    "safety": "No further walking after guard stop; interaction was separately performed within observed native reach. No safety-policy setting was disabled.",
+    "smoothness": "UNVERIFIED: no frame capture or operator quality assessment.",
+    "isolated_graphical_acceptance": "NOT RUN",
+    "health": "20 before and after; no observed health loss."
+  }
+}

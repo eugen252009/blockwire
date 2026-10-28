@@ -1,0 +1,21 @@
+{
+  "key.block_bridge.toggle": "Blockwire umschalten (lokale Automatisierung)",
+  "key.category.blockwire.controls": "Blockwire",
+  "blockwire.settings.title": "Blockwire-Einstellungen",
+  "blockwire.settings.enable": "Steuerung jetzt aktivieren",
+  "blockwire.settings.disable": "Steuerung stoppen und Eingaben freigeben",
+  "blockwire.settings.runtime_hint": "Sofortiges Umschalten wie mit F8. Ändert weder den Autostart noch aktiviert es den Python-Autopiloten.",
+  "blockwire.settings.startup": "Beim nächsten Start aktivieren: %s",
+  "blockwire.settings.startup_hint": "Nur Autostart-Vorgabe. Explizit speichern; Schließen ohne Speichern verwirft diesen Entwurf.",
+  "blockwire.settings.save": "Autostart-Vorgabe speichern",
+  "blockwire.settings.saved": "Autostart gespeichert. Aktuelle Steuerung unverändert.",
+  "blockwire.settings.save_failed": "Nicht gespeichert: Datei geändert oder nicht schreibbar.",
+  "blockwire.settings.runtime_failed": "Umschalten fehlgeschlagen. Lokales Log prüfen.",
+  "blockwire.settings.status.unavailable": "Nicht verfügbar: Konfigurations-/TLS-Fehler",
+  "blockwire.settings.status.disabled": "Steuerung deaktiviert",
+  "blockwire.settings.status.connected": "Steuerung aktiv: Controller verbunden",
+  "blockwire.settings.status.waiting": "Steuerung aktiv: Warten auf Controller",
+  "blockwire.settings.security": "TLS erforderlich. API-Schlüssel bleiben verborgen.",
+  "blockwire.settings.file_hint": "IP/Port/Schlüssel: settings.json ändern, dann Neustart.",
+  "blockwire.settings.stop_hint": "Lokal stoppen: F8 (oder neu belegte Umschalttaste)."
+}

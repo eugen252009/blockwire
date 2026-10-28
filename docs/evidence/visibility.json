@@ -1,0 +1,61 @@
+{
+  "scope": "Extended player-eye sight and compact sampled surfaces; deterministic native-ray fixtures, not graphical acceptance",
+  "qualification": "TESTED (component contracts); graphical gameplay UNVERIFIED",
+  "artifact": {
+    "path": "build/libs/blockwire-0.2.0-alpha.2.jar",
+    "sha256": "d20ecfe9942d9308077d2f1180d6708cb316430e67525e8420988233fe4ba9d8"
+  },
+  "checks": {
+    "build_and_gradle_check": "PASS",
+    "transport_protocol_assertions": 67,
+    "tls_identity_assertions": 19,
+    "native_visibility_fixture_assertions": 6027,
+    "python_unit_tests": 44,
+    "artifact_packaging_contracts": 9,
+    "tls_interop_checks": 10,
+    "java_mutations": {
+      "killed": 14,
+      "visibility_specific": 6
+    },
+    "python_skill_mutations": {
+      "killed": 11
+    },
+    "graphical_client_visibility": "NOT RUN",
+    "user_world_or_installed_mod_changes": "NONE"
+  },
+  "test_effectiveness_note": "An initial target-cap mutation survived the occluding-wall fixture. Added a separated visible-arc fixture with more than 16 targets; all six visibility mutations were then killed at their named contract assertions.",
+  "reproduce": [
+    "./gradlew build --rerun-tasks",
+    "./gradlew check --rerun-tasks",
+    "PYTHONPATH=python/src .venv/bin/python -B -m unittest discover -s python/tests -v",
+    "PYTHONPATH=. .venv/bin/python -B -m unittest discover -s tests -p test_package_modrinth.py -v",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/visibility-verification\" .venv/bin/python -B tests/run_mutations.py",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/visibility-verification\" .venv/bin/python -B tests/run_skill_mutations.py",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/visibility-verification\" PYTHONPATH=python/src .venv/bin/python -B tests/tls_interop.py"
+  ],
+  "limits": [
+    "Potential visibility is partial; not renderer/pixel visibility.",
+    "Glass, fluids, missing terrain and bounded candidate/sample budgets can omit visible objects.",
+    "Normal native interaction reach and open-container inventory authority are unchanged.",
+    "No hard wall-clock or modpack performance qualification.",
+    "No release/publication approval."
+  ],
+  "sha256": {
+    "build/libs/blockwire-0.2.0-alpha.2.jar": "d20ecfe9942d9308077d2f1180d6708cb316430e67525e8420988233fe4ba9d8",
+    "src/main/java/dev/blockwire/VisibilityView.java": "31be1f852c6c6f264e0b909fbee7eb8d5e2f8bb70be4edbcca673b0ba5d4c224",
+    "src/main/java/dev/blockwire/Observations.java": "61660523f8f6101d223706d53e10c735490e0fef8552fa66948ee7d12abd18ae",
+    "src/contractTest/java/dev/blockwire/VisibilityContractTest.java": "9dced7c6dc0edff1ff85806338277eedc7d16ccbe349b22c30d89632ec66f309",
+    "build.gradle": "b9a447488af7dd2d08a0a63a698c73534e496d810df8de67ef42d0caba27cc98",
+    "python/src/blockwire/client.py": "f631813d18471a2ce72e5c11cd1f4151e07a6699825932008fc40006ca94c1b5",
+    "python/src/blockwire/mcp_server.py": "88d21f6491f2d442678ae600b017c9f26398028a2f5b3e78b4ee74ca06462e78",
+    "python/tests/test_client.py": "1b224d425337ba7153ede3a8b818f6f9190cb19cab11251bbf857a229fa5b4f5",
+    "tests/run_mutations.py": "09ef7bef7d404b6b6e8130709ca790125c640eda314ea1da15607a10136a4131",
+    "build/visibility-verification/build.log": "6587c762f9dbfce15e2c12bd6b059817fa5e68c67941b7d8caa6e910d2a781ed",
+    "build/visibility-verification/final-check.log": "7daf1c849b83053c824adb377fea12f66a878c0e00bfb2db2d0133833b6fec98",
+    "build/visibility-verification/python-tests.log": "ed5a3949016eaba30d856fef2ed05f44aa88d2058d34f0458ccbfe7b89a02884",
+    "build/visibility-verification/package-tests.log": "6ee395d67df120954f56b5857aab4485c3323ae6e6a759b8945a60e6bc8b6024",
+    "build/visibility-verification/mutations/results.json": "4e104499bb6efab108064363cb22e0b6f5b091a6531886d7ad0e04c1f64adf60",
+    "build/visibility-verification/skill-mutations/results.json": "a152f8d923733254783c1afb684603d60aa13172c3c367ce44178c8b11a26999",
+    "build/visibility-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813"
+  }
+}

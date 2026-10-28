@@ -38,7 +38,17 @@ result = player.walk_to(12.5, 64, -8.5, sneak=False, avoid_damage=True)
 print(result["status"], result["reason"])
 ```
 
-MCP exposes `list_skills`, `walk_to`, `run_skill`, `skill_status` and `cancel_skill`.
+Approach an already-visible chest without opening it:
+
+```python
+result = player.approach("chest")  # or minecraft:chest; optional exact visible block position
+```
+
+The [approach skill](docs/approach.md) selects a supported standing position,
+re-observes and aims at the target, then requires the exact native interaction
+hit before success. Flat ground only; graphical acceptance of this skill is NOT RUN.
+
+MCP exposes `list_skills`, `walk_to`, `approach`, `run_skill`, `skill_status` and `cancel_skill`.
 Jobs run in the background; status and cancellation stay responsive. The first
 walker supports **loaded flat full-block ground only** and reports blocked reasons
 for unsupported situations. `avoid_damage` is conservative, **not immunity**.
@@ -47,6 +57,18 @@ See [skills](docs/skills.md).
 Another LLM/developer can add goals via the opt-in Python provider template, strict
 schemas and shared registry without editing TLS or MCP core. Start at
 [AGENTS.md](AGENTS.md) and [extensions](docs/extensions.md).
+
+### Optional algorithmic autopilot (experimental)
+
+Explicitly start `autopilot` through MCP or `player.autopilot(...)` in Python.
+Select walk/run/sneak travel, optional nearby-hostile defense and creeper evasion.
+The deterministic controller needs no model; it is off until invoked, bounded in
+duration, observable and cancellable through the same skill jobs. Flat ground only;
+**live combat/evasion acceptance NOT RUN**, and no safety guarantee.
+Approach/autopilot share a [feedback motor](docs/motion.md) that keeps W held
+through observations and small steering on supported straight segments, with
+short native leases. Live smoothness acceptance remains NOT RUN.
+See [activation, policies and limitations](docs/autopilot.md).
 
 ### 3. WebSocket / MCP: descriptive, LLM-friendly interaction
 
@@ -57,6 +79,9 @@ Observations come from internal client game data, not OCR:
 - Friendly item names **and** stable registry IDs, counts, durability, enchantments.
 - Health, hunger, dimension, biome, position and eye coordinates.
 - Native crosshair target and a bounded, approximate potentially-visible entity list.
+- Extended block sight and up to 16 potentially visible interactables within 64 blocks;
+  sampled block surfaces use a compact palette/run encoding, not a full world map.
+  See [visibility and its limits](docs/visibility.md). Detection does not extend action reach.
 - Open-container slots, coordinates, carried stack and native menu/state IDs.
 
 Each observation has readable `text` plus structured JSON. No arbitrary NBT,
@@ -66,10 +91,13 @@ execution endpoint. Names supplied by worlds/servers are **untrusted data**.
 ## Install and connect
 
 1. Build with Java 25: `./gradlew build`.
-2. Install `build/libs/blockwire-0.2.0-alpha.2.jar` and Fabric API into an
+2. Install `build/libs/blockwire-0.2.0-alpha.3.jar` and Fabric API into an
    **isolated test instance** first. Do not install the sources JAR.
 3. Launch Minecraft. The first-run default is disabled. **Press F8 to enable/disable**;
    rebind under Controls if needed. The toggle works in the main menu and other screens.
+   Optional **Mod Menu 21.x for Minecraft 26.3** adds **Mods → Blockwire → Configure**:
+   live control status, immediate enable/stop and an explicitly saved startup preference.
+   Mod Menu is not bundled or required. See [configuration](docs/configuration.md#optional-mod-menu-screen).
 4. The mod generates private `config/blockwire/settings.json` with `enabled`,
    `server_ip`, `port` and a random `mcp_api_key`. Set **`enabled: true`** there to
    start the endpoint automatically at launch, **before joining a world**.
@@ -104,7 +132,7 @@ Restart Minecraft after changing configuration. Never share instance directories
 ## Local handoff bundle
 
 Run `python3 tools/build_bundle.py` (Java 25 and `uv` or Python `build` required).
-It creates `dist/blockwire-0.2.0-alpha.2.zip` with mod + sources JARs, Python
+It creates `dist/blockwire-0.2.0-alpha.3.zip` with mod + sources JARs, Python
 wheel/sdist, full allowlisted sources/tests/docs, extension template and checksums.
 No game directories, credentials, certificates or saves are copied. This builds
 locally only—nothing is published. See [bundle install](docs/bundle-install.md).

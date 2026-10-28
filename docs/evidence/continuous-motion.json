@@ -1,0 +1,166 @@
+{
+  "feature": "Shared continuous-feedback native input motor",
+  "assessment": "CONDITIONAL PASS: component scope only; graphical qualification remains UNVERIFIED / NOT RUN",
+  "artifact": {
+    "git_head": "c7f568a7c50990aafc50890bcc35fe4affbe4814",
+    "working_tree": "dirty; includes prior unrelated uncommitted work",
+    "python": "3.11.15",
+    "sha256": {
+      "python/src/blockwire/skills/motion.py": "57c11e4acddd55c45af83df2610f4fefe35b37ca234bed98a6c5bb691ef52926",
+      "python/src/blockwire/skills/autopilot.py": "b380eb416b4a67c8ef0bd8091682114c4b4e42f2d8c51d115b97c0def0df0404",
+      "python/src/blockwire/skills/approaching.py": "326e2c929c528df695485fcfff3cc3b0e40899675288859a89653d214cceeb28",
+      "python/tests/test_continuous_motion.py": "a19975e897ad3ca6a72c42dffb4da4896ab3ad6ce10e11df1cd35ef0692ea4f9",
+      "python/tests/test_approach.py": "2a714c3e8bd291884e94254f22d4a3ef8dd39cde95ee1015fabd301b313a0a74",
+      "python/tests/test_approach_natural.py": "d961c03d17661293d4240b77bc07422d61c36f5baefcb96cde73904be05171ef",
+      "python/tests/test_autopilot.py": "27d0e418ae4396028b9c5cdf9614da1653129d91bc477a3c391df2a555a091e6",
+      "tests/run_skill_mutations.py": "a34dd7bb60e220fca66bcf1afe45cf71df0d8b9b4a7408078b3f7da198849a94",
+      "docs/motion.md": "b7bfe780dfe75e1776300f10d136e07a765f4d62c6120d8fb7aa14e3168ca169"
+    }
+  },
+  "scope": {
+    "changed": "Python motion motor, approach/autopilot integration, deterministic fixtures/tests and documentation",
+    "unchanged": "Java/wire authority, native physics/collision/damage, TLS/authentication, native actor and lease enforcement, F8, SkillManager ownership, walk_to",
+    "excluded": "Live Minecraft movement, graphical smoothness/safety, menus/inventory, release or deployment",
+    "baseline": {
+      "python_tests": 69,
+      "log": "build/continuous-motion-verification/baseline-python.log",
+      "source_snapshot": "No separate pre-edit dirty-source snapshot captured; historical evidence retained without rewriting."
+    }
+  },
+  "contracts": [
+    {
+      "id": "ACTOR-FENCE",
+      "class": "Required",
+      "source": "AGENTS.md; SECURITY.md; docs/extensions.md",
+      "definition": "Bind activation actor; every look/drive carries its session; replacement terminates the job, including non-motor defense.",
+      "status": "TESTED",
+      "checks": [
+        "AR07",
+        "AR18",
+        "AR23",
+        "AP07",
+        "AP12",
+        "CM05",
+        "CM07"
+      ]
+    },
+    {
+      "id": "OWNERSHIP-CLEANUP",
+      "class": "Required",
+      "source": "AGENTS.md; SECURITY.md; docs/extensions.md",
+      "definition": "One actor-controlling job; cooperative cancel/deadline checks precede actions; final release attempted, unconfirmed cleanup cannot yield success.",
+      "status": "TESTED",
+      "checks": [
+        "AR09",
+        "AR10",
+        "AP10",
+        "CM06",
+        "CM07",
+        "CM12"
+      ]
+    },
+    {
+      "id": "OBSERVED-OUTCOME",
+      "class": "Required",
+      "source": "AGENTS.md; docs/approach.md; docs/autopilot.md",
+      "definition": "Input receipts are not goal outcomes; approach requires exact fresh native hit, autopilot observes arrival after release of a still-owned rolling lease.",
+      "status": "TESTED",
+      "checks": [
+        "AR01",
+        "AR05",
+        "AR25",
+        "AP02",
+        "CM08"
+      ]
+    },
+    {
+      "id": "TARGET-MEMORY",
+      "class": "Required",
+      "source": "docs/approach.md",
+      "definition": "Keep eight unconfirmed movement updates / three cooperative seconds; rolling renewals count, checkpoints stop and require fresh confirmation; no automatic use/open.",
+      "status": "TESTED",
+      "checks": [
+        "AR01",
+        "AR04",
+        "AR20",
+        "AR21",
+        "AR23",
+        "AR24",
+        "AR25"
+      ]
+    },
+    {
+      "id": "ROLLING-FEEDBACK",
+      "class": "Requested feature / implementation contract",
+      "source": "Operator request for more simultaneous movement; docs/motion.md",
+      "definition": "Eligible loaded collinear segments keep forward input during feedback and small steering; each lease <=8 ticks, release for large turns/uncertain routes; precise movement remains short-pulsed.",
+      "status": "TESTED",
+      "checks": [
+        "CM01",
+        "CM02",
+        "CM03",
+        "CM04",
+        "CM05",
+        "CM09",
+        "CM10",
+        "CM11",
+        "CM13"
+      ]
+    },
+    {
+      "id": "TRANSPORT-BOUNDARY",
+      "class": "Required",
+      "source": "AGENTS.md; SECURITY.md; docs/protocol.md",
+      "definition": "Mandatory instance-trusted TLS with hostname/API-key verification; bounded native transport and input authority retained.",
+      "status": "TESTED",
+      "checks": [
+        "Gradle contract suites",
+        "10 real Netty/Python TLS interoperability checks"
+      ],
+      "limits": "Regression checks, not a universal security proof; native lease release requires game-thread progress."
+    }
+  ],
+  "checks": {
+    "python": {
+      "status": "PASS",
+      "count": 82,
+      "command": "PYTHONPATH=python/src .venv/bin/python -B -m unittest discover -s python/tests -v",
+      "log": "build/continuous-motion-verification/python-tests.log"
+    },
+    "isolated_python_mutations": {
+      "status": "PASS",
+      "killed": 43,
+      "survived": 0,
+      "command": "BLOCKWIRE_VERIFICATION_DIR=build/continuous-motion-verification .venv/bin/python -B tests/run_skill_mutations.py",
+      "results": "build/continuous-motion-verification/skill-mutations/results.json"
+    },
+    "gradle": {
+      "status": "PASS",
+      "command": "./gradlew check --rerun-tasks",
+      "log": "build/continuous-motion-verification/gradle-check.log"
+    },
+    "tls_interop": {
+      "status": "PASS",
+      "checks": 10,
+      "command": "BLOCKWIRE_VERIFICATION_DIR=build/continuous-motion-verification PYTHONPATH=python/src .venv/bin/python -B tests/tls_interop.py",
+      "log": "build/continuous-motion-verification/tls-interop.log"
+    },
+    "graphical": {
+      "status": "NOT RUN",
+      "player_movement_requested": false
+    }
+  },
+  "model_limits": [
+    "Time/lease fixture does not reproduce Minecraft friction, collision shapes, render scheduling, networking or server outcomes.",
+    "Speed/distance budgeting is heuristic, not a universal movement or no-damage guarantee.",
+    "Continuity assumes feedback arrives before native expiry; slow feedback deliberately allows expiry and gaps.",
+    "Controller ownership bookkeeping is not an observation of native held keys or velocity."
+  ],
+  "regressions_addressed": [
+    "Advance fixture movement by elapsed held time instead of instantly applying each requested lease.",
+    "Faster feedback requires accumulating small advances before classifying the actor as stationary; CM13 and two targeted mutations cover the counterexample.",
+    "Motor-only fencing made an initial autopilot-session mutation survive travel tests; AP07 now additionally checks actual replacement into non-motor defense. Final mutation set has zero survivors."
+  ],
+  "historical_evidence": "Existing approach/autopilot/visibility manifests and operator live outcomes retained; none qualify the new continuous motor.",
+  "activation": "Reload the Python/MCP host before any separately authorized live test; no replacement Minecraft JAR is needed."
+}

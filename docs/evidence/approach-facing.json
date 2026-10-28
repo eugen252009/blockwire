@@ -1,0 +1,41 @@
+{
+  "scope": "Approach camera correction after operator feedback; arrival success does not qualify camera quality",
+  "reported_live_issue": "Repeated travel-heading / chest-heading rotation was janky",
+  "construction": [
+    "Maintain a target-facing camera using normal forward/back/left/right combinations for the same intended world movement direction.",
+    "Native Minecraft retains diagonal normalization, acceleration, collision and damage authority.",
+    "Camera commands use shortest-arc yaw and at most eight degrees per axis; larger turn stages have no movement and re-observe navigation/visibility before resuming.",
+    "Re-observe the selected target after each movement pulse without a forced turn-back; actor/deadline/cancel/hazard and exact native success checks remain.",
+    "Default autopilot forward-facing behavior is unchanged."
+  ],
+  "checks": {
+    "python_unit_tests": 63,
+    "python_skill_mutations": {
+      "killed": 25,
+      "camera_specific": 5
+    },
+    "native_input_bytecode_inspection": "Minecraft 26.3 KeyboardInput.tick constructs a Vec2 and calls normalized; ClientInput exposes getMoveVector",
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "camera_fix_live_retest": "NOT RUN",
+    "new_live_movement_requests": "NONE"
+  },
+  "qualification": "Component/algebra regression checks TESTED; graphical camera quality UNVERIFIED",
+  "limits": [
+    "Native-style key-direction algebra is not full gameplay or modpack qualification.",
+    "Eight-degree command bounds do not guarantee pixel smoothness under arbitrary frame rates, latency or human mouse input.",
+    "Earlier one-chest arrival PASS and the centering failure remain recorded separately.",
+    "No physics override, reach extension, trust change, inventory action or publication approval."
+  ],
+  "sha256": {
+    "python/src/blockwire/skills/autopilot.py": "dd79b2b27f69516e5014d571a1707f023f0c9014c5214f00825ef8245b4f9b71",
+    "python/src/blockwire/skills/approaching.py": "c7ea0e39ba401f15cb8c01620a890517df6293accc6b400968ad18ef17f7fc23",
+    "python/tests/test_approach.py": "4752a56a4d23062f435befbefdf863d776e7efb66c2a5f20e9640784feb791db",
+    "tests/run_skill_mutations.py": "e7cfdfcbae5ed5cdd97ea5dac4ee1d1edbef505092b30154a4f008e5b1e1233c",
+    "build/approach-facing-verification/python-tests.log": "d539c345070f95bf68f254b6fb301d136f370dc23c69a3d47293770fe3bb618e",
+    "build/approach-facing-verification/skill-mutations/results.json": "9e077fa63545601c7619317d216388dc832c5823da918364128fac4ed4ebe384",
+    "build/approach-facing-verification/gradle-check.log": "78864d0712da1916712879d9520b3c66293fe76a15f46a97121fae7a2cdc67fb",
+    "build/approach-facing-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/approach-facing-verification/native-input-inspection.log": "7b2ff1a363e1539ff02a560ad8039f8697734d93e5221bce7913e1b2b502acae"
+  }
+}

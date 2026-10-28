@@ -4,8 +4,9 @@ import json
 import tempfile
 import unittest
 import zipfile
+from unittest.mock import patch
 
-from tools.package_modrinth import ROOT, audit_jar
+from tools.package_modrinth import ROOT, audit_jar, release_notes
 
 
 class ModrinthPackageContracts(unittest.TestCase):
@@ -38,6 +39,39 @@ class ModrinthPackageContracts(unittest.TestCase):
         self.assertEqual(result["status"], "PASS")
         self.assertEqual(result["environment"], "client")
         self.assertEqual(len(result["nested_libraries"]), 3)
+
+    def test_optional_modmenu_entrypoint_and_no_bundled_api(self):
+        self.assertNotIn("modmenu", self.metadata["depends"])
+        self.assertIn("modmenu", self.metadata["suggests"])
+        self.assertEqual(self.metadata["entrypoints"]["modmenu"], ["dev.blockwire.compat.BlockwireModMenu"])
+        self.assertIn("dev/blockwire/BlockwireSettingsScreen.class", self.entries)
+        self.assertFalse(any(name.startswith("com/terraformersmc/") for name in self.entries))
+        self.rejected_copy("optional, unbundled", metadata={**self.metadata,
+            "depends": {**self.metadata["depends"], "modmenu": "*"}})
+        self.rejected_copy("optional, unbundled", added={"com/terraformersmc/modmenu/api/ModMenuApi.class": b"fixture"})
+
+    def test_rejects_missing_current_feature_classes(self):
+        for name in ["VisibilityView", "BlockwireSettingsScreen", "LocalSettingsModel"]:
+            with self.subTest(feature=name):
+                self.rejected_copy("Missing feature class", removed=[f"dev/blockwire/{name}.class"])
+
+    def test_release_notes_match_version_and_current_features(self):
+        notes = release_notes(self.version)
+        self.assertEqual(notes.splitlines()[0], f"# Blockwire {self.version} — Alpha")
+        self.assertIn("Mod Menu", notes)
+        self.assertIn("64 blocks", notes)
+        self.assertIn("NOT implemented", notes)
+
+    def test_release_notes_refuse_missing_or_wrong_version(self):
+        with tempfile.TemporaryDirectory(prefix="blockwire-release-notes-") as folder:
+            root = Path(folder)
+            with patch("tools.package_modrinth.ROOT", root), self.assertRaises(FileNotFoundError):
+                release_notes(self.version)
+            path = root / "docs/releases" / (self.version+".md")
+            path.parent.mkdir(parents=True)
+            path.write_text("# Wrong release\n")
+            with patch("tools.package_modrinth.ROOT", root), self.assertRaisesRegex(ValueError, "version mismatch"):
+                release_notes(self.version)
 
     def test_rejects_server_metadata(self):
         self.rejected_copy("environment", metadata={**self.metadata, "environment": "*"})

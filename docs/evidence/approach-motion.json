@@ -1,0 +1,57 @@
+{
+  "scope": "Correction after operator-authorized approach live smoke failure; no isolated graphical acceptance",
+  "live_before_fix": {
+    "status": "FAILED",
+    "observation": "Oscillation around starting cell center instead of route progress",
+    "termination": "Operator job cancelled; cleanup released",
+    "health": "UNCHANGED",
+    "use_open_or_inventory_requests": "NONE"
+  },
+  "counterexample": {
+    "scope": "deterministic fixture, not measured native attributes",
+    "start_x": 0.36,
+    "alternating_x": [
+      0.36,
+      0.646
+    ],
+    "fixture_speed_factor": 2.2,
+    "old_result": "timed_out",
+    "corrected_same_fixture_result": "ready_to_interact"
+  },
+  "construction": [
+    "Use one tick for waypoints nearer than 0.35 blocks; retain native physics and session-fenced input.",
+    "Detect absence of at least 0.01 blocks of improvement toward the same waypoint for 8 samples; oscillatory displacement is still stuck.",
+    "Preserve existing deadlines/cancel, hazard/actor guards and final release; never open/use the block."
+  ],
+  "checks": {
+    "python_unit_tests": 59,
+    "python_skill_mutations": {
+      "killed": 20,
+      "new_regression_mutations": 2
+    },
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "post_fix_live_retest": "NOT RUN; reload MCP first",
+    "isolated_graphical_acceptance": "NOT RUN"
+  },
+  "qualification": "Component correction TESTED; observed live failure retained; gameplay retest REQUIRED",
+  "limitations": [
+    "Exact installed movement speed/coasting was not measured.",
+    "Single-tick pulses reduce overshoot but do not guarantee convergence under arbitrary attributes, external forces or game stalls.",
+    "The per-waypoint watchdog and deadline bound attempts; they do not guarantee arrival.",
+    "No broader gameplay/release qualification, trust change, physics override or publication."
+  ],
+  "sha256": {
+    "python/src/blockwire/skills/autopilot.py": "4b753b493c14a51285b8e75352ea5e34c67177424d4793eba14dd153843fa366",
+    "python/src/blockwire/skills/approaching.py": "69110dc2703903312853090dae0b52d6a17b2ba24cca18af2febb8d590f75fda",
+    "python/tests/test_approach.py": "333e186518cabcffdc181560f53328d7bb9fbde49447092165affffe2cff1505",
+    "tests/run_skill_mutations.py": "04b8e6b3a51468612e83a3ed5655202a39228af7bb62def91b04a992ed7a6f70",
+    "build/approach-motion-verification/operator-live-smoke.json": "4411c0a06ae978b275fafc91bc330acb0a085bdbe2682871250fa4d57268d046",
+    "build/approach-motion-verification/reproduction-before.json": "b6077e9a047fc29adc461c2ba8252e0cca51149d19a29876ffc134f1cad12679",
+    "build/approach-motion-verification/reproduction-after.json": "fcb26b809625a2977e6ebc4ca78cf71271a923b8af7da8bb2b024d157fffbc0d",
+    "build/approach-motion-verification/python-tests.log": "d58cd505e4db4e35c31ccfb5d0b277ed40ad029c97253c6c8c64ad26ce8c174c",
+    "build/approach-motion-verification/skill-mutations/results.json": "9d4298f65b0a8a40cc0804facdd5be3a7be88cbc02125b1c34ca0fdd89eed45f",
+    "build/approach-motion-verification/gradle-check.log": "077ea4e16a12368ea691bfbc30c386ee09c15863d8c86140ee39dfc03743c133",
+    "build/approach-motion-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813"
+  }
+}

@@ -59,6 +59,21 @@ public final class TransportContractTest {
         q.addProperty("pitch","1");rejected(()->Protocol.number(q,"pitch",-90,90),"reject_numeric_string");
         q.addProperty("typo",1);rejected(()->Protocol.fields(q,"yaw","pitch"),"reject_unknown_fields");
 
+        // AP09: guarded attacks validate before effects; null legacy target remains supported.
+        var attack=JsonParser.parseString("{\"op\":\"action\",\"name\":\"attack\",\"actor_session\":\"a\",\"target_entity_id\":7}").getAsJsonObject();
+        check(Protocol.actionTarget(attack)==7,"guarded_attack_target");
+        Protocol.requireTarget(7,7);Protocol.requireTarget(null,null);
+        for(Integer actual:new Integer[]{null,8}) {
+            try {Protocol.requireTarget(7,actual);throw new AssertionError("changed_attack_target");}
+            catch(IllegalStateException expected){check(expected.getMessage().equals("target_entity_changed"),"changed_attack_target");}
+        }
+        attack.remove("actor_session");rejected(()->Protocol.actionTarget(attack),"target_requires_session");
+        attack.addProperty("actor_session","a");attack.addProperty("name","use");
+        rejected(()->Protocol.actionTarget(attack),"use_cannot_have_attack_guard");
+        attack.addProperty("name","attack");attack.addProperty("target_entity_id",true);
+        rejected(()->Protocol.actionTarget(attack),"attack_guard_strict_id");
+        attack.remove("target_entity_id");check(Protocol.actionTarget(attack)==null,"legacy_unguarded_action");
+
         check(MenuInput.mouseButton(0)==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT,"native_left_button");
         check(MenuInput.mouseButton(1)==com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT,"native_right_button");
         rejected(()->MenuInput.mouseButton(2),"reject_middle_button");

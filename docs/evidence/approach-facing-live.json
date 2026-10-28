@@ -1,0 +1,26 @@
+{
+  "scope": "Single operator-authorized user-world approach after facing correction; not isolated acceptance",
+  "arrival_status": "PASS_FOR_THIS_ATTEMPT",
+  "observed": {
+    "skill": "approach",
+    "reason": "ready_to_interact",
+    "steps": 23,
+    "native_target_matches_selected": true,
+    "cleanup": "released",
+    "health_before": 20,
+    "health_after": 20,
+    "menu_open_after": false,
+    "use_open_or_inventory_requests": "NONE",
+    "sampled_yaw": [
+      89.06508,
+      45.016052,
+      24.693075
+    ]
+  },
+  "camera_quality": "UNVERIFIED: no frame capture; operator feedback requested",
+  "limits": [
+    "Sparse yaw samples do not establish frame-to-frame smoothness.",
+    "Only one visible chest route in the user's current loaded world was tested.",
+    "No isolated graphical acceptance, modpack/performance guarantee or release approval."
+  ]
+}

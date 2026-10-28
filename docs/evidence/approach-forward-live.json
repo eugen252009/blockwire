@@ -1,0 +1,21 @@
+{
+  "scope": "One operator-authorized real graphical client forward-policy test; not isolated acceptance",
+  "status": "BLOCKED",
+  "observed": {
+    "reason": "known_danger_nearby",
+    "movement_pulses": 8,
+    "cleanup": "released",
+    "health_before": 20,
+    "health_after": 20,
+    "heading_during_travel_degrees": 89.99695,
+    "travel_pitch_degrees": 0,
+    "menu_open_after": false,
+    "use_or_inventory_requests": "NONE"
+  },
+  "conclusion": "Partial forward-aligned movement observed; conservative danger guard stopped before arrival",
+  "limits": [
+    "Exact danger source was not identified from the available scene observation.",
+    "No arrival success or full route/camera-quality qualification is claimed.",
+    "No frame capture or isolated graphical acceptance; operator visual feedback pending."
+  ]
+}

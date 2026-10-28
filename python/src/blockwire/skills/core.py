@@ -121,7 +121,7 @@ def _execute(definition, parameters, player, cancellation, publish, clock, sleep
         result = SkillResult(status=stop.status, reason=stop.reason, text=stop.reason.replace("_", " "))
     except BridgeError as error:
         reason = str(error)
-        if reason in {"actor_session_changed", "player_dead", "not_in_world", "close_screen_first"}:
+        if reason in {"actor_session_changed", "player_dead", "not_in_world", "close_screen_first", "target_entity_changed"}:
             result = SkillResult(status="blocked", reason=reason, text="Native control precondition changed: "+reason)
         else:
             result = SkillResult(status="failed", reason="transport_error", text="Transport failed; observe before retrying.")

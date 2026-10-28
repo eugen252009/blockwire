@@ -1,0 +1,42 @@
+{
+  "scope": "Operator-authorized isolated Prism alpha.3 test, Survival/Peaceful superflat worlds, MCP gameplay tools only",
+  "artifact_sha256": "daec8b37e5ed98f6fd859eab4c9ff4e00b507daaa20c44fd3849169ec87badeb",
+  "status": "TESTED: two small roofed dirt shelters completed and doorway traversal observed",
+  "structure": {
+    "exterior_footprint": [
+      3,
+      3
+    ],
+    "interior": [
+      1,
+      2,
+      1
+    ],
+    "wall_blocks": 14,
+    "roof_blocks": 9,
+    "total_placed": 23,
+    "doorway": "Open, two blocks high, south side"
+  },
+  "timed_repeat": {
+    "total_seconds": 356.32,
+    "world_setup_seconds": 35.121,
+    "harvest_phase_seconds": 124.701,
+    "construction_seconds": 41.7,
+    "blocks": 23,
+    "mined": 25,
+    "doorway_walk": "succeeded",
+    "health": 20,
+    "world": "Blockwire MCP Timed Home",
+    "site": {
+      "x": 6,
+      "y": -60,
+      "z": 10
+    },
+    "scope": "Full wall-clock including agent reasoning/tool delays; MCP only"
+  },
+  "timing_note": "Elapsed wall-clock includes world creation, gathering, movement, agent reasoning, tool/network waits, placement and verification; construction timer covers first placement through ceiling verification.",
+  "controls": "Inputs released after completion; health observed at 20/20",
+  "authority": "Native menus, mining, walking, jumping and block use; no commands, item spawning, teleportation, world-file editing or non-MCP gameplay control.",
+  "implementation_note": "Placement batching was a temporary codemode routine invoking MCP primitives with per-block inventory/world confirmation. No permanent place/build_blueprint SDK or MCP API was implemented.",
+  "limitations": "Limited peaceful Survival smoke, not combat/night safety, generic building-planner, broad terrain, multiplayer or cross-platform qualification."
+}

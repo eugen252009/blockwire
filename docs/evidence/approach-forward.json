@@ -1,0 +1,52 @@
+{
+  "scope": "Operator-requested natural forward approach; replaces earlier chest-facing travel policy",
+  "qualification": "Component contracts TESTED; forward-policy graphical retest NOT RUN",
+  "authorized_policy_change": [
+    "Face travel and primarily use W instead of A/S/D-heavy chest-facing movement.",
+    "Allow A/D only for a tiny aligned correction, never backwards travel.",
+    "Use bounded stopped target checkpoints rather than forcing a look-back after each pulse."
+  ],
+  "construction": [
+    "Forward-facing route alignment uses shortest-arc eight-degree camera commands; no drive during larger turn stages.",
+    "A/D requires a waypoint nearer than 0.35 blocks and camera adjustment at most eight degrees, with a one-tick input.",
+    "Navigation/visibility are sampled after movement; actor/readiness/hazard/deadline/cancel and cleanup remain unchanged.",
+    "Out-of-view target memory permits at most eight unconfirmed movement pulses; a cooperative three-second threshold also requests a stopped check.",
+    "Fresh visible-interactable/on-demand sight confirmation is required to resume. Cached renderer crosshair hits cannot reset the budget.",
+    "Observed replacement/absence in central view stops immediately; no silent retarget, use/open or inventory operation.",
+    "Success still requires the exact native block ID/position plus fresh sight corroboration and a supported standing position."
+  ],
+  "checks": {
+    "python_unit_tests": 69,
+    "python_skill_mutations": {
+      "killed": 31
+    },
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "forward_policy_live_retest": "NOT RUN",
+    "new_live_movement_or_inventory_requests": "NONE"
+  },
+  "test_notes": [
+    "AR16/AR17 direction/allowed-key and bounded-camera contracts were updated for the explicitly requested policy, not target-facing movement.",
+    "Travel-heading alignment, forward dominance, bounded checkpoint glances and single-tick corrections replace the former target-facing global yaw-total oracle.",
+    "AR20-AR25 cover temporary out-of-view travel, pulse/time bounds, target loss without retarget, checkpoint actor/cancel guards and stale renderer-hit rejection.",
+    "Earlier arrival PASS, camera feedback and source hashes remain historical in separate manifests."
+  ],
+  "limits": [
+    "Three-second checks are cooperative between actions, not a hard wall-clock guarantee during network/game stalls.",
+    "Pulse bounds are not physical-distance or no-damage guarantees under arbitrary native attributes/mods.",
+    "Flat loaded full-block/cardinal routing and short leases remain; human-like continuous movement, pixel smoothness, modpack and isolated graphical acceptance are unqualified.",
+    "No Java/RPC/trust/physics changes or publication approval."
+  ],
+  "sha256": {
+    "python/src/blockwire/skills/autopilot.py": "cf92d941a7ebd6d03915df02705b09694d59f76c31013427266c4906e2c21379",
+    "python/src/blockwire/skills/approaching.py": "b1cde2740c2509a0f66d7d7b09312640b0ff358c61180a9bbac59a9ab2730f6d",
+    "python/src/blockwire/mcp_server.py": "a5221e7a15eeede199a63ce7a3385dc5e2fcd6a5157629566047f12fe2166fcd",
+    "python/tests/test_approach.py": "a44e603e1b5ab5c56499b6d21ce3b63e13923756623edf6681d87bc2f8dce1d0",
+    "python/tests/test_approach_natural.py": "306b2238d11130ab83ff62d69a74870eaf98609e1895b209410cb8605fa49be1",
+    "tests/run_skill_mutations.py": "dc8da63a18dde109b1807e28ef34ff45a808a06c285ebc756f89498a0529ed12",
+    "build/approach-forward-verification/python-tests.log": "a2d93ad9d704dc6134d3cb24dd99b7cca6ddd8f8c11be7e6eedaa2b26f694b23",
+    "build/approach-forward-verification/skill-mutations/results.json": "ea66f7d5a80038da71af36531381236aacb4cdcd48b8ce208fd1284aeb3e5ad4",
+    "build/approach-forward-verification/gradle-check.log": "af8f4aa1c6bb1bf33a4b11ad19cc2f687d6bb363378dbac8999a4918f0d09773",
+    "build/approach-forward-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813"
+  }
+}

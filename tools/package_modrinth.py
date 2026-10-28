@@ -39,6 +39,15 @@ def audit_jar(path: Path, version: str, minecraft: str) -> dict:
             raise ValueError("Wrong or missing runtime requirements")
         if metadata.get("entrypoints", {}).get("client") != ["dev.blockwire.Blockwire"]:
             raise ValueError("Wrong client entrypoint")
+        if ("modmenu" in dependencies or metadata.get("entrypoints", {}).get("modmenu") !=
+                ["dev.blockwire.compat.BlockwireModMenu"] or
+                "dev/blockwire/compat/BlockwireModMenu.class" not in names or
+                any(name.startswith("com/terraformersmc/") for name in names)):
+            raise ValueError("Mod Menu must be an optional, unbundled integration")
+        for required in ["dev/blockwire/VisibilityView.class", "dev/blockwire/BlockwireSettingsScreen.class",
+                         "dev/blockwire/LocalSettingsModel.class"]:
+            if required not in names:
+                raise ValueError("Missing feature class: "+required)
         bytecode = archive.read("dev/blockwire/Blockwire.class")
         if len(bytecode) < 8 or bytecode[:4] != b"\xca\xfe\xba\xbe" or struct.unpack(">H", bytecode[6:8])[0] != 69:
             raise ValueError("Expected Java 25 bytecode")
@@ -64,6 +73,14 @@ def audit_jar(path: Path, version: str, minecraft: str) -> dict:
                 "nested_libraries": nested, "required_dependency": "fabric-api"}
 
 
+def release_notes(version: str) -> str:
+    """Fail closed rather than shipping stale notes for a new version."""
+    notes = (ROOT / "docs/releases" / (version+".md")).read_text()
+    if not notes.splitlines() or notes.splitlines()[0] != f"# Blockwire {version} — Alpha":
+        raise ValueError("Release notes version mismatch")
+    return notes
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skip-build", action="store_true", help="Inspect/package an existing matching build")
@@ -71,6 +88,7 @@ def main():
     properties = dict(line.split("=", 1) for line in (ROOT / "gradle.properties").read_text().splitlines()
                       if "=" in line and not line.startswith("#"))
     version, minecraft = properties["mod_version"], properties["minecraft_version"]
+    notes = release_notes(version)
     if not args.skip_build:
         subprocess.run(["./gradlew", "--console=plain", "build"], cwd=ROOT, check=True)
     main_jar = ROOT / f"build/libs/blockwire-{version}.jar"
@@ -100,16 +118,7 @@ def main():
                 "owner_repository_issue_contact_and_sdk_url": "OPERATOR MUST SUPPLY"}
     (out / "modrinth-settings.json").write_text(json.dumps(settings, indent=2)+"\n")
     shutil.copyfile(ROOT / "docs/modrinth-description.md", out / "DESCRIPTION.md")
-    (out / "RELEASE_NOTES.md").write_text(f"""# Blockwire {version} — Alpha
-
-Initial unpublished alpha candidate: authenticated TLS client bridge; native player,
-inventory and menu controls; optional external Python/MCP adapter; descriptive goals,
-progress/cancellation and opt-in skill providers. Flat full-block walking only.
-Includes the Blockwire rename with legacy configuration and TLS identity compatibility.
-
-Not a general pathfinder or damage-immunity feature. Full Survival/two-client and
-cross-platform qualification remain open. This folder is prepared locally only.
-""")
+    (out / "RELEASE_NOTES.md").write_text(notes)
     (out / "UPLOAD_INSTRUCTIONS.md").write_text(f"""# Manual Modrinth upload
 
 Primary file: **{main_jar.name}**. Upload this JAR as a Fabric **mod** alpha for

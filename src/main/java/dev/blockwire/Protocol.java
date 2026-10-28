@@ -28,5 +28,18 @@ public final class Protocol {
         if(n!=Math.rint(n))throw new IllegalArgumentException("expected_integer: "+key);
         return (int)n;
     }
+    /** Optional attack identity guard: never allow a target guard on use or without a session fence. */
+    public static Integer actionTarget(JsonObject q) {
+        fields(q,"name","actor_session","target_entity_id");
+        String name=string(q,"name");
+        if(!Set.of("attack","use").contains(name))throw new IllegalArgumentException("unsupported_action");
+        if(q.has("actor_session"))string(q,"actor_session");
+        if(!q.has("target_entity_id"))return null;
+        if(!name.equals("attack") || !q.has("actor_session"))throw new IllegalArgumentException("target_guard_requires_attack_session");
+        return integer(q,"target_entity_id",0,Integer.MAX_VALUE);
+    }
+    public static void requireTarget(Integer expected,Integer actual) {
+        if(expected!=null && !expected.equals(actual))throw new IllegalStateException("target_entity_changed");
+    }
     public static JsonObject ok(String text) {var o=new JsonObject();o.addProperty("text",text);return o;}
 }

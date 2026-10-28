@@ -1,4 +1,21 @@
 {
   "key.block_bridge.toggle": "Toggle Blockwire (local automation)",
-  "key.category.blockwire.controls": "Blockwire"
+  "key.category.blockwire.controls": "Blockwire",
+  "blockwire.settings.title": "Blockwire settings",
+  "blockwire.settings.enable": "Enable control now",
+  "blockwire.settings.disable": "Disable control and release inputs",
+  "blockwire.settings.runtime_hint": "Immediate endpoint toggle, like F8. Does not change startup settings or activate Python autopilot.",
+  "blockwire.settings.startup": "Enable at next launch: %s",
+  "blockwire.settings.startup_hint": "Startup preference only. Save explicitly; closing without saving discards this draft.",
+  "blockwire.settings.save": "Save startup preference",
+  "blockwire.settings.saved": "Startup preference saved. Current control unchanged.",
+  "blockwire.settings.save_failed": "Not saved; file changed or unwritable. Check local logs.",
+  "blockwire.settings.runtime_failed": "Could not change control. Check local logs.",
+  "blockwire.settings.status.unavailable": "Unavailable: private configuration/TLS failed",
+  "blockwire.settings.status.disabled": "Control disabled",
+  "blockwire.settings.status.connected": "Control enabled: controller connected",
+  "blockwire.settings.status.waiting": "Control enabled: waiting for controller",
+  "blockwire.settings.security": "TLS required. API key is never displayed.",
+  "blockwire.settings.file_hint": "Address/port/key: edit settings.json, then restart.",
+  "blockwire.settings.stop_hint": "Local stop: F8 (or your rebound toggle key)."
 }

@@ -1,0 +1,26 @@
+{
+  "scope": "One operator-authorized real graphical client approach after the centering correction; not an isolated fixture",
+  "status": "PASS_FOR_THIS_ATTEMPT",
+  "observed": {
+    "skill": "approach",
+    "target_id": "minecraft:chest",
+    "motion_steps": 24,
+    "result": "ready_to_interact",
+    "native_target_id_and_position_match_selected": true,
+    "cleanup": "released",
+    "health_before": 20,
+    "health_after": 20,
+    "menu_open_after": false,
+    "use_open_or_inventory_requests": "NONE"
+  },
+  "limits": [
+    "Only this visible chest on this currently loaded flat-ground route was tested.",
+    "The earlier oscillating attempt remains FAILED and recorded in approach-motion.json.",
+    "No isolated graphical acceptance, broad navigation/modpack guarantee or release qualification is implied."
+  ],
+  "sha256": {
+    "build/approach-motion-verification/operator-live-retest.json": "72e9399909cbf3c69b6c8bb9b98ed77f344974c0bd288b87771bc148df89974a",
+    "python/src/blockwire/skills/approaching.py": "69110dc2703903312853090dae0b52d6a17b2ba24cca18af2febb8d590f75fda",
+    "python/src/blockwire/skills/autopilot.py": "4b753b493c14a51285b8e75352ea5e34c67177424d4793eba14dd153843fa366"
+  }
+}

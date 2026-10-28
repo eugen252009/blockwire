@@ -6,12 +6,12 @@ Prepared project identity:
 - Summary: *Connect Minecraft players to Python scripts and descriptive MCP tools through a secure local bridge.*
 - Loader: Fabric; game version: **26.3 only**
 - Environment: client required, server unsupported (do not install on servers)
-- Version: `0.2.0-alpha.2`, release channel **alpha**
+- Version: `0.2.0-alpha.3`, release channel **alpha**
 - License: MIT; bundled original icon; source JAR built separately
 - Required dependency: Fabric API; Loader >=0.20.1, Java >=25
 - Suggested categories: utility / library, subject to current Modrinth taxonomy
 
-The local `dist/blockwire-0.2.0-alpha.2.zip` is an agent/developer handoff bundle,
+The local `dist/blockwire-0.2.0-alpha.3.zip` is an agent/developer handoff bundle,
 not a Modrinth mod upload. Use its main mod JAR for any separately approved upload;
 never upload the whole bundle as a mod file. Python skills/providers run outside Minecraft.
 
@@ -27,8 +27,8 @@ python3 tools/package_modrinth.py
 ```
 
 This runs the Loom/Gradle build and audits the installable JAR before copying it to
-`dist/modrinth/0.2.0-alpha.2/`. The folder contains:
-- `blockwire-0.2.0-alpha.2.jar` — **primary Modrinth mod upload**.
+`dist/modrinth/0.2.0-alpha.3/`. The folder contains:
+- `blockwire-0.2.0-alpha.3.jar` — **primary Modrinth mod upload**.
 - `optional-sources/` — developer source attachment; not an installable mod.
 - `DESCRIPTION.md`, `RELEASE_NOTES.md`, `project-icon.png` — page/version assets.
 - `modrinth-settings.json` — manual settings reference, **not an API request**.
@@ -55,8 +55,8 @@ public SDK/source location before publication.
 - [ ] Choose the actual project owner/authors, repository and issue/contact URLs.
 - [ ] Check name/slug and dependency metadata on Modrinth.
 - [ ] Review alpha verification and remaining native/multiplayer/security coverage.
-- [x] Test the identical packaged JAR with Fabric API in an isolated instance
-  (Linux native menus, TLS and flat-world walking only; see rename/skill evidence).
+- [ ] Test this exact alpha.3 packaged JAR with Fabric API in an isolated instance.
+  Earlier rename/walking evidence belongs to older artifact hashes, not this build.
 - [ ] Verify Windows/macOS token ACLs and client input behavior before claiming support.
 - [ ] Confirm icon/license attribution, checksums and changelog.
 - [ ] Obtain explicit publication approval.

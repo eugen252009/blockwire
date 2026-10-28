@@ -94,11 +94,26 @@ public final class Observations {
             }
         }
         out.add("potentially_visible_entities",visible);
+        var surroundings=VisibilityView.snapshot(mc);
+        surroundings.entrySet().forEach(entry->out.add(entry.getKey(),entry.getValue()));
         out.addProperty("text",String.format(Locale.ROOT,
             "You are %s in %s (%s), at %.2f, %.2f, %.2f. Health %.1f/%.1f, hunger %d/20. Looking at %s. Holding %s. %d potentially visible entities.",
             p.isAlive()?"alive":"dead",out.get("dimension").getAsString(),out.get("biome").getAsString(),
             p.getX(),p.getY(),p.getZ(),p.getHealth(),p.getMaxHealth(),p.getFoodData().getFoodLevel(),target,
             p.getMainHandItem().isEmpty()?"nothing":text(p.getMainHandItem().getHoverName().getString()),visible.size()));
+        var narrative=new StringBuilder(out.get("text").getAsString());
+        if(surroundings.has("sight_target")) {
+            var sight=surroundings.getAsJsonObject("sight_target");
+            narrative.append(" Extended sight (not interaction reach): ").append(sight.get("id").getAsString())
+                .append(" at ").append(sight.get("position")).append(".");
+        }
+        narrative.append(" Potentially visible interactables (partial, up to 64 blocks):");
+        for(var element:surroundings.getAsJsonArray("visible_interactables")) {
+            var row=element.getAsJsonObject();narrative.append(" ").append(row.get("id").getAsString())
+                .append(" at ").append(row.get("position")).append(";");
+        }
+        narrative.append(" Compact sampled surfaces are in visible_blocks; missing cells are unknown, not air.");
+        out.addProperty("text",narrative.toString());
         return out;
     }
     private static JsonObject entity(Entity entity,Entity viewer) {

@@ -58,6 +58,34 @@ public record BridgeConfig(boolean enabled,String serverIp,int port,String apiKe
         permissions(legacy,"rw-------");Files.writeString(legacy,config.apiKey()+"\n");
         return config;
     }
+    /** Save only the startup flag, retaining the selected identity/credentials and token bytes.
+     * Existing on-disk edits fail closed; rotation/address edits still require stopping/restarting Minecraft.
+     */
+    public static BridgeConfig saveStartup(Path dir,BridgeConfig expected,boolean enabled) throws java.io.IOException {
+        Path file=dir.resolve("settings.json");
+        if(Files.isSymbolicLink(dir) || !Files.isDirectory(dir,LinkOption.NOFOLLOW_LINKS) ||
+            Files.isSymbolicLink(file) || !Files.isRegularFile(file,LinkOption.NOFOLLOW_LINKS))
+            throw new java.io.IOException("unsafe_or_missing_config");
+        String original=Files.readString(file);
+        var json=JsonParser.parseString(original).getAsJsonObject();
+        if(!parse(json).equals(expected))throw new java.io.IOException("config_changed_restart_required");
+        if(enabled==expected.enabled())return expected;
+        json.addProperty("enabled",enabled);
+        var updated=parse(json);
+        Path temporary=null;
+        try {
+            try {temporary=Files.createTempFile(dir,".settings-",".tmp",
+                PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-------")));}
+            catch(UnsupportedOperationException unsupported){temporary=Files.createTempFile(dir,".settings-",".tmp");}
+            permissions(temporary,"rw-------");
+            Files.writeString(temporary,new GsonBuilder().setPrettyPrinting().create().toJson(json)+"\n");
+            // Best-effort stale-edit detection under the trusted-local-filesystem assumption; not an OS CAS.
+            if(Files.isSymbolicLink(file) || !Files.readString(file).equals(original))
+                throw new java.io.IOException("config_changed_restart_required");
+            Files.move(temporary,file,StandardCopyOption.ATOMIC_MOVE,StandardCopyOption.REPLACE_EXISTING);
+            return updated;
+        } finally {if(temporary!=null)Files.deleteIfExists(temporary);}
+    }
     private static void privateFile(Path path) throws java.io.IOException {
         try {Files.createFile(path,PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rw-------")));}
         catch(UnsupportedOperationException e){Files.createFile(path);}

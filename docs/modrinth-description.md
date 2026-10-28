@@ -11,7 +11,11 @@ authenticated, encrypted WebSocket bridge.
 - Readable client-known scene/inventory data, with registry IDs and structured JSON.
 - Native menu navigation: buttons, text fields, keyboard input and scrolling.
 - Python/MCP goals with progress, cancellation and opt-in trusted skill extensions.
-- Initial `walk_to` support for loaded, flat, full-block ground.
+- `walk_to` and visible-target `approach` goals on loaded flat full-block ground.
+- Bounded 64-block extended sight and potentially visible interactables; no hidden contents.
+- Optional Mod Menu configuration screen, with English/German text and F8-equivalent stop.
+- External Python algorithmic autopilot: explicit activation, travel and opt-in reactions.
+- Forward-facing feedback movement with short native leases; no replacement physics.
 - Mandatory TLS with a persistent per-instance certificate and separate API key.
 
 The mod is **client-only**. Do not install it on a dedicated Minecraft server.
@@ -23,6 +27,7 @@ The mod is **client-only**. Do not install it on a dedicated Minecraft server.
 3. Launch once. Access is disabled by default; **F8 enables/disables it**.
 4. For startup from the main menu, set `enabled: true` in the generated private
    `config/blockwire/settings.json`. IP, port and API key are configurable.
+   Optional Mod Menu 21.x also exposes Blockwire settings; Mod Menu is not bundled.
 5. Install the **separate Python SDK/MCP adapter** to use scripts or an LLM host.
    Minecraft/Modrinth does not install or launch Python, an LLM or its MCP host.
 
@@ -46,7 +51,10 @@ operators explicitly permit automation. Server rules and anti-cheat still apply.
 Navigation is currently flat/full-block only: no stairs, jumping, swimming or
 general-world pathfinding. `avoid_damage` is best effort, not immunity. Full
 Survival/two-client, cross-platform and modpack compatibility qualification remain
-open. No account credentials, cloud model or embedded Python runtime are bundled.
+open. Damage avoidance currently crouches and can stop for nearby known hostiles;
+it is not automatic combat/shelter selection. Combat/evasion and the exact alpha.3
+packaged JAR have no isolated graphical acceptance. No account credentials,
+cloud model or embedded Python runtime are bundled.
 
 ## Upgrading from the early “Block Bridge” name
 

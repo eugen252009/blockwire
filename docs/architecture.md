@@ -40,6 +40,21 @@ There is no implicit operator elevation, fake player or server agent in v0.1.
   No direct `onPress` callback or text-value mutation.
 - **Observation:** bounded client data, item components summarized, human text plus
   machine-readable fields. Snapshots are not authoritative server outcomes.
+  [Extended sight](visibility.md) samples loaded first-hit block surfaces and
+  sight-tests bounded client-known interactable positions on demand. A loaded-only
+  block getter makes unknown chunks opaque; palette/X-run compression never fills
+  unknown gaps. No inventory contents or server scans are involved.
+
+## Optional local settings GUI
+
+The client initializer and native settings screen have no dependency on Mod Menu
+classes. A separate `modmenu` entrypoint implements its compile-only API and is
+loaded only by an installed Mod Menu. No Mod Menu classes/JAR are bundled.
+`LocalSettingsModel` separates read-only status/drafts, explicit runtime toggles
+and startup-only persistence. Runtime toggles call the existing F8 lifecycle;
+startup saves validate the selected authority and atomically replace only its
+startup flag, without touching TLS/token material or current endpoint state.
+See [configuration](configuration.md#optional-mod-menu-screen).
 
 ## Goal/skill boundary
 
@@ -48,6 +63,20 @@ entry points register additional goals. `SkillManager` runs one cooperative work
 per actor, with bounded history/progress, status and cancellation. MCP exposes
 that same registry and rejects competing raw control while a job runs. See
 [extensions](extensions.md) and [skills](skills.md).
+
+The Python-only [approach](approach.md) skill discovers from bounded visible
+interactables and plans standing positions from the native navigation mesh, not
+from sparse surface samples. It shares a Python [feedback motor](motion.md) with
+autopilot: bounded rolling leases on known straight segments, stopped precision
+pulses/turns elsewhere. It retains actor/session checks and requires an observed exact native block hit;
+no opening/use or Java/transport changes are needed per target type.
+
+The optional [autopilot](autopilot.md) is another explicitly started Python skill.
+One deterministic controller arbitrates creeper evasion, proximity defense,
+walk/run/sneak travel and idle monitoring. It reuses the actor/job ownership and
+native primitives, not a parallel Java planner. It never auto-starts or reconnects.
+Guarded native attacks fence both actor session and expected crosshair entity;
+receipts still do not establish a combat outcome.
 
 The first walker consumes an explicit on-demand `navigation` mesh (radius 4,
 81 loaded flat full-block cells), uses native collision edges and short guarded

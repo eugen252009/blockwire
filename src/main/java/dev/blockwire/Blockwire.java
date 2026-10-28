@@ -22,6 +22,7 @@ public final class Blockwire implements ClientModInitializer {
     private KeyMapping toggle;
     private int ticksLeft;
     private BridgeConfig config;
+    private java.nio.file.Path configDirectory;
     private TlsIdentity tls;
     private final MenuBridge menus=new MenuBridge();
     private final NavigationView navigation=new NavigationView();
@@ -34,9 +35,9 @@ public final class Blockwire implements ClientModInitializer {
     public void onInitializeClient() {
         instance=this;
         try {
-            var directory=BridgeConfig.directory(FabricLoader.getInstance().getConfigDir());
-            config=BridgeConfig.load(directory);
-            tls=TlsIdentity.load(directory); // Generate once, even while remote control is disabled.
+            configDirectory=BridgeConfig.directory(FabricLoader.getInstance().getConfigDir());
+            config=BridgeConfig.load(configDirectory);
+            tls=TlsIdentity.load(configDirectory); // Generate once, even while remote control is disabled.
         } catch(Exception e) {LOG.error("Blockwire disabled: could not initialize private configuration ({})",e.getClass().getSimpleName());return;}
         toggle=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.block_bridge.toggle",InputConstants.Type.KEYBOARD,
             InputConstants.KEY_F8,KeyMapping.Category.register(Identifier.parse("blockwire:controls"))));
@@ -44,6 +45,29 @@ public final class Blockwire implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STOPPING.register(client->stop());
         ClientLifecycleEvents.CLIENT_STARTED.register(client->{if(config.enabled())startServer();});
         LOG.info("Blockwire configured; auto-start {}. F8 toggles local control.",config.enabled());
+    }
+    /** No Mod Menu types or secrets cross this boundary; all mutations use the existing client-thread paths. */
+    public static LocalSettingsModel.Backend localSettings() {
+        return new LocalSettingsModel.Backend() {
+            public LocalSettingsModel.Status status() {
+                var current=instance;
+                boolean ready=current!=null && current.config!=null && current.tls!=null;
+                if(!ready)return new LocalSettingsModel.Status(false,false,false,false,"",0);
+                return new LocalSettingsModel.Status(true,current.server!=null,
+                    current.server!=null && current.server.connected(),current.config.enabled(),current.config.serverIp(),current.config.port());
+            }
+            public void toggleRuntime() {if(status().available())instance.toggleServer();}
+            public boolean saveStartup(boolean enabled) {
+                if(!status().available())return false;
+                try {
+                    instance.config=BridgeConfig.saveStartup(instance.configDirectory,instance.config,enabled);
+                    return true;
+                } catch(Exception error) {
+                    LOG.warn("Could not save Blockwire startup preference ({}); private configuration retained.",error.getClass().getSimpleName());
+                    return false;
+                }
+            }
+        };
     }
     private void message(String text) {
         LOG.info("{}",text);
@@ -140,9 +164,13 @@ public final class Blockwire implements ClientModInitializer {
                 return Protocol.ok("Native inputs scheduled for at most "+ticks+" ticks / "+(ticks*50)+" ms; not a completion receipt.");
             }
             case "action" -> {
-                Protocol.fields(q,"name");String name=Protocol.string(q,"name");
-                if(!Set.of("attack","use").contains(name))throw new IllegalArgumentException("unsupported_action");
-                playing();
+                Integer expected=Protocol.actionTarget(q);String name=Protocol.string(q,"name");
+                guardedActor(q);playing();
+                Integer actual=null;
+                if(mc.hitResult instanceof net.minecraft.world.phys.EntityHitResult hit &&
+                    hit.getEntity().isAlive() && mc.level.getEntity(hit.getEntity().getId())==hit.getEntity() &&
+                    mc.player.distanceTo(hit.getEntity())<=3 && mc.player.hasLineOfSight(hit.getEntity()))actual=hit.getEntity().getId();
+                Protocol.requireTarget(expected,actual);
                 if(name.equals("attack"))((MinecraftActions)(Object)mc).blockwire$attack();
                 else ((MinecraftActions)(Object)mc).blockwire$use();
                 return Protocol.ok("Native "+name+" requested; observe the resulting state.");

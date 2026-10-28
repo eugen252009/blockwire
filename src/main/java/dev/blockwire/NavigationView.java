@@ -3,6 +3,7 @@ package dev.blockwire;
 import com.google.gson.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.block.*;
@@ -47,9 +48,19 @@ public final class NavigationView {
         out.addProperty("on_fire",actor.isOnFire());
         out.addProperty("ready",reason==null);
         if(reason!=null){out.addProperty("reason",reason);return out;}
+        out.addProperty("threat_profile","nearby_hostiles_v1");
+        var eye=new JsonArray();eye.add(actor.getEyePosition().x);eye.add(actor.getEyePosition().y);eye.add(actor.getEyePosition().z);
+        out.add("eye_position",eye);
         var threats=new JsonArray();
-        for(var mob:level.getEntitiesOfClass(Monster.class,actor.getBoundingBox().inflate(8),e->e.isAlive())) {
+        var nearby=level.getEntitiesOfClass(Monster.class,actor.getBoundingBox().inflate(8),
+            e->e.isAlive() && actor.distanceToSqr(e)<=64);
+        nearby.sort(Comparator.comparingDouble(actor::distanceToSqr));
+        for(var mob:nearby) {
             var threat=new JsonObject();threat.addProperty("entity_id",mob.getId());threat.addProperty("distance",actor.distanceTo(mob));
+            threat.addProperty("type",BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).toString());
+            var xyz=new JsonArray();xyz.add(mob.getX());xyz.add(mob.getY());xyz.add(mob.getZ());threat.add("position",xyz);
+            var aim=new JsonArray();aim.add(mob.getEyePosition().x);aim.add(mob.getEyePosition().y);aim.add(mob.getEyePosition().z);
+            threat.add("eye_position",aim);threat.addProperty("visible",!mob.isInvisibleTo(actor) && actor.hasLineOfSight(mob));
             threats.add(threat);if(threats.size()==16)break;
         }
         out.add("nearby_hostiles",threats);

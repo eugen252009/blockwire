@@ -27,7 +27,11 @@ def create_server():
 
     @server.tool()
     def describe_surroundings() -> dict:
-        """Describe position, health, held item, crosshair target and potentially visible entities."""
+        """Describe position, health, held item, native crosshair target and potentially visible entities.
+        Also reports sight_target and potentially visible interactables up to 64 blocks away,
+        plus compact palette/x-run sampled block surfaces. Missing cells are unknown, not air.
+        Detection is partial/approximate and never extends native interaction reach or reveals
+        closed-container contents. Use reported aim_position to look; approach before using."""
         with lock:
             return player.observe()
 
@@ -199,6 +203,34 @@ def create_server():
         with lock:
             return jobs.start("walk_to", dict(x=x, y=y, z=z, sneak=sneak,
                 avoid_damage=avoid_damage, timeout_seconds=timeout_seconds))
+
+    @server.tool()
+    def approach(target: str = "minecraft:chest", position: list[int] | None = None,
+                 sneak: bool = False, avoid_damage: bool = True, timeout_seconds: float = 30) -> dict:
+        """Approach an initially visible interactable, then aim and confirm native interaction reach.
+        target is an exact registry ID; chest means minecraft:chest, never a translated label.
+        Optionally select an exact visible block position [x,y,z]. Defaults to the nearest
+        matching candidate with a supported local route; global reachability is not guaranteed.
+        Faces travel and primarily walks forward; tiny lateral corrections and bounded
+        stopped target-recheck checkpoints are allowed. Flat full-block ground only, up to
+        64 blocks. Never opens/uses/attacks. Returns a job ID;
+        use skill_status/cancel_skill. avoid_damage is conservative, not immunity."""
+        with lock:
+            return jobs.start("approach", dict(target=target, position=position, sneak=sneak,
+                avoid_damage=avoid_damage, timeout_seconds=timeout_seconds))
+
+    @server.tool()
+    def autopilot(destination: dict | None = None, movement: Literal["walk", "run", "sneak"] = "walk",
+                  combat: Literal["off", "defend"] = "off", evade_creepers: bool = False,
+                  duration_seconds: float = 20, timeout_seconds: float = 30) -> dict:
+        """Explicitly activate algorithmic flat-ground travel or stationary monitoring.
+        Optional nearby-hostile defense never pursues or targets players. Creeper evasion
+        interrupts travel; no no-damage guarantee. Returns a job ID. Disable with cancel_skill
+        and await terminal cleanup. Does not enable itself at startup or reconnect."""
+        with lock:
+            return jobs.start("autopilot", dict(destination=destination, movement=movement,
+                combat=combat, evade_creepers=evade_creepers,
+                duration_seconds=duration_seconds, timeout_seconds=timeout_seconds))
 
     @server.tool()
     def skill_status(job_id: str) -> dict:

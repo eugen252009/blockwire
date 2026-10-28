@@ -159,6 +159,11 @@ class Player:
         self.backend = backend
 
     def observe(self) -> Json:
+        """Client-known scene, including partial 64-block sight/interactables and compact sampled surfaces.
+
+        visible_blocks uses palette_x_runs_v1: each run is [type_index, dx, dy, dz, x_length]
+        relative to origin. Omitted cells are unknown, not air. This never extends action reach.
+        """
         return self.backend.call("observe")
 
     def inventory(self) -> Json:
@@ -207,8 +212,30 @@ class Player:
         return run_skill(default_registry(), self, "walk_to", dict(x=x,y=y,z=z,sneak=sneak,
             avoid_damage=avoid_damage,timeout_seconds=timeout_seconds)).model_dump(mode="json")
 
-    def action(self, name: str) -> Json:
-        return self.backend.call("action", name=name)
+    def approach(self, target: str = "minecraft:chest", *, position: list[int] | None = None,
+                 sneak: bool = False, avoid_damage: bool = True, timeout_seconds: float = 30) -> Json:
+        """Approach an initially visible interactable and confirm native reach; never open or use it."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "approach", dict(target=target, position=position,
+            sneak=sneak, avoid_damage=avoid_damage, timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def autopilot(self, *, destination: Json | None = None, movement: str = "walk",
+                  combat: str = "off", evade_creepers: bool = False,
+                  duration_seconds: float = 20, timeout_seconds: float = 30) -> Json:
+        """Explicit, synchronous bounded activation; MCP uses the same skill as a background job."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "autopilot", dict(destination=destination,
+            movement=movement, combat=combat, evade_creepers=evade_creepers,
+            duration_seconds=duration_seconds, timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def action(self, name: str, *, actor_session: str | None = None,
+               target_entity_id: int | None = None) -> Json:
+        arguments: Json = {"name": name}
+        if actor_session is not None:
+            arguments["actor_session"] = actor_session
+        if target_entity_id is not None:
+            arguments["target_entity_id"] = target_entity_id
+        return self.backend.call("action", **arguments)
 
     def hotbar(self, slot: int) -> Json:
         return self.backend.call("hotbar", slot=slot)

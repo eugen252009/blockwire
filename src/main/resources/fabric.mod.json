@@ -13,11 +13,17 @@
   "entrypoints": {
     "client": [
       "dev.blockwire.Blockwire"
+    ],
+    "modmenu": [
+      "dev.blockwire.compat.BlockwireModMenu"
     ]
   },
   "mixins": [
     "blockwire.mixins.json"
   ],
+  "suggests": {
+    "modmenu": ">=21.0.0"
+  },
   "breaks": {
     "block_bridge": "*"
   },

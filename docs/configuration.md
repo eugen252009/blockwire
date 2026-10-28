@@ -43,6 +43,56 @@ startup, loopback bind and the existing private token. Unknown fields and wrong
 types are rejected. The legacy private `token` file is refreshed from the key
 for old Python scripts; edit `mcp_api_key`, not that mirror.
 
+## Optional Mod Menu screen
+
+Install a Minecraft-compatible **Mod Menu** alongside Blockwire and Fabric API.
+The API integration is built/tested against **Mod Menu 21.0.0 for Minecraft 26.3**;
+newer Mod Menu releases may target a different Minecraft version. Mod Menu is
+optional and is neither bundled nor downloaded by Blockwire.
+
+Open **Mods → Blockwire → Configure** from the title or pause menus. English and
+German translations are included. The screen shows endpoint enabled/disabled,
+controller connected/waiting, the configured TLS address and the local stop hint.
+It exposes no API key, token, certificate/private-key data or text-field secret.
+
+- **Enable control now / Disable control and release inputs** uses the same
+  runtime lifecycle as F8. Changes are immediate, including releasing owned input
+  on stop; bind failure is not reported as enabled. It does not change startup
+  preferences, connect Python, or activate autopilot.
+- **Enable at next launch** changes a draft. **Save startup preference** explicitly
+  writes only `enabled` to the already-selected settings file. It does not start,
+  stop or rebind the current endpoint. Closing with Done/Escape discards unsaved
+  drafts; already-applied runtime toggles are not rolled back. Resizing retains
+  the draft. F8 remains usable and the screen refreshes runtime status.
+- IP/port/key edits and credential rotation remain manual, with Minecraft stopped
+  and a restart afterward. No key reveal/copy/reset or trust-bypass control exists.
+- If private configuration/TLS initialization failed, runtime/save controls stay
+  disabled. Fix the local configuration and restart; opening this screen does not
+  silently repair, regenerate or replace an identity.
+
+Saving preserves the existing new/legacy config directory, API key, bind/port,
+compatibility token and TLS identity. It validates the complete existing config,
+rejects missing/symlink/stale authority, writes a private temporary file, and
+requires an atomic replacement. Filesystems without atomic replacement report
+failure instead of falling back to a partial write. Stale-file checks are best
+effort under the trusted-local-filesystem assumption, not a filesystem transaction
+against arbitrary concurrent external writers. Stop Minecraft before externally
+changing address/keys. A save failure is shown without logging credentials.
+
+As with other native menus, an already authorized MCP controller can navigate
+this screen through native menu events. There is no new settings/file RPC.
+Opening it does not start an AI: goals and autopilot still run explicitly in the
+external Python/MCP host. The screen does not edit those running job policies.
+
+Component contracts cover optional API linkage, no effects on opening, draft/save
+separation, failure paths, private persistence, stale/symlink rejection and unchanged
+token/TLS bytes. **Graphical Mod Menu screen acceptance: NOT RUN.** Source/API
+compilation and headless contracts are not evidence of live layout/input behavior.
+Current artifact/source/log hashes: [Mod Menu evidence](evidence/modmenu.json).
+Development checks passed: 32 settings + 4 optional-API assertions, Gradle build/check,
+44 Python tests, 10 packaging tests, real TLS interoperability, and 19 Java + 11
+Python skill mutations (five Java mutations exercise the new settings contracts).
+
 ## Python / MCP host
 
 Prefer:

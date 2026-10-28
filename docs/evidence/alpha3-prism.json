@@ -1,0 +1,201 @@
+{
+  "version": "0.2.0-alpha.3",
+  "python_version": "0.2.0a3",
+  "artifact_sha256": "daec8b37e5ed98f6fd859eab4c9ff4e00b507daaa20c44fd3849169ec87badeb",
+  "assessment": "CONDITIONAL PASS for the listed runtime/enforcement smoke scopes only. The first direct MCP off-centre arrival trial FAILED its 15-second arrival expectation (timed_out); the longer centred retry passed. No broad arrival, safety, smoothness or release qualification.",
+  "environment": {
+    "launcher": "Prism Launcher 11.1.1 (Flatpak)",
+    "instance": "Blockwire-alpha3-test",
+    "minecraft": "26.3",
+    "java": "25.0.1",
+    "loader": "0.20.1",
+    "fabric_api": "0.165.0+26.3",
+    "modmenu": "21.0.0",
+    "platform": "Linux/X11",
+    "world": "Disposable copy of the existing owned Bridge Skill Flat fixture; Creative/Peaceful",
+    "endpoint": "wss://127.0.0.1:8879/v1",
+    "sdk": "Installed alpha.3 wheel in isolated venv"
+  },
+  "isolation": {
+    "personal_instance_modified": false,
+    "echoes_modified": false,
+    "accounts_database_read_or_copied_by_agent": false,
+    "personal_credentials_copied": false,
+    "old_test_fixture_modified": false,
+    "item_spawning_or_commands_used": false,
+    "note": "Fresh instance, fresh private API key and TLS identity, no server auto-join. Only metadata/dependency JARs and the owned disposable fixture were copied."
+  },
+  "checks": {
+    "exact_jar_launch": {
+      "status": "TESTED",
+      "matches_modrinth_primary_artifact": true
+    },
+    "settings_gui": {
+      "status": "TESTED",
+      "scope": "Real English Mod Menu screen; screenshot inspected; explicit startup save, runtime separation, original preference restored, key/token/TLS unchanged",
+      "evidence": [
+        "settings-menu.json",
+        "settings-screen.png",
+        "settings-persistence.json"
+      ]
+    },
+    "local_stop": {
+      "status": "TESTED",
+      "scope": "Settings stop and physical F8 off/on in PID-verified owned window; interruption of unexpired 20-tick hold and unchanged test config/TLS bytes",
+      "evidence": [
+        "local-stops.json",
+        "f8-motion.json"
+      ]
+    },
+    "visibility": {
+      "status": "TESTED",
+      "scope": "Extended grass hit beyond native interaction reach, palette/X-run decode agrees with sight hit, bounded profile/ray metadata; NOT positive chest discovery",
+      "evidence": [
+        "visibility-expiry.json"
+      ]
+    },
+    "native_lease_expiry": {
+      "status": "TESTED",
+      "scope": "Movement ends without renewal while connection remains open",
+      "evidence": [
+        "visibility-expiry.json"
+      ]
+    },
+    "packaged_mcp": {
+      "status": "TESTED",
+      "scope": "Actual stdio MCP adapter, 26 tools; native menus/world load, normal-stance rolling travel, exclusive ownership and cancellation",
+      "evidence": [
+        "menu-load.json",
+        "mcp-gameplay.json"
+      ]
+    },
+    "direct_pi_mcp": {
+      "status": "TESTED with timing limitation",
+      "first_arrival_trial": {
+        "result": "FAILED arrival expectation / timed_out",
+        "budget_seconds": 15,
+        "destination": {
+          "x": 7.104082054056673,
+          "y": -60,
+          "z": 3.5
+        },
+        "status": {
+          "id": "573423b1-5237-46a3-a355-99e0e30de522",
+          "skill": "autopilot",
+          "status": "timed_out",
+          "progress": {
+            "behavior": "travel",
+            "position": [
+              7.499926060206879,
+              -60,
+              3.0040145955417343
+            ],
+            "destination": [
+              7.104082054056673,
+              -60,
+              3.5
+            ],
+            "movement": "walk",
+            "combat": "off",
+            "evade_creepers": false,
+            "control_mode": "turning",
+            "owned_input_lease": false
+          },
+          "result": {
+            "status": "timed_out",
+            "reason": "active_period_elapsed",
+            "text": "Destination not observed before active period ended.",
+            "details": {},
+            "cleanup": "released"
+          }
+        },
+        "cleanup": "released"
+      },
+      "retry": {
+        "result": "succeeded",
+        "budget_seconds": 40,
+        "destination": {
+          "x": 7.5,
+          "y": -60,
+          "z": 6.5
+        },
+        "status": {
+          "id": "07f978e4-790c-4f28-93a0-8ca947d966cc",
+          "skill": "autopilot",
+          "status": "succeeded",
+          "progress": {
+            "behavior": "travel",
+            "position": [
+              7.500006647877809,
+              -60,
+              5.991084692658296
+            ],
+            "destination": [
+              7.5,
+              -60,
+              6.5
+            ],
+            "movement": "walk",
+            "combat": "off",
+            "evade_creepers": false,
+            "control_mode": "precision",
+            "owned_input_lease": false
+          },
+          "result": {
+            "status": "succeeded",
+            "reason": "arrived",
+            "text": "Observed arrival at the requested destination.",
+            "details": {
+              "position": [
+                7.500006647877809,
+                -60,
+                6.2012246773040784
+              ]
+            },
+            "cleanup": "released"
+          }
+        }
+      },
+      "scope": "Registered mcp__blockwire tools after reload; observed movement before cancellation, released cleanup and stable position; inventory open/close without clicks; GUI movement rejection and consumed-screen rejection",
+      "evidence": [
+        "direct-mcp.json"
+      ]
+    },
+    "native_mining": {
+      "status": "TESTED",
+      "scope": "One native Creative grass break, observed resulting hole excluded from navigation. No Survival drop/collection claim.",
+      "evidence": [
+        "native-mining.json"
+      ]
+    },
+    "actor_fence": {
+      "status": "TESTED",
+      "scope": "Native save/title/reload produces new session; stale look/drive rejected without camera/position changes",
+      "evidence": [
+        "world-session.json"
+      ]
+    }
+  },
+  "limitations": [
+    "Direct 15-second off-centre arrival timed out near the endpoint; no product fix attempted during verification.",
+    "No positive chest-approach/transfer or eating test on this exact artifact: isolated fixture inventory was empty; no items spawned.",
+    "No Survival combat/evasion, shelter/mining planner, two-client server, German GUI, no-Mod-Menu launch, Windows/macOS or full modpack qualification.",
+    "No universal collision/damage/smoothness proof; Creative/Peaceful smoke cannot establish Survival safety."
+  ],
+  "harness_correction": "Initial gameplay script used the wrong no-target reason name; corrected to the established target_not_visible contract without changing product code. Initial log retained.",
+  "current_state": {
+    "instance_running": true,
+    "screen": "PauseScreen",
+    "health": 20,
+    "position": [
+      7.500006647877809,
+      -60,
+      7.49272318656401
+    ],
+    "inputs_released": true,
+    "pi_mcp_targets_isolated_test": true
+  },
+  "raw_evidence_directory": "build/alpha3-prism-verification/",
+  "published": false,
+  "uploaded": false
+}

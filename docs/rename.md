@@ -14,7 +14,7 @@ spelling mix-up. This is a local alpha rename, not a published migration/release
 - New instance configuration: `minecraft/config/blockwire/`
 - Agent variables: `BLOCKWIRE_CONFIG`, `BLOCKWIRE_URL`, `BLOCKWIRE_CERT_FILE`,
   `BLOCKWIRE_TOKEN_FILE`, `BLOCKWIRE_SKILLS`
-- Bundle: `dist/blockwire-0.2.0-alpha.2.zip`
+- Bundle: `dist/blockwire-0.2.0-alpha.3.zip`
 
 Paths beginning with `build/` or `dist/` are relative to the checkout root;
 `minecraft/config/` refers to the selected Minecraft instance, not the checkout.
@@ -47,7 +47,7 @@ For an existing environment, uninstall the old SDK **before** installing the new
 wheel, to avoid two distributions owning the same compatibility files:
 ```sh
 pip uninstall block-bridge
-pip install 'python/blockwire-0.2.0a2-py3-none-any.whl[mcp]'
+pip install 'python/blockwire-0.2.0a3-py3-none-any.whl[mcp]'
 ```
 
 Use `from blockwire import Bridge, Player` and the new command/env names for new

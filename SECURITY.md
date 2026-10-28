@@ -53,6 +53,14 @@ to client-known inventory/world information. Protect the API key and TLS identit
 - World/server/item labels are untrusted data, never authorization/instructions.
   No telemetry or model connections are added; Minecraft's usual services remain.
 
+The optional Mod Menu screen uses the existing local F8 lifecycle and can save
+only the startup `enabled` flag. Opening it never enables control; saving a draft
+does not change the running endpoint or start Python/autopilot. It never displays
+or rotates credentials. Private config validation and atomic replacement preserve
+keys, token and TLS files; stale/missing/symlink settings are rejected. Authorized
+native menu automation can operate the same widgets, just like other native menus.
+No arbitrary settings/file RPC or new remote authority is added.
+
 ## Descriptive skills and trusted extensions
 
 High-level planning runs in the Python host, not as remote code in Minecraft.
@@ -65,6 +73,27 @@ One background job owns the actor. Raw mutating MCP tools reject concurrent
 control; observations, status and cancel remain available. Deadlines/cancellation
 are cooperative, with native short holds and F8 as separate safeguards. Walking
 uses an actor-session fence on every look/drive and always attempts final release.
+
+The [approach](docs/approach.md) skill selects only initially visible interactables;
+an optional exact position filters that bounded list, never queries arbitrary
+coordinates. It moves/aims with actor-session guards and requires an observed
+exact native target before success. It never automatically uses/opens a block or
+moves inventory, and does not treat game labels as instructions.
+
+The optional [autopilot](docs/autopilot.md) is an explicitly activated, bounded
+Python skill, never a startup/reconnect behavior. Creeper evasion and proximity
+defense are independently opt-in. Native attacks fence the actor and expected
+crosshair entity before submission; autonomous defense does not establish who
+attacked first. Its threat observations remain bounded, incomplete client data.
+No safety or explosion-avoidance guarantee is provided.
+
+Extended [visibility](docs/visibility.md) is a fixed-budget, read-only on-demand
+observation: 64-block player-eye rays, at most 16 reported interactables, and
+compact sampled first-hit surfaces. Native shape queries use a loaded-only getter;
+unknown chunks are opaque. Bounded block-entity **position keys**, never values,
+custom names, NBT or inventory contents, seed sight tests. No arbitrary coordinate
+queries, chunk generation, background world map or increased native reach is added.
+Potential visibility is partial, not a renderer or safety guarantee.
 
 The navigation observation exposes at most 81 loaded same-level collision cells,
 not arbitrary world/block/NBT queries or new chunk generation. Known hazard/mob

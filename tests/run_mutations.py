@@ -11,6 +11,37 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get("BLOCKWIRE_VERIFICATION_DIR", ROOT / "build/verification")) / "mutations"
 OUT.mkdir(parents=True, exist_ok=True)
 mutations = [
+    ("settings_open_enables", "LocalSettingsModel.java",
+     "this.backend=backend;status=backend.status();draftAutoStart=status.autoStart();",
+     "this.backend=backend;status=backend.status();draftAutoStart=status.autoStart();backend.toggleRuntime();",
+     "MM03_open_is_read_only", "settingsContractTest"),
+    ("settings_save_enables", "LocalSettingsModel.java",
+     "boolean saved=backend.saveStartup(draftAutoStart);refresh();",
+     "boolean saved=backend.saveStartup(draftAutoStart);backend.toggleRuntime();refresh();",
+     "MM04_save_does_not_enable_runtime", "settingsContractTest"),
+    ("settings_stale_authority", "BridgeConfig.java", "if(!parse(json).equals(expected))", "if(false)",
+     "MM08_stale_config_rejected", "settingsContractTest"),
+    ("settings_preserve_key", "BridgeConfig.java", 'json.addProperty("enabled",enabled);',
+     'json.addProperty("enabled",enabled);json.addProperty("mcp_api_key","b".repeat(64));',
+     "MM07_save_changes_only_startup_flag", "settingsContractTest"),
+    ("settings_private_permissions", "BridgeConfig.java", 'permissions(temporary,"rw-------");',
+     'permissions(temporary,"rw-r--r--");', "MM07_saved_config_private", "settingsContractTest"),
+    ("visibility_occlusion", "VisibilityView.java", "var hit=cast(blocks,eye,aim);",
+     "var hit=new BlockHitResult(aim,net.minecraft.core.Direction.UP,pos,false);",
+     "VIS03_occluded_chest_rejected", "visibilityContractTest"),
+    ("visibility_unknown_opaque", "VisibilityView.java",
+     "source.loaded(pos)?source.getBlockState(pos):Blocks.BARRIER.defaultBlockState()",
+     "source.loaded(pos)?source.getBlockState(pos):Blocks.AIR.defaultBlockState()",
+     "VIS04_missing_chunk_is_opaque", "visibilityContractTest"),
+    ("visibility_range", "VisibilityView.java", "delta.lengthSqr()<=RANGE*RANGE", "true",
+     "VIS05_range_and_view_filter", "visibilityContractTest"),
+    ("visibility_compression_gap", "VisibilityView.java", " && pos.getX()==previous.getX()+1", "",
+     "VIS07_roundtrip_positions_and_gaps", "visibilityContractTest"),
+    ("visibility_metadata_cap", "VisibilityView.java", "if(visits==MAX_POSITIONS)", "if(false)",
+     "VIS06_candidate_metadata_cap", "visibilityContractTest"),
+    ("visibility_target_cap", "VisibilityView.java", "Math.min(MAX_INTERACTABLES,ordered.size())", "ordered.size()",
+     "VIS06_target_cap", "visibilityContractTest"),
+    ("attack_target_identity", "Protocol.java", "expected!=null && !expected.equals(actual)", "false", "changed_attack_target"),
     ("authorization", "BridgeServer.java", "!authorized ||", "false ||", "reject_unauthorized"),
     ("browser_origin", "BridgeServer.java", 'req.headers().contains(HttpHeaderNames.ORIGIN)', "false", "reject_browser_origin"),
     ("inclusive_minimum", "Protocol.java", "n<min", "n<=min", "out_of_range: yaw"),
@@ -38,7 +69,7 @@ for mutation in mutations:
         output = run.stdout + run.stderr
         (OUT / (name + ".log")).write_text(output)
         killed = run.returncode != 0 and expected in output and "Compilation failed" not in output
-        results.append({"mutation": name, "status": "KILLED" if killed else "INCONCLUSIVE",
+        results.append({"mutation": name, "status": "KILLED" if killed else ("SURVIVED" if run.returncode == 0 else "INCONCLUSIVE"),
                         "expected_detection": expected, "exit_code": run.returncode})
 (OUT / "results.json").write_text(json.dumps(results, indent=2) + "\n")
 print(json.dumps(results, indent=2))

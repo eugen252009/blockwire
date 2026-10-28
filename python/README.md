@@ -8,7 +8,11 @@ See the repository README and docs.
 
 The `blockwire.skills` package adds declarative goals, strict schemas, cooperative
 background jobs and explicitly selected provider extensions. `Player.walk_to(...)`
-currently supports loaded flat full-block ground only. Read `docs/skills.md` and
+supports loaded flat full-block ground only. `Player.approach(...)` approaches an
+initially visible interactable without opening it. Explicit `Player.autopilot(...)`
+adds bounded travel and opt-in reactions. Approach/autopilot share forward-facing
+feedback movement with short native leases. Use the matching alpha.3 mod for the
+new observation/settings features; the SDK is installed separately. Read `docs/skills.md` and
 `docs/extensions.md` in the project for safety limits and extension contracts.
 
 The Python package does not embed Python into Minecraft. Scripts run outside the

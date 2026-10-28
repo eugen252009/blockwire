@@ -1,0 +1,79 @@
+{
+  "scope": "Optional Mod Menu integration, local settings model and private startup-only persistence",
+  "qualification": "TESTED: headless component/API/packaging contracts; graphical screen UNVERIFIED",
+  "mod_menu_compile_only_version": "21.0.0",
+  "minecraft": "26.3",
+  "artifact": {
+    "path": "build/libs/blockwire-0.2.0-alpha.2.jar",
+    "sha256": "0c9f6365e609db4bb698cdb2cb65ff1ae9cede1be3e9ad17b91bb4775e7d5fa4"
+  },
+  "checks": {
+    "gradle_build_and_check": "PASS",
+    "settings_contract_assertions": 32,
+    "optional_api_contract_assertions": 4,
+    "normal_classpath_without_modmenu": "PASS",
+    "transport_protocol_assertions": 67,
+    "tls_identity_assertions": 19,
+    "visibility_fixture_assertions": 6027,
+    "python_unit_tests": 44,
+    "artifact_packaging_tests": 10,
+    "tls_interop_checks": 10,
+    "java_mutations": {
+      "killed": 19,
+      "settings_specific": 5
+    },
+    "python_skill_mutations": {
+      "killed": 11
+    },
+    "graphical_modmenu_acceptance": "NOT RUN",
+    "installed_mod_or_user_world_changes": "NONE"
+  },
+  "preserved": [
+    "Mandatory TLS, API-key authentication, loopback default, F8, input leases and actor/session ownership.",
+    "Opening settings/refreshing/cancelling does not activate control or save a draft.",
+    "Runtime enable/stop reuses the F8 lifecycle, separate from startup-only persistence.",
+    "No API keys or TLS/private data in GUI status; no new settings/file RPC.",
+    "Existing keys, bind/port, token/TLS bytes and selected legacy config directory retained by preference save.",
+    "Mod Menu is compile-only, optional and not bundled."
+  ],
+  "limits": [
+    "Native GUI rendering, layout, input and real Fabric entrypoint discovery are NOT RUN in a graphical client.",
+    "No hard real-time or cross-platform/modpack qualification.",
+    "Atomic replacement support required; stale-file detection is best effort under trusted local filesystem assumptions, not OS compare-and-swap.",
+    "Autopilot remains explicitly activated external Python/MCP, not an in-game planner.",
+    "No release, upload or publication approval."
+  ],
+  "reproduce": [
+    "./gradlew build --rerun-tasks",
+    "./gradlew settingsContractTest modMenuContractTest",
+    "PYTHONPATH=python/src .venv/bin/python -B -m unittest discover -s python/tests -v",
+    "PYTHONPATH=. .venv/bin/python -B -m unittest discover -s tests -p test_package_modrinth.py -v",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/modmenu-verification\" .venv/bin/python -B tests/run_mutations.py",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/modmenu-verification\" .venv/bin/python -B tests/run_skill_mutations.py",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/modmenu-verification\" PYTHONPATH=python/src .venv/bin/python -B tests/tls_interop.py"
+  ],
+  "sha256": {
+    "build/libs/blockwire-0.2.0-alpha.2.jar": "0c9f6365e609db4bb698cdb2cb65ff1ae9cede1be3e9ad17b91bb4775e7d5fa4",
+    "build.gradle": "72c5c04a6a4f7c96d3e1e89b9fa557d5914279d534d89a4f819651a7df07f351",
+    "gradle.properties": "d264e71ff574c59f419f323feab52dae2796df0741f2da307c1a13d9e1d7684a",
+    "src/main/resources/fabric.mod.json": "351c5044de3e0ba7e65d19e942eb789b18f5d9b9647245a3d39ad8c23f0e1187",
+    "src/main/java/dev/blockwire/BridgeConfig.java": "24d36aee3eb5cf728d19d1e1e12df7d6219145059d71af58627f85477d31f5f0",
+    "src/main/java/dev/blockwire/Blockwire.java": "a12d433a1cbc1e3a0148eb7a3fa04a969dde4802deee40e9a51c0681edb3abeb",
+    "src/main/java/dev/blockwire/LocalSettingsModel.java": "22ab9b99ab8f7d12e4935b1c1291fdfb78d51980c2c1f31ffdf2f71f1baa7b92",
+    "src/main/java/dev/blockwire/BlockwireSettingsScreen.java": "d7ea1046d3fbce4ae386b17ef7cee5a66ef65a9b599a7bff4e9efe0a3a56e4b8",
+    "src/main/java/dev/blockwire/compat/BlockwireModMenu.java": "c10617334e82690407657da37b09037ee903e0e3878e17f2fdf3443fb813b1e9",
+    "src/contractTest/java/dev/blockwire/SettingsContractTest.java": "8cef011868ec3a13862e66777689f90b88abd118631e97c4171836b0945f05c8",
+    "src/contractTest/java/dev/blockwire/ModMenuContractTest.java": "b1d1811a50fc2dccfbe9cd116b38093c2be6ae01bbb1e187377f91689faf230a",
+    "src/main/resources/assets/blockwire/lang/en_us.json": "b02c2990f4ad4c720ad2c67c2dfb42b1be450ebc98c85133eb7b1b5ab1420df5",
+    "src/main/resources/assets/blockwire/lang/de_de.json": "a9ff2c60615eee80b2b7b2de53d002992a9c723acd93a8b3e15aabe08efaeb94",
+    "tools/package_modrinth.py": "d896be49b9ae9e7dc7c20f360654dcf33b6e979265f186bc2d3d46c9913a7488",
+    "tests/test_package_modrinth.py": "5d686392b1465acdf527ea529688de757b91bf70120354055bbb2485d1398782",
+    "tests/run_mutations.py": "03ba2aeb6e26b707ac3f78a14523644d05b03db8fc9c30cd6c797a38f7b20898",
+    "build/modmenu-verification/final-build.log": "b12295a2e11f63f44e928ea1cc02fc1fa1da49ad7f941bad3753a635aefe73c9",
+    "build/modmenu-verification/python-tests.log": "88854cbf6458b8dd86449cfd450ba8f127d6ddabdc4dd43dc5522d0cbf843103",
+    "build/modmenu-verification/package-tests.log": "4a1edb32f1714657560ad6bf92f0eee29251b1d92b8be59deac13d61f8170ce0",
+    "build/modmenu-verification/mutations/results.json": "59b23867f91b2545f3c3336b5c97990a6ba8a23cb33e3c59b65e64f10ca12c76",
+    "build/modmenu-verification/skill-mutations/results.json": "a152f8d923733254783c1afb684603d60aa13172c3c367ce44178c8b11a26999",
+    "build/modmenu-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813"
+  }
+}

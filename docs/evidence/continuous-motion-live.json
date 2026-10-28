@@ -1,0 +1,75 @@
+{
+  "scope": "Operator-authorized user-world approach and sword-deposit attempt after Python/MCP reload; not an isolated graphical fixture",
+  "job_id": "5efc326e-775a-422a-9d3d-923eeb9e87e5",
+  "target": {
+    "id": "minecraft:chest",
+    "position": [
+      2855,
+      44,
+      -332
+    ]
+  },
+  "result": {
+    "status": "blocked",
+    "reason": "known_danger_nearby",
+    "cleanup": "released"
+  },
+  "before": {
+    "position": [
+      2858.6403693748316,
+      44,
+      -340.32291011499467
+    ],
+    "health": 20
+  },
+  "after": {
+    "position": [
+      2858.6403693748316,
+      44,
+      -340.32291011499467
+    ],
+    "health": 20,
+    "container_open": false,
+    "carried": {
+      "empty": true
+    },
+    "sword": [
+      {
+        "empty": false,
+        "item": "minecraft:netherite_sword",
+        "name": "Probleme",
+        "count": 1,
+        "damage": 0,
+        "max_damage": 2031,
+        "enchantments": [
+          {
+            "id": "minecraft:sweeping_edge",
+            "level": 3
+          },
+          {
+            "id": "minecraft:sharpness",
+            "level": 5
+          },
+          {
+            "id": "minecraft:unbreaking",
+            "level": 3
+          },
+          {
+            "id": "minecraft:looting",
+            "level": 3
+          },
+          {
+            "id": "minecraft:mending",
+            "level": 1
+          }
+        ],
+        "inventory_index": 0
+      }
+    ]
+  },
+  "observed_movement": false,
+  "sword_transferred": false,
+  "container_opened": false,
+  "danger_identity": "Not identified from available scene observations",
+  "qualification": "This attempt was blocked before movement; continuous steering, smoothness and sword transfer remain unqualified. No safety guard was bypassed."
+}

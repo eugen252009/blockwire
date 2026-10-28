@@ -73,6 +73,18 @@ class ClientContractTests(unittest.TestCase):
             {"op": "menu_key", "screen_id": 9, "key": "tab", "modifiers": ["shift"]},
         ])
 
+    def test_visibility_is_one_bounded_observation_without_queries_or_actions(self):
+        calls = []
+        scene = {"target": {"id": "minecraft:stone", "position": [0, 0, 2]},
+                 "sight_target": {"id": "minecraft:chest", "position": [0, 1, 20]},
+                 "visible_interactables": [{"id": "minecraft:chest", "position": [0, 1, 20]}],
+                 "visible_blocks": {"encoding": "palette_x_runs_v1", "origin": [-10, 4, 20],
+                                    "palette": ["minecraft:stone"], "runs": [[0, 1, -1, 2, 4]]},
+                 "visibility": {"profile": "sampled_surfaces_v1", "range": 64, "partial": True}}
+        player = Player(CallableBackend(lambda q: calls.append(q) or scene))
+        self.assertEqual(player.observe(), scene)
+        self.assertEqual(calls, [{"op": "observe"}])
+
     def test_direct_python_route_preserves_actor_arguments(self):
         calls = []
         player = Player(CallableBackend(lambda q: calls.append(q) or {"text": "accepted"}))

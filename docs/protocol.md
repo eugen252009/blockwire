@@ -30,12 +30,12 @@ Unauthenticated/origin/wrong-endpoint upgrades receive HTTP 403.
 
 | op | Parameters | Effect |
 |---|---|---|
-| observe | none | Bounded scene snapshot, readable text, protocol version, timestamp |
+| observe | none | Bounded scene, extended sight/interactables, compact sampled surfaces, readable text, version/timestamp |
 | inventory | none | Player items and, if open, native container slots |
 | navigation | none | Bounded loaded flat-ground collision mesh, hazards and actor session |
 | look | yaw -180..180, pitch -90..90; optional actor_session | Absolute native orientation; target refreshes next frame |
 | drive | buttons array, ticks integer 1..100; optional actor_session | Replace currently held inputs, bounded by ticks and ticks × 50 ms |
-| action | name: attack/use | One native press |
+| action | name: attack/use; optional actor_session; optional target_entity_id for attack with actor_session | One native press; optional session/target guards |
 | hotbar | slot integer 0..8 | Native selected slot |
 | open_inventory | none | Open genuine inventory screen |
 | close_screen | none | Close an open native container only |
@@ -60,7 +60,10 @@ Snapshots use native world coordinates and localized friendly names alongside ID
 ## Descriptive skills (Python/MCP layer)
 
 The wire primitives remain explicit native operations. Python builds descriptive
-`walk_to` goals above them; see [skills](skills.md). MCP adds registry/schema
+`walk_to` and [approach](approach.md) goals above them. Approach uses existing
+visibility/navigation/look/drive/stop primitives and never automatically uses a
+block; an exact position parameter filters already-visible targets, not a new
+coordinate-query RPC; see [skills](skills.md). MCP adds registry/schema
 discovery, background execution, status and cooperative cancellation. Installed
 providers require explicit host opt-in; no arbitrary remote imports/evaluation.
 
@@ -70,12 +73,25 @@ and reason, position/health, `current_cell`, `current_center_access`, and at mos
 index pairs validated with native swept collision boxes. Only loaded chunks and
 full support/headroom qualify; omitted cells are unknown/unsupported, not air.
 The response also reports fire and up to 16 nearby client-known hostile mobs.
+Updated observations advertise `threat_profile: nearby_hostiles_v1`, player
+`eye_position`, and the nearest 16 alive client-known Monsters within 8 blocks.
+Each hostile includes `entity_id`, registry `type`, `position`, `eye_position`,
+`distance` and approximate `visible` (native line of sight and invisibility check).
+These are bounded nearby client data, not pixel visibility or complete threats.
 No arbitrary block lookup, resource IDs/NBT or generation is provided.
 
 A supplied `actor_session` on look/drive must still identify the same player and
 level at execution or the native operation is rejected before control changes.
 The long-running walker always supplies it. This fence is not an atomic terrain
 snapshot or a guarantee against external damage.
+
+For optional algorithmic [autopilot](autopilot.md), `action` accepts an
+`actor_session` fence. `target_entity_id` is a nonnegative integer accepted only
+for `attack` with that fence. At execution the native crosshair must still name
+that alive entity in the same level, within 3 blocks and native line of sight;
+otherwise `target_entity_changed` is returned before attack. Existing unguarded
+native actions retain their semantics. A guarded attack is still a submission,
+not proof of damage, a kill or server acknowledgement.
 
 ## Menus
 
@@ -114,8 +130,26 @@ your next request. An accepted response is not proof the item moved or crafted.
 
 ## Observation limits
 
-No arbitrary block queries or unloaded chunks. The crosshair target is the
-client's most recent native hit result. Potential entities are client-loaded,
+No arbitrary coordinate queries, unloaded chunk reads or generation. The crosshair
+`target` remains the client's most recent native interaction hit result.
+
+Updated `observe` responses additionally expose `sight_target` (64-block forward
+outline/fluid ray), `visible_interactables` (at most 16 position/type/aim targets),
+`visible_blocks` (palette-indexed X-runs of only sampled first-hit positions), and
+`visibility` metadata with `profile: sampled_surfaces_v1`, range, work counters,
+truncation flags and `partial: true`. A 273-ray view grid and at most 64 explicitly
+sight-tested block-entity candidates use only a fixed loaded chunk window; missing
+terrain blocks rays rather than becoming transparent. No block-entity values,
+closed-container contents or increased interaction reach are exposed.
+
+For `visible_blocks`, `origin` is the floored player eye position; `palette`
+contains block registry IDs; each `runs` tuple is
+`[palette_index, dx, dy, dz, length_along_positive_x]`. Decode by adding offsets
+to origin. Runs never cross unobserved gaps: omitted cells are unknown, not air
+or traversable terrain. See [visibility](visibility.md) for budgets, examples,
+classifier coverage and conservative visibility limitations.
+
+Potential entities are client-loaded,
 within 24 blocks, within a fixed 120-degree approximate view cone, not invisible
 to the player and passing native line of sight; at most 16. This is not exact
 renderer/frustum visibility. No hidden inventory/container NBT is exposed.

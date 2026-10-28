@@ -32,6 +32,30 @@ and status remain available. History retains the newest 20 jobs. Existing input
 deadlines and F8 are independent of the Python worker. Extensions are opt-in
 trusted host code; see [extensions](extensions.md).
 
+## Approach a visible target
+
+`player.approach("chest")`, CLI `blockwire approach chest`, or the MCP `approach`
+tool chooses a matching initially visible interactable with a supported local
+route, walks beside it, re-observes, aims and checks the exact native crosshair
+block before success. Travel primarily faces forward and uses W; A/D is limited
+to tiny aligned corrections. An out-of-view target is rechecked at bounded stopped
+checkpoints, not by keeping the camera locked onto the chest. On eligible straight
+segments the shared [feedback motor](motion.md) holds W during observations and
+small steering updates instead of stopping after each update. It never opens/uses
+the block or moves items. An optional
+strict integer `position=[x,y,z]` selects an exact visible match, not a world query.
+See [approach](approach.md) for selection, parameters, status/cancel and limits.
+This is Python-only on top of the visibility-capable mod; reload the MCP server.
+Isolated graphical acceptance of the new skill remains **NOT RUN**.
+
+## Optional autopilot
+
+`autopilot` is an explicitly activated, time-bounded deterministic skill for
+walk/run/sneak travel or stationary monitoring, with opt-in proximity defense and
+creeper evasion. It uses the same background status/cancel and actor ownership.
+See [autopilot](autopilot.md) for strict parameters, precedence and limitations.
+It is experimental: graphical combat/evasion acceptance is **NOT RUN**.
+
 ## Built-in walk_to contract
 
 Parameters: finite world `x, y, z`; strict booleans `sneak`, `avoid_damage`;

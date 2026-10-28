@@ -1,0 +1,74 @@
+{
+  "scope": "Python-only approach skill for initially visible interactables; no new native RPC/primitive",
+  "qualification": "TESTED in deterministic planner/interaction fixtures and MCP discovery; graphical gameplay UNVERIFIED",
+  "checks": {
+    "python_unit_tests": 57,
+    "python_skill_mutations": {
+      "killed": 18,
+      "approach_specific": 7
+    },
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "actual_stdio_mcp_discovery": {
+      "status": "PASS",
+      "tools": 26,
+      "strict_approach_schema": true,
+      "minecraft_calls": 0
+    },
+    "graphical_approach_acceptance": "NOT RUN",
+    "live_user_world_inventory_or_installed_mod_changes": "NONE"
+  },
+  "contracts": [
+    "AR01 distant/frontier approach, guarded movement and no use",
+    "AR02 nearest locally approachable selection and exact visible position override",
+    "AR03 no hidden-coordinate lookup or unsupported route",
+    "AR04 target loss/replacement without silent retarget",
+    "AR05 exact native ID/position observed before success",
+    "AR06 strict validation before effects",
+    "AR07 actor replacement/session fences",
+    "AR08 hazards, damage, stuck and collision detour",
+    "AR09 deadlines/cancellation/cleanup and success downgrade",
+    "AR10 responsive MCP ownership/status/cancel",
+    "AR11 Python/CLI dispatch",
+    "AR12 lifecycle/danger/pre-cancel guards",
+    "AR13 negative/off-center coordinates and schema boundaries"
+  ],
+  "preserved": [
+    "Existing native TLS/authentication/trust, F8 and bounded leases remain unchanged.",
+    "No automatic use/open/attack, inventory access or transfer.",
+    "Position selects among bounded initially visible interactables, not arbitrary world coordinates.",
+    "All movement uses native collision mesh and guarded look/drive; partial surfaces are not treated as free space.",
+    "Autopilot retains its default one-tick pulses; approach opts into at most three ticks through the shared motor.",
+    "Status/cancel remain responsive and final input release is attempted."
+  ],
+  "limits": [
+    "Flat full-block terrain only; local/frontier routing is not global reachability proof.",
+    "Visibility/native hit/navigation snapshots are client-predicted and non-atomic.",
+    "Block identity is registry ID plus position, not immutable container identity.",
+    "Damage avoidance is best effort; short native pulses can overshoot observation thresholds.",
+    "No live graphical, modpack, real-time or release qualification."
+  ],
+  "reproduce": [
+    "PYTHONPATH=python/src .venv/bin/python -B -m unittest discover -s python/tests -v",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/approach-verification\" .venv/bin/python -B tests/run_skill_mutations.py",
+    "./gradlew check --rerun-tasks",
+    "BLOCKWIRE_VERIFICATION_DIR=\"$PWD/build/approach-verification\" PYTHONPATH=python/src .venv/bin/python -B tests/tls_interop.py"
+  ],
+  "sha256": {
+    "python/src/blockwire/skills/approaching.py": "69110dc2703903312853090dae0b52d6a17b2ba24cca18af2febb8d590f75fda",
+    "python/src/blockwire/skills/autopilot.py": "6a7c7c6897a97e1538fc1e25d31ef5a09ba64fadffc740f6160e7414f921b6fe",
+    "python/src/blockwire/skills/__init__.py": "b4728109d78485eb542121cacfc0301098cc1c87ee6d8ba03b691f984ca3c8a8",
+    "python/src/blockwire/client.py": "6e49b673236bd9bc2edf4a4ab47dea94dcc6387f7ce52b77c9464bbbda5d5d86",
+    "python/src/blockwire/mcp_server.py": "bdbb8b90711b50de7cbd6ff779d96c65d2a1c6ccfcefb31dfeb586cd970e1715",
+    "python/src/blockwire/cli.py": "7846434010ec428af868ee7566e554f09844628f9d12d8c43f30d47fac9beaff",
+    "python/tests/test_approach.py": "2f1a21d47895db52af4b0735c5a074a5c2a798dc84b977452be72f2f6ac69324",
+    "python/tests/test_skills.py": "7e731c2608fc7c0622f8dac0c58e79741a46f837d2e06efdb7e19371262df1c8",
+    "python/tests/test_rename.py": "10b7bde440cb2df4ecb375c4339ff769eb4afb190f75267fed535406522c9d15",
+    "tests/run_skill_mutations.py": "4e18fc4457b261d186340a430d862addf475d7f7c3876d5401e6808ea84835b1",
+    "build/approach-verification/python-tests.log": "5ef8e8c2826020db70d29a676b85b5f92d224f1c2e03b8e86f812eec9ce0cece",
+    "build/approach-verification/skill-mutations/results.json": "9acd67485cb0ca37c47838c7e410b2d367ea40f8430f4f4f69ebc5cc32969a84",
+    "build/approach-verification/gradle-check.log": "582014b6861f814987872681ba9b7f1d70ec375749f5e17e171a8f8f620ef122",
+    "build/approach-verification/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/approach-verification/mcp-discovery.json": "84c3a332593ab41ef8520d55431b7d56d5b8cd67ed7d52df59ecdc5e090352c1"
+  }
+}

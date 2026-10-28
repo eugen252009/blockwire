@@ -9,3 +9,6 @@ __pycache__/
 *.egg-info/
 dist/
 .cocoindex_code/
+
+# Local Pi MCP configuration (instance paths and potentially credentials)
+/.pi/mcp.json

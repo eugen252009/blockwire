@@ -14,3 +14,8 @@ https://www.bouncycastle.org/licence.html . They increase the mod JAR to about 9
 
 Minecraft, Fabric and Netty are provided by the game/loader/API installation and
 are not repackaged as part of this project's code. Blockwire's own code is MIT.
+
+Mod Menu **21.0.0** (MIT; https://github.com/TerraformersMC/ModMenu) supplies an
+optional compile-only configuration-screen API and an isolated test dependency.
+No Mod Menu classes, resources or JAR are bundled; users install a compatible
+Mod Menu separately if they want its menu integration.
