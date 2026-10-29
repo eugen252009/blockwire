@@ -56,6 +56,33 @@ creeper evasion. It uses the same background status/cancel and actor ownership.
 See [autopilot](autopilot.md) for strict parameters, precedence and limitations.
 It is experimental: graphical combat/evasion acceptance is **NOT RUN**.
 
+## Per-mob fight policy (development SDK 0.2.0a6)
+
+`fight(reactions={"zombies":"fight","creeper":"evade"})` starts one explicit
+bounded job; each of zombies/skeletons/spiders/creeper accepts fight/evade/ignore.
+`melee_wait_seconds` defaults to 3 (0–5): retain the job without movement for
+out-of-reach/other-level or temporarily invisible targets; zero preserves immediate blocking. Native
+actor/target/health/equipment gates and cooldown spacing are unchanged.
+Evade wins. Use the selected sword/axe; unarmed fighting requires explicit opt-in.
+Actor/native-target guards, flat-ground motion, health limits and cancellation
+remain mandatory. Observed disappearance is not a confirmed kill. See
+[fight](fight.md). A6 recovered visibility/range gaps and finished a previously
+engaged Normal zombie in one job ([record](evidence/fight-visibility-live.json)).
+This is not fresh full-health/group/Hard acceptance; earlier a5 visibility stops
+are [retained](evidence/fight-optimization-live.json). In a prior a4 test,
+one Normal zombie died in a supervised wooden-sword sequence
+across repeated melee jobs ([evidence](evidence/armed-zombie.json)); this is not
+single-job/general combat acceptance. Earlier unarmed failures are
+[retained](evidence/fight-maps.json).
+
+## Standalone controllers
+
+SDK a7 with mod alpha.4 adds a small async `setup`/`loop` runner without MCP.
+It reuses this walker through a scoped input adapter, so `walk_to` and conservative
+native `eat` may coexist. Other skills retain exclusive resource ownership.
+It does not remove the MCP/global actor lock. See [controller API and limits](controller.md);
+real-client concurrency acceptance is NOT RUN.
+
 ## Built-in walk_to contract
 
 Parameters: finite world `x, y, z`; strict booleans `sneak`, `avoid_damage`;

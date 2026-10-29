@@ -1,0 +1,170 @@
+{
+  "scope": "Native MCP setup for armed Normal/Hard trials; regular terrain instead of superflat",
+  "creation": {
+    "name": "Blockwire Armed Combat",
+    "mode": "Survival",
+    "difficulty": "Normal",
+    "commands": true,
+    "world_type": "Default",
+    "created_ms": 1793217667801
+  },
+  "saved_settings_verified_by_read_only_recreate": [
+    "Game Mode: Survival",
+    "Difficulty: Normal",
+    "Allow Commands: ON"
+  ],
+  "terrain": {
+    "biome": "minecraft:forest",
+    "initial_position": [
+      1.5,
+      75,
+      -7.5
+    ]
+  },
+  "harvest": {
+    "oak_logs": 2,
+    "method": "Native mining of observed logs, physical pickup",
+    "trace": [
+      {
+        "mined": [
+          1,
+          72,
+          -2
+        ],
+        "before_target": {
+          "kind": "block",
+          "id": "minecraft:oak_log",
+          "position": [
+            1,
+            72,
+            -2
+          ],
+          "face": "north"
+        },
+        "position": [
+          1.5,
+          71,
+          -4.401985149657531
+        ],
+        "health": 20
+      },
+      {
+        "mined": [
+          1,
+          71,
+          -2
+        ],
+        "before_target": {
+          "kind": "block",
+          "id": "minecraft:oak_log",
+          "position": [
+            1,
+            71,
+            -2
+          ],
+          "face": "north"
+        },
+        "after_target": {
+          "kind": "block",
+          "id": "minecraft:grass_block",
+          "position": [
+            1,
+            70,
+            -1
+          ],
+          "face": "up"
+        },
+        "position": [
+          1.5,
+          71,
+          -4.401985149657531
+        ],
+        "health": 20
+      }
+    ]
+  },
+  "crafting": {
+    "method": "Native inventory and workbench recipe slots",
+    "planks": 8,
+    "workbench_placed": [
+      1,
+      71,
+      -1
+    ],
+    "sticks_crafted": 4,
+    "sticks_remaining": 3,
+    "sword": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 0,
+      "max_damage": 59,
+      "enchantments": [],
+      "inventory_index": 8
+    }
+  },
+  "checks": {
+    "saved_cheats_flag": "Allow Commands: ON",
+    "mode": "Survival",
+    "normal_difficulty": "Verified in saved Re-Create settings",
+    "hard_difficulty": "NOT SET: inspected World Options difficulty widget was inactive; Online Options had no difficulty control",
+    "native_state_fence": "Rejected a stale_menu crafting click. Reobserved cursor and inputs before conditional continuation; empty cursor/grid verified after crafting.",
+    "persistence": "Sword survived native save/quit/rejoin."
+  },
+  "final": {
+    "position": [
+      1.5,
+      71,
+      -2.0341085376293844
+    ],
+    "health": 20,
+    "holding": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 0,
+      "max_damage": 59,
+      "enchantments": []
+    },
+    "inventory": [
+      {
+        "empty": false,
+        "item": "minecraft:stick",
+        "name": "Stick",
+        "count": 3,
+        "enchantments": [],
+        "inventory_index": 7
+      },
+      {
+        "empty": false,
+        "item": "minecraft:wooden_sword",
+        "name": "Wooden Sword",
+        "count": 1,
+        "damage": 0,
+        "max_damage": 59,
+        "enchantments": [],
+        "inventory_index": 8
+      }
+    ],
+    "selected_hotbar": 8,
+    "screen": "PauseScreen",
+    "controls_released": true
+  },
+  "pending": {
+    "time_noon": "NOT SET OR VERIFIED: no MCP chat-command control; operator step required",
+    "test_mobs": "No enemies spawned/prepared by agent",
+    "normal_armed_fight": "NOT RUN",
+    "hard_armed_fight": "NOT RUN"
+  },
+  "boundaries": {
+    "commands_sent": false,
+    "item_spawning": false,
+    "entity_spawning": false,
+    "world_file_edits": false,
+    "transport_changes": false,
+    "other_worlds_changed": false
+  },
+  "operator_step": "Set noon in Minecraft, arrange controlled 2–3 mobs (shade for zombies/skeletons), return to Survival if changed, and pause. Hard trial will require an operator difficulty change if no active native control is available."
+}

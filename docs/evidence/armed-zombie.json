@@ -1,0 +1,120 @@
+{
+  "scope": "Supervised MCP armed melee sequence against one naturally spawned zombie, Normal Survival, Blockwire Armed Combat",
+  "result": "SCOPED PASS: zombie death observed after six sword attack submissions. NOT a general/autonomous combat qualification.",
+  "target": {
+    "entity_id": 2824,
+    "type": "minecraft:zombie"
+  },
+  "initial_pursuit": {
+    "status": "blocked",
+    "reason": "enemy_on_other_level",
+    "attacks_submitted": 0
+  },
+  "method": {
+    "pursue": false,
+    "min_health": 8,
+    "reactions": {
+      "zombies": "fight",
+      "skeletons": "evade",
+      "spiders": "evade",
+      "creeper": "evade"
+    },
+    "skill_activations": 11,
+    "attacks_submitted": 6,
+    "manual_interact_attacks": 0,
+    "description": "Held position and allowed zombie into native melee reach. Test harness explicitly reactivated bounded fight jobs after enemy_out_of_reach, including after sword knockback; this was not one autonomous successful fight job."
+  },
+  "observed_postconditions": {
+    "sword_damage_before": 0,
+    "sword_damage_after": 6,
+    "max_damage": 59,
+    "last_attack_result": {
+      "id": "9bd41670-ba64-488e-89fd-ba33d390a895",
+      "skill": "fight",
+      "status": "succeeded",
+      "progress": {
+        "behavior": "attack",
+        "entity_id": 2824,
+        "type": "minecraft:zombie",
+        "health": 19.666668,
+        "attacks_submitted": 0
+      },
+      "result": {
+        "status": "succeeded",
+        "reason": "no_selected_enemies_observed",
+        "text": "Selected enemies are absent from bounded observations; kills are not established.",
+        "details": {
+          "attacks_submitted": 1,
+          "kills_confirmed": null
+        },
+        "cleanup": "released"
+      }
+    },
+    "immediately_after_final_attack": [
+      {
+        "id": 2824,
+        "type": "minecraft:zombie",
+        "name": "Zombie",
+        "distance": 2.1597672
+      },
+      {
+        "id": 2839,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.0827594
+      }
+    ],
+    "after_native_death_animation": [
+      {
+        "id": 2839,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.492368
+      }
+    ],
+    "death_evidence": "Rotten Flesh appeared while target 2824 was still rendered in death animation; after 25 native ticks, target 2824 was absent and Rotten Flesh remained. Outcome is not inferred solely from a receipt or the skill's absence result.",
+    "skill_kills_confirmed": null
+  },
+  "final": {
+    "health": 17.166666,
+    "position": [
+      2.3089798651639533,
+      71,
+      -1.5417845999014115
+    ],
+    "holding": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 6,
+      "max_damage": 59,
+      "enchantments": []
+    },
+    "paused": true,
+    "controls_released": true
+  },
+  "remaining_unverified": [
+    "One-job autonomous victory",
+    "Pursuit over changing terrain heights",
+    "Armed skeleton/spider/creeper combat",
+    "Armed Hard difficulty",
+    "Two/three mob group combat",
+    "Axe combat"
+  ],
+  "retained_negative_evidence": "docs/evidence/fight-maps.json",
+  "native_methods": {
+    "naturally_spawned": true,
+    "commands": false,
+    "item_spawning": false,
+    "entity_spawning": false,
+    "world_file_edits": false,
+    "crafting": "Sword crafted through actual native recipes from two harvested oak logs"
+  },
+  "raw": [
+    "build/fight-verification/armed-zombie-trial.json",
+    "build/fight-verification/armed-zombie-melee.json",
+    "build/fight-verification/armed-zombie-finish.json",
+    "build/fight-verification/armed-zombie-death-observation.json"
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "scope": "Natural-time advance in Blockwire Armed Combat, Normal Survival, crafted sword equipped",
+  "monitoring_seconds": 437.53700000000003,
+  "method": "Idle autopilot with combat off; responsive MCP status/health checks, native look scans, pauses between batches. Shell sleep only paces polls.",
+  "event": {
+    "kind": "monitor_stopped",
+    "status": {
+      "id": "1ea9ed08-a014-428e-9d5e-662c1f9b5c7a",
+      "skill": "autopilot",
+      "status": "blocked",
+      "progress": {
+        "behavior": "idle",
+        "position": [
+          1.5,
+          71,
+          -2.0341085376293844
+        ],
+        "destination": null,
+        "movement": "walk",
+        "combat": "off",
+        "evade_creepers": false,
+        "control_mode": "stopped",
+        "owned_input_lease": false
+      },
+      "result": {
+        "status": "blocked",
+        "reason": "known_danger_nearby",
+        "text": "Autopilot stopped: known danger nearby",
+        "details": {},
+        "cleanup": "released"
+      }
+    }
+  },
+  "scans": [
+    {
+      "yaw": 0,
+      "health": 20,
+      "entities": [
+        {
+          "id": 2824,
+          "type": "minecraft:zombie",
+          "name": "Zombie",
+          "distance": 7.54325
+        }
+      ]
+    },
+    {
+      "yaw": 90,
+      "health": 20,
+      "entities": [
+        {
+          "id": 2824,
+          "type": "minecraft:zombie",
+          "name": "Zombie",
+          "distance": 7.322597
+        }
+      ]
+    },
+    {
+      "yaw": 180,
+      "health": 20,
+      "entities": []
+    },
+    {
+      "yaw": -90,
+      "health": 20,
+      "entities": []
+    }
+  ],
+  "final": {
+    "health": 20,
+    "position": [
+      1.5,
+      71,
+      -2.0341085376293844
+    ],
+    "holding": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 0,
+      "max_damage": 59,
+      "enchantments": []
+    },
+    "paused": true,
+    "inputs_released": true
+  },
+  "qualification": "Nearby hostile detected through bounded native navigation; visibility is partial. Day-time value not exposed/verified. No time commands, no spawning, no attacks and no kill claims."
+}

@@ -2,8 +2,10 @@
 import atexit
 import threading
 from typing import Literal
+from pydantic import StrictBool, StrictFloat
 from .client import Bridge, Player
-from .skills import SkillManager, default_registry
+from .ownership import cancel_control
+from .skills import Reactions, SkillManager, default_registry
 
 Button = Literal["forward", "back", "left", "right", "jump", "sneak", "sprint", "attack", "use"]
 
@@ -112,6 +114,7 @@ def create_server():
         """Immediately release bridge-owned held inputs on the client thread."""
         with lock:
             jobs.cancel()
+            cancel_control(player)
             return player.stop()
 
     @server.tool()
@@ -231,6 +234,28 @@ def create_server():
             return jobs.start("autopilot", dict(destination=destination, movement=movement,
                 combat=combat, evade_creepers=evade_creepers,
                 duration_seconds=duration_seconds, timeout_seconds=timeout_seconds))
+
+    @server.tool()
+    def fight(reactions: Reactions | None = None, duration_seconds: StrictFloat = 20,
+              min_health: StrictFloat = 8, radius: StrictFloat = 8, pursue: StrictBool = True,
+              allow_unarmed: StrictBool = False, timeout_seconds: StrictFloat = 30,
+              melee_wait_seconds: StrictFloat = 3) -> dict:
+        """Explicit bounded fight/evade/ignore reactions for zombies, skeletons, spiders and creeper.
+        Example reactions={"zombies":"fight","creeper":"evade"}. Evade wins; unknown mobs block.
+        Uses the selected sword/axe; unarmed requires opt-in. No inventory rearrangement.
+        Flat-ground pursuit only, short native leases; low HP terminates after one safe escape pulse.
+        Waits up to melee_wait_seconds (default 3, max 5) without moving for reach, target height or visibility;
+        zero preserves immediate blocking. Knockback waits keep the same job and attack cooldown.
+        Creeper fight is opt-in hit-and-back-off, not explosion immunity. No fuse prediction.
+        Returns a job ID; poll skill_status/cancel_skill. Success means selected enemies absent
+        from bounded observations, not confirmed kills. Never automatically activates."""
+        with lock:
+            parameters = dict(duration_seconds=duration_seconds, min_health=min_health, radius=radius,
+                pursue=pursue, allow_unarmed=allow_unarmed, timeout_seconds=timeout_seconds,
+                melee_wait_seconds=melee_wait_seconds)
+            if reactions is not None:
+                parameters["reactions"] = reactions
+            return jobs.start("fight", parameters)
 
     @server.tool()
     def skill_status(job_id: str) -> dict:

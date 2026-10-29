@@ -192,10 +192,12 @@ class Player:
                          -math.degrees(math.atan2(dy, math.hypot(dx, dz))))
 
     def drive(self, buttons: list[str], ticks: int = 10, *, wait: bool = True,
-              actor_session: str | None = None) -> Json:
+              actor_session: str | None = None, button_ticks: dict[str, int] | None = None) -> Json:
         if isinstance(ticks, bool) or not isinstance(ticks, int) or not 1 <= ticks <= 100:
             raise ValueError("ticks must be an integer in 1..100")
         arguments: Json = {"buttons": buttons, "ticks": ticks}
+        if button_ticks is not None:
+            arguments["button_ticks"] = button_ticks
         if actor_session is not None:
             arguments["actor_session"] = actor_session
         receipt = self.backend.call("drive", **arguments)
@@ -228,6 +230,19 @@ class Player:
             movement=movement, combat=combat, evade_creepers=evade_creepers,
             duration_seconds=duration_seconds, timeout_seconds=timeout_seconds)).model_dump(mode="json")
 
+    def fight(self, *, reactions: Json | None = None, duration_seconds: float = 20,
+              min_health: float = 8, radius: float = 8, pursue: bool = True,
+              allow_unarmed: bool = False, timeout_seconds: float = 30,
+              melee_wait_seconds: float = 3) -> Json:
+        """Bounded per-mob combat using native guarded attacks; never a kill guarantee."""
+        from .skills import default_registry, run_skill
+        parameters = dict(duration_seconds=duration_seconds, min_health=min_health, radius=radius,
+                          pursue=pursue, allow_unarmed=allow_unarmed, timeout_seconds=timeout_seconds,
+                          melee_wait_seconds=melee_wait_seconds)
+        if reactions is not None:
+            parameters["reactions"] = reactions
+        return run_skill(default_registry(), self, "fight", parameters).model_dump(mode="json")
+
     def action(self, name: str, *, actor_session: str | None = None,
                target_entity_id: int | None = None) -> Json:
         arguments: Json = {"name": name}
@@ -237,8 +252,11 @@ class Player:
             arguments["target_entity_id"] = target_entity_id
         return self.backend.call("action", **arguments)
 
-    def hotbar(self, slot: int) -> Json:
-        return self.backend.call("hotbar", slot=slot)
+    def hotbar(self, slot: int, *, actor_session: str | None = None) -> Json:
+        arguments: Json = {"slot": slot}
+        if actor_session is not None:
+            arguments["actor_session"] = actor_session
+        return self.backend.call("hotbar", **arguments)
 
     def open_inventory(self) -> Json:
         return self.backend.call("open_inventory")

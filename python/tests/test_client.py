@@ -95,6 +95,18 @@ class ClientContractTests(unittest.TestCase):
             {"op": "click_slot", "slot": 7, "button": 1, "mode": "pickup", "menu_id": 1, "state_id": 9},
         ])
 
+    def test_controller_optional_guards_preserve_legacy_shapes(self):
+        calls = []
+        player = Player(CallableBackend(lambda q: calls.append(q) or {}))
+        player.hotbar(8, actor_session="a")
+        player.drive(["forward", "use"], ticks=8, wait=False, actor_session="a",
+                     button_ticks={"forward": 1, "use": 8})
+        self.assertEqual(calls, [
+            {"op": "hotbar", "slot": 8, "actor_session": "a"},
+            {"op": "drive", "buttons": ["forward", "use"], "ticks": 8, "actor_session": "a",
+             "button_ticks": {"forward": 1, "use": 8}},
+        ])
+
     def test_drive_boundaries_and_no_dispatch_on_invalid_duration(self):
         calls = []
         player = Player(CallableBackend(lambda q: calls.append(q) or {}))

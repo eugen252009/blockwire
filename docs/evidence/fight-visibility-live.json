@@ -1,0 +1,247 @@
+{
+  "scope": "SDK 0.2.0a6 native MCP retest, one Normal zombie already engaged by prior a5 trials",
+  "assessment": "SCOPED LIVE PASS: one bounded job recovered repeated visibility/range gaps and finished the existing zombie. Not a fresh/full-health or general combat qualification.",
+  "artifact_sha256": {
+    "python/src/blockwire/skills/fighting.py": "229dc0a1da2dc880b8d18b0bd4a818f4bc263a3836af53912aa10367b415a02e",
+    "python/src/blockwire/mcp_server.py": "0a16e159019b5fffa4cdf8b977e68222a82aea354c643439cb39443f0ff0bdd4",
+    "python/tests/test_fight_optimized.py": "908510e646d387185743b8442f17a0e6a1b51d26d83c67659d6f5bf39b205434",
+    "tests/run_skill_mutations.py": "7032892db71362b635f71c2937de9f3846b1f927714284b32f7ad6771ba6e7eb",
+    "build/fight-visibility-verification/python/blockwire-0.2.0a6-py3-none-any.whl": "a688429e7e74b25431835106fce4e24f3519bfdabd815e41dab71f1aabb1590d"
+  },
+  "parameters": {
+    "reactions": {
+      "zombies": "fight",
+      "skeletons": "evade",
+      "spiders": "evade",
+      "creeper": "evade"
+    },
+    "pursue": false,
+    "melee_wait_seconds": 3,
+    "min_health": 8,
+    "duration_seconds": 15,
+    "timeout_seconds": 18,
+    "allow_unarmed": false
+  },
+  "job_id": "865c9caa-5e74-4d51-abfc-0ccfc59a6ac9",
+  "fight_job_activations": 1,
+  "result": {
+    "id": "865c9caa-5e74-4d51-abfc-0ccfc59a6ac9",
+    "skill": "fight",
+    "status": "succeeded",
+    "progress": {
+      "behavior": "attack",
+      "entity_id": 2823,
+      "type": "minecraft:zombie",
+      "health": 19.333332,
+      "attacks_submitted": 4,
+      "attack_wait_reason": "submitted"
+    },
+    "result": {
+      "status": "succeeded",
+      "reason": "no_selected_enemies_observed",
+      "text": "Selected enemies are absent from bounded observations; kills are not established.",
+      "details": {
+        "attacks_submitted": 4,
+        "kills_confirmed": null
+      },
+      "cleanup": "released"
+    }
+  },
+  "transitions": [
+    {
+      "reason": "no_visible_selected_enemy",
+      "attacks": 0,
+      "entity_id": 2823
+    },
+    {
+      "reason": "aim_refresh",
+      "attacks": 0,
+      "entity_id": 2823
+    },
+    {
+      "reason": "crosshair_mismatch",
+      "attacks": 0,
+      "entity_id": 2823
+    },
+    {
+      "reason": "aim_refresh",
+      "attacks": 0,
+      "entity_id": 2823
+    },
+    {
+      "reason": "submitted",
+      "attacks": 1,
+      "entity_id": 2823
+    },
+    {
+      "reason": "cooldown",
+      "attacks": 1,
+      "entity_id": 2823
+    },
+    {
+      "reason": "no_visible_selected_enemy",
+      "attacks": 1,
+      "entity_id": 2823
+    },
+    {
+      "reason": "enemy_out_of_reach",
+      "attacks": 1,
+      "entity_id": 2823
+    },
+    {
+      "reason": "aim_refresh",
+      "attacks": 1,
+      "entity_id": 2823
+    },
+    {
+      "reason": "submitted",
+      "attacks": 2,
+      "entity_id": 2823
+    },
+    {
+      "reason": "cooldown",
+      "attacks": 2,
+      "entity_id": 2823
+    },
+    {
+      "reason": "no_visible_selected_enemy",
+      "attacks": 2,
+      "entity_id": 2823
+    },
+    {
+      "reason": "enemy_out_of_reach",
+      "attacks": 2,
+      "entity_id": 2823
+    },
+    {
+      "reason": "aim_refresh",
+      "attacks": 2,
+      "entity_id": 2823
+    },
+    {
+      "reason": "submitted",
+      "attacks": 3,
+      "entity_id": 2823
+    },
+    {
+      "reason": "cooldown",
+      "attacks": 3,
+      "entity_id": 2823
+    },
+    {
+      "reason": "no_visible_selected_enemy",
+      "attacks": 3,
+      "entity_id": 2823
+    },
+    {
+      "reason": "enemy_out_of_reach",
+      "attacks": 3,
+      "entity_id": 2823
+    },
+    {
+      "reason": "aim_refresh",
+      "attacks": 3,
+      "entity_id": 2823
+    },
+    {
+      "reason": "submitted",
+      "attacks": 4,
+      "entity_id": 2823
+    }
+  ],
+  "observed_recovery": "Visibility loss after submissions 1, 2 and 3 was followed by range waiting and another guarded attack in the SAME job. Initial crosshair mismatch was also handled without a native attack.",
+  "outcomes": {
+    "target_entity_id": 2823,
+    "attacks_submitted": 4,
+    "sword_damage_before": 8,
+    "sword_damage_after": 12,
+    "health_before": 19.333332,
+    "health_after": 19.333332,
+    "immediately_after_job": [
+      {
+        "id": 2823,
+        "type": "minecraft:zombie",
+        "name": "Zombie",
+        "distance": 2.181337
+      },
+      {
+        "id": 2839,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.4926887
+      },
+      {
+        "id": 2849,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.1492102
+      },
+      {
+        "id": 2850,
+        "type": "minecraft:experience_orb",
+        "name": "Experience Orb",
+        "distance": 2.2940927
+      }
+    ],
+    "after_25_native_ticks": [
+      {
+        "id": 2839,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.4926887
+      },
+      {
+        "id": 2849,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.6097286
+      }
+    ],
+    "death_evidence": "New Rotten Flesh item 2849 and Experience Orb 2850 appeared with target 2823's death animation. After 25 ticks target 2823 was gone; new loot remained. Old loot 2839 is NOT counted as new death evidence.",
+    "skill_kills_confirmed": null
+  },
+  "qualification_limits": [
+    "Target had already received two a5 attack submissions; starting mob HP not observed. This finishes an existing fight, not a fresh full-health benchmark.",
+    "Stationary melee only, with held wooden sword; no uneven-terrain pursuit demonstrated.",
+    "No armed Hard, group, skeleton, spider, creeper or axe acceptance."
+  ],
+  "final": {
+    "health": 19.333332,
+    "hunger": 17,
+    "position": [
+      2.3089798651639533,
+      71,
+      -1.5417845999014115
+    ],
+    "holding": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 12,
+      "max_damage": 59,
+      "enchantments": []
+    },
+    "paused": true,
+    "controls_released": true
+  },
+  "method": {
+    "naturally_spawned": true,
+    "commands_sent": false,
+    "entity_spawning": false,
+    "item_spawning": false,
+    "world_file_edits": false,
+    "manual_attack_inputs": false,
+    "external_fight_restarts": false,
+    "death_observation": "Empty native input lease for 25 ticks, then pause."
+  },
+  "raw": [
+    "build/fight-visibility-verification/live-trial.json",
+    "build/fight-visibility-verification/live-death-observation.json"
+  ],
+  "retained_prior_results": [
+    "docs/evidence/fight-optimization-live.json",
+    "build/fight-optimization-verification/live-continuation.json",
+    "docs/evidence/fight-maps.json"
+  ]
+}

@@ -1,0 +1,373 @@
+{
+  "scope": "Real registered MCP gameplay trials, installed SDK 0.2.0a4, isolated alpha.3 Prism client",
+  "qualification": "COMBAT NOT ACCEPTED: no attack submissions demonstrated. Do not infer damage, kills or safe fighting from these trials.",
+  "worlds": {
+    "normal": {
+      "creation": {
+        "name": "Blockwire Combat Normal High",
+        "difficulty": "Normal",
+        "mode": "Survival",
+        "commands": false,
+        "structures": false,
+        "preset": "second built-in superflat preset, not custom text"
+      },
+      "initial": {
+        "position": [
+          -3.5,
+          173,
+          9.5
+        ],
+        "health": 20,
+        "biome": "minecraft:windswept_hills",
+        "holding": {
+          "empty": true
+        }
+      },
+      "monitoring_batches": 7,
+      "encounters": [
+        "minecraft:skeleton",
+        "minecraft:zombie"
+      ],
+      "observed_behaviors": [
+        "approach_enemy",
+        "recover_grounding"
+      ],
+      "results": [
+        "skeleton pursuit followed by knockback recovery; selected enemy left bounded observation, returned no_selected_enemies_observed with 0 attacks",
+        "zombie isolation stopped enemy_on_other_level at >2.8 range",
+        "one-second non-pursuing contact probe stopped enemy_out_of_reach"
+      ],
+      "attacks_submitted": 0,
+      "last_observed_health": 12.166668,
+      "saved": true
+    },
+    "hard": {
+      "creation": {
+        "name": "Blockwire Combat Hard High",
+        "difficulty": "Hard",
+        "mode": "Survival",
+        "commands": false,
+        "structures": false,
+        "preset": "second built-in superflat preset"
+      },
+      "initial": {
+        "position": [
+          9.5,
+          173,
+          -1.5
+        ],
+        "health": 20,
+        "biome": "minecraft:windswept_hills"
+      },
+      "monitoring_batches": 7,
+      "encounters": [
+        "minecraft:zombie"
+      ],
+      "observed_behaviors": [
+        "approach_enemy",
+        "attack"
+      ],
+      "results": [
+        "initial trial blocked low_health at cutoff 16, zero attacks",
+        "one-second contact probe blocked low_health at cutoff 12, zero attacks"
+      ],
+      "attacks_submitted": 0,
+      "last_observed_health": 8.833334,
+      "saved": true
+    }
+  },
+  "earlier_failed_fixture": {
+    "creation": {
+      "name": "Blockwire Fight Hard",
+      "difficulty": "Hard",
+      "mode": "Survival",
+      "commands": false,
+      "structures": false,
+      "created_ms": 1793212007855
+    },
+    "death": {
+      "elapsed_seconds": 494.814,
+      "scene": {
+        "protocol": 1,
+        "sampled_at_ms": 1793212502568,
+        "screen": "You Died!",
+        "in_world": true,
+        "alive": false,
+        "dimension": "minecraft:overworld",
+        "position": [
+          7.528624615601361,
+          -60,
+          8.191476366048176
+        ],
+        "eye_position": [
+          7.528624615601361,
+          -58.37999999523163,
+          8.191476366048176
+        ],
+        "yaw": 0,
+        "pitch": 0,
+        "health": 0,
+        "max_health": 20,
+        "hunger": 20,
+        "on_ground": true,
+        "holding": {
+          "empty": true
+        },
+        "biome": "minecraft:plains",
+        "potentially_visible_entities": [],
+        "visible_interactables": [],
+        "visible_blocks": {
+          "encoding": "palette_x_runs_v1",
+          "origin": [
+            7,
+            -59,
+            8
+          ],
+          "palette": [
+            "minecraft:grass_block"
+          ],
+          "runs": [
+            [
+              0,
+              -3,
+              -2,
+              2,
+              7
+            ],
+            [
+              0,
+              -4,
+              -2,
+              3,
+              9
+            ],
+            [
+              0,
+              -5,
+              -2,
+              4,
+              12
+            ],
+            [
+              0,
+              -8,
+              -2,
+              7,
+              17
+            ],
+            [
+              0,
+              -17,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              -15,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              -13,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              -10,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              -8,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              -5,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              -3,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              0,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              2,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              5,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              7,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              10,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              12,
+              -2,
+              14,
+              2
+            ],
+            [
+              0,
+              15,
+              -2,
+              14,
+              1
+            ],
+            [
+              0,
+              17,
+              -2,
+              14,
+              1
+            ]
+          ],
+          "observed_blocks": 66
+        },
+        "visibility": {
+          "profile": "sampled_surfaces_v1",
+          "range": 64,
+          "sample_rays": 273,
+          "horizontal_fov": 100,
+          "vertical_fov": 70,
+          "candidate_cone_degrees": 120,
+          "candidate_sight_tests": 0,
+          "candidate_positions_visited": 0,
+          "candidate_limit_reached": false,
+          "interactables_truncated": false,
+          "partial": true
+        },
+        "text": "You are dead in minecraft:overworld (minecraft:plains), at 7.53, -60.00, 8.19. Health 0.0/20.0, hunger 20/20. Looking at nothing in reach. Holding nothing. 0 potentially visible entities. Potentially visible interactables (partial, up to 64 blocks): Compact sampled surfaces are in visible_blocks; missing cells are unknown, not air."
+      },
+      "menu": {
+        "screen_open": true,
+        "overlay_active": false,
+        "screen_id": 116,
+        "title": "You Died!",
+        "type": "DeathScreen",
+        "width": 474,
+        "height": 246,
+        "chat_control_supported": false,
+        "widgets": [
+          {
+            "widget_id": 0,
+            "type": "Plain",
+            "focused": false,
+            "x": 137,
+            "y": 133,
+            "width": 200,
+            "height": 20,
+            "label": "Respawn",
+            "active": true
+          },
+          {
+            "widget_id": 1,
+            "type": "Plain",
+            "focused": false,
+            "x": 137,
+            "y": 157,
+            "width": 200,
+            "height": 20,
+            "label": "Title Screen",
+            "active": true
+          }
+        ],
+        "text": "Menu: You Died! (474 × 246 GUI units).\n- [0] Respawn\n- [1] Title Screen\n"
+      }
+    },
+    "reason": "Player died in an unmonitored gap outside an active fight job. Exposed death screen does not establish cause. Retained as a test-harness failure, not hidden or counted as a fight test."
+  },
+  "method": {
+    "native_menus": true,
+    "natural_spawns_only": true,
+    "commands": false,
+    "entity_spawning": false,
+    "item_spawning": false,
+    "world_file_edits": false,
+    "inventory_manipulation": false,
+    "explicit_unarmed": true,
+    "selected_sword_axe_live_test": "NOT RUN: unavailable inventory",
+    "scripted_gameplay_controls": "MCP only; shell sleep used solely to pace status polling",
+    "pause_discipline": "After the earlier fixture failure, pause after every monitoring/test batch; all later fixtures survived."
+  },
+  "client_performance": {
+    "before": "Reduce fps when: AFK",
+    "after": "Reduce fps when: Minimized"
+  },
+  "performance_causality": "AFK throttling was enabled and changed through native video settings to Minimized; actual FPS and causal impact on attack failures were not measured.",
+  "not_run": [
+    "Live spider combat",
+    "Live creeper fight/evasion",
+    "Selected sword/axe combat",
+    "Any confirmed hit/damage/kill outcome"
+  ],
+  "limitations_exposed": [
+    "Low-health guards can terminate unarmed contact before any attack submission",
+    "Ranged knockback can push the target beyond the eight-block observation; no_selected_enemies_observed is not victory",
+    "Enemy vertical-offset guard stopped a pursuit; the exposed data do not distinguish terrain height, snow and transient mob motion",
+    "Native interaction/observation timing and aim need instrumentation before claiming combat readiness"
+  ],
+  "artifacts": [
+    "build/fight-verification/hard-initial-failure.json",
+    "build/fight-verification/hard-high.json",
+    "build/fight-verification/normal-high.json",
+    "build/fight-verification/normal-skeleton.json",
+    "build/fight-verification/normal-retry.json",
+    "build/fight-verification/normal-patrol.json",
+    "build/fight-verification/normal-zombie-isolation.json",
+    "build/fight-verification/normal-zombie-wait.json",
+    "build/fight-verification/normal-contact.json"
+  ],
+  "final": {
+    "health": 12.166668,
+    "position": [
+      11.391638805309922,
+      173,
+      20.998278238876075
+    ],
+    "alive": true,
+    "menu": "TitleScreen",
+    "controls_released": true,
+    "original_peaceful_house_world": "Untouched by these trials"
+  },
+  "code_changes": "None during gameplay qualification. Prior deterministic results remain component-only: 99 tests, 55 mutations. These real-world negative results take precedence over any implication of effective gameplay."
+}

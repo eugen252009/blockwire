@@ -1,0 +1,96 @@
+{
+  "status": "PASS_SCOPED",
+  "scope": "Standalone trusted Python controllers; deterministic/simulated native contracts and isolated packaging/TLS checks, NOT real Minecraft concurrency acceptance",
+  "versions": {
+    "mod": "0.2.0-alpha.4",
+    "python": "0.2.0a7",
+    "minecraft": "26.3",
+    "java": 25
+  },
+  "artifacts": {
+    "build/libs/blockwire-0.2.0-alpha.4.jar": "4ba93160b588d34c6836220445bbea4e482c95fc9e176cf31709969cc5aa2c7f",
+    "build/controller-verification/python/blockwire-0.2.0a7-py3-none-any.whl": "68b9935b76ecf05fad6651804ea07237e9b4a04497ad8aca8ffc329b4a9dd2fb",
+    "build/controller-verification/python/blockwire-0.2.0a7.tar.gz": "c504de7ce5dd86f677e4afe51da71b7d7c7e408fa628d6d535ead825d01e6c34",
+    "build/libs/blockwire-0.2.0-alpha.3.jar": "daec8b37e5ed98f6fd859eab4c9ff4e00b507daaa20c44fd3849169ec87badeb"
+  },
+  "verified": {
+    "python_source_tests": {
+      "status": "PASS",
+      "count": 140,
+      "log": "build/controller-verification/python-tests.log"
+    },
+    "installed_wheel_tests": {
+      "status": "PASS",
+      "count": 140,
+      "log": "build/controller-verification/installed-tests.log"
+    },
+    "gradle_build_check": {
+      "status": "PASS",
+      "controller_checks": 45,
+      "transport_checks": 67,
+      "tls_checks": 19,
+      "settings_checks": 32,
+      "modmenu_checks": 4,
+      "visibility_checks": 6027,
+      "log": "build/controller-verification/gradle-build.log"
+    },
+    "isolated_mutations": {
+      "status": "KILLED",
+      "controller": 19,
+      "skills": 65,
+      "native": 25,
+      "total": 109,
+      "reports": [
+        "build/controller-verification/controller-mutations/results.json",
+        "build/controller-verification/skill-mutations/results.json",
+        "build/controller-verification/mutations/results.json"
+      ],
+      "note": "Retired the redundant old manager-local-only guard mutation after adding an atomic shared owner lease; cross-owner enforcement is mutated by shared_owner / CR14, and reverse legacy ownership is CR23. Existing historical mutation evidence remains unchanged."
+    },
+    "real_netty_python_tls_interop": {
+      "status": "PASS",
+      "checks": 10,
+      "log": "build/controller-verification/tls-interop.log"
+    },
+    "package_contracts": {
+      "status": "PASS",
+      "tests": 13,
+      "log": "build/controller-verification/package-tests.log"
+    },
+    "installed_mcp_discovery": {
+      "status": "PASS",
+      "tools": 27,
+      "installed_sources_match": true,
+      "invalid_schemas_rejected_before_connection": true,
+      "report": "build/controller-verification/mcp-smoke.json",
+      "note": "Dummy temporary credentials and unreachable endpoint; no graphical client accessed."
+    },
+    "example_and_cli_help": {
+      "status": "PASS",
+      "example_regression": "CR25",
+      "installed_command": "blockwire-run --help"
+    },
+    "frozen_alpha3": {
+      "status": "UNCHANGED",
+      "sha256": "daec8b37e5ed98f6fd859eab4c9ff4e00b507daaa20c44fd3849169ec87badeb"
+    }
+  },
+  "contracts": {
+    "async": "Optional once-only setup, nonoverlapping loop calls, standard asyncio.TaskGroup",
+    "concurrency": "Compatible walk/eat tasks share one serialized input writer; conflicting resources reject before effects",
+    "leases": "Native per-key deadlines/tick budgets, lower-only parent cap, retained leases never renewed or resurrected by another writer",
+    "postconditions": "Walking arrival observed; food requires hunger gain AND stack reduction/disappearance, or observed already-full precondition",
+    "lifecycle": "Bounded events/subscriptions/activation, actor/world/death/screen/grounding/disconnect checks, cooperative cancellation joins workers/RPCs, scoped child cleanup then final stop",
+    "authority": "Native physics/consumption/damage, TLS/auth/hostname verification, native endpoint lease/F8 and legacy synchronous/MCP exclusivity retained",
+    "loading": "Explicit local host script or one selected installed blockwire.controllers entry point; no auto-loading, remote import or embedded interpreter"
+  },
+  "followup_live_smoke": "docs/evidence/controller-live.json",
+  "not_run": [
+    "Graphical-client walk/eat concurrency and actual vanilla consumption/slowdown on this new build",
+    "Low-FPS/native lease behavior and modpack/platform compatibility",
+    "General/night/group survival, shelter automation, fresh combat qualification",
+    "Automatic safe save/exit/handoff (not implemented)"
+  ],
+  "gameplay_state": "At this contract-phase checkpoint no graphical gameplay had been resumed or mod deployed. A later scoped native smoke is recorded separately in controller-live.json; actual walk/eat consumption remains unqualified.",
+  "limits": "Trusted host callbacks/deadlines are cooperative, not a sandbox or hard real-time guarantee. Clear-crosshair food guards are snapshots, not atomic interaction isolation. Released inputs are not survival/safety. No publication/commit/push performed."
+}

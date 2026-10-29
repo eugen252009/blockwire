@@ -99,6 +99,25 @@ The navigation observation exposes at most 81 loaded same-level collision cells,
 not arbitrary world/block/NBT queries or new chunk generation. Known hazard/mob
 checks are incomplete. `avoid_damage` is never a no-damage/no-death guarantee.
 
+## Standalone controllers
+
+The optional [Python controller](docs/controller.md) is explicitly activated and
+bounded, not started from game text or client startup. Only the selected installed
+controller entry point loads; directly run scripts are ordinary trusted host
+Python, not a remote file/code RPC or sandbox. Callbacks run in the host, never
+on the game thread. Queue/subscription bounds, deadlines and cancellation are
+cooperative; CPU-blocking/cancellation-ignoring trusted code cannot be killed safely.
+
+One controller owns the actor against local skills/MCP and the native connection
+lease. Inside it, compatible walking/eating tasks use one serialized input mixer;
+hand/hotbar/control conflicts fail before effects. Child cleanup removes only its
+own contribution. Per-key native leases never extend a retained walking deadline
+when another task renews use. Actor-session fences include hotbar changes; no
+replacement actor is silently rebound. Final cleanup waits for workers/in-flight
+RPCs; uncertain disconnection is not automatically retried or reconnected.
+No movement/damage/consumption engine, automatic respawn, startup Python loading,
+TLS exception or F8 bypass is introduced. Released input is not player safety.
+
 ## Boundaries and rotation
 
 TLS does not sandbox malicious processes running as your OS user, administrators,

@@ -186,7 +186,7 @@ class SkillContracts(unittest.TestCase):
             load_selected_plugins(registry, "")
             with self.assertRaises(ValueError):
                 load_selected_plugins(registry, "not_installed")
-        self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach"])
+        self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight"])
 
     def test_read_only_extension_contract(self):
         registry = SkillRegistry()

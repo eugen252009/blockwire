@@ -1,0 +1,77 @@
+{
+  "scope": "Registered Pi MCP fight tool, installed SDK 0.2.0a4, isolated Prism alpha.3 client",
+  "policy": {
+    "zombies": "fight",
+    "skeletons": "fight",
+    "spiders": "fight",
+    "creeper": "evade"
+  },
+  "initial": {
+    "inventory": {
+      "items": [
+        {
+          "empty": false,
+          "item": "minecraft:dirt",
+          "name": "Dirt",
+          "count": 2,
+          "enchantments": [],
+          "inventory_index": 0
+        }
+      ],
+      "selected_hotbar": 0,
+      "carried": {
+        "empty": true
+      },
+      "container_open": false,
+      "text": "Inventory (player indices are NOT menu slot IDs):\n- [0] 2 × Dirt (minecraft:dirt)\nNo container screen open."
+    },
+    "position": [
+      6.499980326148982,
+      -60,
+      13.229906293970053
+    ],
+    "health": 20
+  },
+  "no_enemy_result": {
+    "id": "e7d5fda3-2051-4979-b675-2cbb5c031758",
+    "skill": "fight",
+    "status": "succeeded",
+    "progress": {},
+    "result": {
+      "status": "succeeded",
+      "reason": "no_selected_enemies_observed",
+      "text": "Selected enemies are absent from bounded observations; kills are not established.",
+      "details": {
+        "attacks_submitted": 0,
+        "kills_confirmed": null
+      },
+      "cleanup": "released"
+    }
+  },
+  "world_options": {
+    "difficulty": "Peaceful",
+    "difficulty_widget_enabled": false,
+    "command_access": "OFF",
+    "command_access_widget_enabled": false
+  },
+  "combat_acceptance": "NOT RUN: no enemies; native difficulty control disabled. No restriction bypass, commands, world-file changes or spawning.",
+  "changes": "Selected an empty hotbar slot for an explicit unarmed probe, then restored the original slot. No difficulty change applied.",
+  "final": {
+    "position": [
+      6.499980326148982,
+      -60,
+      13.229906293970053
+    ],
+    "health": 20,
+    "holding": {
+      "empty": false,
+      "item": "minecraft:dirt",
+      "name": "Dirt",
+      "count": 2,
+      "enchantments": []
+    },
+    "screen": "PauseScreen"
+  },
+  "inputs_released": true,
+  "qualification": "Only real MCP activation/no-enemy termination and cleanup are tested here; actual combat/evasion remains UNVERIFIED."
+}

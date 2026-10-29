@@ -83,6 +83,22 @@ The first walker consumes an explicit on-demand `navigation` mesh (radius 4,
 look/drive operations. It never loads chunks, changes physics or guarantees safety.
 Player/world session tokens fence old observations from replacement actors.
 
+## Standalone controller boundary
+
+The [async runner](controller.md) executes explicitly supplied local Python or
+one explicitly selected installed `blockwire.controllers` entry point. Setup,
+nonoverlapping loops, a bounded event queue and standard asyncio tasks live in
+the Python host. A single input mixer combines compatible resource owners;
+legacy skills execute through an adapter whose stop clears only its own inputs.
+The actor remains exclusive against MCP/other skills. Cancellation joins workers
+and in-flight requests before ownership reuse, rather than trying to kill threads.
+
+Alpha.4 adds independent lower-only native key leases: food renewal retains the
+original movement deadline/tick budget. Actor-fenced hotbar selection and scene
+identity close replacement races. These are explicit native authority primitives,
+not a Java planner/consumption/physics engine. Transport/F8 bounds are unchanged.
+Graphical concurrency acceptance is NOT RUN.
+
 ## TLS identity boundary
 
 Each instance owns one private PKCS12 identity and exports only a public certificate.

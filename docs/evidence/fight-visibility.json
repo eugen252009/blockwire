@@ -1,0 +1,127 @@
+{
+  "scope": "SDK 0.2.0a6 bounded visibility recovery, follow-up to repeated a5 live visibility stops",
+  "assessment": "CONDITIONAL PASS for executed component/installed-adapter scope. A6 graphical recovery NOT RUN; reload and native retest required.",
+  "trigger": {
+    "prior_sdk": "0.2.0a5",
+    "previous": "docs/evidence/fight-optimization-live.json",
+    "continuation": {
+      "result": {
+        "id": "2a9e4253-3dbf-4558-83ed-122b3b395639",
+        "skill": "fight",
+        "status": "blocked",
+        "progress": {
+          "behavior": "attack",
+          "entity_id": 2823,
+          "type": "minecraft:zombie",
+          "health": 19.333332,
+          "attacks_submitted": 1,
+          "attack_wait_reason": "cooldown",
+          "cooldown_remaining": 0.5821231100009754
+        },
+        "result": {
+          "status": "blocked",
+          "reason": "no_visible_selected_enemy",
+          "text": "Fight stopped: no visible selected enemy",
+          "details": {
+            "attacks_submitted": 1,
+            "kills_confirmed": null
+          },
+          "cleanup": "released"
+        }
+      },
+      "health_before": 19.333332,
+      "health_after": 19.333332,
+      "sword_damage_before": 7,
+      "sword_damage_after": 8,
+      "raw": "build/fight-optimization-verification/live-continuation.json"
+    },
+    "interpretation": "Both a5 trials ended no_visible_selected_enemy after one attack submission. Which entity/occlusion transition caused the invisible set is not established; no new kill is inferred."
+  },
+  "construction": {
+    "same_budget": "Reuse melee_wait_seconds (default 3, max 5, zero immediate legacy rejection) for currently known policy-selected targets when none are visible.",
+    "effects": "Only stop/observe/wait while hidden; no look/drive/attack. No last-crosshair authorization. Resume only through fresh visible-target selection, rendered aim, fresh health/equipment and exact actor/entity-native guards.",
+    "timing": "Continuous grace timer is not reset by target ID or wait-reason changes. Earlier global duration/deadline still bounds execution.",
+    "priority": "Health, actor/world/session, readiness, unsafe terrain, unsupported hostile types and evasion retain precedence."
+  },
+  "tests": {
+    "new": "FO11–FO14 repeated visibility recovery, bounded expiry/stale crosshair, late evade priority, and visibility lost between aim and attack.",
+    "prior": "FC03 legacy invisible-target rejection explicitly selects zero grace; no-invisible-attack obligation preserved.",
+    "source": {
+      "status": "PASS",
+      "tests": 113,
+      "log": "build/fight-visibility-verification/python-tests.log"
+    },
+    "installed_wheel": {
+      "status": "PASS",
+      "tests": 113,
+      "log": "build/fight-visibility-verification/installed-tests.log"
+    },
+    "mutations": {
+      "status": "PASS",
+      "total": 66,
+      "killed": 66,
+      "visibility_specific": 3,
+      "results": "build/fight-visibility-verification/skill-mutations/results.json"
+    },
+    "gradle": {
+      "status": "PASS",
+      "log": "build/fight-visibility-verification/gradle.log"
+    },
+    "tls": {
+      "status": "PASS",
+      "checks": 10,
+      "log": "build/fight-visibility-verification/tls.log"
+    },
+    "mcp": {
+      "status": "PASS",
+      "sdk_version": "0.2.0a6",
+      "tools": 27,
+      "default_melee_wait_seconds": 3,
+      "installed_fight_source_matches": true,
+      "invalid_wait_values_rejected_before_native_connection": [
+        "string",
+        "boolean",
+        "negative",
+        "over_max"
+      ],
+      "live_gameplay": "NOT RUN"
+    },
+    "baseline": "FO11–FO13 failed against a5 before patch; build/fight-visibility-verification/before.log"
+  },
+  "sha256": {
+    "python/src/blockwire/skills/fighting.py": "229dc0a1da2dc880b8d18b0bd4a818f4bc263a3836af53912aa10367b415a02e",
+    "python/src/blockwire/mcp_server.py": "0a16e159019b5fffa4cdf8b977e68222a82aea354c643439cb39443f0ff0bdd4",
+    "python/tests/test_fight_optimized.py": "908510e646d387185743b8442f17a0e6a1b51d26d83c67659d6f5bf39b205434",
+    "tests/run_skill_mutations.py": "7032892db71362b635f71c2937de9f3846b1f927714284b32f7ad6771ba6e7eb",
+    "build/fight-visibility-verification/python/blockwire-0.2.0a6-py3-none-any.whl": "a688429e7e74b25431835106fce4e24f3519bfdabd815e41dab71f1aabb1590d"
+  },
+  "live": {
+    "status": "NOT RUN",
+    "retained_a5_state": {
+      "health": 19.333332,
+      "holding": {
+        "empty": false,
+        "item": "minecraft:wooden_sword",
+        "name": "Wooden Sword",
+        "count": 1,
+        "damage": 8,
+        "max_damage": 59,
+        "enchantments": []
+      },
+      "paused": true,
+      "controls_released": true
+    },
+    "activation": "Ignored local mode-600 MCP config now selects the installed a6 adapter. Operator /reload required; no Minecraft restart."
+  },
+  "exclusions": [
+    "No Java, motion motor, core ownership or transport edits",
+    "No command/chat/X11 bypass or spawning",
+    "No invisible attacks, hidden pursuit, terrain projection, input-lease extension or damage engine",
+    "No commit, upload, tag, push or replacement of frozen earlier artifacts"
+  ],
+  "limits": [
+    "No guarantee the target becomes visible within grace",
+    "Disappearance/out-of-radius observation is not kill evidence",
+    "Native a6 single-job victory, groups, Hard and other mob types remain unverified"
+  ]
+}

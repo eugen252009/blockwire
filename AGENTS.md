@@ -17,8 +17,6 @@ aliases and historical evidence; never mass-replace certificate identity strings
 ## Non-negotiable boundaries
 - Keep mandatory TLS, per-instance certificate trust, hostname verification,
   API-key checks, loopback defaults, F8 stop, queue bounds and native input leases.
-- Never add trust-all, arbitrary command/code/file RPC, teleportation, item spawning,
-  remote imports or silent plugin auto-loading.
 - Native Minecraft owns movement/collision/damage/crafting. Do not replace it.
 - Guard long-running actor actions against world/player replacement. Walking uses
   `actor_session` on every look/drive; never remove that fence.

@@ -1,0 +1,75 @@
+{
+  "scope": "SDK 0.2.0a4 opt-in per-mob fight skill, Python/MCP only; alpha.3 native protocol/JAR unchanged",
+  "assessment": "CONDITIONAL PASS for executed component/installed-adapter scope; real graphical combat remains UNVERIFIED / NOT RUN pending MCP reload and authorized natural encounters",
+  "contracts": {
+    "selection": "Exact zombie/skeleton/spider/creeper IDs only; native actor+entity-fenced attacks, refreshed crosshair/policy/health checks",
+    "policy": "fight/evade/ignore; evade priority; unknown reported hostile blocks; no auto activation",
+    "limits": "Selected usable sword/axe, empty-hand opt-in, cooldown spacing, 1-tick flat-ground motion leases, 8-block maximum observed activation/target radius, earliest bounded deadline",
+    "health": "Observed HP threshold, one known escape pulse then terminate; transient knockback waits without actions; fire/screens/death/actor change block",
+    "outcomes": "Success only selected enemies absent from bounded observation; no kills inferred from receipts/disappearance"
+  },
+  "checks": {
+    "python": {
+      "status": "PASS",
+      "tests": 99,
+      "log": "build/fight-verification/python-tests.log"
+    },
+    "installed_wheel": {
+      "status": "PASS",
+      "tests": 99,
+      "log": "build/fight-verification/installed-wheel-tests.log"
+    },
+    "isolated_mutations": {
+      "status": "PASS",
+      "killed": 55,
+      "survived": 0,
+      "fight_specific": 12,
+      "results": "build/fight-verification/skill-mutations/results.json"
+    },
+    "gradle": {
+      "status": "PASS",
+      "log": "build/fight-verification/gradle.log"
+    },
+    "tls_interop": {
+      "status": "PASS",
+      "checks": 10,
+      "log": "build/fight-verification/tls-interop.log"
+    },
+    "stdio_mcp": {
+      "status": "PASS",
+      "tools": 27,
+      "strict_policy_validation_before_native_connection": true,
+      "log": "build/fight-verification/mcp-discovery.json"
+    },
+    "live_combat": {
+      "status": "NOT RUN",
+      "reason": "Registered Pi tools still use previously loaded SDK until /reload. Test-world difficulty/enemies were not changed during implementation."
+    }
+  },
+  "changes_excluded": [
+    "No Java/TLS/transport changes",
+    "No old autopilot policy relaxation",
+    "No hotbar/inventory rearrangement, automatic eating, model, spawning, commands or custom damage",
+    "No replacement of frozen alpha.3 artifacts",
+    "No commit/push/tag/upload"
+  ],
+  "known_limits": [
+    "Nearest 16 client-known Monsters within 8 blocks are incomplete, non-atomic snapshots",
+    "No fuse/charged-creeper prediction, friendly-fire or no-damage/no-death guarantee",
+    "Only loaded flat full-block geometry; skeleton ranged tactics, shields, critical hits and shelter tactics absent",
+    "Short pulses and Python/render/network latency can be too slow for actual combat",
+    "Selected weapon must already be held; new public fight policy is bounded per job, not persistent global settings"
+  ],
+  "test_effectiveness_note": "Two additional MCP coercion mutations validate rejection of numeric unarmed flags and string health limits at the actual MCP argument-model boundary.",
+  "harness_note": "Initial new root-level MCP mutation paths were corrected inside the isolated runner; final 55-case results have no survivors or inconclusive cases.",
+  "sha256": {
+    "python/src/blockwire/skills/fighting.py": "9d63c3d24a33dd9c38266264bbe61dacb1af04ce72836f76da82590a3775ae46",
+    "python/src/blockwire/skills/__init__.py": "ce6c802a07cd2d83467fe63db23964dd160aff728b50426905b0b1a37e1d31bb",
+    "python/src/blockwire/mcp_server.py": "bf9ab2afa63bcf731d8221a9da360fc2b5f3c21f8389965f8d923e5c57c6a9a0",
+    "python/src/blockwire/client.py": "b77727b294ce7d95e0822bdf90cd2dc5832732287dae74e416afdb0c5ed3d8a3",
+    "python/tests/test_fighting.py": "13c08a7d3580a31945e747ec8d9c1316595dd4d65b6967e6b359623be2050234",
+    "tests/run_skill_mutations.py": "6c5be8c584f58592680508feda82350f66de0834678960ad6627b627c6e10e7b",
+    "build/fight-verification/python/blockwire-0.2.0a4-py3-none-any.whl": "485feeba86d3484732e53b127fef0c09fc24f0f955432cd48c6b454c38f077c6"
+  },
+  "activation": "Ignored local .pi/mcp.json now selects the installed 0.2.0a4 adapter and the same isolated Prism client. Run /reload; no Minecraft restart is required."
+}

@@ -1,0 +1,114 @@
+{
+  "scope": "Python SDK 0.2.0a5 fight optimization; uncommitted working tree based on ae3413a. No Java/transport changes.",
+  "assessment": "CONDITIONAL PASS: executed source/installed-package component checks pass; optimized graphical gameplay remains UNVERIFIED / NOT RUN until MCP reload and native retest.",
+  "construction": {
+    "continuity": "melee_wait_seconds default 3, domain 0..5. Inability to approach safely or pursuit off causes stationary, freshly checked waits, not vertical movement. One context owns cooldown/session across knockback.",
+    "bounds": "Continuous wait deadline is not reset by target ID changes. Zero retains legacy immediate blocked results; grace expiry returns the original reason. Earlier duration/timeout, cancel, actor, health, terrain and evasion checks still apply.",
+    "equipment": "Cache only scheduling information. Initial weapon gate, fresh pre-movement inventory and fresh post-aim pre-attack inventory remain. Final cooldown uses max(current,prior interval).",
+    "preparation": "Begin rendered aim preparation 75 ms before cached cooldown eligibility, wait 80 ms for render, then apply the fresh final cooldown/actor/target/health gates; preparation is never attack authorization.",
+    "observability": "Publish attack receipt counts immediately and during airborne recovery; wait/aim/cooldown/target/crosshair reasons are exposed. No gameplay outcome inferred from counts."
+  },
+  "preserved": {
+    "native_authority": "No replacement physics, collision, damage, crafting or cooldown engine.",
+    "fences": "Same immutable actor session on every look/drive/attack and exact refreshed target entity ID on attack.",
+    "cleanup": "Core single ownership, cooperative checks, final release and success downgrade on unconfirmed release unchanged.",
+    "safety": "No unsupported route projection, inventory rearrangement, player selection, whitelist expansion, creeper chasing, new RPC or autopilot policy relaxation.",
+    "transport": "TLS, per-instance trust/hostname checks, API key, loopback defaults, queue bounds and F8 unchanged."
+  },
+  "checks": {
+    "source_python": {
+      "status": "PASS",
+      "tests": 109,
+      "log": "build/fight-optimization-verification/python-tests.log"
+    },
+    "installed_wheel": {
+      "status": "PASS",
+      "tests": 109,
+      "log": "build/fight-optimization-verification/installed-tests.log"
+    },
+    "isolated_mutations": {
+      "status": "PASS",
+      "total": 63,
+      "killed": 63,
+      "optimization_specific": 8,
+      "results": "build/fight-optimization-verification/skill-mutations/results.json"
+    },
+    "gradle": {
+      "status": "PASS",
+      "log": "build/fight-optimization-verification/gradle.log"
+    },
+    "tls_interop": {
+      "status": "PASS",
+      "checks": 10,
+      "log": "build/fight-optimization-verification/tls.log"
+    },
+    "stdio_mcp": {
+      "status": "PASS",
+      "sdk_version": "0.2.0a5",
+      "tools": 27,
+      "default_melee_wait_seconds": 3,
+      "installed_fight_source_matches": true,
+      "invalid_wait_values_rejected_before_native_connection": [
+        "string",
+        "boolean",
+        "negative",
+        "over_max"
+      ],
+      "live_gameplay": "NOT RUN"
+    },
+    "model_continuity": "FO01: six attacks and repeated out-of-reach knockback complete in one simulated job, no movement, cooldowns preserved, counters remain receipt-only.",
+    "live_optimization": {
+      "status": "NOT RUN",
+      "reason": "Pi's registered process still uses a4 until /reload; no optimized gameplay behavior is claimed."
+    }
+  },
+  "benchmark": {
+    "scope": "Six static-target attacks, deterministic fake clock and mocked primitives, no RPC latency; NOT Minecraft FPS/latency evidence.",
+    "baseline_sdk": "0.2.0a4 installed wheel",
+    "optimized_sdk": "0.2.0a5",
+    "before": {
+      "status": "succeeded",
+      "attacks": 6,
+      "simulated_seconds": 3.779999999999994,
+      "inventory_reads": 42,
+      "observations": 21,
+      "look_calls": 21,
+      "navigation_calls": 43,
+      "stop_calls": 2
+    },
+    "after": {
+      "status": "succeeded",
+      "attacks": 6,
+      "simulated_seconds": 3.7149999999999985,
+      "inventory_reads": 7,
+      "observations": 6,
+      "look_calls": 6,
+      "navigation_calls": 44,
+      "stop_calls": 2
+    },
+    "before_primitive_calls": 135,
+    "after_primitive_calls": 71,
+    "note": "Counts include navigation, inventory, scene, look, stop and attacks. Navigation/health polling is retained; no production timing or damage-rate guarantee follows."
+  },
+  "contracts": {
+    "tests": "FO01–FO10 in python/tests/test_fight_optimized.py; prior FC/AP/AR/CM contracts retained.",
+    "compatibility": "FC06 legacy immediate out-of-reach check now explicitly selects melee_wait_seconds=0; nonmovement and blocked-reason contracts remain tested.",
+    "numerical_note": "An intermediate implementation stalled on sub-ULP fake-clock sleeps. Minimum 10 ms cooperative waits prevent this; decimal grace/cooldown boundaries are exercised by FO01/FO03."
+  },
+  "sha256": {
+    "python/src/blockwire/skills/fighting.py": "916a2576d97ff191a5f9173a21ab7f8e175b89f47c059b190189188b16f48165",
+    "python/src/blockwire/client.py": "1b2796c69f2f37cd023c3cb2f187903e9aa9f1d77c5b4c475df2f3deba6c186f",
+    "python/src/blockwire/mcp_server.py": "929ef7606744f8a3c9f5d9fa9efeae9e8c7e2a611cc173335c6824df5de952df",
+    "python/tests/test_fight_optimized.py": "fcc017f65b329089c42ba397f8c1e975290d89ecdbc2862735117e7e060af7a7",
+    "tests/run_skill_mutations.py": "e2924457a52ac1247bc8b0aa4c61492b0d937e89fab3fc77722bfb2a482c048d",
+    "build/fight-optimization-verification/python/blockwire-0.2.0a5-py3-none-any.whl": "4d11a5183e3b097347d827f9a5645bf8d83981c78fadd6d5cd71fabab253edff"
+  },
+  "prior_gameplay": "docs/evidence/armed-zombie.json remains an a4 supervised sequence, not a5 or autonomous acceptance.",
+  "deployment": "Installed new wheel into separate build/fight-optimization-verification/venv; ignored mode-600 local MCP config selects it. Operator /reload required; no Minecraft restart. Old a4/alpha.3 artifacts retained.",
+  "limits": [
+    "Bounded client snapshots and native input receipts do not prove kills or immunity.",
+    "Eight-block/nearest-16 observation and flat full-block motor remain incomplete.",
+    "Grace cannot guarantee an enemy approaches; expiry can still block.",
+    "New controller not yet tested with actual mobs, Hard, groups or varied terrain."
+  ]
+}

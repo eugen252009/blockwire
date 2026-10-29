@@ -1,0 +1,41 @@
+{
+  "scope": "Attempted uninterrupted 60-second SDK a6 live trial in Blockwire Armed Combat, Normal",
+  "assessment": "NOT COMPLETED / UNVERIFIED: native bridge connection lost during end-of-trial save/quit.",
+  "planned_budget_seconds": 60,
+  "known_initial_state": {
+    "health": 19.333332,
+    "hunger": 17,
+    "weapon": "minecraft:wooden_sword",
+    "weapon_damage": 12,
+    "weapon_max_damage": 59,
+    "position": [
+      2.3089798651639533,
+      71,
+      -1.5417845999014115
+    ]
+  },
+  "policy": {
+    "zombies": "fight",
+    "skeletons": "evade",
+    "spiders": "evade",
+    "creeper": "evade",
+    "min_health": 8,
+    "pursue": false,
+    "melee_wait_seconds": 3
+  },
+  "execution_facts": [
+    "No pause operations were issued between encounter/monitoring jobs.",
+    "Two fight dispatches and two idle-monitor dispatches occurred before cleanup.",
+    "Input-stop, end-of-trial open_pause and menu read were acknowledged.",
+    "Save and Quit to Title click returned Bridge connection failed; operation outcome may be unknown.",
+    "Subsequent read-only menu/scene requests also failed. No save/quit action was blindly repeated."
+  ],
+  "data_limit": "The harness exception occurred before its final record was written. Per-job results, exact active duration, health after the attempt and combat outcomes were not retained and cannot be reconstructed from the visible tool-call names. Do not infer attacks, kills, survival, final screen or save completion.",
+  "tool_call_wall_seconds_approx": 19.5,
+  "wall_time_note": "Includes cleanup and failure waiting; NOT verified active gameplay duration.",
+  "latest_read_error": [
+    "Error executing tool describe_menu: Bridge connection failed; operation outcome may be unknown. Observe before retrying."
+  ],
+  "end_state": "UNKNOWN: operator must check the client/bridge. No automatic re-enable, respawn, trust changes, command or X11 bypass.",
+  "qualification": "This does not invalidate the separately recorded earlier single-job a6 finish, but does not qualify uninterrupted multi-encounter combat."
+}

@@ -58,9 +58,9 @@ class RenameContracts(unittest.TestCase):
         with patch("blockwire.skills.core.entry_points", side_effect=installed):
             registry = default_registry()
             load_selected_plugins(registry, "")
-            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach"])
+            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight"])
             load_selected_plugins(registry, "legacy_fixture")
-            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "legacy_fixture"])
+            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight", "legacy_fixture"])
 
 
 if __name__ == "__main__":

@@ -34,9 +34,9 @@ Unauthenticated/origin/wrong-endpoint upgrades receive HTTP 403.
 | inventory | none | Player items and, if open, native container slots |
 | navigation | none | Bounded loaded flat-ground collision mesh, hazards and actor session |
 | look | yaw -180..180, pitch -90..90; optional actor_session | Absolute native orientation; target refreshes next frame |
-| drive | buttons array, ticks integer 1..100; optional actor_session | Replace currently held inputs, bounded by ticks and ticks × 50 ms |
+| drive | buttons array, ticks integer 1..100; optional actor_session, button_ticks object | Replace held set; bounded overall and per-key leases |
 | action | name: attack/use; optional actor_session; optional target_entity_id for attack with actor_session | One native press; optional session/target guards |
-| hotbar | slot integer 0..8 | Native selected slot |
+| hotbar | slot integer 0..8; optional actor_session | Native selected slot; guarded against player/world replacement when supplied |
 | open_inventory | none | Open genuine inventory screen |
 | close_screen | none | Close an open native container only |
 | click_slot | menu_id, state_id, slot, button 0/1, mode pickup/quick_move | Native menu click with identity/state guard |
@@ -54,6 +54,16 @@ Maximum nine unique entries; opposed forward/back or left/right are rejected.
 Empty array releases the previous set. Renew a hold **before** it expires to
 continue a long mining operation. Maximum duration is per command, not per session.
 
+Alpha.4 adds optional `button_ticks`: keys must be a subset of `buttons`, with
+strict integer durations 1..`ticks`. Listed keys start/renew their individual
+lease; other desired keys only retain an already-active deadline/tick budget,
+never restart an expired key. The enclosing `ticks` cap may shorten retained
+leases. Omitted buttons release. Omitting the **whole field** preserves legacy
+behavior: all requested keys renew for `ticks`. This permits walking/eating
+composition without extending a short movement lease when food use renews.
+The standalone Python controller caps its writes at 8 ticks, although the raw
+protocol retains its existing 100-tick bound. See [controller](controller.md).
+
 Camera convention: 0 south, 90 west, -90 east, ±180 north; positive pitch down.
 Snapshots use native world coordinates and localized friendly names alongside IDs.
 
@@ -66,6 +76,11 @@ block; an exact position parameter filters already-visible targets, not a new
 coordinate-query RPC; see [skills](skills.md). MCP adds registry/schema
 discovery, background execution, status and cooperative cancellation. Installed
 providers require explicit host opt-in; no arbitrary remote imports/evaluation.
+
+Alpha.4 `observe` also includes the same opaque `actor_session`, without computing
+a navigation mesh. `navigation` advertises `hotbar_actor_session: true` and
+`independent_input_leases: true` for the standalone controller. Missing capabilities
+cause the runner to require a mod upgrade before setup/gameplay actions.
 
 `navigation` has profile `flat_full_blocks_v1`, opaque `actor_session`, readiness
 and reason, position/health, `current_cell`, `current_center_access`, and at most
@@ -80,7 +95,7 @@ Each hostile includes `entity_id`, registry `type`, `position`, `eye_position`,
 These are bounded nearby client data, not pixel visibility or complete threats.
 No arbitrary block lookup, resource IDs/NBT or generation is provided.
 
-A supplied `actor_session` on look/drive must still identify the same player and
+A supplied `actor_session` on look/drive/hotbar must still identify the same player and
 level at execution or the native operation is rejected before control changes.
 The long-running walker always supplies it. This fence is not an atomic terrain
 snapshot or a guarantee against external damage.

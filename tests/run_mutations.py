@@ -11,6 +11,20 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get("BLOCKWIRE_VERIFICATION_DIR", ROOT / "build/verification")) / "mutations"
 OUT.mkdir(parents=True, exist_ok=True)
 mutations = [
+    ("controller_key_clock", "InputLeases.java", "now>=deadlines.get(entry.getKey())", "false",
+     "CL05_monotonic_deadline_bounds_food", "controllerContractTest"),
+    ("controller_key_ticks", "InputLeases.java", "count<=0 ||", "false ||",
+     "CL08_tick_expiry_without_clock_progress", "controllerContractTest"),
+    ("controller_retained_deadline", "InputLeases.java", "deadlines.keySet().retainAll(remaining.keySet());",
+     "deadlines.keySet().retainAll(remaining.keySet());remaining.forEach((key,count)->deadlines.put(key,now+Math.max(1,count)*50_000_000L));",
+     "CL26_food_renewal_never_extends_short_walk", "controllerContractTest"),
+    ("controller_retained_ticks", "InputLeases.java", "deadlines.keySet().retainAll(remaining.keySet());",
+     "deadlines.keySet().retainAll(remaining.keySet());remaining.replaceAll((key,count)->8);",
+     "CL29_food_renewal_retains_walk_tick_budget", "controllerContractTest"),
+    ("controller_parent_cap", "InputLeases.java", "Math.min(deadline,now+ticks*50_000_000L)", "deadline",
+     "CL28_enclosing_lease_shortens_retained_keys_without_resurrection", "controllerContractTest"),
+    ("controller_hotbar_fence", "Blockwire.java", "int slot=Protocol.hotbarSlot(q);guardedActor(q);playing();",
+     "int slot=Protocol.hotbarSlot(q);playing();", "CL19_hotbar_actor_guard_before_effect", "controllerContractTest"),
     ("settings_open_enables", "LocalSettingsModel.java",
      "this.backend=backend;status=backend.status();draftAutoStart=status.autoStart();",
      "this.backend=backend;status=backend.status();draftAutoStart=status.autoStart();backend.toggleRuntime();",

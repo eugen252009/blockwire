@@ -38,6 +38,22 @@ public final class Protocol {
         if(!name.equals("attack") || !q.has("actor_session"))throw new IllegalArgumentException("target_guard_requires_attack_session");
         return integer(q,"target_entity_id",0,Integer.MAX_VALUE);
     }
+    /** Each key may shorten, never extend, the enclosing bounded hold. */
+    public static java.util.Map<String,Integer> buttonTicks(JsonObject q,Set<String> buttons,int ticks) {
+        var result=new java.util.HashMap<String,Integer>();
+        if(!q.has("button_ticks")){buttons.forEach(key->result.put(key,ticks));return java.util.Map.copyOf(result);}
+        if(!q.get("button_ticks").isJsonObject())throw new IllegalArgumentException("expected_button_ticks_object");
+        var values=q.getAsJsonObject("button_ticks");
+        if(!buttons.containsAll(values.keySet()))throw new IllegalArgumentException("button_ticks_keys_must_be_held_buttons");
+        for(String key:values.keySet())result.put(key,integer(values,key,1,ticks));
+        return java.util.Map.copyOf(result);
+    }
+    /** Legacy selection is unchanged; autonomous selection can fence the actor. */
+    public static int hotbarSlot(JsonObject q) {
+        fields(q,"slot","actor_session");
+        if(q.has("actor_session"))string(q,"actor_session");
+        return integer(q,"slot",0,8);
+    }
     public static void requireTarget(Integer expected,Integer actual) {
         if(expected!=null && !expected.equals(actual))throw new IllegalStateException("target_entity_changed");
     }

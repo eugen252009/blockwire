@@ -28,10 +28,12 @@ public final class NavigationView {
             actor=mc.player;level=mc.level;session=UUID.randomUUID().toString();
         }
     }
+    public String actorSession(Minecraft mc) {refresh(mc);return session;}
     public JsonObject snapshot(Minecraft mc) {
         refresh(mc);
         var out=new JsonObject();out.addProperty("profile","flat_full_blocks_v1");
         out.addProperty("actor_session",session);out.addProperty("sampled_at_ms",System.currentTimeMillis());
+        out.addProperty("hotbar_actor_session",true);out.addProperty("independent_input_leases",true);
         out.addProperty("radius",RADIUS);
         if(actor==null || level==null){out.addProperty("ready",false);out.addProperty("reason","not_in_world");return out;}
         var position=new JsonArray();position.add(actor.getX());position.add(actor.getY());position.add(actor.getZ());

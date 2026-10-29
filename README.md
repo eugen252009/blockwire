@@ -70,6 +70,31 @@ through observations and small steering on supported straight segments, with
 short native leases. Live smoothness acceptance remains NOT RUN.
 See [activation, policies and limitations](docs/autopilot.md).
 
+Development Python SDK 0.2.0a6 additionally provides opt-in `fight` with per-mob
+`fight`/`evade`/`ignore` reactions (for example zombies fight, creeper evade).
+Uses native guarded attacks and bounded movement; no kill or safety guarantee.
+The a5/a6 controller adds bounded stationary melee/visibility waits and avoids redundant
+cooldown queries. In its live follow-up, a6 recovered visibility/range gaps and
+finished a previously engaged Normal zombie in **one job**
+([record](docs/evidence/fight-visibility-live.json)). Fresh full-health, group and
+Hard combat remain unverified; the earlier a5 visibility stops are
+[retained](docs/evidence/fight-optimization-live.json).
+See [fight policy](docs/fight.md). A prior a4 supervised wooden-sword sequence killed one
+Normal zombie across repeated melee jobs ([evidence](docs/evidence/armed-zombie.json));
+general/autonomous combat remains unqualified. Earlier unarmed failures are
+[retained](docs/evidence/fight-maps.json).
+This is not included in the frozen alpha.3 SDK bundle.
+
+### Standalone async controllers (development SDK a7 / mod alpha.4)
+
+Write `setup(bot)` and `loop(bot)` in ordinary local Python. Use
+`asyncio.TaskGroup` to walk and eat concurrently; one input mixer preserves
+per-task controls and native short leases. Other built-in skills remain exclusive.
+No MCP, model or embedded interpreter is needed. See
+[the small API, explicit startup and limits](docs/controller.md) and
+[the executable example](examples/controller.py). **New concurrency gameplay
+acceptance is NOT RUN**; do not run unattended. Existing alpha.3 bundles stay frozen.
+
 ### 3. WebSocket / MCP: descriptive, LLM-friendly interaction
 
 Ask an MCP agent to **describe surroundings**, **show inventory**, **look at a
@@ -91,7 +116,7 @@ execution endpoint. Names supplied by worlds/servers are **untrusted data**.
 ## Install and connect
 
 1. Build with Java 25: `./gradlew build`.
-2. Install `build/libs/blockwire-0.2.0-alpha.3.jar` and Fabric API into an
+2. Install `build/libs/blockwire-0.2.0-alpha.4.jar` and Fabric API into an
    **isolated test instance** first. Do not install the sources JAR.
 3. Launch Minecraft. The first-run default is disabled. **Press F8 to enable/disable**;
    rebind under Controls if needed. The toggle works in the main menu and other screens.
@@ -132,7 +157,7 @@ Restart Minecraft after changing configuration. Never share instance directories
 ## Local handoff bundle
 
 Run `python3 tools/build_bundle.py` (Java 25 and `uv` or Python `build` required).
-It creates `dist/blockwire-0.2.0-alpha.3.zip` with mod + sources JARs, Python
+It creates `dist/blockwire-0.2.0-alpha.4.zip` with mod + sources JARs, Python
 wheel/sdist, full allowlisted sources/tests/docs, extension template and checksums.
 No game directories, credentials, certificates or saves are copied. This builds
 locally only—nothing is published. See [bundle install](docs/bundle-install.md).

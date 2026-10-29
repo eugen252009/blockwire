@@ -69,4 +69,9 @@ tasks.register("modMenuContractTest", JavaExec) {
     classpath = sourceSets.contractTest.runtimeClasspath + configurations.modMenuContractRuntime
     mainClass = "dev.blockwire.ModMenuContractTest"
 }
-check.dependsOn contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest
+tasks.register("controllerContractTest", JavaExec) {
+    dependsOn contractTestClasses
+    classpath = sourceSets.contractTest.runtimeClasspath
+    mainClass = "dev.blockwire.ControllerContractTest"
+}
+check.dependsOn contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest, controllerContractTest

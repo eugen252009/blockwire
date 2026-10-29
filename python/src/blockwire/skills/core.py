@@ -13,6 +13,7 @@ from uuid import uuid4
 
 from pydantic import BaseModel, ConfigDict, Field
 from ..client import BridgeError, Player, _environment
+from ..ownership import BUSY, claim_control, control_busy, release_control
 
 Status = Literal["succeeded", "blocked", "cancelled", "timed_out", "failed"]
 
@@ -149,8 +150,14 @@ def run_skill(registry: SkillRegistry, player: Player, name: str, parameters: di
               clock=time.monotonic, sleeper=time.sleep) -> SkillResult:
     # Validation precedes cleanup or any game action.
     definition, validated = registry.prepare(name, parameters)
-    return _execute(definition, validated, player, cancel_event or threading.Event(),
-                    publish or (lambda _: None), clock, sleeper)
+    cancellation = cancel_event or threading.Event()
+    lease = claim_control(player, cancellation.set) if definition.controls_player else None
+    try:
+        return _execute(definition, validated, player, cancellation,
+                        publish or (lambda _: None), clock, sleeper)
+    finally:
+        if lease is not None:
+            release_control(player, lease)
 
 
 class SkillManager:
@@ -165,8 +172,9 @@ class SkillManager:
         definition, validated = self.registry.prepare(name, parameters)
         with self._lock:
             self.ensure_idle()
-            job_id = str(uuid4())
             event = threading.Event()
+            lease = claim_control(self.player, event.set) if definition.controls_player else None
+            job_id = str(uuid4())
             self._jobs[job_id] = {"id": job_id, "skill": name, "status": "running", "progress": {}, "event": event}
             self._active = job_id
             while len(self._jobs) > 20:
@@ -183,13 +191,22 @@ class SkillManager:
                     job = self._jobs[job_id]
                     job["status"], job["result"] = result.status, result.model_dump(mode="json")
                     self._active = None
-            threading.Thread(target=work, name="blockwire-skill", daemon=True).start()
+                    if lease is not None:
+                        release_control(self.player, lease)
+            try:
+                threading.Thread(target=work, name="blockwire-skill", daemon=True).start()
+            except BaseException:
+                self._active = None
+                del self._jobs[job_id]
+                if lease is not None:
+                    release_control(self.player, lease)
+                raise
             return self.status(job_id)
 
     def ensure_idle(self) -> None:
         with self._lock:
-            if self._active is not None:
-                raise RuntimeError("A skill owns player control; cancel it and await terminal status first")
+            if self._active is not None or control_busy(self.player):
+                raise RuntimeError(BUSY)
 
     def status(self, job_id: str) -> dict:
         with self._lock:

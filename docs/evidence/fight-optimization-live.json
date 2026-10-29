@@ -1,0 +1,132 @@
+{
+  "scope": "First graphical MCP retest of installed SDK 0.2.0a5, Normal Survival, Blockwire Armed Combat",
+  "assessment": "PARTIAL: same-job stationary wait transitioned to guarded melee attack; sustained knockback recovery/full single-job victory NOT ESTABLISHED.",
+  "artifact_sha256": {
+    "python/src/blockwire/skills/fighting.py": "916a2576d97ff191a5f9173a21ab7f8e175b89f47c059b190189188b16f48165",
+    "python/src/blockwire/client.py": "1b2796c69f2f37cd023c3cb2f187903e9aa9f1d77c5b4c475df2f3deba6c186f",
+    "python/src/blockwire/mcp_server.py": "929ef7606744f8a3c9f5d9fa9efeae9e8c7e2a611cc173335c6824df5de952df",
+    "python/tests/test_fight_optimized.py": "fcc017f65b329089c42ba397f8c1e975290d89ecdbc2862735117e7e060af7a7",
+    "tests/run_skill_mutations.py": "e2924457a52ac1247bc8b0aa4c61492b0d937e89fab3fc77722bfb2a482c048d",
+    "build/fight-optimization-verification/python/blockwire-0.2.0a5-py3-none-any.whl": "4d11a5183e3b097347d827f9a5645bf8d83981c78fadd6d5cd71fabab253edff"
+  },
+  "parameters": {
+    "reactions": {
+      "zombies": "fight",
+      "skeletons": "evade",
+      "spiders": "evade",
+      "creeper": "evade"
+    },
+    "pursue": false,
+    "melee_wait_seconds": 3,
+    "duration_seconds": 15,
+    "timeout_seconds": 18,
+    "min_health": 8,
+    "allow_unarmed": false
+  },
+  "watch": {
+    "id": "9a073f29-763b-43a9-9679-21d55855244d",
+    "skill": "autopilot",
+    "status": "blocked",
+    "progress": {
+      "behavior": "idle",
+      "position": [
+        2.3089798651639533,
+        71,
+        -1.5417845999014115
+      ],
+      "destination": null,
+      "movement": "walk",
+      "combat": "off",
+      "evade_creepers": false,
+      "control_mode": "stopped",
+      "owned_input_lease": false
+    },
+    "result": {
+      "status": "blocked",
+      "reason": "known_danger_nearby",
+      "text": "Autopilot stopped: known danger nearby",
+      "details": {},
+      "cleanup": "released"
+    }
+  },
+  "job_id": "a64af822-57da-4af0-86f6-6e3c6834ac5c",
+  "fight_job_activations": 1,
+  "observations": {
+    "wait_reasons": [
+      "enemy_out_of_reach"
+    ],
+    "behaviors": [
+      "wait_for_melee",
+      "attack"
+    ],
+    "target_entity_id": 2823,
+    "attacks_submitted": 1,
+    "weapon_damage_before": 6,
+    "weapon_damage_after": 7,
+    "health_before_monitoring": 17.166666,
+    "health_before_fight": 19.333332,
+    "health_after": 19.333332,
+    "result": {
+      "id": "a64af822-57da-4af0-86f6-6e3c6834ac5c",
+      "skill": "fight",
+      "status": "blocked",
+      "progress": {
+        "behavior": "attack",
+        "entity_id": 2823,
+        "type": "minecraft:zombie",
+        "health": 19.333332,
+        "attacks_submitted": 1,
+        "attack_wait_reason": "cooldown",
+        "cooldown_remaining": 0.46624202600214626
+      },
+      "result": {
+        "status": "blocked",
+        "reason": "no_visible_selected_enemy",
+        "text": "Fight stopped: no visible selected enemy",
+        "details": {
+          "attacks_submitted": 1,
+          "kills_confirmed": null
+        },
+        "cleanup": "released"
+      }
+    },
+    "entities_after": [
+      {
+        "id": 2839,
+        "type": "minecraft:item",
+        "name": "Rotten Flesh",
+        "distance": 2.4926887
+      }
+    ]
+  },
+  "interpretation": "The same job retained its initial reach wait and submitted one attack (one additional sword wear). It then blocked because no selected enemy was visible. This does not establish whether target 2823 died, moved or became occluded; no kill is claimed.",
+  "loot_note": "Rotten Flesh entity 2839 predates this trial (from the a4 kill); it is NOT evidence of a new kill.",
+  "unchanged_limits": [
+    "No movement on unsupported height changes",
+    "No invisible/stale-target attacks",
+    "No infinite or restarted fight job",
+    "No generic command, spawning, teleport or damage shortcut"
+  ],
+  "final": {
+    "position": [
+      2.3089798651639533,
+      71,
+      -1.5417845999014115
+    ],
+    "health": 19.333332,
+    "holding": {
+      "empty": false,
+      "item": "minecraft:wooden_sword",
+      "name": "Wooden Sword",
+      "count": 1,
+      "damage": 7,
+      "max_damage": 59,
+      "enchantments": []
+    },
+    "paused": true,
+    "inputs_released": true
+  },
+  "raw": "build/fight-optimization-verification/live-trial.json",
+  "prior_model_evidence": "docs/evidence/fight-optimization.json",
+  "qualification": "109 tests and 63 mutations remain component evidence. This live result qualifies initial reach waiting/one guarded submission only, not general combat, multi-mob or Hard."
+}

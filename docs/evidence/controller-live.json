@@ -1,0 +1,166 @@
+{
+  "status": "PASS_SCOPED_CONSUMPTION_BLOCKED",
+  "scope": "Installed alpha.4/a7 on an actual isolated Prism Minecraft 26.3 graphical client; standalone Python controls, not simulated movement. NOT walk/eat consumption acceptance.",
+  "versions": {
+    "mod": "0.2.0-alpha.4",
+    "sdk": "0.2.0a7",
+    "minecraft": "26.3"
+  },
+  "installed_mod_sha256": "4ba93160b588d34c6836220445bbea4e482c95fc9e176cf31709969cc5aa2c7f",
+  "transport": "Same per-instance certificate/API key, mandatory verified TLS. MCP used only for old-client save/quit; standalone trials used installed wheel directly, no MCP/LLM.",
+  "tls_and_config_unchanged": true,
+  "fixtures": {
+    "movement": "Bridge Skill Flat (Creative / Peaceful, existing owned flat test world)",
+    "resource_probes": [
+      "Blockwire Armed Combat",
+      "Blockwire MCP Dirt Home"
+    ]
+  },
+  "verified": {
+    "native_arrival": {
+      "status": "succeeded",
+      "reason": "arrived",
+      "text": "Reached the requested walking radius.",
+      "details": {
+        "position": [
+          4.213237052422966,
+          -60,
+          10.5
+        ],
+        "target": [
+          4.5,
+          -60,
+          10.5
+        ],
+        "distance": 0.28676294757703413,
+        "steps": 8,
+        "effective_sneak": true,
+        "avoid_damage_is_best_effort": true
+      },
+      "cleanup": "released"
+    },
+    "runner_cleanup": {
+      "status": "stopped",
+      "reason": "requested",
+      "cleanup": "released",
+      "errors": []
+    },
+    "task_cancellation": {
+      "runner": {
+        "status": "stopped",
+        "reason": "requested",
+        "cleanup": "released",
+        "errors": []
+      },
+      "settled_positions": {
+        "a": [
+          4.599590966832885,
+          -60,
+          10.5
+        ],
+        "b": [
+          4.599590966832885,
+          -60,
+          10.5
+        ],
+        "health": 20
+      }
+    },
+    "independent_native_lease": {
+      "before": [
+        4.599590966832885,
+        -60,
+        10.5
+      ],
+      "samples": [
+        [
+          4.850482971640261,
+          -60,
+          10.5
+        ],
+        [
+          4.875369415650194,
+          -60,
+          10.5
+        ],
+        [
+          4.875369415650194,
+          -60,
+          10.5
+        ],
+        [
+          4.875369415650194,
+          -60,
+          10.5
+        ]
+      ],
+      "use_item": "empty hand; NO consumption outcome"
+    },
+    "hotbar_actor_fence": {
+      "stale_token_rejected": "actor_session_changed",
+      "selected_slot_unchanged": 0,
+      "fresh_and_legacy": "PASS"
+    },
+    "exclusive_ownership": {
+      "fight_rejected": true,
+      "legacy_job_rejected": "A skill owns player control; cancel it and await terminal status first",
+      "original_walk_after_rejections": {
+        "status": "succeeded",
+        "reason": "arrived",
+        "text": "Reached the requested walking radius.",
+        "details": {
+          "position": [
+            6.897268083377546,
+            -60,
+            10.5
+          ],
+          "target": [
+            6.875369415650194,
+            -60,
+            10.5
+          ],
+          "distance": 0.021898667727351828,
+          "steps": 8,
+          "effective_sneak": true,
+          "avoid_damage_is_best_effort": true
+        },
+        "cleanup": "released"
+      }
+    },
+    "player_health_observed": [
+      20
+    ],
+    "deaths_observed": 0,
+    "final_menu": "TitleScreen"
+  },
+  "not_consumption_evidence": {
+    "full_precondition": {
+      "status": "succeeded",
+      "reason": "already_full",
+      "text": "already full",
+      "details": {},
+      "cleanup": "released"
+    },
+    "reason": "All inspected fixtures had empty player inventory and hunger 20. already_full and empty-hand use receipts are NOT evidence of eating or simultaneous food consumption."
+  },
+  "retained_failure": {
+    "stage": "fixture loading helper",
+    "error": "close_screen_first",
+    "cause": "Initial helper tried open_pause while the loading screen was still active. Helper now waits for a closed native menu / PauseScreen. Observed player remained alive, health 20; save/quit confirmed.",
+    "record": "build/controller-verification/live/after-load-error.json"
+  },
+  "not_run": [
+    "Actual native food consumption while walking",
+    "Cancelling one task while the other is genuinely consuming food",
+    "Physical F8 during the new active controller",
+    "Survival/night/group safety and low-FPS compatibility"
+  ],
+  "safety": "Every active trial ended with native save/quit; last verified TitleScreen. No respawn, commands, item spawning, inventory/world-file edits, private-key/config rewrites or publication.",
+  "records": [
+    "build/controller-verification/live/install.json",
+    "build/controller-verification/live/smoke.json",
+    "build/controller-verification/live/fences.json",
+    "build/controller-verification/live/dirt-home-probe.json"
+  ],
+  "reproduction": "Native harness scripts and raw traces are in build/controller-verification/live/. Use only the explicitly authorized isolated fixture. For the remaining consumption trial, prepare a naturally acquired supported food stack, empty offhand, hunger below 20, and safe loaded flat ground."
+}

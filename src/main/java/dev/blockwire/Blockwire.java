@@ -26,6 +26,7 @@ public final class Blockwire implements ClientModInitializer {
     private TlsIdentity tls;
     private final MenuBridge menus=new MenuBridge();
     private final NavigationView navigation=new NavigationView();
+    private final InputLeases inputLeases=new InputLeases();
     private long deadline, generation;
     private net.minecraft.client.player.LocalPlayer actor;
     private net.minecraft.client.multiplayer.ClientLevel world;
@@ -96,6 +97,12 @@ public final class Blockwire implements ClientModInitializer {
         if(held.isEmpty())return;
         if(server==null || !server.connected() || mc.player==null || mc.player!=actor || mc.level!=world || !mc.player.isAlive() ||
             mc.gui.screen()!=null || mc.isPaused() || ticksLeft--<=0 || System.nanoTime()>=deadline) {release();return;}
+        var expired=inputLeases.expire(System.nanoTime());
+        expired.forEach(key->InputState.set(keys().get(key),false));
+        if(!expired.isEmpty()) {
+            var remaining=new HashSet<>(held);remaining.removeAll(expired);held=Set.copyOf(remaining);
+            if(held.isEmpty()){release();return;}
+        }
         held.forEach(key->InputState.set(keys().get(key),true));
     }
     private Map<String,KeyMapping> keys() {
@@ -105,14 +112,14 @@ public final class Blockwire implements ClientModInitializer {
     }
     private void release() {
         held.forEach(key->InputState.set(keys().get(key),false));
-        held=Set.of();ticksLeft=0;actor=null;world=null;
+        held=Set.of();inputLeases.clear();ticksLeft=0;actor=null;world=null;
     }
     private void stop() {++generation;release();if(server!=null){server.close();server=null;}}
     public static boolean holdingAttack() {
         return instance!=null && instance.server!=null && instance.held.contains("attack") &&
             instance.server.connected() && instance.mc.gui.screen()==null && !instance.mc.isPaused() &&
             instance.mc.player==instance.actor && instance.mc.level==instance.world && instance.actor!=null && instance.actor.isAlive() &&
-            System.nanoTime()<instance.deadline;
+            System.nanoTime()<instance.deadline && instance.inputLeases.active("attack",System.nanoTime());
     }
     private void playerRequired() {
         if(mc.player==null || mc.level==null || mc.gameMode==null)throw new IllegalStateException("not_in_world");
@@ -130,7 +137,10 @@ public final class Blockwire implements ClientModInitializer {
     private JsonObject dispatch(JsonObject q) {
         String op=Protocol.operation(q);
         switch(op) {
-            case "observe" -> {Protocol.fields(q);return Observations.scene(mc);}
+            case "observe" -> {
+                Protocol.fields(q);var scene=Observations.scene(mc);
+                scene.addProperty("actor_session",navigation.actorSession(mc));return scene;
+            }
             case "navigation" -> {Protocol.fields(q);return navigation.snapshot(mc);}
             case "inventory" -> {Protocol.fields(q);playerRequired();return Observations.inventory(mc);}
             case "menu" -> {Protocol.fields(q);return menus.snapshot(mc);}
@@ -145,7 +155,7 @@ public final class Blockwire implements ClientModInitializer {
                 return Protocol.ok("Camera set. Target observation refreshes on the next rendered frame.");
             }
             case "drive" -> {
-                Protocol.fields(q,"buttons","ticks","actor_session");int ticks=Protocol.integer(q,"ticks",1,100);
+                Protocol.fields(q,"buttons","ticks","actor_session","button_ticks");int ticks=Protocol.integer(q,"ticks",1,100);
                 if(!q.has("buttons") || !q.get("buttons").isJsonArray() || q.getAsJsonArray("buttons").size()>9)
                     throw new IllegalArgumentException("expected_buttons_array_max_9");
                 Set<String> buttons=new HashSet<>();
@@ -156,8 +166,14 @@ public final class Blockwire implements ClientModInitializer {
                 }
                 if((buttons.contains("forward")&&buttons.contains("back")) || (buttons.contains("left")&&buttons.contains("right")))
                     throw new IllegalArgumentException("opposed_buttons");
-                guardedActor(q);playing();boolean attack=buttons.contains("attack")&&!held.contains("attack"),use=buttons.contains("use")&&!held.contains("use");
-                release();held=Set.copyOf(buttons);actor=mc.player;world=mc.level;ticksLeft=ticks;deadline=System.nanoTime()+ticks*50_000_000L;
+                var leases=Protocol.buttonTicks(q,buttons,ticks);
+                guardedActor(q);playing();
+                if(actor!=mc.player || world!=mc.level)inputLeases.clear();
+                var next=inputLeases.replace(buttons,leases,System.nanoTime());
+                inputLeases.cap(ticks,System.nanoTime());
+                boolean attack=next.contains("attack")&&!held.contains("attack"),use=next.contains("use")&&!held.contains("use");
+                held.stream().filter(key->!next.contains(key)).forEach(key->InputState.set(keys().get(key),false));
+                held=next;actor=mc.player;world=mc.level;ticksLeft=ticks;deadline=System.nanoTime()+ticks*50_000_000L;
                 held.forEach(key->InputState.set(keys().get(key),true));
                 if(attack)((MinecraftActions)(Object)mc).blockwire$attack();
                 if(use)((MinecraftActions)(Object)mc).blockwire$use();
@@ -176,7 +192,7 @@ public final class Blockwire implements ClientModInitializer {
                 return Protocol.ok("Native "+name+" requested; observe the resulting state.");
             }
             case "hotbar" -> {
-                Protocol.fields(q,"slot");int slot=Protocol.integer(q,"slot",0,8);playing();
+                int slot=Protocol.hotbarSlot(q);guardedActor(q);playing();
                 mc.player.getInventory().setSelectedSlot(slot);return Protocol.ok("Selected hotbar slot "+slot+".");
             }
             case "open_inventory" -> {

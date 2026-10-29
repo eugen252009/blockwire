@@ -4,18 +4,21 @@ This is a local alpha build, not a published release. Upgrading from Block Bridg
 Read `source/docs/rename.md`: replace the old JAR, keep the existing config/TLS
 identity, and uninstall the old SDK before installing the new distribution.
 
-1. Install `mods/blockwire-0.2.0-alpha.3.jar` with Fabric API into an isolated
+1. Install `mods/blockwire-0.2.0-alpha.4.jar` with Fabric API into an isolated
    Minecraft 26.3 / Java 25 instance.
 2. Launch once. Configure `minecraft/config/blockwire/settings.json` as described
    in `source/docs/configuration.md` (or press F8). Keep the generated private key.
 3. Make a Python 3.11+ environment and install the bundled wheel:
-   `pip install 'python/blockwire-0.2.0a3-py3-none-any.whl[mcp]'`.
+   `pip install 'python/blockwire-0.2.0a7-py3-none-any.whl[mcp]'`.
    pip resolves the declared dependencies; this is not an offline dependency bundle.
 4. Set `BLOCKWIRE_CONFIG` to that private settings file. Local certificate
    discovery is automatic; remote clients need an out-of-band trusted public
    certificate. Never distribute the instance's private TLS identity.
 5. Run `blockwire skills`, `blockwire-mcp`, or use the Python actor API.
    See `source/docs/skills.md` for goal limits and status/cancel behavior.
+   Standalone async controllers need no MCP; see `source/docs/controller.md`.
+   Their real-client concurrency acceptance is NOT RUN. Previously built alpha.3
+   bundles are historical frozen artifacts, not updated in place.
 
 For the next developer/LLM: start at `source/AGENTS.md` and
 `source/docs/extensions.md`. The full allowlisted project sources, tests and a
