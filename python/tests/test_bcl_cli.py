@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from blockwire.bcl.cli import check_source, main, read_source, repl, send_file, terminal_input, readable
+from blockwire.bcl.cli import check_source, main, read_source, read_token, repl, send_file, terminal_input, readable
 from unittest.mock import AsyncMock
 from contextlib import nullcontext
 
@@ -55,6 +55,30 @@ class FileContracts(unittest.TestCase):
     def test_required_identity_and_no_plaintext_switch(self):
         with self.assertRaises(SystemExit):
             main([])
+
+    def test_gateway_token_file_is_private_regular_and_bounded(self):
+        import os
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            token = root / 'token'
+            token.write_text('a' * 64 + '\n', encoding='utf-8')
+            if os.name == 'posix':
+                token.chmod(0o644)
+                with self.assertRaises(ValueError):
+                    read_token(token)
+                token.chmod(0o600)
+            self.assertEqual(read_token(token), 'a' * 64)
+            link = root / 'token-link'
+            link.symlink_to(token)
+            with self.assertRaises(ValueError):
+                read_token(link)
+            with self.assertRaises(ValueError):
+                read_token(root)
+            token.write_bytes(b'a' * 1025)
+            if os.name == 'posix':
+                token.chmod(0o600)
+            with self.assertRaises(ValueError):
+                read_token(token)
 
 
 class TerminalContracts(unittest.IsolatedAsyncioTestCase):
@@ -211,6 +235,32 @@ class TerminalContracts(unittest.IsolatedAsyncioTestCase):
             finally:
                 os.close(write_fd)
 
+    async def test_redirected_stdout_keeps_tty_input_cancellable_and_json_clean(self):
+        import io
+        import os
+        if os.name != 'posix':
+            self.skipTest('POSIX pseudo-terminal transport')
+        import pty
+        master, slave = pty.openpty()
+        stream = os.fdopen(slave, 'r', encoding='utf-8')
+        try:
+            with patch('sys.stdin', stream), patch('sys.stdout', io.StringIO()), \
+                 patch('blockwire.bcl.cli.asyncio.to_thread', side_effect=AssertionError('blocking readline')):
+                async with terminal_input() as read_line:
+                    task = asyncio.create_task(read_line(''))
+                    await asyncio.sleep(.01)
+                    task.cancel()
+                    await asyncio.gather(task, return_exceptions=True)
+                    self.assertTrue(task.cancelled())
+                async def quit_line(prompt):
+                    return ':quit'
+                with patch('builtins.print') as printed:
+                    self.assertEqual(await repl(Client(), quit_line, lambda _: None), 0)
+                printed.assert_not_called()
+        finally:
+            stream.close()
+            os.close(master)
+
     async def test_prompt_editing_and_session_history_survive_output(self):
         from prompt_toolkit import PromptSession
         from prompt_toolkit.input import create_pipe_input
@@ -236,10 +286,14 @@ class TerminalContracts(unittest.IsolatedAsyncioTestCase):
 
 class EntryContracts(unittest.TestCase):
     def test_unified_cli_dispatch_and_legacy_alias(self):
+        import runpy
         from blockwire.cli import main as unified
         with patch('blockwire.bcl.cli.main', return_value=7) as dispatch:
             self.assertEqual(unified(['run', 'house.bcl', '--world-id', 'fixture']), 7)
             dispatch.assert_called_once_with(['run', 'house.bcl', '--world-id', 'fixture'])
+        with patch('blockwire.cli.main', return_value=7), self.assertRaises(SystemExit) as stopped:
+            runpy.run_module('block_bridge.cli', run_name='__main__')
+        self.assertEqual(stopped.exception.code, 7)
 
     def test_mode_parser_and_observable_exit_codes(self):
         common = ['--certificate', 'public.pem', '--token-file', 'token', '--world-id', 'fixture',

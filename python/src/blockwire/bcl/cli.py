@@ -22,6 +22,10 @@ HELP = """Blockwire BCL/1 (not Python). Ordinary lines execute immediately.
 F8 remains the Minecraft stop switch. No automatic reconnect or replay."""
 
 
+def _interactive_terminal():
+    return sys.stdin.isatty() and sys.stdout.isatty()
+
+
 def emit(value):
     print(json.dumps(value, ensure_ascii=True, allow_nan=False), flush=True)
 
@@ -61,6 +65,25 @@ def read_source(path):
     return check_source(data.decode('utf-8'))
 
 
+def read_token(path):
+    path = Path(path)
+    if path.is_symlink():
+        raise ValueError('Gateway token file must not be a symlink')
+    descriptor = os.open(path, os.O_RDONLY | getattr(os, 'O_NOFOLLOW', 0))
+    try:
+        metadata = os.fstat(descriptor)
+        if not stat.S_ISREG(metadata.st_mode):
+            raise ValueError('Gateway token must be a regular file')
+        if os.name == 'posix' and metadata.st_mode & 0o077:
+            raise ValueError('Gateway token permissions must be private (chmod 600)')
+        data = os.read(descriptor, 1025)
+    finally:
+        os.close(descriptor)
+    if len(data) > 1024:
+        raise ValueError('Gateway token file is unexpectedly large')
+    return data.decode('utf-8').strip()
+
+
 async def send_file(client, source, output=emit):
     result = await client.send(check_source(source))
     output(result)
@@ -86,7 +109,7 @@ async def notifications(client, output):
 
 @asynccontextmanager
 async def terminal_input():
-    if sys.stdin.isatty() and sys.stdout.isatty():
+    if _interactive_terminal():
         from prompt_toolkit import PromptSession
         from prompt_toolkit.history import InMemoryHistory
         from prompt_toolkit.patch_stdout import patch_stdout
@@ -96,12 +119,13 @@ async def terminal_input():
             yield session.prompt_async
     else:
         # A blocked executor readline would delay asyncio.run shutdown after a
-        # gateway disconnect. POSIX pipes use cancellable event-loop I/O instead.
+        # gateway disconnect. POSIX pipes/TTYs use cancellable event-loop I/O.
         try:
-            is_pipe = os.name == 'posix' and stat.S_ISFIFO(os.fstat(sys.stdin.fileno()).st_mode)
+            mode = os.fstat(sys.stdin.fileno()).st_mode
+            is_cancellable_stream = os.name == 'posix' and not stat.S_ISREG(mode)
         except (OSError, ValueError, AttributeError):
-            is_pipe = False
-        if is_pipe:
+            is_cancellable_stream = False
+        if is_cancellable_stream:
             reader = asyncio.StreamReader()
             pipe = os.fdopen(os.dup(sys.stdin.fileno()), 'rb', buffering=0)
             transport, _ = await asyncio.get_running_loop().connect_read_pipe(
@@ -128,7 +152,7 @@ async def repl(client, read_line=None, output=emit):
     if read_line is None:
         async with terminal_input() as read_line:
             return await repl(client, read_line, output)
-    if sys.stdin.isatty():
+    if _interactive_terminal():
         print(HELP)
     pending = set()
     buffer = None
@@ -248,7 +272,7 @@ def parser():
 
 async def run(args):
     source = read_source(args.file) if args.file else None
-    token = args.token_file.read_text(encoding='utf-8').strip()
+    token = read_token(args.token_file)
     output = emit if args.verbose or not sys.stdout.isatty() else readable
     async with BCLClient(args.url, token, args.certificate,
                          session_id=args.session_id or 'human-' + uuid4().hex,
@@ -258,8 +282,8 @@ async def run(args):
         if source is not None:
             async with notifications(client, output):
                 return await send_file(client, source, output)
-        if sys.stdin.isatty():
-            print('Blockwire BCL/1 — Connection: established; Session: bound')
+        if _interactive_terminal():
+            print('Blockwire BCL/1 - Connection: established; Session: bound')
         return await repl(client, output=output)
 
 

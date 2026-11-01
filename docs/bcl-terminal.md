@@ -54,9 +54,11 @@ Equivalent entry points: `.venv/bin/blockwire repl` and the compatibility comman
 
 Default URL is the local gateway `wss://127.0.0.1:8880/v1`, **not** the native mod
 endpoint. `--url` selects another explicitly trusted gateway. Certificates, token
-files, required binding flags and `--timeout` are shared by both modes. Credentials
-are never put into REPL history or echoed in connection exceptions. A fresh session
-ID is generated unless explicitly supplied using `--session-id`; `--agent-id`
+files, required binding flags and `--timeout` are shared by both modes. The client
+rejects symlink/non-regular token files and, on POSIX, permissions broader than
+0600. Credentials are never put into REPL history or echoed in connection
+exceptions. A fresh session ID is generated unless explicitly supplied using
+`--session-id`; `--agent-id`
 defaults to `human`. No actor identity is guessed and no automatic rebind occurs.
 After death/world/player replacement, inspect state and explicitly bind a new
 session. There is no automatic respawn, reconnect or replay.
@@ -155,8 +157,10 @@ Interactive output shows real status, request/task IDs, output values and availa
 structured diagnostics (including compiler line/column where supplied). It never
 invents positions or success. `--verbose` / `--json` emits full JSON replies.
 Redirected stdout defaults to JSON lines, without banners/prompts/colors, suitable
-for scripts and pipelines. Terminal control characters in untrusted fields are
-escaped. No colors are used, including when `NO_COLOR` is set.
+for scripts and pipelines. A TTY stdin remains cancellable when stdout is redirected;
+it uses line-oriented input without emitting human UI text. Terminal control
+characters in untrusted fields are escaped. No colors are used, including when
+`NO_COLOR` is set.
 
 ```sh
 .venv/bin/blockwire run program.bcl --certificate /trusted/bcl/certificate.pem \
@@ -196,4 +200,5 @@ new gameplay behavior, unattended operation or successful construction.
 Known limitations: no desktop UI/full-screen editor; nested result details are
 printed as escaped JSON; private gateway logs may be needed for binding/auth faults;
 `:tasks` lists known SDK tasks, not a new server-global task-history API; `:wait`
-blocks terminal input; pipe input is line-oriented and has no editing/history.
+blocks terminal input; pipe or redirected-output input is line-oriented and has no
+editing/history.

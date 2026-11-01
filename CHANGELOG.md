@@ -2,6 +2,12 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Human-operated BCL/1 terminal REPL and complete-file runner over the existing
+  authenticated TLS gateway, with unified `python -m blockwire` / `blockwire`
+  dispatch, prompt-safe asynchronous events, cancellation and terminal outcomes.
+- Redirected terminal output remains JSON-only and cancellable even with TTY stdin;
+  client gateway-token files fail closed on symlinks, non-files or broad POSIX
+  permissions, and the legacy module wrapper preserves BCL exit codes.
 - Play2Code passive local-human recorder: F9/F10 start/stop only while the remote
   endpoint is disabled; native tick/input/hotbar/interaction timelines and stable
   client-observed placement/break correlation. No input ownership or protocol RPC.

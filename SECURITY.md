@@ -183,13 +183,15 @@ transport/actor/partial-inventory checks or turn failed actions into success.
 No S6 gamemode adapter is registered. Extensions remain explicitly trusted host code.
 
 The opt-in loopback WebSocket gateway requires TLS >=1.2, an explicitly provisioned
-private gateway key/certificate and a private selected gateway token. It does not
-export the Minecraft PKCS12 key. Clients reuse pinned-certificate/hostname checking;
-no plaintext/system-trust fallback. The native authenticated TLS transport remains
-unchanged. Authoritative events cannot be submitted by clients. Session-owned
-subscriptions, queue/frame bounds and persistent monotonic request dedup isolate
-agents and prevent accidental replay of non-idempotent cycles. Lost connections
-cancel their work; uncertain native transport latches closed until host restart.
+private gateway key/certificate and a private selected gateway token. The terminal
+client rejects symlink/non-regular token files and POSIX permissions broader than
+0600. It does not export the Minecraft PKCS12 key. Clients reuse pinned-certificate/
+hostname checking; no plaintext/system-trust fallback. The native authenticated
+TLS transport remains unchanged. Authoritative events cannot be submitted by
+clients. Session-owned subscriptions, queue/frame bounds and persistent monotonic
+request dedup isolate agents and prevent accidental replay of non-idempotent cycles.
+Lost connections cancel their work; uncertain native transport latches closed until
+host restart.
 Keep private modal/action journals, gateway keys/tokens and raw game evidence out
 of bundles. Do not expose this development gateway publicly.
 

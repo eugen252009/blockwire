@@ -47,6 +47,7 @@ class WebSocketContracts(unittest.IsolatedAsyncioTestCase):
         path = self.root / 'recorded program.bcl'
         path.write_text('S0 async\nI0', encoding='utf-8')
         (self.root / 'token').write_text('a' * 64, encoding='utf-8')
+        if os.name == 'posix':(self.root / 'token').chmod(0o600)
         process = await asyncio.create_subprocess_exec(
             sys.executable, '-m', 'blockwire', 'run', str(path),
             '--url', self.url, '--certificate', str(self.cert),

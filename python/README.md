@@ -22,7 +22,9 @@ loopback TLS WebSocket; `blockwire.bcl.client.BCLClient` is a transport SDK, not
 second controller. MCP adds compile/execute/discovery and reuses existing
 status/cancel. See [BCL specification](../docs/bcl.md) and the generated reference.
 No gamemode/cheat or automatic reconnect/replay. Gateway TLS material and native
-Minecraft connection credentials are separately operator selected.
+Minecraft connection credentials are separately operator selected. Human operators
+can use `python -m blockwire repl` / `blockwire run FILE` (or `blockwire-bcl`) for
+bounded complete-frame BCL input; see [terminal contracts](../docs/bcl-terminal.md).
 
 The `blockwire.skills` package adds declarative goals, strict schemas, cooperative
 background jobs and explicitly selected provider extensions. `Player.walk_to(...)`
