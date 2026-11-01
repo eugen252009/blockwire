@@ -170,30 +170,33 @@ storage availability is checked before effects. No historical evidence was delet
 
 ## Actual qualification results
 
-**A: GO** for the unchanged-source A11–A13 repeat cohort; **B: NO-GO** for
-complete autonomous benchmark closure. The model-built shell exists, but a shell
-alone is not the specified goal.
+**A: GO** for the unchanged-source A11–A13 repeat cohort. **B: GO** for the
+first strict accepted real-model run, B12. **B repeatability: NO-GO / not
+established**: only B12 passed the unchanged-source B12–B14 cohort; B13 and B14
+remain failures under the same acceptance contract.
 
-| Metric | Deterministic A11 / A12 / A13 | Real model B01 |
+| Metric | Deterministic A11 / A12 / A13 | Real model B12 |
 |---|---|---|
-| Complete independent objective | PASS / PASS / PASS | FAIL |
+| Strict benchmark acceptance | PASS / PASS / PASS | PASS |
 | Required blocks independently correct | 71 / 71 / 71 | 71 |
-| Valid BCL operations submitted | 298 / 298 / 298 | 403 |
-| Executed skill operations | 288 / 288 / 288 | 346 |
+| Executed skill operations | 288 / 288 / 288 | 336 |
+| Project journal operations | not applicable | 354 |
 | Verified placement events, including helpers | 82 / 82 / 82 | 77 |
-| Failed runtime operations | 0 / 0 / 0 | 21 |
-| Compiler rejections | 0 / 0 / 0 | 1 |
-| Model calls | 0 / 0 / 0 | 47 |
+| Failed runtime operations | 0 / 0 / 0 | 3 |
+| Compiler rejections | 0 / 0 / 0 | 0 |
+| Model calls | 0 / 0 / 0 | 22 |
 | Plan geometry revisions | not applicable | 0 |
-| Decisions following failed feedback | not applicable | 21 |
-| Measured total wall seconds | 692.43 / 678.42 / 660.71 | 1405.02 |
-| Helpers remaining | 0 / 0 / 0 | 6 |
-| Final safe reachable interior proof | PASS / PASS / PASS | FAIL |
+| Feedback-conditioned decisions | not applicable | 4 |
+| Measured total wall seconds | 692.43 / 678.42 / 660.71 | 887.58 |
+| Helpers remaining | 0 / 0 / 0 | 0 |
+| Final safe reachable interior proof | PASS / PASS / PASS | PASS |
+| Agent terminal recognition | not applicable | `OBJECTIVE_VERIFIED` |
 
-Submitted operations include modal settings and admitted but unexecuted tails;
-executed skill operations exclude settings. Placement events are mechanics metrics,
-NEVER positive independent acceptance evidence. Feedback-conditioned decisions
-measure repair attempts, not changes of the final geometry.
+Project-journal operations include the persistent project accounting used for the
+512-operation bound; executed skill operations are the actually dispatched BCL
+operations. Placement events are mechanics metrics, NEVER positive independent
+acceptance evidence. Feedback-conditioned decisions measure repair attempts, not
+changes of the final geometry.
 
 ### B01: interpretation, corrections, and remaining navigation limit
 
@@ -228,6 +231,67 @@ motor's partial-support/overhang recovery limit, NOT only LLM planning. A's
 success does not prove that B's different staircase/timing is supported. No
 strategy-specific fix or second planner was added to manufacture a B success.
 
+### Fresh Test-B follow-up B02–B14
+
+Thirteen additional IDs after B01 were started from the same canonical closed
+snapshot. B06 failed before a model exchange while the native world list was still
+populating; every other ID produced a sealed result snapshot. Every started ID is
+retained and none is relabelled after a later source correction.
+
+| Run | Calls / executed ops / failed actions | Independent closed-world result | Terminal result |
+|---|---:|---|---|
+| B02 | 31 / 459 / 7 | 71/71, zero helpers; no final native access/safe-player proof | `project_operation_budget` |
+| B03 | 28 / 339 / 7 | 71/71, zero helpers, native interior access true; safe-player false | agent verified, independent acceptance failed |
+| B04 | 40 / 443 / 12 | 71/71, two helpers | `project_operation_budget` |
+| B05 | 2 / 4 / 0 | 0/71 | external model command returned nonzero |
+| B06 | 0 / 0 / 0 | no measured world result | asynchronous world-list startup failure |
+| B07 | 32 / 488 / 7 | 71/71, zero helpers; no final native access/safe-player proof | `project_operation_budget` |
+| B08 | 16 / 180 / 3 | 55/71, six helpers | malformed model JSON (`Invalid \\escape`) |
+| B09 | 45 / 483 / 7 | 71/71, zero helpers; no final native access/safe-player proof | `project_operation_budget` |
+| B10 | 58 / 415 / 18 | 71/71, three helpers | `project_operation_budget` |
+| B11 | 36 / 446 / 7 | 71/71, one helper; no final native access/safe-player proof | `project_operation_budget` |
+| **B12** | **22 / 336 / 3** | **71/71, zero helpers, access and safe player true** | **`OBJECTIVE_VERIFIED`; strict PASS** |
+| B13 | 37 / 425 / 8 | 71/71, zero helpers; no final native access/safe-player proof | `project_operation_budget` |
+| B14 | 35 / 457 / 7 | 71/71, zero helpers; every independent physical predicate true | agent remained `OBJECTIVE_INCOMPLETE`; strict FAIL |
+
+B03 shows that project recognition cannot replace the unchanged native safety
+predicate. B14 shows the converse: a later independent world certificate cannot
+replace required in-run agent recognition. B02, B07, B09, B11 and B13 likewise
+show that exact or nearly exact geometry is insufficient without all terminal
+predicates.
+
+The failures exposed reusable orchestration defects, corrected between fresh runs:
+
+- bounded inspection follow-ups continue one active `final_sweep` instead of
+  discarding still-fresh evidence;
+- read-only inspection reserves ordinary BCL budget and restores its caller's
+  model-selected origin, including bounded staged returns through observed native
+  navigation;
+- fixture loading polls asynchronous world-list population before making the
+  unique owned-world selection;
+- malformed model JSON becomes bounded model feedback rather than a host abort;
+- late inspection preserves mandatory `V0`/`I0`, one final model action and the
+  independent host audit;
+- a successful model program already ending in terminal `V0` plus `I0` satisfies
+  the mandatory follow-up instead of consuming it a second time;
+- future private audits retain bounded malformed replies and nonzero process exit
+  metadata without retaining stderr.
+
+B05's historical process failure cannot be diagnosed more precisely: the adapter
+then discarded stderr and did not record the exit code. B08's malformed reply was
+also not retained by that older adapter. Those evidence gaps are stated rather
+than reconstructed.
+
+B12 is the first genuine strict Test-B **GO**: the model reached
+`OBJECTIVE_VERIFIED`, and the independent audit confirmed 71/71, zero helpers,
+clear entrance/interior, complete roof, intact floor, native interior access and a
+safe player. The exact post-B12 source was frozen with canonical payload SHA-256
+`5ffe4a310a083d1932e25b42fa016c8f70b7dd034cb5cdf597a3b46672bd923f`
+before B13 and remained byte-identical through B14. Strict repeatability is still
+**NO-GO / not established**: B12–B14 produced 1/3 accepted runs. B14 independently
+completed the physical objective, so the cohort's independent-objective rate is
+2/3, but its missing agent terminal recognition remains a real failure.
+
 ### Fault and recovery qualifications
 
 Fresh isolated fault runs independently rejected incomplete states: F01 truncated
@@ -247,8 +311,12 @@ all calibration versions there were 12 fresh construction starts, eight incomple
 (including A06 storage failure), plus A05's separate zero-building startup failure.
 Debug continuations are separate: A07-removal-probe completed a saved failed world,
 while the earlier A04 continuations retain their original failures. Do NOT report
-all historical attempts as a 100% end-to-end success rate. B is one fresh real
-model trial, not a three-seed/model reliability study.
+all historical attempts as a 100% end-to-end success rate. Test B now has fourteen
+started fresh IDs B01–B14: thirteen result-producing real-model runs and B06's
+retained pre-exchange startup failure, with **one strict accepted run, B12**. The
+unchanged-source B12–B14 assessment cohort is 1/3 for strict acceptance and 2/3
+for the independent physical objective. This remains one fixed owned snapshot and
+model configuration, not a multi-seed or provider reliability study.
 
 Final automated checks for the frozen A11–A13/B01 assessment: **424 Python tests
 PASS; 298 isolated mutations killed** (142 skills, 29 projects, 22 benchmark,
@@ -258,9 +326,17 @@ listed above as native runs. Historical invalid mutation/harness attempts,
 original failures and incomplete storage artifacts remain private and are not
 silently replaced by successful facts.
 
+Affected-scope qualification through B14: **466 Python tests PASS**; project
+mutations **38/38 killed**; building mutations **23/23 killed**; skill mutations
+**157/157 killed**. Final `ccc index`: **281 files, 3665 chunks, zero errors**.
+Gradle and TLS interop were **NOT RUN** for this Python/test-harness-only follow-up;
+the earlier qualified Java/TLS results remain historical evidence, not a newly
+rerun claim. The client was closed through the native `Quit Game` widget; Minecraft,
+launcher and benchmark processes were absent and ports 8879/8765 were closed.
+
 ### Post-rotation deterministic regression
 
-Timed camera integration was checked without changing the frozen A/B verdicts.
+Timed camera integration was checked independently of the later Test-B qualification.
 Three fresh failures remain retained: A16 stopped before operations because the
 separate private gateway certificate had expired; A17 reached 48/71 then fell
 while turning/driving on a narrow elevated route; A18 reached 46/71 then could

@@ -1,396 +1,398 @@
-# Blockwire – konsolidierte Entwicklungs- und Änderungshistorie
+# Blockwire — consolidated development and change history
 
-Diese Datei beschreibt zusammenhängend, **wie sich die aktuelle qualifizierte
-Arbeitskopie entwickelt hat**, welche technischen Änderungen vorgenommen wurden,
-welche Fehlversuche erhalten blieben und welche Aussagen durch echte
-Minecraft-Evidenz gedeckt sind.
+This document provides a coherent account of **how the currently qualified working
+tree evolved**, which technical changes were made, which failed attempts remain
+retained, and which claims are supported by real Minecraft evidence.
 
-Sie ersetzt keine der fachlich engeren Spezifikationen. Maßgeblich bleiben:
+It does not replace the more narrowly scoped specifications. The authoritative
+references remain:
 
-- [Architektur](architecture.md)
-- [Protokoll](protocol.md)
+- [Architecture](architecture.md)
+- [Protocol](protocol.md)
 - [Skills](skills.md)
 - [BCL/1](bcl.md)
 - [Persistent Projects](projects.md)
-- [Superflat-Benchmark](superflat-building.md)
-- [Movement-Benchmark](movement-benchmark.md)
-- [Rotation-Benchmark](rotation-benchmark.md)
-- [maschinenlesbare Rotation-/Regressions-Evidenz](evidence/rotation-benchmark.json)
+- [Superflat benchmark](superflat-building.md)
+- [Movement benchmark](movement-benchmark.md)
+- [Rotation benchmark](rotation-benchmark.md)
+- [machine-readable rotation/regression evidence](evidence/rotation-benchmark.json)
 
-Private Zertifikate, API-Schlüssel, Journale, Snapshots, Saves und rohe
-Modellantworten gehören **nicht** zu dieser Dokumentation und dürfen nicht in ein
-Distributionspaket aufgenommen werden.
+Private certificates, API keys, journals, snapshots, saves, and raw model replies
+are **not** part of this documentation and must not be included in a distribution
+bundle.
 
 ---
 
-## 1. Ausgangspunkt und unveränderte Systemgrenzen
+## 1. Starting point and unchanged system boundaries
 
-Blockwire verwendet weiterhin genau einen Ausführungsstack:
+Blockwire continues to use exactly one execution stack:
 
 ```text
-externes Modell oder lokales Programm
-    -> BCL/1 beziehungsweise typisierte Python-Ziele
-    -> bestehende Registry und Skill-Laufzeit
+external model or local program
+    -> BCL/1 or typed Python goals
+    -> existing registry and skill runtime
     -> Player/Backend
-    -> authentifizierte TLS-WebSocket-Verbindung
-    -> native Minecraft-Aktionen
-    -> Minecraft-Physik und beobachtete Postconditions
+    -> authenticated TLS WebSocket connection
+    -> native Minecraft actions
+    -> Minecraft physics and observed postconditions
 ```
 
-Die Entwicklung hat **keinen zweiten Bewegungs-, Bau- oder Rotationscontroller**
-eingeführt. Unverändert gelten insbesondere:
+Development introduced **no second movement, building, or rotation controller**.
+The following boundaries remain unchanged:
 
-- TLS ist obligatorisch; es gibt keinen Klartext- oder Trust-all-Fallback.
-- Jede Instanz besitzt eine separat vertraute Zertifikatsidentität.
-- API-Key, Hostname-Prüfung, Loopback-Defaults und Verbindungsgrenzen bleiben
-  erhalten.
-- F8 beziehungsweise explizites Stoppen gibt native Eingaben frei.
-- Spieler- und Weltwechsel werden mit `actor_session` eingezäunt.
-- Native Minecraft-Logik besitzt Bewegung, Kollision, Schaden, Sprung, Crafting,
-  Inventaränderungen und Platzierungsergebnisse.
-- Ein RPC-Receipt ist kein Gameplay-Erfolg.
-- Erfolg setzt eine beobachtete Ziel-Postcondition voraus.
-- Unsichere Effekte werden nicht blind wiederholt.
-- Abbruch- und Deadline-Prüfungen erfolgen vor Aktionen und innerhalb langer
-  Schleifen.
-- Fehlversuche, Debug-Fortsetzungen und Recovery-Probes werden nicht nachträglich
-  als frische Erfolge umetikettiert.
+- TLS is mandatory; there is no plaintext or trust-all fallback.
+- Each instance has a separately trusted certificate identity.
+- API-key checks, hostname verification, loopback defaults, and connection bounds
+  remain in place.
+- F8 or an explicit stop releases native inputs.
+- Player and world replacement are fenced with `actor_session`.
+- Native Minecraft logic owns movement, collision, damage, jumping, crafting,
+  inventory changes, and placement outcomes.
+- An RPC receipt is not gameplay success.
+- Success requires an observed goal postcondition.
+- Uncertain effects are not replayed blindly.
+- Cancellation and deadline checks occur before actions and inside long-running
+  loops.
+- Failed attempts, debug continuations, and recovery probes are not retroactively
+  relabelled as fresh successes.
 
-Diese Grenzen waren die Leitplanken für alle nachfolgenden Änderungen.
+These boundaries guided every subsequent change.
 
 ---
 
-## 2. Frühere Grundlage: native Aktionen, Skills und Survival-Mechanik
+## 2. Earlier foundation: native actions, skills, and Survival mechanics
 
-Die erste Entwicklungsphase etablierte den allgemeinen Actor-Stack:
+The first development phase established the general actor stack:
 
-- `Player(Backend)` als kleine programmierbare Actor-API;
-- gepinnte native TLS-Verbindung;
-- bounded Observation-, Inventar-, Menü- und Eingabeoperationen;
-- Skill-Registry, Ausführung, Ownership, Status und kooperative Cancellation;
-- native Input-Leases statt unbeschränkter Tastendrücke;
-- konservative Sicht-, Terrain- und Gefahrenbeobachtungen;
-- Crafting, Equipment, Nahrung, Mining, Placement und UI-Fencing mit
-  beobachteten Postconditions.
+- `Player(Backend)` as a small programmable actor API;
+- pinned native TLS connectivity;
+- bounded observation, inventory, menu, and input operations;
+- skill registry, execution, ownership, status, and cooperative cancellation;
+- native input leases instead of unbounded key presses;
+- conservative visibility, terrain, and hazard observations;
+- crafting, equipment, food, mining, placement, and UI fencing with observed
+  postconditions.
 
-Darauf entstanden die Survival- und Stone-Age-Versuche. Der erhaltene echte
-Tool-free-Erfolg `attempt08` verwendete `openai-codex / gpt-6.1-sol` und erreichte
-nach 26 Entscheidungen unter anderem:
+The Survival and Stone Age attempts were built on that foundation. The retained
+real tool-free success `attempt08` used `openai-codex / gpt-6.1-sol` and reached,
+after 26 decisions:
 
-- 18 Cobblestone als beobachteten Peak;
-- eine Stone Pickaxe;
-- 20 Gesundheit;
+- an observed peak of 18 cobblestone;
+- a stone pickaxe;
+- 20 health;
 - `objective_verified: true`.
 
-Dieser Erfolg ist kein Nachweis für vollständiges, unbeaufsichtigtes Survival.
-Andere Versuche und nicht inspizierte Artefakte – insbesondere `attempt09` –
-bleiben separat und werden nicht in diese Aussage einbezogen.
+This success is not evidence of complete unattended Survival. Other attempts and
+uninspected artifacts — especially `attempt09` — remain separate and are not
+included in that claim.
 
 ---
 
-## 3. BCL/1: Compiler, typisierte IR und Gateway
+## 3. BCL/1: compiler, typed IR, and gateway
 
-Die nächste Phase führte BCL/1 als kompakte, aber vollständig validierte
-Steuerungssprache oberhalb derselben Skills ein.
+The next phase introduced BCL/1 as a compact but fully validated control language
+above the same skills.
 
-### 3.1 Compiler- und Laufzeitgrenzen
+### 3.1 Compiler and runtime boundaries
 
-Implementiert wurden:
+Implemented capabilities include:
 
-- vollständige Frame-Validierung **vor** dem ersten Effekt;
-- deterministische Kompilierung in eine eingefrorene typisierte IR;
-- deklarativ aus Skill-Schemas erzeugte Command-Metadaten;
-- modale Session-Zustände;
-- FIFO-Jobs und Events;
-- persistente Request-Deduplikation;
-- getrennte Bedeutungen von `program_verified` und `objective_verified`;
-- strukturierte Compilerdiagnosen ohne `eval`, `exec` oder implizite Ausführung;
-- keine Rollback-Versprechen und kein Replay unsicherer Effekte.
+- complete frame validation **before** the first effect;
+- deterministic compilation into a frozen typed IR;
+- command metadata generated declaratively from skill schemas;
+- modal session state;
+- FIFO jobs and events;
+- durable request deduplication;
+- separate meanings for `program_verified` and `objective_verified`;
+- structured compiler diagnostics without `eval`, `exec`, or implicit execution;
+- no rollback promise and no replay of uncertain effects.
 
-`program_verified` bestätigt nur die Postconditions der ausgeführten BCL-
-Operationen. Es bestätigt **nicht** automatisch das externe Gesamtziel.
+`program_verified` confirms only the postconditions of executed BCL operations.
+It does **not** automatically confirm the external overall objective.
 
-### 3.2 Gateway-Härtung
+### 3.2 Gateway hardening
 
-Das optionale Python-Gateway erhielt zusätzlich:
+The optional Python gateway additionally gained:
 
-- getrennte Controller- und Observer-Rollen;
-- eine Actor-Bindung bis zum bestätigten Cleanup;
-- bounded Queues und sichtbare Overflow-Fehler;
-- Quarantäne-/Reaper-Logik für verspätetes Cleanup;
-- typisierte Lifecycle-Events E104–E107;
-- explizit eingezäuntes Respawn;
-- responsive Status-/Cancel-Operationen trotz laufender Jobs.
+- separate controller and observer roles;
+- actor binding through confirmed cleanup;
+- bounded queues and visible overflow errors;
+- quarantine/reaper logic for delayed cleanup;
+- typed lifecycle events E104–E107;
+- explicitly fenced respawn;
+- responsive status/cancel operations while jobs are running.
 
-Das Gateway ist kein zweiter Planner. Es kompiliert und dispatcht weiterhin in
-die bestehende Runtime.
+The gateway is not a second planner. It still compiles and dispatches into the
+existing runtime.
 
 ---
 
-## 4. Persistent Projects und externe Planung
+## 4. Persistent Projects and external planning
 
-Mit `projects.py`, `project_agent.py` und `project_inspection.py` kam eine
-persistente Projektlage hinzu. Sie trennt:
+`projects.py`, `project_agent.py`, and `project_inspection.py` added persistent
+project state. It separates:
 
-- den vom Modell verfassten Plan;
-- noch ausstehende Intents;
-- terminale Operationen;
-- beobachtete Blockzustände;
-- native Zugangsgeometrie;
-- die unabhängige Zielverifikation.
+- the plan authored by the model;
+- outstanding intents;
+- terminal operations;
+- observed block state;
+- native access geometry;
+- independent objective verification.
 
-Wesentliche Sicherheitsregeln:
+Important safety rules include:
 
-- verlorene Acknowledgements dürfen keine Effektwiederholung erzwingen;
-- alte Beobachtungen werden nach Actor-/Weltwechsel nicht als frisch behandelt;
-- ein Modell-Finish ist kein objektiver Erfolg;
-- Materialarithmetik beschreibt Bedarf, ist aber keine Bau- oder
-  Progressionsstrategie;
-- Read-only-Verifikation erhält keine mutierenden Rechte.
+- lost acknowledgements must not force effect replay;
+- old observations are not treated as fresh after actor or world replacement;
+- model finish is not objective success;
+- material arithmetic describes requirements but is not a building or progression
+  strategy;
+- read-only verification receives no mutation permissions.
 
-Erhaltene Ergebnisse umfassen unter anderem:
+Retained results include:
 
-- A01: 56 Calls, 40 Platzierungen, 43/43 akzeptierte Schritte;
-- A02/A03: keine doppelte Lost-ack-Ausführung, aber fehlgeschlagener Dachabstieg;
-- B03: sechs Logs gesammelt, 24 Planks hergestellt und Struktur gebaut, danach
+- A01: 56 calls, 40 placements, 43/43 accepted steps;
+- A02/A03: no duplicate lost-ack execution, but failed roof descent;
+- B03: six logs gathered, 24 planks crafted, and a structure built, followed by
   `OBJECTIVE_INCOMPLETE / no_relevant_progress_budget`;
-- B04: Operationslimit 512;
-- B07: 26/26 Read-only-Prüfungen;
+- B04: operation limit 512;
+- B07: 26/26 read-only checks;
 - B08: `OBJECTIVE_VERIFIED`.
 
-Diese Projektresultate sind jeweils auf ihren eigenen Scope begrenzt.
+Each project result remains limited to its own scope.
 
 ---
 
-## 5. Deterministischer 5×5-Superflat-Benchmark
+## 5. Deterministic 5×5 Superflat benchmark
 
-### 5.1 Fixture und Akzeptanz
+### 5.1 Fixture and acceptance
 
-Der Bau-Benchmark verwendet ein byte-identifiziertes Minecraft-26.3-Snapshot:
+The building benchmark uses a byte-identified Minecraft 26.3 snapshot:
 
-- Seed `31052026`;
-- Ursprung `(0, -60, 0)`;
-- Start `[2.5, -60.0, -3.5]`;
-- 46 Wandblöcke;
-- 25 Dachblöcke;
-- insgesamt 71 erforderliche Cobblestone-Blöcke.
+- seed `31052026`;
+- origin `(0, -60, 0)`;
+- start `[2.5, -60.0, -3.5]`;
+- 46 wall blocks;
+- 25 roof blocks;
+- 71 required cobblestone blocks in total.
 
-Die Akzeptanz prüft unabhängig:
+Independent acceptance checks:
 
-- alle erforderlichen Blöcke;
-- falsche, fehlende und unbekannte Zustände;
-- literal freie Eingang-/Innenräume;
-- vollständiges Dach;
-- intakten Boden;
-- keine zurückgelassenen Hilfsblöcke;
-- nativen Zugang;
-- einen sicheren finalen Spielerzustand.
+- every required block;
+- incorrect, missing, and unknown states;
+- literally clear entrance and interior spaces;
+- complete roof;
+- intact floor;
+- no remaining helper blocks;
+- native access;
+- a safe final player state.
 
-Jeder frische Lauf restauriert dasselbe geschlossene und byte-verifizierte
-Snapshot. Administrative Commands dienen nur dem Fixture-Setup und zählen nicht
-als Bauleistung.
+Every fresh run restores the same closed, byte-verified snapshot. Administrative
+commands are used only for fixture preparation and do not count as building work.
 
-### 5.2 Generische Korrekturen während der Entwicklung
+### 5.2 Generic corrections during development
 
-Die Bauversuche führten zu wiederverwendbaren Mechanikverbesserungen:
+The building attempts led to reusable mechanics improvements:
 
-- frische Same-height-Pickup-Recovery;
-- präzisere, stabil beobachtete Ankunft;
-- exakte `GatherBlock.position`-Filterung;
-- generisches `remove_block`/C3;
-- vollständiger Actor-Bracket-Nachweis für finale Zugangsprüfung;
-- Prüfung des gesamten möglichen 0,15-Block-Ankunftsintervalls bei Placement;
-- konservative Reichweiten- und Body-Margins;
-- keine spezielle Hauslogik und kein nativer House-Generator.
+- fresh same-height pickup recovery;
+- more precise, stably observed arrival;
+- exact `GatherBlock.position` filtering;
+- generic `remove_block`/C3;
+- complete actor-bracket proof for final access verification;
+- checking the full possible 0.15-block placement-arrival interval;
+- conservative reach and body margins;
+- no house-specific logic and no native house generator.
 
-A01–A10 bleiben als Kalibrierungsfehler erhalten, darunter Deadline-, Reach-,
-Inventory-, Speicher- und Startup-Probleme.
+A01–A10 remain retained calibration failures, including deadline, reach,
+inventory, storage, and startup problems.
 
-### 5.3 Eingefrorene Entscheidungen
+### 5.3 Frozen decisions
 
-Die unveränderte Test-A-Kohorte A11–A13 bestand 3/3:
+The unchanged-source Test-A cohort A11–A13 passed 3/3:
 
-- 71/71 erforderliche Blöcke;
-- je 288 ausgeführte Skills;
-- je 82 verifizierte Placement-Events;
-- keine fehlgeschlagenen Aktionen;
-- alle unabhängigen Sicherheits- und Zugangsprädikate erfüllt.
+- 71/71 required blocks;
+- 288 executed skills each;
+- 82 verified placement events each;
+- no failed actions;
+- every independent safety and access predicate satisfied.
 
-Damit bleibt **Test A: GO**.
+Therefore **Test A remains GO**.
 
-Der echte externe Modelllauf B01 baute zwar 71/71 erforderliche Blöcke, hinterließ
-aber sechs Hilfsblöcke und keinen gültigen finalen nativen Zugang. Er endete mit
-`no_relevant_progress_budget`. Damit bleibt **Test B: NO-GO**.
+The real external-model run B01 built 71/71 required blocks but left six helper
+blocks and had no valid final native access. It ended with
+`no_relevant_progress_budget` and remains a historical **NO-GO**. The later B12 is
+the first strict Test-B **GO**. The unchanged-source B12–B14 cohort, however,
+passed only 1/3 strictly, so Test-B repeatability remains **NO-GO / not
+established**.
 
-F01–F03 und R02 qualifizieren nur Fault-/Recovery-Verhalten. Sie sind keine
-vollständigen Häuserfolge.
+F01–F03 and R02 qualify only fault/recovery behavior. They are not complete-house
+successes.
 
 ---
 
-## 6. Movement-Optimierung und native Tick-Telemetrie
+## 6. Movement optimization and native tick telemetry
 
-### 6.1 Messinfrastruktur
+### 6.1 Measurement infrastructure
 
-`MotionTrace.java` führte einen bounded Ringpuffer mit 4096 End-of-client-tick-
-Samples ein. Er enthält unter anderem:
+`MotionTrace.java` introduced a bounded ring buffer containing 4096 end-of-client-
+tick samples. It records, among other fields:
 
-- Position und Geschwindigkeit;
-- horizontale Geschwindigkeit;
-- Yaw/Pitch;
-- Kollisionen und Ground-State;
-- Bounding Box;
-- Sprint/Sneak/Fall/Health;
-- tatsächliche und remote besessene Inputs;
-- Actor-, Game- und monotone Zeitidentitäten.
+- position and velocity;
+- horizontal speed;
+- yaw/pitch;
+- collisions and ground state;
+- bounding box;
+- sprint/sneak/fall/health;
+- actual and remotely owned inputs;
+- actor, game-time, and monotonic-time identities.
 
-Der deterministische Movement-Benchmark enthält 49 Szenarien und 211
-Wiederholungen für lineare, diagonale, vertikale, kombinierte, Kurven-,
-Parkour-, Dach- und Präzisionsfälle.
+The deterministic movement benchmark contains 49 scenarios and 211 repetitions
+covering linear, diagonal, vertical, combined, curved, parkour, roof, and precision
+cases.
 
-### 6.2 Controller-Änderungen
+### 6.2 Controller changes
 
-Die generischen Movement-Verbesserungen umfassten:
+Generic movement improvements included:
 
-- konservative same-height Diagonalen;
-- typisierte `flat`, `diagonal`, `step` und `gap_jump`-Transitions;
-- geometrische Dijkstra-Kosten statt gleicher Edge-Kosten;
-- deterministische Tie-Breaks;
-- W/A/S/D-Quantisierung mit kurzen nativen Leases;
-- Braking aus beobachteter Geschwindigkeit;
-- getrennte bounded Step- und Gap-Schleifen;
-- nachgewiesene Run-up-/Landing-Geometrie;
-- konservative Replanung nur von beobachtet sicheren Landungen;
-- stabile Ankunft erst bei `horizontal_speed <= 0.004` und zweitem Sample mit
-  maximal 0,005 m Positionsänderung.
+- conservative same-height diagonals;
+- typed `flat`, `diagonal`, `step`, and `gap_jump` transitions;
+- geometric Dijkstra costs instead of equal edge costs;
+- deterministic tie-breaking;
+- W/A/S/D quantization with short native leases;
+- braking from observed velocity;
+- separate bounded step and gap loops;
+- proven run-up and landing geometry;
+- conservative replanning only from observed-safe landings;
+- stable arrival only when `horizontal_speed <= 0.004` and a second sample differs
+  by no more than 0.005 m.
 
-### 6.3 Iterative Kohorten
+### 6.3 Iterative cohorts
 
-Die Entwicklung wurde nicht auf den letzten Erfolg reduziert:
+Development was not reduced to the final success:
 
-- `after-v1`: 208/211; drei erhaltene `step_x_descend`-Fehler;
-- `after-v2`: 210/211; ein Level-4-Plattformfehler;
-- gezielter Level-4-Follow-up: 3/3;
+- `after-v1`: 208/211; three retained `step_x_descend` failures;
+- `after-v2`: 210/211; one Level-4 platform failure;
+- targeted Level-4 follow-up: 3/3;
 - `after-v3`: 211/211;
-- `after-v4`: 211/211 als historische finale Movement-Kohorte.
+- `after-v4`: 211/211 as the historical final movement cohort.
 
-Verglichen mit dem ursprünglichen Controller:
+Compared with the original controller:
 
-- Erfolgsquote +16,6 Prozentpunkte;
-- Ticks −47,6 %;
-- Full-stop-Runs −89,3 %;
-- Inputwechsel −68,0 %.
+- success rate +16.6 percentage points;
+- ticks −47.6%;
+- full-stop runs −89.3%;
+- input changes −68.0%.
 
-Die strikte native Performance-Parität blieb **NO-GO**, weil Blockwire insgesamt
-20,5 % mehr Ticks als die native Referenz benötigte. Der Level-4-Plattformweg war
-der größte verbleibende Abstand.
+Strict native performance parity remained **NO-GO** because Blockwire required
+20.5% more ticks overall than the native reference. The Level-4 platform route was
+the largest remaining gap.
 
 ---
 
-## 7. Migration von festen 8°-Schritten zu nativer zeitbasierter Rotation
+## 7. Migration from fixed 8° steps to native time-based rotation
 
-Dieser Abschnitt beschreibt die jüngste Entwicklung im Detail.
+This section describes the most recent rotation development in detail.
 
-### 7.1 Ausgangsproblem
+### 7.1 Original problem
 
-Normale Nicht-Kampf-Kamerabewegungen wurden zuvor in Python in festen 8°-Schritten
-ausgeführt. Dadurch hing die reale Dauer primär vom Winkel und von RPC-/Update-
-Raten ab, nicht von der angeforderten Zeit.
+Normal non-combat camera movement was previously executed in fixed 8° Python
+steps. Actual duration therefore depended primarily on angle and RPC/update rates,
+not on the requested time.
 
-Beispiele aus `legacy-v1` bei nominell 200 ms:
+Examples from `legacy-v1` at a nominal 200 ms:
 
-- 15° ungefähr 149 ms;
-- 45° ungefähr 499 ms;
-- 90° ungefähr 999 ms;
-- 135° ungefähr 1399 ms;
-- 180° ungefähr 1899 ms;
-- ein gewrapptes 270°-Ziel ungefähr 999 ms auf dem kurzen Bogen.
+- 15° approximately 149 ms;
+- 45° approximately 499 ms;
+- 90° approximately 999 ms;
+- 135° approximately 1399 ms;
+- 180° approximately 1899 ms;
+- a wrapped 270° target approximately 999 ms along the short arc.
 
-Die Legacy-Kohorte erreichte 147/150 Endpunkte, aber nur 17/141 anwendbare
-Dauerprüfungen. Drei bewegte 180°-Fälle liefen mit ungefähr 4° Restfehler in den
-Timeout.
+The legacy cohort reached 147/150 endpoints but passed only 17/141 applicable
+duration checks. Three moving 180° cases timed out with approximately 4° remaining
+error.
 
-### 7.2 Vorher-Artefakt und Benchmark
+### 7.2 Before artifact and benchmark
 
-Vor der Implementierung wurde der alte Controller unter
-`build/rotation-benchmark/private/controller-before/` archiviert und gehasht.
-Danach entstand eine neue deterministische Benchmark-Infrastruktur:
+Before implementation, the old controller was archived and hashed under
+`build/rotation-benchmark/private/controller-before/`. A new deterministic
+benchmark infrastructure was then added:
 
-- `tests/rotation/reference.py` – 50 fest definierte Szenarien;
-- `tests/rotation/metrics.py` – reine Trace-Auswertung;
-- `tests/rotation/live.py` – Live-Harness;
-- `tools/rotation_benchmark.py` – Fixture-/Run-Steuerung.
+- `tests/rotation/reference.py` — 50 fixed scenarios;
+- `tests/rotation/metrics.py` — pure trace evaluation;
+- `tests/rotation/live.py` — live harness;
+- `tools/rotation_benchmark.py` — fixture and run control.
 
-Die Szenarien decken 100/200/400 ms, Yaw, Pitch, kombinierte Achsen,
-Wraparound, Bewegung, Cancellation, Supersession und Sequenzen ab.
+The scenarios cover 100/200/400 ms, yaw, pitch, combined axes, wraparound,
+movement, cancellation, supersession, and sequences.
 
-### 7.3 Native Implementierung
+### 7.3 Native implementation
 
-Neu hinzu kam `src/main/java/dev/blockwire/RotationController.java`.
+`src/main/java/dev/blockwire/RotationController.java` was added.
 
-Der Controller:
+The controller:
 
-- hält genau einen Plan pro Actor;
-- verwendet `System.nanoTime()`;
-- interpoliert auf echten Client-Ticks;
-- unterstützt `linear` und `smoothstep`;
-- verwendet den kürzesten äquivalenten Yaw-Bogen;
-- klemmt Pitch auf den gültigen Bereich;
-- bewegt Yaw und Pitch gleichzeitig;
-- setzt am Ende exakt das äquivalente Ziel;
-- startet ein neues Ziel von der **tatsächlich aktuell angewendeten** Sicht;
-- startet identische aktive Ziele nicht erneut;
-- besitzt keine Movement-Taste;
-- meldet active/completed/cancelled/superseded und Sessionwechsel.
+- holds exactly one plan per actor;
+- uses `System.nanoTime()`;
+- interpolates on real client ticks;
+- supports `linear` and `smoothstep`;
+- uses the shortest equivalent yaw arc;
+- clamps pitch to the valid range;
+- moves yaw and pitch simultaneously;
+- sets the exact equivalent target at completion;
+- starts a new target from the **actual currently applied** view;
+- does not restart identical active targets;
+- owns no movement key;
+- reports active/completed/cancelled/superseded state and session changes.
 
-### 7.4 Protokoll- und SDK-Kompatibilität
+### 7.4 Protocol and SDK compatibility
 
-Der bestehende `look`-Befehl erhielt optionale Felder:
+The existing `look` command gained optional fields:
 
-- `duration_ms`: strikter Integer 1…5000;
-- `rotation_profile`: `linear` oder `smoothstep`.
+- `duration_ms`: strict integer 1…5000;
+- `rotation_profile`: `linear` or `smoothstep`.
 
-Wird `duration_ms` weggelassen, bleibt das alte unmittelbare `look`-Verhalten
-unverändert. Ein Profil ohne Dauer wird vor jedem Effekt abgelehnt.
+When `duration_ms` is omitted, the old immediate `look` behavior remains
+unchanged. A profile without a duration is rejected before any effect.
 
-`Player.look(...)` erhielt dieselbe strikte Validierung. Oberhalb davon führt
-`rotate_view_timed(...)` normale Nicht-Kampf-Drehungen standardmäßig als 200-ms-
-Smoothstep aus und prüft Deadline sowie Actor-Bindung vor dem Request.
+`Player.look(...)` received the same strict validation. Above it,
+`rotate_view_timed(...)` performs normal non-combat turns as 200-ms smoothstep by
+default and checks the deadline and actor binding before the request.
 
-Die BCL-Signaturen blieben unverändert. V2 verwendet intern dieselbe generische
-zeitbasierte Rotation und verifiziert weiterhin die beobachtete Orientierung.
+BCL signatures remain unchanged. V2 internally uses the same generic time-based
+rotation and continues to verify observed orientation.
 
-### 7.5 Lifecycle und Lease-Trennung
+### 7.5 Lifecycle and lease separation
 
-Ursprünglich führte jedes Input-Release auch zu einem globalen Kameraabbruch. Das
-war für unabhängige Movement- und Kamera-Leases falsch.
+Originally, every input release also caused a global camera cancellation. That was
+incorrect for independent movement and camera leases.
 
-Deshalb wurde in `Blockwire.java` getrennt:
+`Blockwire.java` therefore separates:
 
-- `releaseInputs()` – gibt nur native Eingabetasten und deren Leases frei;
-- `release()` – globaler Stop, der zusätzlich den Kameraplan abbricht.
+- `releaseInputs()` — releases only native input keys and their leases;
+- `release()` — global stop that also cancels the camera plan.
 
-Folge:
+Consequently:
 
-- natürliche Movement-Lease-Expiry stoppt keine unabhängige Rotation;
-- F8, explizites Stoppen, Authority-Verlust, Actor-/Weltwechsel, Tod, Pause oder
-  UI-Wechsel brechen den Plan weiterhin ab.
+- natural movement-lease expiry does not stop an independent rotation;
+- F8, explicit stop, authority loss, actor/world replacement, death, pause, or UI
+  replacement still cancel the plan.
 
-### 7.6 Telemetrie und Observation
+### 7.6 Telemetry and observation
 
-`observe` enthält nun den Zustand des aktuellen oder letzten Kameraplans.
-`MotionTrace` zeichnet pro Tick zusätzlich auf:
+`observe` now includes the state of the current or most recent camera plan.
+`MotionTrace` additionally records per tick:
 
-- Rotation-ID und Status;
-- Ziel-Yaw/-Pitch;
-- angeforderte Dauer;
-- Profil.
+- rotation ID and status;
+- target yaw/pitch;
+- requested duration;
+- profile.
 
-Ein Scheduling-Receipt bleibt ausdrücklich **kein** Endpunktnachweis.
+A scheduling receipt explicitly remains **not** endpoint proof.
 
-### 7.7 Migration der normalen Aufrufer
+### 7.7 Migration of normal callers
 
-Die alte feste Turn-Implementierung wurde aus den normalen Nicht-Kampf-Pfaden
-entfernt. Migriert wurden insbesondere:
+The old fixed-turn implementation was removed from normal non-combat paths.
+Migrated callers include:
 
 - `approaching.py`;
 - `excavating.py`;
@@ -399,259 +401,262 @@ entfernt. Migriert wurden insbesondere:
 - `item_actions.py`;
 - `woodcutting.py`;
 - `searching.py`;
-- die normale Navigation in `motion.py`.
+- normal navigation in `motion.py`.
 
-Gestoppte visuelle Scans verwenden nun höchstens 17 Beobachtungen um vier native
-90°-Ziele statt 46 einzelner 8°-Schritte.
+Stopped visual scans now use at most 17 observations around four native 90°
+targets instead of 46 individual 8° steps.
 
-Combat-Verhalten wurde absichtlich nicht migriert und bleibt separat.
+Combat behavior was intentionally not migrated and remains separate.
 
-### 7.8 Tests und Mutationen
+### 7.8 Tests and mutations
 
-Neue deterministic Contracts umfassen:
+New deterministic contracts include:
 
 - RT01–RT06 in `python/tests/test_rotation.py`;
 - RB01–RB05 in `python/tests/test_rotation_benchmark.py`;
-- 39 native Checks in `RotationContractTest.java`;
-- zusätzliche Continuous-Motion-Verträge;
-- Mutationen für Dauer, Profil, shortest yaw, Deadline-Reihenfolge,
-  Interpolation, Actor-Fence, exakten Endpunkt, Retargeting,
-  Lease-Unabhängigkeit und Legacy-Kompatibilität.
+- 39 native checks in `RotationContractTest.java`;
+- additional continuous-motion contracts;
+- mutations for duration, profile, shortest yaw, deadline ordering,
+  interpolation, actor fence, exact endpoint, retargeting, lease independence,
+  and legacy compatibility.
 
-Die simulierten Player wurden so erweitert, dass sie elapsed-time Interpolation,
-Retargeting, Idempotenz und Cancellation abbilden. Diese Tests sind Contracts,
-nicht alleinige Minecraft-Akzeptanz.
-
----
-
-## 8. Benchmark- und Integrationskorrekturen während der Rotationseinführung
-
-### 8.1 Analysefehler im Benchmark-Harness
-
-Die ersten Post-change-Auswertungen deckten Fehler in der Messlogik auf:
-
-- ein alter `cancelled`-Plan konnte fälschlich dem nächsten Lauf zugeordnet werden;
-- No-op-Rotationen durften keine normale Dauerprüfung erhalten;
-- Duration-Gates mussten nur auf anwendbare Fälle zählen.
-
-Diese Fehler lagen in der Benchmark-Auswertung, nicht in einer nachträglichen
-Umetikettierung der Runs. Die Rohdaten und fehlgeschlagenen Versuche blieben
-erhalten. Danach entstanden die kanonischen Kohorten:
-
-- `linear-v2`: 150/150, Dauer 141/141;
-- `smoothstep-v2`: 150/150, Dauer 141/141;
-- jeweils null Instant-Snaps und null verlorene Telemetriesamples.
-
-Smoothstep blieb der 200-ms-Default, weil das Profil an Start und Ende eine
-mathematisch geglättete Steigung besitzt. Linear bleibt explizit wählbar.
-
-### 8.2 Movement-Regression: `combined_xyz`
-
-Ein früher Post-rotation-Movement-Lauf zeigte Fehler in `combined_xyz`.
-Ursachen waren:
-
-1. temporär unvollständige Support-Beobachtungen;
-2. W/A/S/D-Quantisierung gegen einen veralteten Yaw-Wert während einer laufenden
-   zeitbasierten Drehung.
-
-Korrekturen:
-
-- bei transienter Support-Unsicherheit stoppen und neu planen;
-- vor der Richtungsquantisierung eine frische actor-fenced Sicht verwenden;
-- CM15 und CM16 als Regressionstests und passende Mutationen.
-
-Danach bestand `after-rotation-v3` 211/211.
-
-### 8.3 Bau-Regression A16: abgelaufenes separates Gateway-Zertifikat
-
-A16 endete vor jeder Operation, weil das ausschließlich für den privaten
-Benchmark verwendete Gateway-Zertifikat abgelaufen war.
-
-Es wurde eine neue private Benchmark-Identität erzeugt. Dieser administrative
-Fehler wurde nicht als Gameplay-Fehler oder Erfolg umetikettiert; A16 bleibt ein
-Null-Operations-Fehllauf.
-
-### 8.4 Bau-Regression A17: Drehung auf schmalem erhöhtem Support
-
-A17 erreichte 48/71 erforderliche Blöcke und fiel dann während einer kombinierten
-Dreh-/Fahrphase auf einem schmalen erhöhten Weg.
-
-Die generische Korrektur `_broad_steering_support(...)` erlaubt Turn/Drive-
-Überlappung nur, wenn frische seitliche Supportzellen sowohl am Quell- als auch am
-Vorwärtsbereich nachgewiesen sind. Andernfalls wird gestoppt und neu geplant.
-
-CM17 und eine gezielte Mutation decken diese Grenze ab. Eine 14/14-Safety-Smoke-
-Kohorte bestand danach.
-
-### 8.5 Bau-Regression A18: formal gültige, aber ungünstige Placement-Pose
-
-A18 erreichte 46/71 erforderliche Blöcke. Ein Walk endete innerhalb des erlaubten
-0,3-Block-Radius, aber seitlich so versetzt, dass keine exakte Supportfläche für
-die nächste Platzierung getroffen werden konnte.
-
-Die Korrektur in `item_actions.py`:
-
-- akzeptiert eine bestehende Auto-position-Pose nur noch, wenn sie präzise genug
-  am bekannten Zellzentrum liegt;
-- wählt ansonsten den möglichst zentrierten bekannten sicheren Placement-Punkt;
-- behält den 0,15-Block-Placement-Ankunftsradius und die vollständige
-  Reach-/Body-Intervallprüfung bei.
-
-Dazu kamen ein Placement-Contract und Mutationen für Recentering und
-Center-Preference.
-
-### 8.6 Frischer Bau-Erfolg A19
-
-A19 startete wieder vom unveränderten geschlossenen Baseline-Snapshot und bestand:
-
-- 71/71 erforderliche Blöcke;
-- 288 ausgeführte Operationen;
-- 82 verifizierte native Placement-Events;
-- null fehlgeschlagene Aktionen;
-- alle Eingang-, Innenraum-, Zugangs-, Dach-, Boden- und Safe-player-Prädikate;
-- 342,66 Sekunden Laufzeit.
-
-A16–A18 wurden nicht fortgesetzt und nicht in A19 umgewandelt.
-
-### 8.7 Finale Movement- und Rotation-Runs
-
-Gegen den finalen Produktionsquellstand lief anschließend:
-
-- `after-rotation-v4`: 211/211 Movement-Repetitionen;
-- 17.908 Gesamtticks, Median 70;
-- 227 Full-stop-Runs;
-- 1.756 Inputwechsel;
-- maximaler Horizontalfehler `0.2900973203315447`;
-- kein Gesundheitsverlust;
-- alle Runs settled;
-- null verlorene Trace-Samples.
-
-Ein finaler Smoothstep-Source-Smoke bestand 8/8 mit 7/7 anwendbaren
-Dauerprüfungen und null Instant-Snaps.
+The simulated players were extended to model elapsed-time interpolation,
+retargeting, idempotence, and cancellation. These tests are contracts, not
+standalone Minecraft acceptance.
 
 ---
 
-## 9. Finale Qualifikationsentscheidungen
+## 8. Benchmark and integration corrections during rotation introduction
 
-| Bereich | Entscheidung | Grundlage |
+### 8.1 Analysis errors in the benchmark harness
+
+The first post-change evaluations exposed errors in measurement logic:
+
+- an old `cancelled` plan could be attributed incorrectly to the next run;
+- no-op rotations could not receive a normal duration check;
+- duration gates had to count only applicable cases.
+
+These were benchmark-evaluation errors, not retroactive relabelling of runs. Raw
+data and failed attempts were retained. The canonical cohorts then became:
+
+- `linear-v2`: 150/150, duration 141/141;
+- `smoothstep-v2`: 150/150, duration 141/141;
+- zero instant snaps and zero lost telemetry samples in both.
+
+Smoothstep remained the 200-ms default because the profile has a mathematically
+smoothed slope at the beginning and end. Linear remains explicitly selectable.
+
+### 8.2 Movement regression: `combined_xyz`
+
+An early post-rotation movement run showed failures in `combined_xyz`. The causes
+were:
+
+1. temporarily incomplete support observations;
+2. W/A/S/D quantization against a stale yaw while a time-based turn was active.
+
+Corrections:
+
+- stop and replan during transient support uncertainty;
+- use a fresh actor-fenced view before direction quantization;
+- add CM15 and CM16 as regression tests with matching mutations.
+
+`after-rotation-v3` then passed 211/211.
+
+### 8.3 Building regression A16: expired separate gateway certificate
+
+A16 ended before any operation because the private certificate used only by the
+benchmark gateway had expired.
+
+A new private benchmark identity was created. This administrative failure was not
+relabelled as gameplay failure or success; A16 remains a zero-operation failed
+run.
+
+### 8.4 Building regression A17: turning on narrow elevated support
+
+A17 reached 48/71 required blocks and then fell during a combined turn/drive phase
+on a narrow elevated route.
+
+The generic correction `_broad_steering_support(...)` permits turn/drive overlap
+only when fresh lateral support cells are proven at both the source and forward
+areas. Otherwise movement stops and replans.
+
+CM17 and a targeted mutation cover this boundary. A 14/14 safety-smoke cohort
+passed afterward.
+
+### 8.5 Building regression A18: formally valid but unfavorable placement pose
+
+A18 reached 46/71 required blocks. A walk ended inside the permitted 0.3-block
+radius but was laterally offset enough that no exact support face could be acquired
+for the next placement.
+
+The correction in `item_actions.py`:
+
+- accepts an existing auto-position pose only when it is precise enough at the
+  known cell center;
+- otherwise selects the most centered known-safe placement point;
+- retains the 0.15-block placement-arrival radius and the complete reach/body
+  interval checks.
+
+A placement contract and mutations for recentering and center preference were
+added.
+
+### 8.6 Fresh building success A19
+
+A19 again started from the unchanged closed baseline snapshot and passed:
+
+- 71/71 required blocks;
+- 288 executed operations;
+- 82 verified native placement events;
+- zero failed actions;
+- every entrance, interior, access, roof, floor, and safe-player predicate;
+- 342.66 seconds runtime.
+
+A16–A18 were not resumed or transformed into A19.
+
+### 8.7 Final movement and rotation runs
+
+The following ran against the final production source:
+
+- `after-rotation-v4`: 211/211 movement repetitions;
+- 17,908 total ticks, median 70;
+- 227 full-stop runs;
+- 1,756 input changes;
+- maximum horizontal error `0.2900973203315447`;
+- no health loss;
+- every run settled;
+- zero lost trace samples.
+
+A final smoothstep source smoke passed 8/8 with 7/7 applicable duration checks and
+zero instant snaps.
+
+---
+
+## 9. Final qualification decisions
+
+| Area | Decision | Basis |
 |---|---|---|
-| Native zeitbasierte Rotation | **GO** | Linear 150/150, Smoothstep 150/150, Dauer jeweils 141/141 |
-| Movement nach Rotation | **GO** | unveränderte 211er-Kohorte: 211/211 |
-| Frische deterministische Bau-Regression | **GO** | A19: 71/71 und alle unabhängigen Prädikate |
-| Historischer Superflat Test A | **GO** | eingefrorene A11–A13-Kohorte 3/3 |
-| Historischer Superflat Test B | **NO-GO** | B01 ohne finale Cleanup-/Zugangsakzeptanz |
-| Strikte native Movement-Performance-Parität | **NO-GO** | historische Tick-Parität nicht erreicht |
+| Native time-based rotation | **GO** | Linear 150/150, smoothstep 150/150, duration 141/141 each |
+| Movement after rotation | **GO** | unchanged 211-run cohort: 211/211 |
+| Fresh deterministic building regression | **GO** | A19: 71/71 and every independent predicate |
+| Historical Superflat Test A | **GO** | frozen A11–A13 cohort 3/3 |
+| Historical Superflat Test B01 | **NO-GO** | no final cleanup/access acceptance |
+| Superflat Test B — demonstrated single run | **GO** | B12: agent recognition plus complete independent acceptance |
+| Superflat Test B — unchanged-source repeatability | **NO-GO** | B12–B14: 1/3 strictly accepted; B14 only independently physically complete |
+| Strict native movement-performance parity | **NO-GO** | historical tick parity not reached |
 
-Die drei positiven Gates ersetzen einander nicht. Ein Rotations-Erfolg kann keinen
-Movement- oder Baufehler verdecken.
+The positive gates and the negative repeatability decision do not replace one
+another. Rotation success cannot hide movement or building failure; one Test-B GO
+does not establish repeatability.
 
 ---
 
-## 10. Finale QA
+## 10. Final QA
 
-Auf dem qualifizierten Quellstand wurden ausgeführt:
+The qualified source state passed:
 
-- **455 Python-Tests: PASS**;
+- **455 Python tests: PASS**;
 - Gradle `check`: **PASS**;
-- native Rotation Contracts: 39 Checks;
-- MotionTrace Contracts: 12 Checks;
-- Controller-Lease-/Wiring-Contracts: 45 Checks;
-- Terrain Contracts: 18 Checks;
-- reale Netty/Python-TLS-Interoperabilität: **10/10 PASS**;
-- Skill-Mutationen: 155/155 killed;
-- native Mutationen: 46/46 killed;
-- Controller-Mutationen: 20/20 killed;
-- Building-Mutationen: 22/22 killed;
-- insgesamt **243/243 killed**.
+- native rotation contracts: 39 checks;
+- MotionTrace contracts: 12 checks;
+- controller lease/wiring contracts: 45 checks;
+- terrain contracts: 18 checks;
+- real Netty/Python TLS interoperability: **10/10 PASS**;
+- skill mutations: 155/155 killed;
+- native mutations: 46/46 killed;
+- controller mutations: 20/20 killed;
+- building mutations: 22/22 killed;
+- total: **243/243 killed**.
 
-Der qualifizierte Test-JAR besitzt SHA-256:
+The qualified test JAR has SHA-256:
 
 ```text
 898c596dffa2ecf29f81f95a30df16d91a0d759f3ced9d3ed35efa7083eeee31
 ```
 
-Der Client wurde abschließend am Title Screen ohne geladene Welt und ohne aktiven
-Kameraplan beobachtet, über den nativen `Quit Game`-Button beendet, und die nur
-noch wartenden eigenen Launcher-Wrapper wurden danach beendet. Port 8765 war
-geschlossen.
+The client was finally observed at the title screen with no loaded world and no
+active camera plan, closed through the native `Quit Game` button, and the remaining
+waiting launcher wrappers owned by the test were then stopped. Port 8765 was
+closed.
 
-Der abschließende `ccc index` erfasste 281 Dateien und 3597 Chunks ohne Fehler.
-
----
-
-## 11. Wichtige geänderte Dateien
-
-### Native Java-Schicht
-
-| Datei | Änderung |
-|---|---|
-| `src/main/java/dev/blockwire/RotationController.java` | neuer actor-bound elapsed-time Controller |
-| `src/main/java/dev/blockwire/Blockwire.java` | Integration, Tick-Aufruf, `releaseInputs()`/globales `release()` |
-| `src/main/java/dev/blockwire/Protocol.java` | Validierung von Dauer und Profil |
-| `src/main/java/dev/blockwire/MotionTrace.java` | Rotation-Metadaten pro Client-Tick |
-| `src/main/java/dev/blockwire/Observations.java` | Rotation-State in `observe` |
-| `src/main/java/dev/blockwire/NavigationView.java` | konservative typed Movement-Geometrie |
-
-### Python-Laufzeit und Skills
-
-| Datei | Änderung |
-|---|---|
-| `python/src/blockwire/client.py` | striktes timed `Player.look(...)` |
-| `python/src/blockwire/skills/motion.py` | timed rotation, frische Sicht, Support-gesteuerte Überlappung |
-| `python/src/blockwire/skills/walking.py` | geometrische Routen und stabile Ankunft |
-| `python/src/blockwire/skills/item_actions.py` | präzises Placement-Recentering |
-| `python/src/blockwire/skills/approaching.py` | native zeitbasierte Nicht-Kampf-Drehung |
-| `python/src/blockwire/skills/viewing.py` | beobachtete Endorientierung |
-| `python/src/blockwire/skills/searching.py` | vier native Quarter-turn-Scans |
-| `python/src/blockwire/skills/woodcutting.py` | timed Scan/Aim |
-| `python/src/blockwire/skills/excavating.py` | actor-fenced timed Aim |
-| `python/src/blockwire/skills/eating.py` | timed Nicht-Kampf-Sichtsteuerung |
-
-### Benchmarks und Tests
-
-| Datei/Verzeichnis | Zweck |
-|---|---|
-| `tests/rotation/` | Referenz, Live-Harness und reine Metriken |
-| `tools/rotation_benchmark.py` | Rotation-Fixture und Live-Kohorten |
-| `tools/report_rotation_benchmark.py` | finale getrennte Gates und Evidence-Erzeugung |
-| `python/tests/test_rotation.py` | Python-Rotationsverträge |
-| `python/tests/test_rotation_benchmark.py` | Benchmark-/Metrikverträge |
-| `python/tests/test_continuous_motion.py` | Turn/Drive-, Fresh-view- und Support-Regressionen |
-| `python/tests/test_placement.py` | Placement-Recentering und Pose-Wahl |
-| `src/contractTest/java/dev/blockwire/RotationContractTest.java` | native Lifecycle-/Interpolation-Verträge |
-| `tests/run_skill_mutations.py` | Python-Motor-/Rotation-/Placement-Mutationen |
-| `tests/run_mutations.py` | native Rotations- und Lease-Mutationen |
+The final `ccc index` recorded 281 files and 3597 chunks with no errors.
 
 ---
 
-## 12. Erhaltene Fehler und nicht geschlossene Bereiche
+## 11. Important changed files
 
-Bewusst nicht als Erfolg umetikettiert wurden unter anderem:
+### Native Java layer
 
-- die drei Legacy-Rotations-Timeouts;
-- alle Movement-Zwischenkohorten vor 211/211;
-- A16, A17 und A18;
-- B01 trotz 71/71 physisch vorhandener Pflichtblöcke;
-- Debug-Fortsetzungen und Recovery-Probes;
-- die historische native Performance-Parität.
+| File | Change |
+|---|---|
+| `src/main/java/dev/blockwire/RotationController.java` | new actor-bound elapsed-time controller |
+| `src/main/java/dev/blockwire/Blockwire.java` | integration, tick call, `releaseInputs()`/global `release()` |
+| `src/main/java/dev/blockwire/Protocol.java` | duration and profile validation |
+| `src/main/java/dev/blockwire/MotionTrace.java` | rotation metadata per client tick |
+| `src/main/java/dev/blockwire/Observations.java` | rotation state in `observe` |
+| `src/main/java/dev/blockwire/NavigationView.java` | conservative typed movement geometry |
 
-Weiterhin nicht allgemein qualifiziert sind:
+### Python runtime and skills
 
-- Slabs, Fluids und beliebige Collision-Shapes;
-- allgemeine Höhlen und unbekannte Langstrecken;
-- hostile, food-constrained oder unbeaufsichtigte Survival-Zuverlässigkeit;
-- Nether-/End-Komplettprogression;
-- breite Modpack-Kompatibilität;
-- allgemeine Kampfkameramigration;
-- 24/7-Betrieb oder Multi-Tenant-Steuerung.
+| File | Change |
+|---|---|
+| `python/src/blockwire/client.py` | strict timed `Player.look(...)` |
+| `python/src/blockwire/skills/motion.py` | timed rotation, fresh view, support-gated overlap |
+| `python/src/blockwire/skills/walking.py` | geometric routes and stable arrival |
+| `python/src/blockwire/skills/item_actions.py` | precise placement recentering |
+| `python/src/blockwire/skills/approaching.py` | native time-based non-combat turning |
+| `python/src/blockwire/skills/viewing.py` | observed final orientation |
+| `python/src/blockwire/skills/searching.py` | four native quarter-turn scans |
+| `python/src/blockwire/skills/woodcutting.py` | timed scan/aim |
+| `python/src/blockwire/skills/excavating.py` | actor-fenced timed aim |
+| `python/src/blockwire/skills/eating.py` | timed non-combat view control |
 
-Schadensvermeidung bleibt best effort und ist keine Immunität.
+### Benchmarks and tests
+
+| File/directory | Purpose |
+|---|---|
+| `tests/rotation/` | reference, live harness, and pure metrics |
+| `tools/rotation_benchmark.py` | rotation fixture and live cohorts |
+| `tools/report_rotation_benchmark.py` | final separate gates and evidence generation |
+| `python/tests/test_rotation.py` | Python rotation contracts |
+| `python/tests/test_rotation_benchmark.py` | benchmark/metrics contracts |
+| `python/tests/test_continuous_motion.py` | turn/drive, fresh-view, and support regressions |
+| `python/tests/test_placement.py` | placement recentering and pose selection |
+| `src/contractTest/java/dev/blockwire/RotationContractTest.java` | native lifecycle/interpolation contracts |
+| `tests/run_skill_mutations.py` | Python motor/rotation/placement mutations |
+| `tests/run_mutations.py` | native rotation and lease mutations |
 
 ---
 
-## 13. Evidence- und Artefaktkarte
+## 12. Retained failures and open areas
 
-Öffentliche, reviewbare Dokumente:
+The following were intentionally not relabelled as successes:
+
+- the three legacy rotation timeouts;
+- every intermediate movement cohort before 211/211;
+- A16, A17, and A18;
+- B01–B11 plus B13 and B14; several runs had all 71 required blocks physically
+  present, and B14 had complete independent world acceptance without correct agent
+  terminal recognition;
+- debug continuations and recovery probes;
+- historical native performance parity.
+
+The following remain outside general qualification:
+
+- slabs, fluids, and arbitrary collision shapes;
+- general caves and unknown long-distance routes;
+- hostile, food-constrained, or unattended Survival reliability;
+- complete Nether/End progression;
+- broad modpack compatibility;
+- general combat-camera migration;
+- 24/7 operation or multi-tenant control.
+
+Damage avoidance remains best effort and is not immunity.
+
+---
+
+## 13. Evidence and artifact map
+
+Public, reviewable documents:
 
 - `docs/rotation-benchmark.md`
 - `docs/evidence/rotation-benchmark.json`
@@ -660,40 +665,142 @@ Schadensvermeidung bleibt best effort und ist keine Immunität.
 - `docs/superflat-building.md`
 - `docs/evidence/superflat-building.json`
 
-Wichtige lokale, ignorierte Artefakte:
+Important local ignored artifacts:
 
 - `build/rotation-benchmark/legacy-v1/`
 - `build/rotation-benchmark/linear-v2/`
 - `build/rotation-benchmark/smoothstep-v2/`
 - `build/rotation-benchmark/smoothstep-final-smoke-v3/`
 - `build/movement-benchmark/after-rotation-v4/`
-- `build/superflat-benchmark/A16/` bis `A19/`
+- `build/superflat-benchmark/A16/` through `A19/`
+- `build/superflat-benchmark/B02/` through `B14/`, plus `B06-live.log`
+- `build/superflat-benchmark/B12-repeatability-source-freeze.json`
 - `build/rotation-benchmark/final-verification/`
 
-SHA-256 der finalen öffentlichen Rotation-Evidenz zum Zeitpunkt dieser
-Dokumentation:
+SHA-256 of the final public rotation evidence at the time of this documentation:
 
 ```text
 e3dff08e98f8a8aa97fe0520939b7afb4a13b77d8dad9fc17ba953b2b8b1247c
 ```
 
-Die lokalen Rohartefakte bleiben absichtlich außerhalb distributabler Bundles.
+The local raw artifacts intentionally remain outside distributable bundles.
 
 ---
 
-## 14. Veröffentlichungsstatus
+## 14. Publication status
 
-Die beschriebenen Änderungen wurden lokal implementiert und qualifiziert. Der
-Operator hat anschließend ausdrücklich einen lokalen Commit dieses Stands
-autorisiert.
+The described changes were implemented and qualified locally. The operator then
+explicitly authorized a local commit of that state.
 
-Nicht autorisiert und nicht erfolgt sind weiterhin:
+The following remain unauthorized and did not occur:
 
-- Push;
-- Tag;
-- Upload;
-- Release;
-- Produktionsdeployment.
+- push;
+- tag;
+- upload;
+- release;
+- production deployment.
 
-Jede Veröffentlichung oder Installation außerhalb der ausdrücklich autorisierten
-Testinstanz benötigt eine separate Freigabe.
+Any publication or installation outside the explicitly authorized test instance
+requires separate approval.
+
+---
+
+## 15. Fresh Test-B follow-up B02–B14
+
+After the authorized base commit `e788f268a2b0503f41e7bc17bd0fc48c2fdca0e3`,
+thirteen additional unique Test-B IDs were started. Every run used the same
+canonical snapshot
+`d61d166e4431e7693907cc0590f1808e2d8f12d62befe3b0a5a64c22b70696a7`.
+No started run was resumed, renamed, or reclassified as success after a correction.
+
+### 15.1 Results
+
+- B02: 71/71, no helpers, but no final native access/safe-player proof;
+  `project_operation_budget`.
+- B03: 71/71 and native interior access, but safe-player false. The journal
+  reported `OBJECTIVE_VERIFIED`; independent acceptance remained false.
+- B04: 71/71, two helpers; `project_operation_budget`.
+- B05: external model process failed on the second request; 0/71.
+- B06: startup failure before an exchange because the native world list had not
+  finished populating asynchronously.
+- B07: 71/71, no helpers, but no final access/safe-player acceptance;
+  `project_operation_budget`.
+- B08: 55/71 and six helpers; historical termination on an invalid JSON escape.
+- B09: 71/71, no helpers, but no final access/safe-player acceptance;
+  `project_operation_budget`.
+- B10: 71/71, three helpers; `project_operation_budget`.
+- B11: 71/71, one helper, no final access/safe-player acceptance;
+  `project_operation_budget`.
+- **B12: first strict GO** — 22 model calls, 336 executed operations, 3 failed
+  actions, 77 placement events, 71/71, no helpers, native interior access, safe
+  player, and correct agent recognition:
+  `OBJECTIVE_VERIFIED / trusted_project_postcondition`.
+- B13: 71/71 and no helpers, but outside with no final interior-access or
+  safe-player proof; `project_operation_budget`.
+- B14: 71/71, no helpers, and every independent physical predicate true, but agent
+  terminal state `OBJECTIVE_INCOMPLETE / project_operation_budget`. Therefore
+  `passed:false` remains correct.
+
+Together with B01, there are fourteen started fresh Test-B IDs, thirteen
+result-producing model runs, and **one accepted success, B12**. Demonstrated Test-B
+capability is therefore **GO**. Unchanged-source repeatability remains
+**NO-GO / not established**.
+
+### 15.2 Source freeze and repeatability
+
+Immediately after B12, the relevant source state was durably frozen before B13:
+
+- artifact: `build/superflat-benchmark/B12-repeatability-source-freeze.json`;
+- canonical payload SHA-256:
+  `5ffe4a310a083d1932e25b42fa016c8f70b7dd034cb5cdf597a3b46672bd923f`;
+- base commit: `e788f268a2b0503f41e7bc17bd0fc48c2fdca0e3`;
+- every listed file remained byte-identical through B14.
+
+The fixed B12–B14 cohort produced:
+
+- strict acceptance including agent terminal recognition: **1/3**;
+- independent physical objective acceptance: **2/3** (B12 and B14);
+- no reproduction of B12's strict success in B13 or B14.
+
+B14 is not promoted to success: independent world truth does not replace required
+correct agent recognition. Conversely, B03 remains a failure despite its agent
+recognition because independent safety acceptance failed.
+
+### 15.3 Generic corrections
+
+The corrections remained independent of the house itinerary:
+
+- active `final_sweep` evidence survives bounded inspection follow-ups;
+- read-only inspection reserves BCL budget and restores the model-selected origin
+  through observed native navigation, including bounded intermediate targets;
+- fixture loading waits boundedly for asynchronous world-list population;
+- malformed model JSON becomes model feedback instead of a host abort;
+- mandatory follow-up, one final model action, and the independent host audit are
+  reserved before the operation limit;
+- a model program already ending successfully with `V0` and `I0` is reused as the
+  mandatory follow-up rather than duplicated;
+- future private audits preserve bounded malformed replies and the numeric exit
+  code of a failed model process, still without stderr.
+
+The exact cause of B05 can no longer be reconstructed: the adapter at that time
+discarded stderr and did not store the exit code. Likewise, B08's raw malformed
+reply was not stored. These gaps remain documented as gaps.
+
+### 15.4 Follow-up QA and shutdown
+
+The current, still uncommitted follow-up state passed:
+
+- **466 Python tests: PASS**;
+- project mutations: **38/38 killed**;
+- building mutations: **23/23 killed**;
+- skill mutations: **157/157 killed**;
+- `ccc index`: **281 files, 3665 chunks, zero errors**.
+
+Gradle and TLS interoperability were **not rerun** for these Python/test-harness-
+only changes. Earlier Java/TLS results remain historical evidence and are not
+presented as a new run.
+
+The client was closed from the title screen through the native `Quit Game` button.
+Minecraft, launcher, and benchmark processes were absent afterward; ports 8879
+and 8765 were closed. No commit, push, tag, upload, release, or deployment was
+authorized or performed for this follow-up.
