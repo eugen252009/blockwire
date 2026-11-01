@@ -118,6 +118,10 @@ E0 player.position
 M0 1 0 0
 ```
 
+For human-written BCL, use the Python-started [terminal REPL and file CLI](docs/bcl-terminal.md):
+`python -m blockwire repl` / `blockwire run program.bcl`, with explicit gateway trust and actor binding.
+The `blockwire-bcl` / `python -m blockwire.bcl.cli` aliases remain available.
+
 Python compiles the whole frame before effects; the existing guarded runtime and
 skills execute it. Modal settings and request dedup are private per session;
 async queues work, never parallel Minecraft controls. MCP provides four compact

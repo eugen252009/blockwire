@@ -9,7 +9,7 @@ description = "Python scripting and MCP tools for the Blockwire Minecraft client
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
-dependencies = ["websockets>=15,<17", "pydantic>=2.11,<3"]
+dependencies = ["websockets>=15,<17", "pydantic>=2.11,<3", "prompt-toolkit>=3.0.43,<4"]
 classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3"]
 
 [project.optional-dependencies]
@@ -19,6 +19,7 @@ mcp = ["mcp>=1.12,<2"]
 blockwire = "blockwire.cli:main"
 blockwire-mcp = "blockwire.mcp_server:main"
 blockwire-run = "blockwire.controller_cli:main"
+blockwire-bcl = "blockwire.bcl.cli:main"
 blockwire-agent = "blockwire.agent_cli:main"
 blockwire-play2code = "blockwire.play2code:main"
 # Compatibility commands for existing agent-host configurations.

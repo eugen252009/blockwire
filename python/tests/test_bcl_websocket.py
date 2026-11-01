@@ -33,6 +33,49 @@ class WebSocketContracts(unittest.IsolatedAsyncioTestCase):
             if sid not in self.gateway.bound:return
             await asyncio.sleep(.01)
         self.fail('Session cleanup never finished')
+    async def test_terminal_file_sender_uses_real_tls_and_waits(self):
+        from blockwire.bcl.cli import read_source, send_file
+        path = self.root / 'human program.bcl'
+        path.write_text('S0 async\nI0', encoding='utf-8')
+        output = []
+        async with self.client() as client:
+            self.assertEqual(await send_file(client, read_source(path), output.append), 0)
+        self.assertEqual([r['status'] for r in output], ['accepted', 'completed'])
+
+    async def test_unified_module_file_runner_process_and_exit_code(self):
+        import sys
+        path = self.root / 'recorded program.bcl'
+        path.write_text('S0 async\nI0', encoding='utf-8')
+        (self.root / 'token').write_text('a' * 64, encoding='utf-8')
+        process = await asyncio.create_subprocess_exec(
+            sys.executable, '-m', 'blockwire', 'run', str(path),
+            '--url', self.url, '--certificate', str(self.cert),
+            '--token-file', str(self.root / 'token'), '--world-id', 'fixture',
+            '--player-uuid', 'player-a', '--actor-session', 'actor-a',
+            '--session-id', 'subprocess', '--timeout', '5', '--json',
+            stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        stdout, stderr = await asyncio.wait_for(process.communicate(), 10)
+        self.assertEqual(process.returncode, 0, stderr.decode())
+        self.assertEqual([json.loads(line)['status'] for line in stdout.splitlines()], ['accepted', 'completed'])
+
+    async def test_terminal_repl_modal_invalid_bcl_and_request_correlation(self):
+        from blockwire.bcl.cli import repl
+        lines = iter(['S2 sneak', 'S2 ?', 'INVALID', 'S2 ?', ':quit'])
+        output = []
+        async def read_line(prompt):
+            await asyncio.sleep(.03)
+            try:
+                return next(lines)
+            except StopIteration:
+                raise EOFError
+        async with self.client() as client:
+            self.assertEqual(await repl(client, read_line, output.append), 1)
+        replies = [r for r in output if r.get('type') == 'response']
+        self.assertEqual([r['request_id'] for r in replies], [1, 2, 3, 4])
+        self.assertEqual(replies[2]['status'], 'failed')
+        self.assertEqual(replies[1]['outputs'][0]['value'], 'sneak')
+        self.assertEqual(replies[3]['outputs'][0]['value'], 'sneak')
+
     async def test_BW01_single_multiline_settings_and_direction(self):
         async with self.client() as client:
             r=await client.send('S0 sync\nS1 absolute\nS2 normal\nS0\nS1\nS2\nS0 ?\nS1 ?\nS2 ?')

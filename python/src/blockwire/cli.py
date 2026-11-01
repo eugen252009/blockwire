@@ -1,11 +1,18 @@
 import argparse
 import json
+import sys
 from .client import Bridge, Player
 
 
-def main():
-    parser = argparse.ArgumentParser(description="Blockwire: observations and descriptive native-player goals.")
+def main(argv=None):
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if argv and argv[0] in {'repl', 'run'}:
+        from .bcl.cli import main as bcl_main
+        return bcl_main(argv)
+    parser = argparse.ArgumentParser(description="Blockwire: native-player goals; use repl or run for the BCL terminal.")
     commands = parser.add_subparsers(dest="operation")
+    commands.add_parser("repl", help="Interactive BCL terminal (use repl --help for connection options)")
+    commands.add_parser("run", help="Execute one complete BCL file (use run FILE --help for options)")
     for operation in ["observe", "inventory", "menu", "stop", "skills"]:
         command = commands.add_parser(operation)
         command.add_argument("--json", action="store_true")
@@ -28,7 +35,7 @@ def main():
     distance.add_argument("target", nargs="?", default="minecraft:dirt")
     distance.add_argument("--position", type=int, nargs=3, metavar=("X", "Y", "Z"))
     distance.add_argument("--timeout", type=float, default=30)
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     operation = args.operation or "observe"
     if operation == "skills":
         from .skills import default_registry
@@ -54,4 +61,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

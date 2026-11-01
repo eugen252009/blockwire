@@ -6,6 +6,10 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=Path(os.environ.get('BLOCKWIRE_VERIFICATION_DIR',ROOT/'build/bcl-verification'))/'mutations'
 OUT.mkdir(parents=True,exist_ok=True)
 MUTATIONS=[
+ ('terminal_source_bound','bcl/cli.py','if len(source) > 16384:','if False:','test_bcl_cli.FileContracts.test_utf8_bom_multiline_and_bounds'),
+ ('terminal_frame_bound','bcl/cli.py',"if len(json.dumps(frame, allow_nan=False).encode('utf-8')) > 32768:",'if False:','test_bcl_cli.FileContracts.test_utf8_bom_multiline_and_bounds'),
+ ('terminal_wait_async','bcl/cli.py',"if result.get('status') == 'accepted':\n        result = await client.wait(result['task_id'])", "if False:\n        result = await client.wait(result['task_id'])",'test_bcl_cli.TerminalContracts.test_file_waits_for_async_terminal_and_failure_exit'),
+ ('terminal_uncertain_stop','bcl/cli.py','                            task.result()','                            pass','test_bcl_cli.TerminalContracts.test_uncertain_transport_stops_without_replay'),
  ('modal_cycle','bcl/modal.py','(setting.values.index(current)+1)%len(setting.values)','setting.values.index(current)','test_bcl_modal.ModalContracts.test_BS01_generic_binary_three_and_four_value_cycles_wrap'),
  ('request_dedup','bcl/modal.py',"if key in self.state['requests']:",'if False:','test_bcl_modal.ModalContracts.test_BS04_durable_dedup_and_evicted_ids_cannot_repeat_cycles'),
  ('request_source_conflict','bcl/modal.py',"if record['source_digest']!=digest:",'if False:','test_bcl_modal.ModalContracts.test_BS04_durable_dedup_and_evicted_ids_cannot_repeat_cycles'),

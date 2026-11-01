@@ -316,6 +316,11 @@ No externally reachable HTTP listener or settings that weaken TLS are added.
 
 ## Python / MCP usage
 
+Human-operated [terminal REPL and file CLI](bcl-terminal.md):
+`python -m blockwire.bcl.cli` or `blockwire-bcl` connects to this gateway with
+explicit certificate/token and actor binding. `--file program.bcl` sends a whole
+frame and waits for terminal completion. The offline compiler below is unchanged.
+
 Offline:
 
 ```sh
