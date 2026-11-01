@@ -86,14 +86,30 @@ MCP's four generic schemas stay small instead of generating one permanent tool
 per opcode. Capability discovery is **not** Minecraft knowledge; recipes/tool
 mechanics stay in existing separate catalogues.
 
-## M0 defaults, modes and heights
+## Coordinate resolution, M0 defaults and heights
 
-Signature: `M0 X Y Z F`.
+`S1 relative` captures one persistent session home when that command reaches the
+serial runtime. Point coordinates use the exact captured player feet position.
+Existing block-position parameters are integer voxels, so they use the containing
+block of the same capture (`floor(x), floor(y), floor(z)`) as `voxel_origin`.
+This is one homing event represented according to the existing typed contracts,
+not two independently changing origins. Registry metadata identifies only the
+actual coordinate parameters; counts, durations, IDs and other numbers are never
+offset.
 
-- Absolute mode: omitted X/Z use fresh current coordinates.
-- Relative mode: supplied coordinates are offsets from the fresh player position
-  **at dispatch of this operation, after all previous queued operations finish**.
-  Omitted X/Z mean zero displacement. Explicit relative Y=0 keeps current feet Y.
+Built-in relative transforms currently cover M0 and V2 point axes plus the
+position/support voxel parameters on M1, C2, C3, I3, I4 and V1. Extensions must
+explicitly declare coordinate metadata rather than relying on parameter names.
+
+M0 signature: `M0 X Y Z F`.
+
+- Absolute mode: supplied values are world coordinates; omitted X/Z use fresh
+  current coordinates.
+- Relative mode: each **supplied** X/Y/Z is offset from the stored exact S1 home.
+  Movement does not update that home. Omitted X/Z retain their existing runtime
+  defaults and use fresh current world coordinates; they are not implicitly
+  replaced with home components. Thus explicit relative Y=0 means the captured
+  home Y, while omitted Y still requests automatic height resolution.
 - Omitted Y always invokes runtime height resolution at the resolved world X/Z.
   Only currently observed, hazard-free cells connected to the current source by
   native stepped navigation edges qualify. Prefer smallest current-height change,
@@ -108,6 +124,31 @@ Signature: `M0 X Y Z F`.
   hazard/damage checks and actor-fenced short leases remain mandatory. No slabs,
   fluid routes, custom jumps, teleportation or safety guarantee.
 
+Stable-home example, starting at world `(120,64,30)`:
+
+```bcl
+S1 relative
+M0 10 0 0       # world (130,64,30)
+M0 10 0 10      # world (130,64,40), still the original home
+S1 relative     # re-home from the actual observed position now reached
+M0 5 0 0
+```
+
+A request/frame boundary does not re-home:
+
+```text
+request 1: S1 relative\nM0 10 0 0
+request 2: M0 20 0 0
+```
+
+Both M0 operations use request 1's captured home. Switching to `S1 absolute`
+uses global world coordinates. A later `S1` toggle or explicit `S1 relative`
+captures a new actual home; `S1 ?` and `S1 status` only report state.
+
+For integer block parameters, a player capture at `(120.7,64,-2.2)` exposes exact
+`home_position=[120.7,64,-2.2]` and `voxel_origin=[120,64,-3]`; local I4/C3/etc.
+voxel `[0,0,0]` maps to that containing world voxel.
+
 ## Modal settings
 
 All settings are declarative `Setting` definitions in the same registry.
@@ -120,10 +161,20 @@ All settings are declarative `Setting` definitions in the same registry.
 | S3 | error_mode | stop → continue; default stop |
 | S4 | timeout_seconds | numeric 0.1..120; default 30 |
 
-For every cyclic enum, no argument advances exactly once with modulo wrap,
-a value sets idempotently, and `?`/`status` reads identically without mutation.
-The generic interpreter handles arbitrary finite enum lengths, not just binary
-booleans. S4 requires a numeric value or `?`/`status`; it cannot cycle.
+For every cyclic enum, no argument advances exactly once with modulo wrap.
+Ordinary explicit assignments are idempotent. **S1 is the deliberate exception:**
+
+| Source | Effect |
+|---|---|
+| `S1 relative` | enter relative mode and capture a new home at execution time |
+| repeated `S1 relative` | capture another new home even while already relative |
+| `S1 absolute` | select global world coordinates; no movement and no homing |
+| `S1` | toggle; entering relative captures a new home, entering absolute does not |
+| `S1 ?` / `S1 status` | report mode/context without changing or capturing anything |
+
+S4 requires a numeric value or `?`/`status`; it cannot cycle. The generic
+interpreter still handles arbitrary finite enum lengths; S1's runtime homing
+side effect is represented explicitly in the same typed operation stream.
 The former **unpublished draft** S0 placeholder for arbitrary settings was never
 available; the addendum supersedes it. There are no released BCL clients to migrate.
 S6 gamemode is **not registered**: no authorized privilege-preserving BCL skill
@@ -132,15 +183,25 @@ adapter exists. It cannot grant creative mode/OP or bypass normal Survival.
 Settings/subscriptions are processed in frame ingress order on a staged copy.
 Only after **the whole frame compiles** does one SQLite commit publish its state
 and request identity. Validation/commit failure leaves modal state unchanged.
-A later native action failure does not roll back valid earlier settings/actions.
-Each queued action stores an immutable snapshot. Later S commands cannot modify
-that action, including its response-wait mode. The last action's captured S0
-sets a frame's `execution_mode`; trailing S0 changes affect only future actions.
+Each queued operation stores immutable modal and coordinate-revision snapshots.
+Later S commands cannot retroactively change an already resolved target, including
+its response-wait mode. The last executable operation's captured S0 sets a frame's
+`execution_mode`; trailing S0 changes affect only future operations.
 
-All Minecraft actions remain **serial FIFO**, even under async. Sync waits for
-completion; async returns accepted/task ID and may queue work without waiting.
-Control messages/settings/events stay responsive during either. Relative anchors
-resolve only when their serial action is actually dispatched, never concurrently.
+S1 homing itself is not performed at ingress, compilation or asynchronous enqueue.
+The runtime reaches that S1 in source/FIFO order, validates the bound actor, obtains
+a fresh observation, durably records the exact home/dimension, then crosses a small
+execution barrier before the next operation. Consecutive explicit `S1 relative`
+commands therefore receive distinct fresh observations. If capture fails, no
+unknown value replaces the previous valid home; operations bound to the failed
+revision fail explicitly. A successful home remains a real earlier effect even if
+a later command in the same batch fails—there is no rollback claim.
+
+All Minecraft actions and S1 homes remain **serial FIFO**, even under async. Sync
+waits for completion; async returns accepted/task ID and may queue work without
+waiting. Ordinary queries/settings/events stay responsive during either; a source
+that enters relative mode queues an actual homing operation. No WebSocket frame,
+request boundary, REPL line or file boundary implicitly creates a home.
 S3 continue advances past observed nonfatal failures, but never turns them into
 success. Final result is failed/`completed_with_errors`. Actor loss, uncertain
 transport, unconfirmed cleanup, partial crafting, total deadlines and global
@@ -152,8 +213,12 @@ the separate bounded total activation deadline (max 1800 seconds).
 An explicit session ID binds agent/world namespace, player UUID and current opaque
 actor_session. The world label is operator-selected, not a native world fingerprint.
 Modal journals use existing private POSIX `SessionStore`/SQLite/file locks.
-No modal/subscription state leaks between sessions. A changed actor requires a
-new explicit session; there is no implicit rebind, respawn or reconnect.
+They persist coordinate mode, home revision/status, exact home, voxel origin,
+dimension, operator-selected world identity, player UUID and actor-session binding.
+No modal/home/subscription state leaks between sessions. Reconnect with the same
+validated session/identity restores a completed home without re-homing. A changed
+world/player/actor requires a new explicit session; there is no implicit rebind,
+respawn, reconnect or coordinate inheritance.
 
 Request IDs are monotonically increasing positive JSON-safe integers
 (1..9007199254740991). Persist the ID/source digest, modal commit and reply summary
@@ -163,12 +228,19 @@ permanent high-water ID: evicted/older IDs fail `STALE_REQUEST`, **never reexecu
 This protects non-idempotent cycles as well as physical actions.
 
 Connection loss cancels that connection's owned queued/running tasks. On restart,
-accepted/running journal entries become interrupted, not reconstructed/replayed.
+accepted/running journal entries and unexecuted home revisions become interrupted,
+not reconstructed/replayed. A home already committed before interruption remains
+valid because it is a completed observed effect; retrying that same request returns
+the cached outcome and never homes twice. Failed/cancelled pending homing restores
+the prior coordinate context when it is still the active transition. Dependent
+queued coordinate operations fail rather than guessing another origin.
+
 Uncertain or cancelled operations require fresh inspection and an explicitly new
 request ID. No automatic rollback, resumption or inference of gameplay success.
 Subscriptions persist for the bound session; events missed during disconnection
-are not replayed. Reset is explicit, idle-only, restores modal defaults and clears
-subscriptions, but retains request dedup history. F8 is not a resettable setting.
+are not replayed. Reset is explicit, idle-only, restores modal defaults, clears
+the active home and subscriptions, but retains request dedup history. F8 is not a
+resettable setting.
 
 ## Play2Code source below BCL execution
 
@@ -195,6 +267,25 @@ This is postcondition idempotence, not permission to replay uncertain requests.
 Append-only `I4 B P C` selects a support/face mechanically for ONE agent-selected
 block coordinate and delegates to I3's motor. It never generates a structure or
 scaffold sequence and never retries an uncertain use.
+
+## Relative fixture portability qualification
+
+The frozen [`superflat-house-relative.bcl`](../tests/building/fixtures/superflat-house-relative.bcl)
+uses ordinary BCL/1 only: one explicit `S1 relative`, then the historical Test-A
+M0/V2/I4/C3 sequence in 29 bounded frames. In the real graphical Minecraft 26.3
+client, the exact 5,462 source bytes passed at three distinct fractional homes.
+Each closed save independently contained the same translated 71-block house with
+no helpers or extra blocks, an intact floor, clear entrance/interior, and fresh
+native access/safety proof. All 71 corresponding required positions differed by
+exactly the floored-home delta.
+
+Separate native runs established one home across requests, a second explicit
+re-home, gateway restart with project reconciliation and cached-request dedup, plus
+`BCLClient`, authenticated TLS, `python -m blockwire run`, redirected REPL EOF and
+the legacy `blockwire-bcl` alias. This qualifies the M0/V2 point and I4/C3 voxel
+adapters exercised by that fixture; M1/C2/I3/V1 and broader gameplay remain
+**NOT RUN**. See the [sanitized evidence record](evidence/bcl-relative-portability.json)
+and [benchmark protocol/results](superflat-building.md).
 
 ## Gateway hardening follow-up
 
@@ -294,7 +385,9 @@ One JSON text WebSocket frame carries one source string (single or multiline):
 ```
 
 Bind requires a fresh native UUID/session match. Replies have `type:response`,
-request/session/connection IDs, status and monotonic **connection-local** sequence.
+request/session/connection IDs, status, modal state, structured `coordinate_context`
+(mode/status/home revision, exact home, voxel origin and dimension when ready), and
+monotonic **connection-local** sequence.
 Task replies additionally have task ID. `accepted` does not mean gameplay success;
 terminal `completed` means verified execution. Failures/cancel/interruption carry
 structured diagnoses. Async completion arrives on the same socket. `type:progress`
@@ -357,8 +450,9 @@ permission to retry with a new ID. Inspect/cancel first.
 
 MCP adds only `compile_bcl`, `execute_bcl`, `discover_bcl_commands`,
 `describe_bcl_command`; existing tools remain compatible. Execute uses explicit
-session_id, monotonic request_id, agent/world/player/actor identities. Settings-only
-requests complete immediately; action requests return an ID. Existing
+session_id, monotonic request_id, agent/world/player/actor identities. Pure
+queries/ordinary settings complete immediately; any request that executes
+`S1 relative` returns/uses a FIFO task just like a skill batch. Existing
 `skill_status` / `cancel_skill` cover BCL jobs; raw mutations are excluded while
 BCL work owns/queues the actor. No API accepts arbitrary state-file paths.
 
@@ -374,22 +468,45 @@ registration. Conflicting semantic IDs/opcodes fail. No namespace causes imports
 Supply the explicitly constructed registry to `BCLGateway(...,registry=r)` or
 `create_server(bcl_registry=r)`. Installing/enabling host providers is operator work.
 
-BCL/1 opcode meanings and enum order are append-only compatibility contracts;
-incompatible changes require a new namespace/version, not silent reassignment.
-Unknown extension, version or persisted modal layout fails closed. Existing raw
-WebSocket/MCP clients and TLS identity/keybinding constants are unchanged. New
-Python-only features need matching development SDK, not a Java transport rewrite.
+BCL/1 opcode meanings and enum order are normally append-only compatibility
+contracts. Stable S1 homing is an explicit pre-publication semantic correction to
+the earlier fresh-per-operation relative interpretation, not a hidden fallback or
+new mode. The transition is auditable: registry metadata/digests changed and
+persisted journals now require modal semantic schema `s1-home-v1`; an older journal
+fails closed and requires a new session ID rather than being silently reinterpreted.
+Historical evidence keeps its original meaning. Unknown extension, version,
+semantic schema or persisted modal layout fails closed. Existing raw WebSocket/MCP
+framing and TLS identity/keybinding constants are unchanged. Matching development
+SDK/gateway code is required; Java transport and movement controllers are unchanged.
 
 ## Qualification and limits
 
-Current verification: **312 Python tests PASS**, including 41 BCL-specific tests;
-**218 isolated mutations killed** (24 BCL, 128 skill/runtime, 32 native, 20
-controller, 14 campaign); Gradle check PASS; native TLS interop **10 PASS**.
-Nine BCL authenticated-TLS/WebSocket tests use simulated native backends, separately
-from the real-client evidence. Native M0 auto-height/explicit fast passed; two real
-TLS gateway runs each completed relative sneak travel and async fast return,
-delivered ten events and retained health 20/20. The first fixture's unusable
-same-height candidate preflight is retained, not counted as a successful run.
+Current S1-homing follow-up verification: **513 Python tests PASS**, including
+**76 BCL/compiler/modal/gateway/terminal tests**; **43/43 BCL isolated mutations
+killed**; 20/20 repeated FIFO-home/cancel stress runs PASS; Gradle check PASS;
+native TLS interop **10 PASS**; and 14 authenticated TLS/WebSocket tests PASS
+against simulated native backends. The current code index reports 300 files,
+4037 chunks and zero errors. These are deterministic/software contracts, not
+Minecraft acceptance.
+
+**Native graphical qualification of stable-home/re-home semantics: PASS (one
+isolated run).** Run `20261101T181245Z` used a private copy of the existing
+`Bridge Skill Flat` map through the real graphical Minecraft 26.3 client, pinned
+native TLS bridge, authenticated BCL TLS gateway and the ordinary AgentRuntime
+movement path. Four home revisions and four observed movement legs verified stable
+cross-request use, explicit re-homing, persistence across a gateway restart,
+deduplicated retry without replay, ordered `absolute -> movement -> relative`
+capture, pure queries and both toggle directions. Actor/player/dimension remained
+fenced, health was unchanged, the world was saved to TitleScreen, the client exited,
+and the source map remained byte-identical. Absolute coordinates, UUIDs, actor
+tokens, credentials and raw observations remain private; hashes and the scoped
+result are in [evidence/bcl-s1-homing.json](evidence/bcl-s1-homing.json).
+
+The historical two real-client gateway runs in
+[evidence/bcl-live.json](evidence/bcl-live.json) predate this correction and used
+the former fresh-per-operation relative interpretation. They remain valid only for
+their recorded behavior and are not relabelled as stable-home evidence. Their
+unusable same-height preflight and successful movement/event facts remain intact.
 
 Measured warm compiler median: 8.22 ms (100 samples); representative source
 17 UTF-8 bytes, framed source 58, equivalent JSON decision 107, internal IR 407.
@@ -397,11 +514,12 @@ Four MCP tool schemas: 2187 bytes; full 26-definition registry: 32865 bytes at
 measurement. These are **bytes, not exact model tokens/billing**; full metadata
 is loaded progressively. See the raw performance record linked in the manifest.
 
-See [scoped evidence](evidence/bcl-live.json). Parser/semantic tests, isolated
-mutations, TLS/WebSocket tests with a simulated native backend and actual graphical
-Minecraft tests are reported separately. Only movement/auto-height/relative modes,
-modal snapshots and event delivery have new BCL-native qualification; registering
-crafting/combat adapters does **not** qualify their gameplay through BCL.
+See the retained historical [initial evidence](evidence/bcl-live.json) and the
+current [S1 homing follow-up](evidence/bcl-s1-homing.json). Parser/semantic tests,
+isolated mutations, simulated TLS/WebSocket tests and actual graphical Minecraft
+tests are reported separately. Native qualification is limited to the S1 lifecycle
+and the tested M0 movement legs; registering other coordinate adapters or
+crafting/combat commands does **not** qualify their gameplay through BCL.
 
 Spontaneous subscribed events are delivered by the WebSocket gateway; the MCP
 facade offers the same control/discovery/status, not a new MCP push-event transport.

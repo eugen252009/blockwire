@@ -1,0 +1,109 @@
+{
+  "recorded_utc": "2026-11-01T18:15:53Z",
+  "language": "BCL/1",
+  "assessment": "GO for deterministic S1 stable-home semantics and one isolated real graphical Minecraft qualification of the tested S1/M0 lifecycle",
+  "semantic_contract": {
+    "S1 relative": "ordered execution-time capture of the current bound player's position",
+    "repeated S1 relative": "every distinct executed assignment captures a new home",
+    "S1 absolute": "global world coordinates, no movement or homing",
+    "S1 toggle": "entering relative homes; entering absolute does not",
+    "S1 query": "? and status are side-effect-free",
+    "scope": "home persists across programs, requests, WebSocket frames and reconnects for the same validated BCL session/actor",
+    "point_coordinates": "exact captured player feet position",
+    "voxel_coordinates": "floor of the same captured position, matching existing integer block-position contracts"
+  },
+  "architecture": {
+    "execution_path": "existing compiler -> typed IR -> ModalSession -> BCLJobs FIFO -> AgentRuntime -> existing skills/native player",
+    "new_controller": false,
+    "new_opcode_or_mode": false,
+    "java_transport_changed": false,
+    "home_timing": "runtime only, never compilation or async enqueue",
+    "ordering": "one explicit observation barrier per executed home",
+    "persistence": "private SessionStore journal with mode, home revision/status, exact home, voxel origin, dimension and existing world/player/actor identities",
+    "deduplication": "same request ID/source returns cached outcome and never re-homes"
+  },
+  "coordinate_adapters": {
+    "point": ["M0.x", "M0.y", "M0.z", "V2.x", "V2.y", "V2.z"],
+    "voxel": ["M1.position", "C2.position", "C3.position", "I3.support", "I4.position", "V1.position"],
+    "omitted_components": "retain existing command-specific runtime defaults"
+  },
+  "failure_contract": {
+    "missing_or_invalid_position": "structured INVALID_COORDINATE_HOME failure",
+    "unavailable_home": "structured COORDINATE_HOME_UNAVAILABLE failure",
+    "dimension_mismatch": "structured COORDINATE_CONTEXT_MISMATCH failure",
+    "cancelled_or_failed_pending_home": "previous active coordinate context restored when applicable",
+    "actor_or_player_mismatch": "existing AgentRuntime actor fences stop before homing",
+    "uncertain_retry": "never replayed"
+  },
+  "compatibility": {
+    "impact": "intentional incompatible correction of the former fresh-per-operation relative interpretation",
+    "modal_semantic_schema": "s1-home-v1",
+    "old_journals": "fail closed and require a new session ID",
+    "registry_digest": "changed through explicit coordinate metadata and S1 command metadata",
+    "historical_evidence": "docs/evidence/bcl-live.json retained unchanged and not relabelled"
+  },
+  "verification": {
+    "python_tests": {"status": "PASS", "count": 513},
+    "bcl_related_tests": {"status": "PASS", "count": 76},
+    "authenticated_tls_websocket_simulation": {"status": "PASS", "count": 14},
+    "bcl_mutations": {"status": "PASS", "killed": 43, "total": 43},
+    "fifo_cancel_stress_repetitions": {"status": "PASS", "passed": 20, "total": 20},
+    "gradle_check": "PASS",
+    "native_tls_interop": {"status": "PASS", "checks": 10},
+    "native_graphical_s1": {"status": "PASS", "runs": 1, "home_revisions": 4, "movement_legs": 4},
+    "code_index": {"status": "PASS", "files": 300, "chunks": 4037, "errors": 0},
+    "git_diff_check": "PASS"
+  },
+  "native_graphical_client": {
+    "status": "PASS",
+    "run_id": "20261101T181245Z",
+    "client": "Real graphical Minecraft 26.3 through the installed isolated Prism instance",
+    "scope": "Authenticated native TLS bridge -> authenticated BCL TLS gateway -> existing BCLJobs FIFO/AgentRuntime -> native M0 movement; no teleport, cheat, second controller or replay path",
+    "fixture": {
+      "source_world": "Bridge Skill Flat",
+      "isolated_copy": "Blockwire-S1-Native-20261101T181245Z",
+      "source_tree_sha256": "b0df40bfcc587dee5ea752f70f5d825cb4e84f1a05ab90ed2e89ba23215fe722",
+      "source_unchanged_before_after": true,
+      "copy_saved_to_title_screen": true,
+      "client_and_prism_exited": true
+    },
+    "observed_contracts": {
+      "first_home_captured_at_execution": true,
+      "home_stable_across_requests": true,
+      "explicit_relative_assignment_rehomed": true,
+      "home_persisted_across_gateway_restart": true,
+      "deduplicated_retry_did_not_rehome_or_replay_movement": true,
+      "absolute_move_completed_before_relative_capture": true,
+      "queries_did_not_change_home_or_move": true,
+      "toggle_to_absolute_did_not_home_or_move": true,
+      "toggle_to_relative_homed_without_moving": true,
+      "actor_player_dimension_stable": true,
+      "health_unchanged": true
+    },
+    "independent_readback": {"status": "PASS", "checks": 15},
+    "privacy": "UUID, actor token, absolute coordinates, credentials, private keys and raw observations remain only in ignored private build artifacts and are excluded from bundles.",
+    "private_artifacts": {
+      "location": "build/bcl-s1-native/20261101T181245Z (ignored, not distributed)",
+      "result_sha256": "46791b7146cde4d55e7fd3621ba6fd7fe53e210c9f295970e0ee75e9bb4c71d4",
+      "verification_sha256": "e7506ef50b2a888c6816f80008b39074075b21bc57a343224b7f915d1d92991c",
+      "raw_sha256": "e075a30a8d7c4652f952894f6de059cd401983529905648ffb916619cdcae07a",
+      "clone_manifest_sha256": "468b77f11cb3471220405b0c0e6c2c021e8f6928823b00ee50e650710225abae"
+    },
+    "qualification_limit": "This run qualifies the tested S1 lifecycle and four M0 movement legs only; it does not qualify other coordinate adapters, crafting, combat or an external objective.",
+    "historical_runs": "The older real-client relative runs used the superseded semantics and remain separate historical evidence."
+  },
+  "source_sha256": {
+    "python/src/blockwire/bcl/modal.py": "94cf28768b96e8c3ac566ff435c88073f7a88c450aa66a67443c7573f86a1ac5",
+    "python/src/blockwire/bcl/runtime.py": "d7b006e2e374b25bc61c27b94ff6d9fbca5d3eeff5e1ea178ac720610484e65f",
+    "python/src/blockwire/bcl/registry.py": "ef064565409b46c248bfb09ad472897e266f1c66c401b4ca14fa0e295ec414ba",
+    "python/src/blockwire/bcl/gateway.py": "f1ddc5b35412aab879ee37df8edf685442171370d84976674ef64edd0e02b6f9",
+    "python/src/blockwire/bcl/client.py": "6cd87796b020c3130216100fd454074849bb7b239dd68f0ac77eb07b8ac9b93b",
+    "python/src/blockwire/bcl/cli.py": "a7d9a57edd11541f49252ce51006e3c3a2bbaec60bebb5390f9c0ac90c42b4ce",
+    "python/tests/test_bcl_modal.py": "c1e8b691255cc8e898d684e3d1c5b7a8df241a42d52943d5c881e2a35f6de551",
+    "python/tests/test_bcl_websocket.py": "4356586d00e280cfdbf48a32243a3ee6406e5d037a54423ce84a9bc7a8c123c6",
+    "tests/run_bcl_mutations.py": "ee560da8b3acf77dfdcb0b154ffb045a3e406930aa447db35ab4bf8072a7e2f8",
+    "docs/bcl-commands.json": "48485d778cd30af02f9efb1a763ee926af1a9f9b2b6de6323fa39192319bab38",
+    "build/bcl-verification/mutations/results.json": "fb5fe03f1f371b8f3918415b38e84f490c7ac5c3b34a7535f435109bfe1b870e"
+  },
+  "release_state": "No commit, push, tag, upload, release or deployment performed."
+}

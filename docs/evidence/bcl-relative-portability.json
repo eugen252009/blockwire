@@ -1,0 +1,212 @@
+{
+  "recorded_utc": "2026-11-01T20:07:11Z",
+  "language": "BCL/1",
+  "assessment": "GO for the frozen relative Test-A fixture at three distinct session homes, cross-request persistence, explicit re-homing, gateway restart recovery, request deduplication and the tested Python/TLS/CLI interfaces",
+  "scope": {
+    "qualified": [
+      "one byte-identical relative 5x5 Test-A BCL program at three translated homes",
+      "fractional point home to floored voxel origin",
+      "M0 and V2 point-coordinate translation used by the fixture",
+      "I4 and C3 voxel-coordinate translation used by the fixture",
+      "one persistent home across 29 body frames and separate requests",
+      "explicit second S1 relative capture from the reached player position",
+      "gateway restart with persisted home, quarantined uncertain project intent and deduplicated completed request",
+      "BCLClient over authenticated TLS, python -m blockwire run/repl and blockwire-bcl"
+    ],
+    "not_qualified": [
+      "coordinate adapters not exercised by this fixture: M1, C2, I3 and V1",
+      "arbitrary terrain, dimensions, structures, crafting, combat or external-model planning",
+      "Play2Code generated-BCL replay or the owner-only H01 manual baseline",
+      "Test-B repeatability or native movement-performance parity"
+    ]
+  },
+  "architecture": {
+    "execution_path": "frozen BCL/1 source -> existing compiler/typed IR -> ModalSession/BCLJobs FIFO -> AgentRuntime -> existing native movement/placement/removal skills",
+    "new_opcode": false,
+    "new_controller_or_planner": false,
+    "teleport_or_admin_during_measured_execution": false,
+    "administrative_scope": "restore, clear, inventory and exact fractional start only before each measured run; world then saved/closed and reloaded before BCL",
+    "independent_truth": "actor-bracketed native access/safety plus read-only closed-save Anvil verification of the translated declared volume"
+  },
+  "fixture": {
+    "minecraft": "26.3",
+    "data_version": 5023,
+    "canonical_snapshot_identity": "d61d166e4431e7693907cc0590f1808e2d8f12d62befe3b0a5a64c22b70696a7",
+    "relative_source": "tests/building/fixtures/superflat-house-relative.bcl",
+    "relative_source_sha256": "72e2368fb9861de72342d32b8a21825623e7dbabaf946348d786898f5d69c60b",
+    "relative_source_bytes": 5462,
+    "relative_source_lines": 259,
+    "frames": 29,
+    "compiled_operations": 231,
+    "absolute_reference_source_sha256": "c62c6ae8a1419e576f454f2831b5c79d4b64735ccd2de6636536ff3b07c32788",
+    "required_blocks": 71,
+    "wall_blocks": 46,
+    "roof_blocks": 25,
+    "temporary_dirt_blocks_removed": 11
+  },
+  "source_freeze": {
+    "cohort": "P04",
+    "git_head": "28440c59037f49d391f06778b9a083d4ad79787b",
+    "working_source_identity": "a5f0feba812249ad810e4ad27b991b161f94805f74b6dc94fa7efde0511aa29a",
+    "manifest_sha256": "3a73b0c5afe8cbf4d32d8ece7eb422b71ef4b7cb1e8c2748e09adfdd4350fb60",
+    "registry_digest": "BCL/1:91469228258d7533fca143e9712c162a15292bdcaf309b1f581eae8131fff38c",
+    "installed_jar_sha256": "3cc10f3d72436cbca1e1490551df00817e1c860cc8ba1c6ef80a94328ea77ec5",
+    "same_program_bytes_for_A_B_C": true
+  },
+  "fractional_mapping_preflight": {
+    "status": "PASS",
+    "captured_point_home": [2.5, -60.0, -3.5],
+    "floored_voxel_origin": [2, -60, -4],
+    "local_voxels": [[-2, 0, 4], [-2, 0, 8], [2, 0, 4]],
+    "resolved_voxels": [[0, -60, 0], [0, -60, 4], [4, -60, 0]],
+    "closed_save_observations": ["minecraft:cobblestone", "minecraft:cobblestone", "minecraft:cobblestone"]
+  },
+  "native_cohort": {
+    "status": "PASS",
+    "run_count": 3,
+    "runs": {
+      "A": {
+        "house_origin": [0, -60, 0],
+        "captured_point_home": [2.5, -60.0, -3.5],
+        "voxel_origin": [2, -60, -4],
+        "verified_blocks": 71,
+        "movement_operations": 30,
+        "placement_operations": 82,
+        "removal_operations": 11,
+        "failed_actions": 0,
+        "objective_verified": true,
+        "native_access_and_safe_player": true
+      },
+      "B": {
+        "house_origin": [48, -60, 0],
+        "captured_point_home": [50.5, -60.0, -3.5],
+        "voxel_origin": [50, -60, -4],
+        "verified_blocks": 71,
+        "movement_operations": 30,
+        "placement_operations": 82,
+        "removal_operations": 11,
+        "failed_actions": 0,
+        "objective_verified": true,
+        "native_access_and_safe_player": true,
+        "original_A_volume_remained_clear": true
+      },
+      "C": {
+        "house_origin": [48, -60, 48],
+        "captured_point_home": [50.5, -60.0, 44.5],
+        "voxel_origin": [50, -60, 44],
+        "verified_blocks": 71,
+        "movement_operations": 30,
+        "placement_operations": 82,
+        "removal_operations": 11,
+        "failed_actions": 0,
+        "objective_verified": true,
+        "native_access_and_safe_player": true,
+        "original_A_volume_remained_clear": true
+      }
+    },
+    "translation_checks": {
+      "A_to_B": {"voxel_home_delta": [48, 0, 0], "all_71_corresponding_blocks": true},
+      "A_to_C": {"voxel_home_delta": [48, 0, 48], "all_71_corresponding_blocks": true},
+      "B_to_C": {"voxel_home_delta": [0, 0, 48], "all_71_corresponding_blocks": true}
+    },
+    "all_runs": {
+      "entrance_clear": true,
+      "interior_clear": true,
+      "roof_complete": true,
+      "floor_intact": true,
+      "helpers_remaining": 0,
+      "unexpected_or_unknown_cells": 0,
+      "health": "20/20 at final actor-bracketed observation"
+    }
+  },
+  "persistence_and_recovery": {
+    "cross_request_split": {
+      "status": "PASS",
+      "home_request_separate_from_body": true,
+      "home_capture_count": 1,
+      "body_frames": 29,
+      "same_home_in_all_terminal_responses": true,
+      "verified_blocks": 71
+    },
+    "explicit_rehome": {
+      "status": "PASS",
+      "home_revisions": 2,
+      "second_home_captured_after_first_five_block_leg": true,
+      "second_movement_resolved_from_second_home": true
+    },
+    "gateway_restart": {
+      "status": "PASS",
+      "restart_boundary_frame_zero_based": 8,
+      "home_unchanged_after_restart": true,
+      "uncertain_project_pending_intent_quarantined": true,
+      "completed_request_retrieved_as_deduplicated": true,
+      "inventory_and_position_unchanged_during_duplicate_retrieval": true,
+      "old_effect_not_replayed": true,
+      "continued_from_next_frame": true,
+      "final_verified_blocks": 71
+    }
+  },
+  "interfaces": {
+    "BCLClient_authenticated_TLS": "PASS",
+    "python_module_run": "PASS across two processes with one persisted home",
+    "legacy_blockwire_bcl": "PASS with side-effect-free S1 status",
+    "python_module_repl_redirected_EOF": "PASS and waited for submitted commands",
+    "gateway_hostname_verification": "block-bridge.invalid compatibility identity retained",
+    "plaintext_or_untrusted_transport": "not used"
+  },
+  "independent_verification": {
+    "status": "PASS",
+    "checks": 38,
+    "cohort_result_sha256": "e8fa96472bb057350cf4ef558ff066c3ff09cf7b1429e3082b9e25ab6723dd6b",
+    "independent_result_sha256": "f5630ae713db6cbc192137a99eda353ac525b074f179cb3255576f9e9b0ee425",
+    "independent_harness_sha256": "fcef3491fa1a375d523f2af95ee43d386fee036be47a36812854b84db7bd3273"
+  },
+  "retained_failed_or_aborted_cohorts": {
+    "P01": "aborted before world load because the qualification entry point passed raw Bridge instead of Player(Bridge); source freeze retained",
+    "P02": "mapping preflight stopped at TLS handshake because the private qualification certificate had expired; administrative preparation only, zero BCL requests",
+    "P03": "mapping, A/B/C, split, recovery, re-home, file CLI and legacy alias passed; the REPL harness incorrectly used explicit :quit, which deliberately cancels pending work, so the cohort was retained and not promoted",
+    "P04_preflight": "one native TLS handshake timeout occurred before the measured A run directory or world load; retained separately, then a fresh status read succeeded and the uninterrupted measured run passed"
+  },
+  "verification": {
+    "python_tests": {"status": "PASS", "count": 521},
+    "portable_contract_tests": {"status": "PASS", "count": 8},
+    "bcl_related_tests": {"status": "PASS", "count": 74},
+    "bcl_mutations": {"status": "PASS", "killed": 43, "total": 43},
+    "building_mutations": {"status": "PASS", "killed": 31, "total": 31},
+    "gradle_check": "PASS",
+    "native_tls_interop": {"status": "PASS", "checks": 10},
+    "code_index": {"status": "PASS", "files": 305, "chunks": 4140, "errors": 0},
+    "git_diff_check": "PASS"
+  },
+  "private_artifacts": {
+    "location": "build/bcl-portability/P01 through P04 (ignored, not distributed)",
+    "P04_mapping_result_sha256": "169d357db82e9153f5f0b673af98ff281ab8adfd57f79431d6dd299c2911b1cd",
+    "P04_A_result_sha256": "a5be391dc559c7f85864ff3cce46024c814fe08a3edfdb13030b77eb0727a2f9",
+    "P04_B_result_sha256": "1e68bbb1f84bf2d8f2487dae268ec2ac99d1352569b2cc0a7e120d35d4840084",
+    "P04_C_result_sha256": "7b3b6527d11459ed1dbf3422c09bccbaf212eaf6717bbd2db1de7ee7aadb1be5",
+    "P04_split_result_sha256": "802e26ef7e0cd447051bd1abf07ad71c47d507568218ae397819b77e1f063a76",
+    "P04_recovery_result_sha256": "6a89ad520862d8f56628ed69412792120967b11a5c7353aa52d034b48fff559d",
+    "P04_rehome_result_sha256": "88e8e2bc2e4d3a7aa4edfe7473fd1d56d657baaddb02608a9e66c430d8b39341",
+    "P04_interfaces_result_sha256": "da91cc16f4b294891c4a2029d1634065b4de55dc112ea3e5f8618a842b11523c",
+    "privacy": "raw observations, UUIDs, actor tokens, project journals, credentials, private keys and save snapshots remain ignored and outside bundles"
+  },
+  "source_sha256": {
+    "tests/building/portable.py": "0807114b84e2b15b8f20a617e2f8dcddbc43bbd877aed17875f4ee1a54ebdb30",
+    "tests/building/portable_live.py": "30c03f43e6d8823f147dca9c63722cfe27ea753e3af247015b0e0e639edfc88b",
+    "tools/portable_bcl_benchmark.py": "eae410d974fa4322748caebc53a5fd6f21b3d6a367851c5a8fe1813de8e275a9",
+    "python/tests/test_portable_building.py": "66e66f9abe1893ccaedce03f5631c2eeac04487cdeb163e2581b561295bf7a15",
+    "tests/run_building_mutations.py": "9138fea54c06c18169067920f7cf41a694fe2694f410eaa69fac1cb9729f84db"
+  },
+  "decisions": {
+    "portable_relative_building": "GO",
+    "cross_request_home_persistence": "GO",
+    "explicit_rehome": "GO",
+    "gateway_restart_and_dedup_recovery": "GO",
+    "tested_python_tls_cli_interfaces": "GO",
+    "unexercised_coordinate_adapters": "NOT_RUN",
+    "Play2Code_generated_replay": "NOT_RUN",
+    "owner_manual_H01": "PENDING_OWNER_MANUAL_BUILD",
+    "Test_B_repeatability": "NO_GO_NOT_ESTABLISHED"
+  },
+  "release_state": "No commit, push, tag, upload, release or deployment performed."
+}

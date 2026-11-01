@@ -2,6 +2,23 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- BCL/1 `S1 relative` now performs ordered execution-time homing and persists one
+  session coordinate origin across requests/reconnects. Repeated explicit relative
+  assignments re-home; movement does not. Absolute/toggle/query behavior, typed
+  point/voxel transforms, deduplicated retries, actor/dimension fences and failed-
+  home rollback have focused simulated tests/mutations. This intentionally replaces
+  the earlier fresh-per-operation relative interpretation; old modal journals fail
+  closed under semantic schema `s1-home-v1`. One isolated graphical Minecraft 26.3
+  run passed the stable-home/re-home, restart, dedup, ordered-capture, query and
+  toggle lifecycle without changing the source map; broader adapters remain unqualified.
+- A separate source-frozen relative Test-A portability cohort executed the same
+  5,462-byte BCL fixture at three fractional homes. All three real Minecraft 26.3
+  runs independently verified 71/71 translated blocks, clear entrance/interior,
+  intact floor, complete roof, no helpers and safe native access. Separate native
+  runs passed split-request persistence, explicit re-homing, gateway restart plus
+  lost-ack dedup, and Python/TLS/file-CLI/REPL paths. Earlier harness/certificate
+  preflights remain retained failures; unexercised adapters and broader gameplay
+  remain NOT RUN.
 - Human-operated BCL/1 terminal REPL and complete-file runner over the existing
   authenticated TLS gateway, with unified `python -m blockwire` / `blockwire`
   dispatch, prompt-safe asynchronous events, cancellation and terminal outcomes.

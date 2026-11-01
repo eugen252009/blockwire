@@ -41,10 +41,10 @@ def readable(value):
         ids = {k: value[k] for k in ('request_id', 'task_id') if k in value}
         print(json.dumps(str(status).upper(), ensure_ascii=True)[1:-1] +
               (' ' + json.dumps(ids, ensure_ascii=True) if ids else ''), flush=True)
-    for key in ('outputs', 'result', 'diagnostics', 'error', 'tasks', 'modal', 'session_id', 'connection', 'buffer_characters'):
+    for key in ('outputs', 'result', 'diagnostics', 'error', 'tasks', 'modal', 'coordinate_context', 'session_id', 'connection', 'buffer_characters'):
         if key in value:
             print(key + ': ' + json.dumps(value[key], ensure_ascii=True, allow_nan=False), flush=True)
-    if not status and not any(k in value for k in ('outputs', 'result', 'diagnostics', 'error', 'tasks', 'modal', 'session_id', 'connection', 'buffer_characters')):
+    if not status and not any(k in value for k in ('outputs', 'result', 'diagnostics', 'error', 'tasks', 'modal', 'coordinate_context', 'session_id', 'connection', 'buffer_characters')):
         emit(value)
 
 
@@ -226,7 +226,8 @@ async def repl(client, read_line=None, output=emit):
                         output({'tasks': list(client.tasks)})
                     elif command == ':status':
                         output({'connection': 'established' if client.ws is not None else 'closed',
-                                'session_id': client.bind['session_id'], 'modal': client.modal})
+                                'session_id': client.bind['session_id'], 'modal': client.modal,
+                                'coordinate_context': client.coordinate_context})
                     elif command in {':cancel', ':wait'} and argument:
                         if argument not in client.tasks:
                             raise ValueError('Unknown task ID')

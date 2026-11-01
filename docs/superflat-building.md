@@ -84,6 +84,62 @@ heights and materials. The shipped itinerary is deliberately specific to this
 fixture; new roofs/itineraries require separate fixtures and qualification, not a
 productive agent house generator.
 
+## Relative S1 portability cohort
+
+[`superflat-house-relative.bcl`](../tests/building/fixtures/superflat-house-relative.bcl)
+is a byte-frozen relative-coordinate conversion of Test A, not a generator. Its
+SHA-256 is `72e2368fb9861de72342d32b8a21825623e7dbabaf946348d786898f5d69c60b`:
+5,462 bytes, 259 lines, the same 231 operations and 29 frame boundaries. The only
+coordinate-frame change is explicit `S1 relative`; M0/V2 point values are relative
+to the exact feet home, while I4/C3 voxel positions are relative to its floored
+voxel origin. Offline contracts prove operation-by-operation equivalence with the
+historical absolute fixture before any native run.
+
+The source-frozen P04 real-client cohort restored the same canonical snapshot for
+each run, administratively established only the disclosed translated empty site,
+inventory and fractional start, saved/closed, then reloaded before measured BCL.
+No command, teleport, second controller or manual input occurred during execution.
+
+| Run | House origin | Captured point home | Floored voxel home | Closed-save result |
+|---|---|---|---|---|
+| A | `(0,-60,0)` | `(2.5,-60,-3.5)` | `(2,-60,-4)` | 71/71, all predicates PASS |
+| B | `(48,-60,0)` | `(50.5,-60,-3.5)` | `(50,-60,-4)` | 71/71, original A volume clear, PASS |
+| C | `(48,-60,48)` | `(50.5,-60,44.5)` | `(50,-60,44)` | 71/71, original A volume clear, PASS |
+
+Every run produced 82 verified placement outcomes, 30 native movement outcomes,
+11 verified helper removals and zero failed actions. All corresponding 71 required
+positions translated by exactly the voxel-home delta. Entrance/interior, roof,
+1089 floor cells, absence of helpers/extras, safe final player and native interior
+access all passed. A separate fractional preflight mapped three known local voxels
+to independently read closed-save blocks before the full cohort.
+
+Separate native runs also passed:
+
+- `S1 relative` in one request followed by all body frames in later requests with
+  exactly one unchanged home;
+- two explicit homes in one ordered batch, with the second movement resolved from
+  the reached second home;
+- a gateway restart after a completed construction frame, durable uncertain-project
+  quarantine, cached duplicate retrieval with unchanged inventory/position, and
+  continuation from the next frame without replay;
+- direct Python `BCLClient`, authenticated TLS, two-process `python -m blockwire run`,
+  `blockwire-bcl S1 status`, and redirected REPL input terminated by EOF.
+
+P01 was aborted before world load due a qualification-wrapper defect. P02 stopped
+before any BCL request because its private gateway certificate had expired. P03's
+building/recovery runs passed, but its REPL harness used explicit `:quit`, whose
+specified behavior is cancellation; that cohort was retained and not promoted.
+P04 additionally retained one native TLS handshake timeout before the measured A
+run or world load. None was erased or relabelled. The final P04 cohort and a second
+offline readback passed; see
+[`bcl-relative-portability.json`](evidence/bcl-relative-portability.json).
+
+**Decision: GO** for this frozen fixture's tested M0/V2/I4/C3 portability,
+cross-request home lifecycle, restart/dedup recovery and interfaces. M1/C2/I3/V1,
+other structures/terrain/dimensions, external-model planning, Play2Code replay and
+H01 remain separate **NOT RUN/PENDING** gates. Historical Test-A/Test-B verdicts do
+not change.
+
 ## Test B: real external model
 
 The same snapshot, inventory, capabilities and independent structural predicate

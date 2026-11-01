@@ -71,6 +71,20 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "x",
+          "kind": "point_x"
+        },
+        {
+          "parameter": "y",
+          "kind": "point_y"
+        },
+        {
+          "parameter": "z",
+          "kind": "point_z"
+        }
+      ],
       "skill": "walk_to",
       "available": true,
       "permissions": [
@@ -101,6 +115,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -167,6 +184,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "position",
+          "kind": "voxel"
+        }
+      ],
       "skill": "approach",
       "available": true,
       "permissions": [
@@ -197,6 +220,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -250,6 +276,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": "dig_step",
       "available": true,
       "permissions": [
@@ -280,6 +307,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -325,6 +355,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": "craft_item",
       "available": true,
       "permissions": [
@@ -355,6 +386,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -397,6 +431,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": "gather_wood",
       "available": true,
       "permissions": [
@@ -427,6 +462,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -531,6 +569,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "position",
+          "kind": "voxel"
+        }
+      ],
       "skill": "gather_block",
       "available": true,
       "permissions": [
@@ -561,6 +605,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -628,6 +675,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "position",
+          "kind": "voxel"
+        }
+      ],
       "skill": "remove_block",
       "available": true,
       "permissions": [
@@ -658,6 +711,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -675,6 +731,7 @@
       "direction": "client_to_server",
       "signature": "I0",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": "inspect_inventory",
       "available": true,
       "permissions": [
@@ -705,6 +762,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -737,6 +797,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": "equip_item",
       "available": true,
       "permissions": [
@@ -767,6 +828,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -784,6 +848,7 @@
       "direction": "client_to_server",
       "signature": "I2",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": "consume_item",
       "available": true,
       "permissions": [
@@ -814,6 +879,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -941,6 +1009,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "support",
+          "kind": "voxel"
+        }
+      ],
       "skill": "place_block",
       "available": true,
       "permissions": [
@@ -971,6 +1045,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1054,6 +1131,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "position",
+          "kind": "voxel"
+        }
+      ],
       "skill": "place_at",
       "available": true,
       "permissions": [
@@ -1084,6 +1167,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1101,6 +1187,7 @@
       "direction": "client_to_server",
       "signature": "V0",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": "observe_environment",
       "available": true,
       "permissions": [
@@ -1131,6 +1218,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1195,6 +1285,12 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "position",
+          "kind": "voxel"
+        }
+      ],
       "skill": "interact_with_block",
       "available": true,
       "permissions": [
@@ -1225,6 +1321,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1282,6 +1381,20 @@
           }
         }
       ],
+      "coordinate_parameters": [
+        {
+          "parameter": "x",
+          "kind": "point_x"
+        },
+        {
+          "parameter": "y",
+          "kind": "point_y"
+        },
+        {
+          "parameter": "z",
+          "kind": "point_z"
+        }
+      ],
       "skill": "aim_at",
       "available": true,
       "permissions": [
@@ -1312,6 +1425,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1367,6 +1483,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": "fight",
       "available": true,
       "permissions": [
@@ -1397,6 +1514,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1437,6 +1557,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1467,6 +1588,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1488,7 +1612,7 @@
       "opcode": "S1",
       "command": "coordinate_mode",
       "language": "BCL/1",
-      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "description": "Select global coordinates or capture a persistent session home at execution time. Explicit relative assignments re-home; omitted toggles; ?/status are side-effect-free.",
       "category": "setting",
       "direction": "client_to_server",
       "signature": "S1 V",
@@ -1516,6 +1640,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1546,6 +1671,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1559,7 +1687,8 @@
           "relative"
         ],
         "default": "absolute",
-        "cyclic": true
+        "cyclic": true,
+        "description": "Select global coordinates or capture a persistent session home at execution time. Explicit relative assignments re-home; omitted toggles; ?/status are side-effect-free."
       }
     },
     {
@@ -1597,6 +1726,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1627,6 +1757,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1677,6 +1810,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1707,6 +1841,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1758,6 +1895,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1788,6 +1926,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1823,6 +1964,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1853,6 +1995,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1882,6 +2027,7 @@
           }
         }
       ],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1912,6 +2058,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1929,6 +2078,7 @@
       "direction": "client_to_server",
       "signature": "E2",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -1959,6 +2109,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -1976,6 +2129,7 @@
       "direction": "client_to_server",
       "signature": "E3",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2006,6 +2160,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2023,6 +2180,7 @@
       "direction": "server_to_client",
       "signature": "E100",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2053,6 +2211,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2070,6 +2231,7 @@
       "direction": "server_to_client",
       "signature": "E101",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2100,6 +2262,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2117,6 +2282,7 @@
       "direction": "server_to_client",
       "signature": "E102",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2147,6 +2313,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2164,6 +2333,7 @@
       "direction": "server_to_client",
       "signature": "E103",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2194,6 +2364,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2211,6 +2384,7 @@
       "direction": "server_to_client",
       "signature": "E104",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2241,6 +2415,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2258,6 +2435,7 @@
       "direction": "server_to_client",
       "signature": "E105",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2288,6 +2466,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2305,6 +2486,7 @@
       "direction": "server_to_client",
       "signature": "E106",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2335,6 +2517,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",
@@ -2352,6 +2537,7 @@
       "direction": "server_to_client",
       "signature": "E107",
       "parameters": [],
+      "coordinate_parameters": [],
       "skill": null,
       "available": true,
       "permissions": [
@@ -2382,6 +2568,9 @@
         "POSTCONDITION_FAILED",
         "ACTOR_MISMATCH",
         "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
         "UNSUPPORTED_VERSION",
         "DIRECTION_DENIED",
         "REQUEST_CONFLICT",

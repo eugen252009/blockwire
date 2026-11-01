@@ -114,6 +114,33 @@ class WebSocketContracts(unittest.IsolatedAsyncioTestCase):
             self.assertTrue(duplicate['deduplicated']);self.assertEqual(duplicate['modal']['execution_mode'],'async')
             conflict=await client.send('S2',request_id=2)
             self.assertEqual(conflict['outputs'][0]['value'],'fast')
+    async def test_BW10_s1_home_persists_across_frames_reconnect_and_request_dedup(self):
+        async with self.client() as client:
+            homed=await client.send('S1 relative',request_id=1)
+            self.assertEqual(homed['status'],'completed')
+            context=homed['coordinate_context']
+            self.assertEqual(context['status'],'ready');self.assertEqual(context['home_position'],[.5,64.,.5])
+            query=await client.send('S1 status',request_id=2)
+            self.assertEqual(query['outputs'][0]['coordinate_context'],context)
+        await self.disconnected()
+        async with self.client() as client:
+            self.assertEqual(client.coordinate_context,context)
+            duplicate=await client.send('S1 relative',request_id=1)
+            self.assertTrue(duplicate['deduplicated']);self.assertEqual(duplicate['coordinate_context'],context)
+            self.assertEqual(client.coordinate_context,context)
+
+    async def test_BW11_observer_homing_rechecks_actor_identity_before_capture(self):
+        sid='observer-actor-fence'
+        async with self.client(sid,role='observer') as client:
+            self.native.actor='actor-b'
+            with self.assertRaises(ConnectionError):await client.send('S1 relative',request_id=1)
+        await self.disconnected(sid);self.native.actor='actor-a'
+        async with self.client(sid,role='observer') as client:
+            self.assertEqual(client.coordinate_context['mode'],'absolute')
+            duplicate=await client.send('S1 relative',request_id=1)
+            self.assertTrue(duplicate['deduplicated']);self.assertEqual(duplicate['status'],'failed')
+            self.assertEqual(duplicate['diagnostics'][0]['code'],'actor_session_changed')
+
     async def test_BW05_connection_loss_cancels_work_never_replays_accepted_task(self):
         async with self.client() as client:
             r=await client.send('S0 async\ntest:I0',request_id=1)
@@ -151,6 +178,8 @@ class WebSocketContracts(unittest.IsolatedAsyncioTestCase):
     async def test_BW08_two_sessions_have_isolated_settings_and_subscriptions(self):
         async with self.client('a') as a,self.client('b',role='observer') as b:
             await a.send('S2 fast\nE0 player.health')
+            home=await b.send('S1 relative')
+            self.assertEqual(home['status'],'completed');self.assertEqual(home['coordinate_context']['home_position'],[.5,64.,.5])
             r=await b.send('S2 ?\nE2')
             self.assertEqual(r['outputs'][0]['value'],'normal');self.assertEqual(r['outputs'][1]['subscriptions'],[])
             with self.assertRaises(asyncio.TimeoutError):await asyncio.wait_for(b.events.get(),.6)

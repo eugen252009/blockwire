@@ -12,7 +12,7 @@ class BCLClient:
         if role not in {'controller','observer'}:raise ValueError('Invalid role')
         if role!='controller':self.bind['role']=role
         if type(timeout) not in (int,float) or not .1<=timeout<=1800:raise ValueError('Bounded timeout required')
-        self.timeout=timeout;self.ws=None;self.reader=None;self.next_id=1;self.modal={};self.responses={};self.tasks={}
+        self.timeout=timeout;self.ws=None;self.reader=None;self.next_id=1;self.modal={};self.coordinate_context={};self.responses={};self.tasks={}
         self.events=asyncio.Queue(maxsize=64);self.progress=asyncio.Queue(maxsize=64);self.lock=asyncio.Lock()
     def _future(self):
         future=asyncio.get_running_loop().create_future()
@@ -26,7 +26,7 @@ class BCLClient:
         try:
             response=await asyncio.wait_for(future,self.timeout)
             if response['status']!='bound':raise RuntimeError(str(response.get('diagnostics')))
-            self.next_id=response['last_request_id']+1;self.modal=response['modal'];return self
+            self.next_id=response['last_request_id']+1;self.modal=response['modal'];self.coordinate_context=response.get('coordinate_context',{});return self
         except BaseException:await self.__aexit__(None,None,None);raise
     async def __aexit__(self,*_):
         if self.ws:await self.ws.close()
@@ -45,6 +45,7 @@ class BCLClient:
                     continue
                 request=message.get('request_id');task=message.get('task_id')
                 if message.get('modal'):self.modal=message['modal']
+                if message.get('coordinate_context'):self.coordinate_context=message['coordinate_context']
                 if task:
                     if task not in self.tasks:self.tasks[task]=self._future()
                     f=self.tasks[task]

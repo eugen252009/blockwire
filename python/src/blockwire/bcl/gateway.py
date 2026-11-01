@@ -61,7 +61,7 @@ class BCLGateway:
                 inventory=await asyncio.to_thread(self.player.inventory) if lifecycle=='player.alive' else None
                 if inventory is not None and scene.get('actor_session')!=inventory.get('actor_session'):raise BridgeError('actor_session_changed')
                 self.sample={'lifecycle':lifecycle,'actor_session':scene.get('actor_session'),'player_uuid':scene.get('player_uuid'),'alive':scene.get('alive'),
-                    'player.position':{'position':scene.get('position')},'player.health':{'health':scene.get('health'),'hunger':scene.get('hunger')},
+                    'dimension':scene.get('dimension'),'player.position':{'position':scene.get('position')},'player.health':{'health':scene.get('health'),'hunger':scene.get('hunger')},
                     'inventory.changed':{'inventory':item_counts(inventory)} if inventory is not None else None}
                 self.sampled_at=time.monotonic()
             return self.sample
@@ -112,7 +112,8 @@ class BCLGateway:
                     if j['result'] is not None:
                         closed.add(identifier)
                         await emit({'type':'response','request_id':j['prepared'].request_id,'task_id':identifier,
-                            'status':'completed' if result['status']=='succeeded' else result['status'],'result':result})
+                            'status':'completed' if result['status']=='succeeded' else result['status'],'result':result,
+                            'modal':session.modal.to_dict(),'coordinate_context':session.coordinate_context.to_dict()})
                 if session.subscriptions & {'player.position','player.health','inventory.changed','player.dead','player.respawned','player.not_in_world'} or role=='controller':
                     try:
                         sample=await self.observe()
@@ -174,7 +175,8 @@ class BCLGateway:
                         if role=='controller':self.controllers[actor_key]=sid
                         self.session_states[sid]='connected'
                         await emit({'type':'response','request_id':0,'status':'bound','modal':session.modal.to_dict(),
-                            'role':role,'last_request_id':session.state['last_request_id'],'events_replayed':False})
+                            'coordinate_context':session.coordinate_context.to_dict(),'role':role,
+                            'last_request_id':session.state['last_request_id'],'events_replayed':False})
                         continue
                     if session is None:raise ValueError('Bind explicit authorized session first')
                     if kind=='bcl':
@@ -185,10 +187,37 @@ class BCLGateway:
                                 await emit({'type':'response','request_id':request_id,'status':'failed','diagnostics':report['diagnostics']});continue
                             prepared,response=session.prepare(msg['source'],request_id)
                             if prepared is not None:
-                                sample=await self.observe()
-                                outputs=[{'command':o.command,'output':sample.get('inventory.changed') if o.opcode=='I0' else sample} for o in prepared.program.operations]
-                                session.update(request_id,status='completed',outputs=outputs)
-                                response={**response,'status':'completed','outputs':outputs}
+                                executed=[]
+                                try:
+                                    for index,o in enumerate(prepared.program.operations):
+                                        command=self.registry.resolve(o.namespace,o.opcode)
+                                        if command.category=='setting':
+                                            self.sampled_at=0.;sample=await self.observe()
+                                            if sample['actor_session']!=session.actor_session or sample['player_uuid']!=session.store.identity['player_id']:
+                                                raise BridgeError('actor_session_changed')
+                                            captured=session.capture_home(request_id,prepared.coordinates[index].home_id,
+                                                sample['player.position']['position'],sample['dimension'])
+                                            executed.append({'command':o.namespace+':'+o.command,'status':'succeeded',
+                                                'reason':'relative_home_captured','coordinate_context':captured.to_dict()})
+                                        else:
+                                            sample=await self.observe()
+                                            if sample['actor_session']!=session.actor_session or sample['player_uuid']!=session.store.identity['player_id']:
+                                                raise BridgeError('actor_session_changed')
+                                            executed.append({'command':o.command,'output':sample.get('inventory.changed') if o.opcode=='I0' else sample})
+                                    outputs=[*response.get('outputs',[]),*executed]
+                                    session.update(request_id,status='completed',outputs=outputs)
+                                    response={**response,'status':'completed','outputs':outputs,
+                                        'modal':session.modal.to_dict(),'coordinate_context':session.coordinate_context.to_dict()}
+                                except BridgeError as error:
+                                    fault=classify(error);diagnostics=[{'code':fault.value,'message':str(error)[:256]}]
+                                    session.fail_homes(request_id,'failed');session.update(request_id,status='failed',diagnostics=diagnostics)
+                                    raise
+                                except (ValueError,TypeError) as error:
+                                    session.fail_homes(request_id,'failed')
+                                    diagnostics=[{'code':'INVALID_COORDINATE_HOME','message':str(error)[:256]}]
+                                    session.update(request_id,status='failed',diagnostics=diagnostics)
+                                    response={**response,'status':'failed','diagnostics':diagnostics,
+                                        'modal':session.modal.to_dict(),'coordinate_context':session.coordinate_context.to_dict()}
                         else:response=self.jobs.submit(sid,msg['source'],request_id,session.store.identity,session.actor_session)
                         identifier=response.get('task_id')
                         if identifier and not response.get('deduplicated'):owned.add(identifier)
@@ -226,7 +255,8 @@ class BCLGateway:
                 except BridgeError as e:
                     fault=classify(e)
                     await emit({'type':'response','request_id':msg.get('request_id'),'status':'failed','diagnostics':[{'code':fault.value,'message':str(e)}]})
-                    if fault in {FaultKind.ACTOR,FaultKind.TRANSPORT,FaultKind.INVARIANT}:await ws.close(1011,'Actor or transport failure')
+                    if fault in {FaultKind.ACTOR,FaultKind.TRANSPORT,FaultKind.INVARIANT}:
+                        await ws.close(1011,'Actor or transport failure');return
                 except (ValueError,TypeError,KeyError) as e:await emit({'type':'response','request_id':0 if kind=='bind' else msg.get('request_id') if isinstance(msg,dict) else None,'status':'failed',
                     'diagnostics':[{'code':'PROTOCOL_OR_SESSION_ERROR','message':str(e)[:256]}]})
         finally:

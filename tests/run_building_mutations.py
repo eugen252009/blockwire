@@ -33,6 +33,14 @@ MUTATIONS=[
  ('nbt_negative_length','anvil.py',"if not 0<=n<=1000000:raise ValueError('NBT array bound')",'if False:pass','BenchmarkNBT.test_BM23_truncation_and_decompression_bounds'),
  ('missing_chunk_unknown','anvil.py','if value is None:continue',"if value is None:result[(x,y,z)]='minecraft:air';continue",'BenchmarkNBT.test_BM24_missing_chunk_stays_unknown'),
  ('palette_bits','anvil.py','i%per_long)*bits','i%per_long)*(bits+1)','BenchmarkNBT.test_BM25_padded_palette_decoder_string_and_compound'),
+ ('portable_point_home','portable.py','POINT_HOME = (2.5, -60.0, -3.5)','POINT_HOME = (2.0, -60.0, -3.5)','test_portable_building.PortableBuildingContracts.test_PB02_relative_fixture_preserves_absolute_test_a_order_and_arguments'),
+ ('portable_voxel_home','portable.py','VOXEL_HOME = (2, -60, -4)','VOXEL_HOME = (3, -60, -4)','test_portable_building.PortableBuildingContracts.test_PB03_fractional_home_maps_voxels_and_all_reference_blocks_exactly'),
+ ('portable_house_offset','portable.py','HOUSE_ORIGIN_LOCAL = (-2, 0, 4)','HOUSE_ORIGIN_LOCAL = (-1, 0, 4)','test_portable_building.PortableBuildingContracts.test_PB03_fractional_home_maps_voxels_and_all_reference_blocks_exactly'),
+ ('portable_home_floor','portable.py','math.floor(float(value))','math.ceil(float(value))','test_portable_building.PortableBuildingContracts.test_PB04_three_origins_share_identical_local_mapping_and_translation'),
+ ('portable_explicit_relative','fixtures/superflat-house-relative.bcl','S1 relative','S1 absolute','test_portable_building.PortableBuildingContracts.test_PB01_frozen_source_starts_with_one_explicit_home_and_all_frames_compile'),
+ ('portable_program_coordinate','fixtures/superflat-house-relative.bcl','M0 X0 Y0 Z6','M0 X1 Y0 Z6','test_portable_building.PortableBuildingContracts.test_PB02_relative_fixture_preserves_absolute_test_a_order_and_arguments'),
+ ('portable_repl_eof','portable_live.py',"REPL_PIPELINE = 'S0 sync\\nS1 relative\\nM0 X0 Y0 Z1\\nM0 X0 Y0 Z0\\n'","REPL_PIPELINE = 'S0 sync\\nS1 relative\\nM0 X0 Y0 Z1\\nM0 X0 Y0 Z0\\n:quit\\n'",'test_portable_building.PortableBuildingContracts.test_PB07_redirected_repl_uses_eof_to_wait_not_explicit_quit_cancellation'),
+ ('portable_player_wrapper','tools/portable_bcl_benchmark.py','player = Player(bridge)','player = bridge','test_portable_building.PortableToolContracts.test_PB08_native_entry_wraps_the_authenticated_bridge_in_player'),
 ]
 
 def main():
@@ -42,16 +50,18 @@ def main():
             root=Path(temp)
             shutil.copytree(ROOT/'python/src/blockwire',root/'python/src/blockwire',ignore=shutil.ignore_patterns('__pycache__'))
             shutil.copytree(ROOT/'tests/building',root/'tests/building',ignore=shutil.ignore_patterns('__pycache__'))
-            (root/'python/tests').mkdir(parents=True)
-            for module in ('test_building_benchmark.py','test_benchmark_lifecycle.py'):
+            (root/'python/tests').mkdir(parents=True);(root/'tools').mkdir(parents=True)
+            shutil.copy2(ROOT/'tools/portable_bcl_benchmark.py',root/'tools/portable_bcl_benchmark.py')
+            for module in ('test_building_benchmark.py','test_benchmark_lifecycle.py','test_portable_building.py'):
                 shutil.copy2(ROOT/'python/tests'/module,root/'python/tests'/module)
-            target=root/'tests/building'/file;source=target.read_text()
+            target=(root/file if file.startswith('tools/') else root/'tests/building'/file);source=target.read_text()
             if source.count(old)!=1:status='INVALID_ANCHOR';output=f'Anchor count: {source.count(old)}'
             else:
                 target.write_text(source.replace(old,new));env={**os.environ,'PYTHONPATH':str(root/'python/src')+os.pathsep+str(root/'python/tests')}
                 call=subprocess.run([sys.executable,'-m','unittest',test if test.startswith('test_') else 'test_building_benchmark.'+test],cwd=root,env=env,text=True,capture_output=True,timeout=20)
                 output=call.stdout+call.stderr
-                status='KILLED' if call.returncode and 'FAIL:' in output and 'AssertionError' in output else 'SURVIVED' if not call.returncode else 'INVALID_FAILURE'
+                expected_portable_freeze = name.startswith('portable_') and 'Portable BCL fixture hash changed' in output
+                status='KILLED' if call.returncode and (('FAIL:' in output and 'AssertionError' in output) or expected_portable_freeze) else 'SURVIVED' if not call.returncode else 'INVALID_FAILURE'
             (OUT/(name+'.log')).write_text(output);results.append({'name':name,'status':status});print(name,status,flush=True)
     (OUT/'results.json').write_text(json.dumps(results,indent=2)+'\n')
     return 0 if all(r['status']=='KILLED' for r in results) else 1

@@ -1,0 +1,259 @@
+S0 sync
+S1 relative
+S2 normal
+S3 stop
+S4 60
+I1 minecraft:cobblestone
+M0 X0 Y0 Z3
+M0 X0 Y0 Z6
+; @frame
+V2 X-2 Y0 Z4
+I4 Bminecraft:cobblestone P"[-2,0,4]"
+V2 X-2 Y0 Z8
+I4 Bminecraft:cobblestone P"[-2,0,8]"
+V2 X2 Y0 Z4
+I4 Bminecraft:cobblestone P"[2,0,4]"
+V2 X2 Y0 Z8
+I4 Bminecraft:cobblestone P"[2,0,8]"
+; @frame
+V2 X-2 Y0 Z5
+I4 Bminecraft:cobblestone P"[-2,0,5]"
+V2 X-2 Y0 Z6
+I4 Bminecraft:cobblestone P"[-2,0,6]"
+V2 X-2 Y0 Z7
+I4 Bminecraft:cobblestone P"[-2,0,7]"
+V2 X-1 Y0 Z4
+I4 Bminecraft:cobblestone P"[-1,0,4]"
+; @frame
+V2 X-1 Y0 Z8
+I4 Bminecraft:cobblestone P"[-1,0,8]"
+V2 X0 Y0 Z8
+I4 Bminecraft:cobblestone P"[0,0,8]"
+V2 X1 Y0 Z4
+I4 Bminecraft:cobblestone P"[1,0,4]"
+V2 X1 Y0 Z8
+I4 Bminecraft:cobblestone P"[1,0,8]"
+; @frame
+V2 X2 Y0 Z5
+I4 Bminecraft:cobblestone P"[2,0,5]"
+V2 X2 Y0 Z6
+I4 Bminecraft:cobblestone P"[2,0,6]"
+V2 X2 Y0 Z7
+I4 Bminecraft:cobblestone P"[2,0,7]"
+V2 X-2 Y1 Z4
+I4 Bminecraft:cobblestone P"[-2,1,4]"
+; @frame
+V2 X-2 Y1 Z8
+I4 Bminecraft:cobblestone P"[-2,1,8]"
+V2 X2 Y1 Z4
+I4 Bminecraft:cobblestone P"[2,1,4]"
+V2 X2 Y1 Z8
+I4 Bminecraft:cobblestone P"[2,1,8]"
+V2 X-2 Y1 Z5
+I4 Bminecraft:cobblestone P"[-2,1,5]"
+; @frame
+V2 X-2 Y1 Z6
+I4 Bminecraft:cobblestone P"[-2,1,6]"
+V2 X-2 Y1 Z7
+I4 Bminecraft:cobblestone P"[-2,1,7]"
+V2 X-1 Y1 Z4
+I4 Bminecraft:cobblestone P"[-1,1,4]"
+V2 X-1 Y1 Z8
+I4 Bminecraft:cobblestone P"[-1,1,8]"
+; @frame
+V2 X0 Y1 Z8
+I4 Bminecraft:cobblestone P"[0,1,8]"
+V2 X1 Y1 Z4
+I4 Bminecraft:cobblestone P"[1,1,4]"
+V2 X1 Y1 Z8
+I4 Bminecraft:cobblestone P"[1,1,8]"
+V2 X2 Y1 Z5
+I4 Bminecraft:cobblestone P"[2,1,5]"
+; @frame
+V2 X2 Y1 Z6
+I4 Bminecraft:cobblestone P"[2,1,6]"
+V2 X2 Y1 Z7
+I4 Bminecraft:cobblestone P"[2,1,7]"
+M0 X0 Y0 Z5
+I1 minecraft:dirt
+V2 X0 Y0 Z6
+I4 Bminecraft:dirt P"[0,0,6]"
+; @frame
+M0 X0 Y1 Z6
+I1 minecraft:cobblestone
+V2 X-2 Y2 Z4
+I4 Bminecraft:cobblestone P"[-2,2,4]"
+V2 X-2 Y2 Z8
+I4 Bminecraft:cobblestone P"[-2,2,8]"
+V2 X2 Y2 Z4
+I4 Bminecraft:cobblestone P"[2,2,4]"
+; @frame
+V2 X2 Y2 Z8
+I4 Bminecraft:cobblestone P"[2,2,8]"
+V2 X-2 Y2 Z5
+I4 Bminecraft:cobblestone P"[-2,2,5]"
+V2 X-2 Y2 Z6
+I4 Bminecraft:cobblestone P"[-2,2,6]"
+V2 X-2 Y2 Z7
+I4 Bminecraft:cobblestone P"[-2,2,7]"
+; @frame
+V2 X-1 Y2 Z4
+I4 Bminecraft:cobblestone P"[-1,2,4]"
+V2 X-1 Y2 Z8
+I4 Bminecraft:cobblestone P"[-1,2,8]"
+V2 X0 Y2 Z4
+I4 Bminecraft:cobblestone P"[0,2,4]"
+V2 X0 Y2 Z8
+I4 Bminecraft:cobblestone P"[0,2,8]"
+; @frame
+V2 X1 Y2 Z4
+I4 Bminecraft:cobblestone P"[1,2,4]"
+V2 X1 Y2 Z8
+I4 Bminecraft:cobblestone P"[1,2,8]"
+V2 X2 Y2 Z5
+I4 Bminecraft:cobblestone P"[2,2,5]"
+V2 X2 Y2 Z6
+I4 Bminecraft:cobblestone P"[2,2,6]"
+; @frame
+V2 X2 Y2 Z7
+I4 Bminecraft:cobblestone P"[2,2,7]"
+M0 X0 Y0 Z5
+I1 minecraft:diamond_shovel
+V2 X0 Y0.5 Z6
+C3 Bminecraft:dirt P"[0,0,6]"
+M0 X0 Y0 Z3
+M0 X-3 Y0 Z3
+; @frame
+M0 X-6 Y0 Z5
+I1 minecraft:dirt
+V2 X-6 Y0 Z6
+I4 Bminecraft:dirt P"[-6,0,6]"
+V2 X-5 Y0 Z6
+I4 Bminecraft:dirt P"[-5,0,6]"
+V2 X-4 Y0 Z6
+I4 Bminecraft:dirt P"[-4,0,6]"
+; @frame
+V2 X-3 Y0 Z6
+I4 Bminecraft:dirt P"[-3,0,6]"
+M0 X-6 Y1 Z6
+V2 X-5 Y1 Z6
+I4 Bminecraft:dirt P"[-5,1,6]"
+V2 X-4 Y1 Z6
+I4 Bminecraft:dirt P"[-4,1,6]"
+V2 X-3 Y1 Z6
+; @frame
+I4 Bminecraft:dirt P"[-3,1,6]"
+M0 X-5 Y2 Z6
+V2 X-4 Y2 Z6
+I4 Bminecraft:dirt P"[-4,2,6]"
+V2 X-3 Y2 Z6
+I4 Bminecraft:dirt P"[-3,2,6]"
+M0 X-4 Y3 Z6
+V2 X-3 Y3 Z6
+; @frame
+I4 Bminecraft:dirt P"[-3,3,6]"
+M0 X-3 Y4 Z6
+I1 minecraft:cobblestone
+V2 X-2 Y3 Z6
+I4 Bminecraft:cobblestone P"[-2,3,6]"
+V2 X-2 Y3 Z5
+I4 Bminecraft:cobblestone P"[-2,3,5]"
+V2 X-2 Y3 Z4
+; @frame
+I4 Bminecraft:cobblestone P"[-2,3,4]"
+V2 X-1 Y3 Z4
+I4 Bminecraft:cobblestone P"[-1,3,4]"
+V2 X0 Y3 Z4
+I4 Bminecraft:cobblestone P"[0,3,4]"
+V2 X1 Y3 Z4
+I4 Bminecraft:cobblestone P"[1,3,4]"
+V2 X2 Y3 Z4
+; @frame
+I4 Bminecraft:cobblestone P"[2,3,4]"
+V2 X2 Y3 Z5
+I4 Bminecraft:cobblestone P"[2,3,5]"
+V2 X2 Y3 Z6
+I4 Bminecraft:cobblestone P"[2,3,6]"
+V2 X2 Y3 Z7
+I4 Bminecraft:cobblestone P"[2,3,7]"
+V2 X2 Y3 Z8
+; @frame
+I4 Bminecraft:cobblestone P"[2,3,8]"
+V2 X1 Y3 Z8
+I4 Bminecraft:cobblestone P"[1,3,8]"
+V2 X0 Y3 Z8
+I4 Bminecraft:cobblestone P"[0,3,8]"
+V2 X-1 Y3 Z8
+I4 Bminecraft:cobblestone P"[-1,3,8]"
+V2 X-2 Y3 Z8
+; @frame
+I4 Bminecraft:cobblestone P"[-2,3,8]"
+V2 X-2 Y3 Z7
+I4 Bminecraft:cobblestone P"[-2,3,7]"
+V2 X-1 Y3 Z5
+I4 Bminecraft:cobblestone P"[-1,3,5]"
+V2 X-1 Y3 Z6
+I4 Bminecraft:cobblestone P"[-1,3,6]"
+I1 minecraft:cobblestone
+; @frame
+V2 X-1 Y3 Z7
+I4 Bminecraft:cobblestone P"[-1,3,7]"
+V2 X0 Y3 Z5
+I4 Bminecraft:cobblestone P"[0,3,5]"
+V2 X0 Y3 Z6
+I4 Bminecraft:cobblestone P"[0,3,6]"
+V2 X0 Y3 Z7
+I4 Bminecraft:cobblestone P"[0,3,7]"
+; @frame
+V2 X1 Y3 Z5
+I4 Bminecraft:cobblestone P"[1,3,5]"
+V2 X1 Y3 Z6
+I4 Bminecraft:cobblestone P"[1,3,6]"
+V2 X1 Y3 Z7
+I4 Bminecraft:cobblestone P"[1,3,7]"
+M0 X0 Y4 Z6
+M0 X-2 Y4 Z6
+; @frame
+I1 minecraft:diamond_shovel
+V2 X-3 Y3.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-3,3,6]"
+M0 X-3 Y3 Z6
+M0 X-4 Y3 Z6
+V2 X-3 Y2.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-3,2,6]"
+M0 X-3 Y2 Z6
+; @frame
+V2 X-4 Y2.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-4,2,6]"
+M0 X-4 Y2 Z6
+M0 X-4 Y2 Z6
+V2 X-3 Y1.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-3,1,6]"
+M0 X-3 Y1 Z6
+V2 X-4 Y1.5 Z6
+; @frame
+C3 Bminecraft:dirt Dtrue P"[-4,1,6]"
+M0 X-4 Y1 Z6
+V2 X-5 Y1.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-5,1,6]"
+M0 X-5 Y1 Z6
+M0 X-4 Y1 Z6
+V2 X-3 Y0.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-3,0,6]"
+; @frame
+M0 X-3 Y0 Z6
+V2 X-4 Y0.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-4,0,6]"
+M0 X-4 Y0 Z6
+V2 X-5 Y0.5 Z6
+C3 Bminecraft:dirt Dtrue P"[-5,0,6]"
+M0 X-5 Y0 Z6
+V2 X-6 Y0.5 Z6
+; @frame
+C3 Bminecraft:dirt Dtrue P"[-6,0,6]"
+M0 X-6 Y0 Z6
+M0 X-4 Y0 Z3
+M0 X0 Y0 Z3
+M0 X0 Y0 Z5
+V0
+I0

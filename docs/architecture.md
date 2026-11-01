@@ -135,8 +135,11 @@ qualified. See the linked document for activation and remaining acceptance gates
 and frozen typed IR. A transactional modal interpreter snapshots settings per
 queued operation; the FIFO scheduler invokes **the same AgentRuntime**, strict
 skills and native motor. There is no second gameplay controller or progression
-planner. Relative coordinates resolve from fresh dispatch-time observations;
-request IDs prevent replaying cycles/actions. Private modal journals use SessionStore.
+planner. `S1 relative` is an ordered runtime homing barrier: it captures one
+actor-fenced session home, persists it in the modal journal, and later typed
+coordinate parameters resolve from that immutable revision until another S1
+transition. Frames/requests never home implicitly. Request IDs prevent replaying
+cycles, homes or actions. Private modal journals use SessionStore.
 
 The optional explicitly started Python TLS gateway terminates a separately pinned,
 operator-provisioned loopback TLS connection, authenticates its selected token and

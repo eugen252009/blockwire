@@ -16,11 +16,13 @@ def main():
                   '- Available: '+str(d['available']).lower(),'- Existing skill: `'+str(d['skill'])+'`',
                   '- Permissions: '+', '.join(d['permissions']),'- Preconditions: '+', '.join(d['preconditions']),
                   '- Return: '+d['return_type'],'- Errors: '+', '.join(d['errors']),'']
+        if d['coordinate_parameters']:
+            lines+=['- Relative coordinates: '+', '.join(row['parameter']+' ('+row['kind']+')' for row in d['coordinate_parameters']),'']
         if 'setting' in d:lines+=['Setting: `'+json.dumps(d['setting'],sort_keys=True)+'`','']
         for p in d['parameters']:
             lines += ['- `'+p['key']+'` → `'+p['name']+'`: '+p['type']+'; '+p['default_kind']+' default `'+json.dumps(p['default'])+'`.',
                       '  Schema: `'+json.dumps(p['schema'],sort_keys=True)+'`']
         lines+=['']
-    (root/'docs/bcl-reference.md').write_text('\n'.join(lines)+'\n')
+    (root/'docs/bcl-reference.md').write_text('\n'.join(lines).rstrip()+'\n')
     print(f'Generated {len(definitions)} command definitions and {len(r.events)} event definitions')
 if __name__=='__main__':main()

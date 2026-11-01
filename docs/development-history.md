@@ -125,6 +125,29 @@ The optional Python gateway additionally gained:
 The gateway is not a second planner. It still compiles and dispatches into the
 existing runtime.
 
+### 3.3 S1 homing semantic correction
+
+The earlier development implementation resolved each relative operation from its
+then-current player position. That made relative movement incremental and tied the
+meaning of coordinates to operation dispatch rather than to S1. The current
+BCL/1 development contract intentionally corrects this: every executed
+`S1 relative` captures one durable session home, repeated explicit assignments
+re-home, movement leaves it fixed, and requests/frames do not create origins.
+Point parameters use the exact captured feet position; integer voxel parameters
+use its containing block. The same FIFO/AgentRuntime path performs the capture,
+with actor/dimension fences and persistent request deduplication.
+
+This incompatible pre-publication correction is explicit rather than silent:
+registry digests changed and old modal journals fail closed unless they carry
+semantic schema `s1-home-v1`. Historical native BCL evidence retains the old
+meaning and is not relabelled as qualification of stable-home behavior. Focused
+simulated runtime/TLS contracts and mutations pass. A later isolated graphical
+Minecraft 26.3 run (`20261101T181245Z`) separately passed stable cross-request homes,
+explicit re-homing, gateway-restart persistence, retry deduplication, ordered
+absolute-move-relative capture, pure queries and toggles on a private copy of
+`Bridge Skill Flat`; the source map remained byte-identical. This qualifies only
+the tested S1/M0 lifecycle, not other BCL gameplay adapters.
+
 ---
 
 ## 4. Persistent Projects and external planning
@@ -804,3 +827,39 @@ The client was closed from the title screen through the native `Quit Game` butto
 Minecraft, launcher, and benchmark processes were absent afterward; ports 8879
 and 8765 were closed. No commit, push, tag, upload, release, or deployment was
 authorized or performed for this follow-up.
+
+---
+
+## 16. Stable-home relative Test-A portability
+
+A separate qualification converted the historical absolute Test-A source to one
+frozen relative fixture without changing operation order, construction method or
+frame boundaries. The 5,462-byte source begins with one explicit `S1 relative`;
+point coordinates use the exact fractional feet home and voxel positions use its
+floor. Offline equivalence tests compare every typed coordinate-bearing operation
+against the original absolute program.
+
+The promoted P04 cohort used the real graphical Minecraft 26.3 client and the
+canonical closed snapshot. The same bytes ran uninterrupted at house origins
+`(0,-60,0)`, `(48,-60,0)` and `(48,-60,48)`, with captured homes
+`(2.5,-60,-3.5)`, `(50.5,-60,-3.5)` and `(50.5,-60,44.5)`. Each run independently
+verified 71/71 blocks, zero wrong/missing/unknown targets, no helpers/extras, clear
+entrance/interior, intact floor, complete roof, safe player and native access.
+The 71 corresponding positions translated exactly by `(48,0,0)`, `(48,0,48)` and
+`(0,0,48)`.
+
+Separate native runs passed one home across requests, explicit re-homing, gateway
+restart with persisted home and deduplicated lost acknowledgement, project-state
+reconciliation without replay, direct Python/TLS use, file CLI, legacy alias and
+redirected REPL EOF. An independent post-run readback passed 38 checks.
+
+P01 (wrapper error before world load), P02 (expired private gateway certificate
+before BCL), P03 (invalid explicit-quit REPL harness after otherwise passing native
+runs), and one P04 pre-measurement native TLS timeout are retained. They are not
+silently removed from the reliability history.
+
+The resulting decision is **GO** only for the frozen fixture and exercised
+M0/V2/I4/C3 coordinate path. M1/C2/I3/V1, broader terrain/gameplay, Test-B
+repeatability, Play2Code replay and owner-only H01 remain separate gates. The
+client and launcher exited after a TitleScreen save/quit; no commit, push, tag,
+upload, release or deployment was performed.

@@ -77,8 +77,11 @@ bcl> :status
 ```
 
 S0–S4 and E0–E3 are passed directly to the gateway. Setting cycles, queries and
-snapshot ordering are interpreted only there. `:status` displays connection/session
-information and the latest SDK modal snapshot; it does not change settings.
+snapshot ordering are interpreted only there. `S1 relative` is not a local REPL
+anchor: it queues an ordered runtime home capture, and later REPL lines keep using
+that session home until another S1 transition. `:status` displays connection/session
+information plus the latest modal and structured coordinate-context snapshots; it
+does not re-observe the player, capture a home or change settings.
 
 Ordinary input lines execute immediately. Multi-line input sends **one whole frame**:
 
@@ -92,7 +95,9 @@ bcl> :begin
 ```
 
 The gateway compiles and statically validates the complete frame before effects.
-No local parser or copied gameplay engine is involved.
+No local parser or copied gameplay engine is involved. A multiline frame is not a
+coordinate scope: only an executed S1 can home, and a later independent frame keeps
+the existing home.
 
 | Local command | Behavior |
 |---|---|
@@ -117,8 +122,10 @@ A sync submission waits in a background response waiter while input/cancellation
 remains responsive; it is never displayed as complete on mere acceptance. Async
 submissions display their Task ID and later terminal response. There is no second
 action scheduler: gameplay still executes serially under existing server ordering
-and actor fences. At most 16 submissions are pending locally; server limits apply
-independently. `:wait` itself blocks input until completion or timeout.
+and actor fences. S1 homing occupies its source position in that same FIFO and
+captures the actual observed position only after earlier operations finish. At most
+16 submissions are pending locally; server limits apply independently. `:wait`
+itself blocks input until completion or timeout.
 
 Subscribed events have a separate `[event]` label. The WebSocket receiver and queue
 consumers continue while you type; prompt-toolkit redraws the current editable
@@ -193,7 +200,9 @@ TLS/WebSocket integration tests run against the actual gateway with a **simulate
 native backend**, not a game world.
 
 **Native graphical Minecraft smoke test: NOT RUN.** No running Minecraft client or
-authorized isolated live fixture was available in this worktree. No other worktree,
+authorized isolated live fixture was available in this worktree. In particular,
+the new stable-home/re-home coordinate semantics have no new graphical-client
+acceptance; simulated runtime/TLS tests are not a substitute. No other worktree,
 world or historical evidence was modified. Terminal/transport tests do not qualify
 new gameplay behavior, unattended operation or successful construction.
 

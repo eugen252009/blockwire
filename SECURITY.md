@@ -189,9 +189,11 @@ client rejects symlink/non-regular token files and POSIX permissions broader tha
 hostname checking; no plaintext/system-trust fallback. The native authenticated
 TLS transport remains unchanged. Authoritative events cannot be submitted by
 clients. Session-owned subscriptions, queue/frame bounds and persistent monotonic
-request dedup isolate agents and prevent accidental replay of non-idempotent cycles.
-Lost connections cancel their work; uncertain native transport latches closed until
-host restart.
+request dedup isolate agents and prevent accidental replay of non-idempotent cycles,
+S1 homing or gameplay actions. A relative home is captured only by the serial
+actor-fenced runtime and is bound to the session's world/player/actor identity and
+dimension; reconnect does not silently re-home or transfer it. Lost connections
+cancel their work; uncertain native transport latches closed until host restart.
 Keep private modal/action journals, gateway keys/tokens and raw game evidence out
 of bundles. Do not expose this development gateway publicly.
 

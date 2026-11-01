@@ -21,6 +21,7 @@ class Client:
         self.ws = object()
         self.bind = {'session_id': 'test'}
         self.modal = {'execution_mode': 'sync'}
+        self.coordinate_context = {'mode': 'absolute', 'status': 'absolute'}
 
     async def send(self, source):
         self.sources.append(source)
@@ -96,6 +97,11 @@ class TerminalContracts(unittest.IsolatedAsyncioTestCase):
         with patch('builtins.print'):
             await repl(client, read_line, output.append)
         return output
+
+    async def test_status_reports_authoritative_modal_and_coordinate_context(self):
+        client=Client();output=await self.terminal(client,[':status',':quit'])
+        self.assertEqual(output[0]['modal'],client.modal)
+        self.assertEqual(output[0]['coordinate_context'],client.coordinate_context)
 
     async def test_lines_and_whole_multiline_frames(self):
         client = Client()

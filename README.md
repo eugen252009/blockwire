@@ -123,13 +123,17 @@ For human-written BCL, use the Python-started [terminal REPL and file CLI](docs/
 The `blockwire-bcl` / `python -m blockwire.bcl.cli` aliases remain available.
 
 Python compiles the whole frame before effects; the existing guarded runtime and
-skills execute it. Modal settings and request dedup are private per session;
-async queues work, never parallel Minecraft controls. MCP provides four compact
+skills execute it. `S1 relative` is an ordered homing operation that captures a
+persistent session origin; movement does not move that origin, repeated explicit
+`S1 relative` re-homes, and frames/requests never do so implicitly. Modal settings,
+home context and request dedup are private per session; async queues work, never
+parallel Minecraft controls. MCP provides four compact
 compile/execute/discovery tools and reuses skill status/cancel. An optional,
 explicitly started loopback **TLS WebSocket gateway** carries requests, replies,
 progress, cancellation and subscriptions on one connection. No gamemode/cheat
 adapter. [Specification and SDK](docs/bcl.md), [generated registry reference](docs/bcl-reference.md),
-[scoped native/TLS evidence](docs/evidence/bcl-live.json).
+[historical native/TLS evidence](docs/evidence/bcl-live.json), and the isolated
+[stable S1 graphical qualification](docs/evidence/bcl-s1-homing.json).
 [Gateway hardening and LLM building qualification](docs/gateway-building.md) adds
 controller/observer isolation, late-cleanup recovery, typed lifecycle faults,
 explicit fenced respawn and real model-generated placement/building evidence.
@@ -140,6 +144,12 @@ bounded external-model host (`examples/project_agent.py`), not a house generator
 The opt-in [Superflat building benchmark](docs/superflat-building.md) compares a
 versioned deterministic BCL program with independently model-generated BCL against
 one frozen 71-block reference, closed-snapshot resets and independent acceptance.
+Its separately frozen [relative portability cohort](docs/evidence/bcl-relative-portability.json)
+ran one byte-identical `S1 relative` fixture at three distinct fractional homes:
+3/3 structures passed 71/71 closed-save and native access/safety checks, with
+cross-request home persistence, explicit re-homing, restart/dedup recovery and the
+tested Python/TLS/file-CLI/REPL interfaces all passing. This qualifies only the
+coordinate adapters and fixture path exercised there; broader gameplay remains separate.
 
 ### Play2Code — record human play as conservative BCL (development)
 
