@@ -1,0 +1,55 @@
+{
+  "status": "PASS_ONE_LOG_SCOPED_WITH_PRIOR_FAILURES",
+  "scope": "Live normal-Survival follow-up in the existing isolated Blockwire Endportal Survival world. One observed inventory gain after native mining; not general terrain navigation, Nether progression or an uninterrupted playthrough.",
+  "operator_authorization": "Death explicitly permitted for this development live test. F8, TLS, actor fences, input leases and cleanup retained.",
+  "prior_trials": [
+    {
+      "kind": "explicit_risky_native_descent_probe_not_a_supported_skill",
+      "start": [-18.5, 77, 10.5],
+      "landing": [-16.557337028690807, 69, 8.800389869644222],
+      "health_before": 20,
+      "health_after_landing": 15,
+      "died": false,
+      "subsequent_wood_attempt": "timed_out after 10 cooperative seconds; no inventory gain",
+      "record": "build/script-play-verification/live-survival-risk-probe.json"
+    },
+    {
+      "kind": "ground_harvest_attempt",
+      "result": "blocked/wood_not_collected",
+      "inventory_logs": 0,
+      "record": "build/script-play-verification/ground-harvest-pickup-failure.json"
+    }
+  ],
+  "change": "Require a cardinally adjacent supported standing cell instead of a diagonal cell. Diagonal mining reach does not establish native pickup proximity. Added WD11 contract and a killed regression mutation.",
+  "successful_trial": {
+    "baseline_inventory_logs": 0,
+    "final_inventory": [{"item": "minecraft:dark_oak_log", "count": 1, "inventory_index": 0}],
+    "result": "succeeded/wood_collected",
+    "mining_target": {"id": "minecraft:dark_oak_log", "position": [-18, 70, 13]},
+    "attack_hold_requests": 28,
+    "requested_attack_lease_ticks": 6,
+    "movement_requests": 0,
+    "start_and_final_position": [-17.499955868328165, 69, 12.352164795306141],
+    "health_before": 20,
+    "health_after": 20,
+    "hunger_after": 17,
+    "alive": true,
+    "cleanup": "released",
+    "final_menu": "PauseScreen",
+    "record": "build/script-play-verification/ground-harvest-live.json"
+  },
+  "limitations": [
+    "Raw native descent was explicitly risky, caused five damage, and is not implemented or qualified as a reusable terrain-navigation skill.",
+    "The successful trial was a separately inspected activation after descent and a failed ground attempt; it was not an autonomous recovery loop.",
+    "The successful target differed from the prior pickup failure; this is not a controlled A/B proof of the standing-position change.",
+    "Inventory gain confirms collection, not exact attribution of the item to the last block versus a previously dropped log.",
+    "No commands, teleports, item spawning, automatic respawn or weakening of the gather_wood damage/flat-ground guards.",
+    "Crafting, portal construction, Nether travel, dragon combat and no-pause completion remain unimplemented/unverified."
+  ],
+  "checks": {"python_tests": 178, "skill_mutations_killed": 79, "campaign_mutations_killed": 14, "gradle_check": "PASS", "tls_interop_checks": 10},
+  "sha256": {
+    "python/src/blockwire/skills/woodcutting.py": "904becb85fddd0d0b1692d8c51572d8e3e26a24b976ec4544b51b19b9da67668",
+    "build/script-play-verification/live-survival-risk-probe.json": "961e231a943f4cbe3732948dd0ce8b3db61f884b006b4d23c9c1290954a0bc96",
+    "build/script-play-verification/ground-harvest-live.json": "b6553265d2b7b7c8ffa5c2c82ca18e7be67ad3a5ebea1f893578b48e4bd610f4"
+  }
+}

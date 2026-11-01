@@ -1,0 +1,396 @@
+; HISTORICAL ACTUAL MODEL DECISIONS, including rejected/partial batches.
+; NOT a replayable complete program; never replay uncertain effects.
+; model call 1
+V2 X2.5 Y-60 Z2.5; V0; M0 X2.5 Y-60 Z-0.5; V2 X2.5 Y-61 Z2.5; V0
+; @frame
+; model call 2
+M0 X2.5 Y-60 Z-0.5
+V2 X2.5 Y-60 Z0.5
+V0
+I1 Iminecraft:cobblestone
+I4 Bminecraft:cobblestone P[0,-60,0]
+I4 Bminecraft:cobblestone P[1,-60,0]
+I4 Bminecraft:cobblestone P[3,-60,0]
+I4 Bminecraft:cobblestone P[4,-60,0]
+I4 Bminecraft:cobblestone P[0,-59,0]
+I4 Bminecraft:cobblestone P[1,-59,0]
+I4 Bminecraft:cobblestone P[3,-59,0]
+I4 Bminecraft:cobblestone P[4,-59,0]
+; @frame
+; model call 3
+V2 X3.5 Y-60.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[3,-60,0]
+I4 Bminecraft:cobblestone P[4,-60,0]
+I4 Bminecraft:cobblestone P[3,-59,0]
+I4 Bminecraft:cobblestone P[4,-59,0]
+I4 Bminecraft:cobblestone P[3,-58,0]
+I4 Bminecraft:cobblestone P[4,-58,0]
+; @frame
+; model call 4
+M0 X5.5 Y-60 Z2.5
+V2 X4.5 Y-60 Z2.5
+V0
+I4 Bminecraft:cobblestone P[4,-60,1]
+I4 Bminecraft:cobblestone P[4,-60,2]
+I4 Bminecraft:cobblestone P[4,-60,3]
+I4 Bminecraft:cobblestone P[4,-59,1]
+I4 Bminecraft:cobblestone P[4,-59,2]
+I4 Bminecraft:cobblestone P[4,-59,3]
+I4 Bminecraft:cobblestone P[4,-58,1]
+I4 Bminecraft:cobblestone P[4,-58,2]
+I4 Bminecraft:cobblestone P[4,-58,3]
+; @frame
+; model call 5
+M0 X2.5 Y-60 Z5.5
+V2 X2.5 Y-60 Z4.5
+V0
+I4 Bminecraft:cobblestone P[4,-60,4]
+I4 Bminecraft:cobblestone P[3,-60,4]
+I4 Bminecraft:cobblestone P[2,-60,4]
+I4 Bminecraft:cobblestone P[1,-60,4]
+I4 Bminecraft:cobblestone P[0,-60,4]
+I4 Bminecraft:cobblestone P[4,-59,4]
+I4 Bminecraft:cobblestone P[3,-59,4]
+I4 Bminecraft:cobblestone P[2,-59,4]
+I4 Bminecraft:cobblestone P[1,-59,4]
+I4 Bminecraft:cobblestone P[0,-59,4]
+I4 Bminecraft:cobblestone P[4,-58,4]
+I4 Bminecraft:cobblestone P[3,-58,4]
+I4 Bminecraft:cobblestone P[2,-58,4]
+I4 Bminecraft:cobblestone P[1,-58,4]
+I4 Bminecraft:cobblestone P[0,-58,4]
+; @frame
+; model call 6
+V2 X2.5 Y-61 Z6.5
+V0
+I1 Iminecraft:dirt
+I4 Bminecraft:dirt P[2,-60,7]
+I4 Bminecraft:dirt P[2,-60,6]
+I4 Bminecraft:dirt P[2,-59,6]
+I4 Bminecraft:dirt P[2,-60,5]
+I4 Bminecraft:dirt P[2,-59,5]
+I4 Bminecraft:dirt P[2,-58,5]
+V0
+; @frame
+; model call 7
+M0 X2.5 Y-57 Z5.5
+V2 X2.5 Y-58.5 Z4.5
+V0
+I1 Iminecraft:cobblestone
+I4 Bminecraft:cobblestone P[2,-58,4]
+I4 Bminecraft:cobblestone P[1,-58,4]
+I4 Bminecraft:cobblestone P[3,-58,4]
+I4 Bminecraft:cobblestone P[0,-58,4]
+I4 Bminecraft:cobblestone P[4,-58,4]
+V0
+; @frame
+; model call 8
+M0 X2.5 Y-59 Z7.5
+M0 X2.5 Y-58 Z6.5
+V2 X2.5 Y-58 Z5.5
+V0
+M0 X2.5 Y-57 Z5.5
+V2 X3.5 Y-59 Z4.5
+V0
+; @frame
+; model call 9
+I1 Iminecraft:cobblestone
+I4 Bminecraft:cobblestone P[3,-58,4]
+I4 Bminecraft:cobblestone P[4,-58,4]
+I4 Bminecraft:cobblestone P[0,-58,4]
+V2 X2.5 Y-57.5 Z4.5
+V0
+; @frame
+; model call 10
+M0 X2.5 Y-58 Z6.5
+V2 X2.5 Y-58 Z4.5
+V0
+; @frame
+; model call 11
+M0 X2.5 Y-57 Z5.5
+V2 X1.5 Y-58 Z4.5
+V0
+I4 Bminecraft:cobblestone P[0,-58,4]
+I4 Bminecraft:cobblestone P[1,-57,4]
+I4 Bminecraft:cobblestone P[2,-57,4]
+I4 Bminecraft:cobblestone P[3,-57,4]
+I4 Bminecraft:cobblestone P[4,-57,4]
+; @frame
+; model call 12
+M0 X2.5 Y-57 Z4.5
+M0 X1.5 Y-57 Z4.5
+V2 X0.5 Y-58.5 Z4.5
+V0
+I4 Bminecraft:cobblestone P[0,-58,4]
+; @frame
+; model call 13
+V2 X0.5 Y-59 Z2.5
+V0
+I4 Bminecraft:cobblestone P[0,-59,3]
+I4 Bminecraft:cobblestone P[0,-58,3]
+I4 Bminecraft:cobblestone P[0,-59,2]
+I4 Bminecraft:cobblestone P[0,-58,2]
+; @frame
+; model call 14
+M0 X0.5 Y-57 Z4.5
+V2 X0.5 Y-59.5 Z2.5
+V0
+; @frame
+; model call 15
+V2 X0.5 Y-59.5 Z2.5
+V0
+I4 Bminecraft:cobblestone P[0,-59,3]
+I4 Bminecraft:cobblestone P[0,-58,3]
+V2 X0.5 Y-59.5 Z1.5
+V0
+; @frame
+; model call 16
+M0 X2.5 Y-59 Z7.5
+V2 X0.5 Y-60 Z4.5
+V0
+; @frame
+; model call 17
+M0 X-1.5 Y-60 Z3.5
+V2 X0.5 Y-60 Z3.5
+V0
+I4 Bminecraft:cobblestone P[0,-60,3]
+I4 Bminecraft:cobblestone P[0,-59,3]
+; @frame
+; model call 18
+M0 X-1.5 Y-60 Z1.5
+V2 X0.5 Y-60 Z1.5
+V0
+I4 Bminecraft:cobblestone P[0,-60,1]
+I4 Bminecraft:cobblestone P[0,-59,1]
+V2 X0.5 Y-60 Z2.5
+V0
+I4 Bminecraft:cobblestone P[0,-60,2]
+I4 Bminecraft:cobblestone P[0,-59,2]
+; @frame
+; model call 19
+M0 X0.5 Y-59 Z0.5
+M0 X0.5 Y-58 Z1.5
+V2 X0.5 Y-58.5 Z3.5
+V0
+I4 Bminecraft:cobblestone P[0,-58,3]
+I4 Bminecraft:cobblestone P[0,-58,2]
+; @frame
+; model call 20
+M0 X0.5 Y-57 Z2.5
+V2 X0.5 Y-58.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[0,-58,1]
+I4 Bminecraft:cobblestone P[0,-59,0]
+I4 Bminecraft:cobblestone P[1,-59,0]
+I4 Bminecraft:cobblestone P[0,-58,0]
+I4 Bminecraft:cobblestone P[1,-58,0]
+I4 Bminecraft:cobblestone P[2,-58,0]
+; @frame
+; model call 21
+M0 X0.5 Y-57 Z1.5
+V2 X0.5 Y-59.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[0,-59,0]
+I4 Bminecraft:cobblestone P[0,-58,0]
+V2 X1.5 Y-59.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[1,-59,0]
+I4 Bminecraft:cobblestone P[1,-58,0]
+; @frame
+; model call 22
+M0 X2.5 Y-57 Z4.5
+V2 X2.5 Y-59 Z6.5
+V0
+; @frame
+; model call 23
+M0 X2.5 Y-59 Z7.5
+V2 X2.5 Y-61 Z8.5
+V0
+M0 X2.5 Y-60 Z8.5
+V2 X2.5 Y-58 Z2.5
+V0
+; @frame
+; model call 24
+M0 X-1.5 Y-60 Z5.5
+V2 X0.5 Y-59 Z1.5
+V0
+M0 X-1.5 Y-60 Z0.5
+V2 X1.5 Y-59 Z0.5
+V0
+; @frame
+; model call 25
+M0 X0.5 Y-60 Z-1.5
+V2 X0.5 Y-59 Z0.5
+V0
+I4 Bminecraft:cobblestone P[0,-59,0]
+I4 Bminecraft:cobblestone P[0,-58,0]
+M0 X1.5 Y-60 Z-1.5
+V2 X1.5 Y-59 Z0.5
+V0
+I4 Bminecraft:cobblestone P[1,-59,0]
+I4 Bminecraft:cobblestone P[1,-58,0]
+V2 X2.5 Y-57.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[2,-58,0]
+; @frame
+; model call 26
+M0 X-1.5 Y-60 Z2.5
+V2 X2.5 Y-58 Z5.5
+V0
+M0 X-0.5 Y-60 Z5.5
+V2 X2.5 Y-58 Z5.5
+V0
+; @frame
+; model call 27
+M0 X2.5 Y-59 Z7.5
+M0 X2.5 Y-58 Z6.5
+V2 X2.5 Y-57.5 Z5.5
+V0
+; @frame
+; model call 28
+M0 X2.5 Y-57 Z5.5
+V2 X2.5 Y-58 Z4.5
+V0
+I4 Bminecraft:cobblestone P[2,-57,4]
+V0
+; @frame
+; model call 29
+V2 X1.5 Y-57.5 Z4.5
+V0
+I4 Bminecraft:cobblestone P[1,-57,4]
+V2 X3.5 Y-57.5 Z4.5
+V0
+I4 Bminecraft:cobblestone P[3,-57,4]
+V2 X0.5 Y-57.5 Z4.5
+V0
+I4 Bminecraft:cobblestone P[0,-57,4]
+V2 X4.5 Y-57.5 Z4.5
+V0
+I4 Bminecraft:cobblestone P[4,-57,4]
+; @frame
+; model call 30
+M0 X3.5 Y-56 Z4.5
+V2 X4.5 Y-57 Z4.5
+V0
+I3 Bminecraft:cobblestone P[3,-57,4] Feast Atrue
+V2 X2.5 Y-58 Z3.5
+V0
+; @frame
+; model call 31
+M0 X2.5 Y-56 Z4.5
+V2 X2.5 Y-57 Z3.5
+V0
+I4 Bminecraft:cobblestone P[2,-57,3]
+I4 Bminecraft:cobblestone P[1,-57,3]
+I4 Bminecraft:cobblestone P[3,-57,3]
+I4 Bminecraft:cobblestone P[0,-57,3]
+I4 Bminecraft:cobblestone P[4,-57,3]
+; @frame
+; model call 32
+V2 X0.5 Y-57 Z3.5
+V0
+I4 Bminecraft:cobblestone P[0,-57,3]
+I4 Bminecraft:cobblestone P[0,-57,4]
+; @frame
+; model call 33
+V2 X2.5 Y-57 Z2.5
+V0
+I4 Bminecraft:cobblestone P[2,-57,2]
+I4 Bminecraft:cobblestone P[1,-57,2]
+I4 Bminecraft:cobblestone P[3,-57,2]
+V2 X4.5 Y-57 Z3.5
+V0
+I4 Bminecraft:cobblestone P[4,-57,3]
+; @frame
+; model call 34
+V2 X2.5 Y-57 Z1.5
+V0
+I4 Bminecraft:cobblestone P[3,-57,1]
+I4 Bminecraft:cobblestone P[2,-57,1]
+I4 Bminecraft:cobblestone P[1,-57,1]
+V2 X4.5 Y-57.5 Z1.5
+V0
+I4 Bminecraft:cobblestone P[4,-57,2]
+I4 Bminecraft:cobblestone P[4,-57,1]
+; @frame
+; model call 35
+M0 X3.5 Y-56 Z1.5
+V2 X2.5 Y-57.5 Z0.5
+V0
+I4 Bminecraft:cobblestone P[3,-57,0]
+I4 Bminecraft:cobblestone P[4,-57,0]
+I4 Bminecraft:cobblestone P[2,-57,0]
+M0 X1.5 Y-56 Z1.5
+V2 X0.5 Y-57.5 Z1.5
+V0
+I4 Bminecraft:cobblestone P[1,-57,0]
+I4 Bminecraft:cobblestone P[0,-57,0]
+I4 Bminecraft:cobblestone P[0,-57,1]
+I4 Bminecraft:cobblestone P[0,-57,2]
+; @frame
+; model call 36
+I1 Iminecraft:cobblestone
+I4 Bminecraft:cobblestone P[2,-57,0]
+I4 Bminecraft:cobblestone P[3,-57,0]
+I4 Bminecraft:cobblestone P[4,-57,0]
+I4 Bminecraft:cobblestone P[1,-57,0]
+I4 Bminecraft:cobblestone P[0,-57,0]
+V2 X0.5 Y-57 Z1.5
+V0
+I4 Bminecraft:cobblestone P[0,-57,1]
+V2 X0.5 Y-57 Z2.5
+V0
+I4 Bminecraft:cobblestone P[0,-57,2]
+; @frame
+; model call 37
+V2 X3 Y-57 Z2
+V0
+M0 X2.5 Y-56 Z4.5
+V2 X2.5 Y-59 Z6.5
+V0
+; @frame
+; model call 38
+M0 X2.5 Y-58 Z6.5
+V2 X2.5 Y-60 Z7.5
+V0
+; @frame
+; model call 39
+V2 X2.5 Y-59 Z6.5
+V0
+M0 X2.5 Y-57 Z5.5
+M0 X2.5 Y-58 Z6.5
+V2 X2.5 Y-60 Z7.5
+V0
+; @frame
+; model call 40
+I1 Iminecraft:dirt
+I3 Bminecraft:dirt P[2,-58,5] Fsouth Afalse
+V0
+; @frame
+; model call 41
+M0 X2.5 Y-57 Z5.5 Fsneak
+V0
+; @frame
+; model call 42
+M0 X2.5 Y-58 Z6.5 Fnormal
+V0
+; @frame
+; model call 43
+I3 Bminecraft:dirt P[2,-59,6] Fup Afalse
+; @frame
+; model call 44
+M0 X2.5 Y-58 Z6.5 Fsn​eak
+; @frame
+; model call 45
+M0 X2.5 Y-58 Z6.5 Fsneak
+V0
+; @frame
+; model call 46
+M0 X2.5 Y-57 Z5.5 Fnormal
+V2 X2.5 Y-58 Z6.5
+V0
+; @frame
+; model call 47
+I1 Iminecraft:diamond_shovel
+M2 Dsouth N1

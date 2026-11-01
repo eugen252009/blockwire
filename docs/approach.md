@@ -44,9 +44,11 @@ Older observations without `sampled_surfaces_v1` block before movement.
   Hidden or absent positions return `target_not_visible` with no movement.
 - `sneak`: strict boolean, default false.
 - `avoid_damage`: strict boolean, default true. Like walking, conservative mode
-  crouches, excludes known hazards/hostiles/fire and stops on observed health loss.
-  With false, crouching follows `sneak` and known hazard cells may be used. Native
-  support/collision and lifecycle constraints remain mandatory in either mode.
+  excludes known hazards/hostiles/fire and stops on observed health loss without
+  forcing sneak travel. Travel mode follows `sneak`; the shared motor still uses
+  brief crouching for precise waypoint centering, not damage protection.
+  With false, known hazard cells may be used. Native support/collision and
+  lifecycle constraints remain mandatory in either mode.
 - `timeout_seconds`: inherited cooperative deadline, 0.1–120, default 30.
 
 Unknown parameters, malformed IDs, booleans as coordinates, nonfinite/coerced
@@ -93,12 +95,12 @@ release. Unconfirmed cleanup cannot yield success.
    position, permits `succeeded` / `ready_to_interact`. A look/drive receipt or
    geometric proximity alone never establishes success.
 
-Camera transitions and final aiming use steps of at most eight degrees per
-command on the shortest yaw arc. Larger turns have no drive input: navigation,
-visibility, actor/readiness and cancellation are sampled again before movement
-can resume. Camera turn stages are not counted as failed walking pulses. This
-bounds command angle changes, not rendered smoothness under arbitrary frame rate,
-latency, human mouse input or other mods.
+Camera transitions and final aiming use one actor-bound native elapsed-time plan,
+normally 200 ms smoothstep on the shortest yaw arc. The motor refreshes the
+observed view before world-direction quantization. Turning and driving overlap only
+with freshly proven broad lateral support; otherwise input is released and state is
+sampled again before movement resumes. A scheduling receipt never establishes the
+final aim. See the [native rotation qualification](rotation-benchmark.md).
 
 Progress reports `phase` (`walking`, `turning`, `checking_target`, `aiming`), selected `target`, player `position`,
 `standing_destination`, `route_is_partial`, `steps`, `control_mode` and
@@ -232,13 +234,14 @@ See [camera component evidence](evidence/approach-facing.json) and the
 [scoped live retest](evidence/approach-facing-live.json). Isolated graphical
 acceptance remains NOT RUN.
 
-## Forward-facing revision before continuous leases
+## Historical forward-facing revision before continuous leases
 
 The operator found the camera smoother but requested forward-facing W travel
-instead of A/S/D-heavy chest-facing movement. The current revision removes that
-mode, retains bounded eight-degree alignment turns, uses W for route segments,
-and restricts A/D to tiny one-tick lateral corrections. Exact final aiming remains
-separate. The default autopilot behavior is unchanged.
+instead of A/S/D-heavy chest-facing movement. That revision removed that mode,
+retained bounded eight-degree alignment turns, used W for route segments, and
+restricted A/D to tiny one-tick lateral corrections. Exact final aiming remained
+separate. These statements describe the retained historical evidence, before the
+native elapsed-time rotation migration.
 
 AR16/AR17 retain direction/allowed-key and bounded-turn/no-per-pulse-look-back
 contracts, updated for the explicitly requested policy. AR20–AR25 additionally
@@ -256,3 +259,13 @@ was requested. The exact danger source was not identified. This is partial-route
 evidence, not arrival success or camera-quality qualification; isolated graphical
 acceptance remains NOT RUN. See [component evidence](evidence/approach-forward.json)
 and the [scoped live result](evidence/approach-forward-live.json).
+
+## Native timed-rotation follow-up
+
+The current shared motor replaces those Python eight-degree alignment loops with
+the single native controller. Deterministic AR17/AR19 contracts now require timed
+rotation without stopping broad-supported travel, preserve shortest-arc handling
+for wrapped observations, and still release/cancel on actor replacement or job
+cancellation. The complete native profile, movement and building reruns are
+reported separately in [rotation-benchmark.md](rotation-benchmark.md); historical
+approach smoke records above are not rewritten as new acceptance.

@@ -1,0 +1,62 @@
+{
+  "status": "PASS_SCOPED_READ_ONLY_DISTANCE",
+  "scope": "Python distance helper over the existing isolated graphical client's ordinary bounded observations. Not navigation, X-ray, actual fall or survival acceptance.",
+  "fixture": "Blockwire Endportal Survival, existing isolated normal Survival world",
+  "live_results": [
+    {
+      "target": "minecraft:dark_oak_log",
+      "status": "succeeded",
+      "selected_observed_position": [-18, 71, 13],
+      "source": "visible_blocks",
+      "eye_distance_to_block_center": 1.4463490763608429,
+      "fall_model": "unknown_shape",
+      "landing_safety": "unknown"
+    },
+    {
+      "target": "minecraft:grass_block",
+      "status": "succeeded",
+      "selected_observed_position": [-19, 69, 13],
+      "source": "visible_blocks",
+      "eye_distance_to_block_center": 1.8899772308435412,
+      "hypothetical_drop_to_full_cube_top": 0.0,
+      "baseline_damage_hp": 0,
+      "safe_to_fall": null,
+      "landing_safety": "unknown"
+    },
+    {
+      "target": "minecraft:diamond_ore",
+      "position_filter": [0, 0, 0],
+      "status": "blocked",
+      "reason": "target_not_observed",
+      "distance": null,
+      "fall_estimate": null
+    }
+  ],
+  "audited_native_requests": [{"op": "observe"}, {"op": "observe"}, {"op": "observe"}],
+  "coordinates_sent_to_native_endpoint": false,
+  "camera_or_gameplay_actions": false,
+  "input_release_requests": false,
+  "world_or_player_file_reads": false,
+  "new_java_or_transport_authority": false,
+  "limitations": [
+    "Inherits current partial/approximate potential visibility; not pixel-perfect renderer visibility.",
+    "Distances are to observed block centers, not unreported exact surface hit points.",
+    "Every landing/clear-path/top-exposure assessment stays unknown, even with a zero-damage baseline.",
+    "Fall estimates assume stationary dry-ground full-cube vanilla conditions; actual falls were not requested or verified.",
+    "No autonomous risk policy or descent planner was added."
+  ],
+  "checks": {
+    "python_tests": 200,
+    "skill_and_utility_mutations_killed": 96,
+    "campaign_mutations_killed": 14,
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "mcp_read_only_and_strict_dispatch": "PASS simulated backend",
+    "actual_fall_model_acceptance": "NOT RUN"
+  },
+  "raw_record": "build/estimate-distance-verification/live.json",
+  "sha256": {
+    "python/src/blockwire/skills/distance.py": "46c06314d7042b8bd481cbc578c12931d114749fc16a9e034f0b4dcbf96dcccb",
+    "build/estimate-distance-verification/live.json": "18a6d512607f69c9eb92a9cc4a684be651fb7a18a092b99c1db6f64f877a34ef"
+  }
+}

@@ -76,7 +76,7 @@ public final class ControllerContractTest {
         check(source.contains("var leases=Protocol.buttonTicks(q,buttons,ticks);") &&
             source.contains("inputLeases.replace(buttons,leases,System.nanoTime())") &&
             source.contains("inputLeases.cap(ticks,System.nanoTime());"),"CL20_drive_installs_validated_leases");
-        check(source.contains("var expired=inputLeases.expire(System.nanoTime());") &&
+        check(source.contains("long now=System.nanoTime();") && source.contains("var expired=inputLeases.expire(now);") &&
             source.contains("remaining.removeAll(expired)"),"CL21_tick_releases_only_expired_keys");
         check(source.contains("held=Set.of();inputLeases.clear();"),"CL22_global_cleanup_clears_leases");
         check(source.contains("inputLeases.active(\"attack\",System.nanoTime())"),"CL24_native_mining_uses_own_key_clock");

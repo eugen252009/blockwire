@@ -21,10 +21,7 @@ from .skills.core import SkillResult, _execute
 EVENTS = frozenset({"ready", "health_changed", "death", "actor_changed", "disconnected", "skill_finished", "stopped"})
 TERMINAL_EVENTS = frozenset({"death", "actor_changed", "disconnected", "stopped"})
 ALL_RESOURCES = frozenset({"movement", "yaw", "pitch", "hand", "hotbar", "screen"})
-# Deliberately small: ordinary non-placeable foods without intentional negative effects.
-FOOD = frozenset("minecraft:" + item for item in (
-    "bread", "apple", "cooked_beef", "cooked_porkchop", "cooked_chicken", "cooked_mutton",
-    "cooked_rabbit", "cooked_cod", "cooked_salmon", "baked_potato"))
+from .food import FOOD, consumption_observed
 LEASE_TICKS = 8
 
 
@@ -314,7 +311,12 @@ class Controller:
                 return {"text": "Owned contribution cleared; runner cleanup pending."}
         self._check(control)
         if op in {"navigation", "observe", "inventory"}:
-            return await self._read(op)
+            value = await self._read(op)
+            if op == "observe" and any(c.sky for c in self._controls):
+                # The scoped walker steers its own requested pitch, not eating's
+                # temporary sky override. Native scene observations stay unchanged.
+                value = {**value, "pitch": self._pitch}
+            return value
         if op not in {"look", "drive", "action", "hotbar"}:
             raise BridgeError("unsupported_controller_operation")
         if op != "hotbar" and arguments.get("actor_session") != self._session:
@@ -428,7 +430,7 @@ class Controller:
                             else:
                                 result = outcome("blocked", "selected_food_changed")
                             break
-                        if scene.get("hunger", 0) > initial_hunger and current.get("count", 0) < before["count"]:
+                        if consumption_observed(initial_hunger, scene.get("hunger", 0), before["count"], current.get("count", 0)):
                             result = outcome("succeeded", "food_consumed")
                             break
                         if control.blocked_reason or scene.get("target") or scene.get("pitch", 0) > -89 or scene.get("holding", {}).get("item") != before["item"]:

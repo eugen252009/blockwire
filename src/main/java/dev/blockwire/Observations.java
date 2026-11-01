@@ -45,9 +45,11 @@ public final class Observations {
         out.addProperty("container_open",open);
         if(open) {
             var menu=p.containerMenu;out.addProperty("menu_id",menu.containerId);out.addProperty("state_id",menu.getStateId());
+            out.addProperty("menu_type",menu.getClass().getSimpleName());
             var slots=new JsonArray();
             for(var slot:menu.slots) {
                 var row=item(slot.getItem());row.addProperty("slot",slot.index);row.addProperty("active",slot.isActive());
+                if(slot.container==p.getInventory())row.addProperty("inventory_index",slot.getContainerSlot());
                 row.addProperty("x",slot.x);row.addProperty("y",slot.y);slots.add(row);
             }
             out.add("slots",slots);
@@ -67,6 +69,7 @@ public final class Observations {
         if(mc.gui.screen()!=null)out.addProperty("screen",text(mc.gui.screen().getTitle().getString()));
         if(mc.player==null || mc.level==null) {out.addProperty("in_world",false);out.addProperty("text","Not in a world.");return out;}
         var p=mc.player;out.addProperty("in_world",true);out.addProperty("alive",p.isAlive());
+        out.addProperty("player_uuid",p.getUUID().toString());
         out.addProperty("dimension",mc.level.dimension().identifier().toString());
         var pos=new JsonArray();pos.add(p.getX());pos.add(p.getY());pos.add(p.getZ());out.add("position",pos);
         var eye=new JsonArray();eye.add(p.getEyePosition().x);eye.add(p.getEyePosition().y);eye.add(p.getEyePosition().z);out.add("eye_position",eye);

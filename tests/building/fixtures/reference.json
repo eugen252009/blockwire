@@ -1,0 +1,767 @@
+{
+  "id": "superflat_house_5x5",
+  "origin": [
+    0,
+    -60,
+    0
+  ],
+  "width": 5,
+  "depth": 5,
+  "height": 3,
+  "material": "minecraft:cobblestone",
+  "entrance": [
+    2,
+    -60,
+    0
+  ],
+  "blocks": [
+    {
+      "position": [
+        0,
+        -60,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -60,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -60,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -60,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -60,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -59,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -59,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -59,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -59,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -59,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -58,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -58,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -58,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -58,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -58,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -57,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -57,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -57,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -57,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        0,
+        -57,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -60,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -60,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -59,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -59,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -58,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -58,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -57,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -57,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -57,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -57,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        1,
+        -57,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -60,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -59,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -58,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -58,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -57,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -57,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -57,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -57,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        2,
+        -57,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -60,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -60,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -59,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -59,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -58,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -58,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -57,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -57,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -57,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -57,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        3,
+        -57,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -60,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -60,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -60,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -60,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -60,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -59,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -59,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -59,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -59,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -59,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -58,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -58,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -58,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -58,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -58,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -57,
+        0
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -57,
+        1
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -57,
+        2
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -57,
+        3
+      ],
+      "block": "minecraft:cobblestone"
+    },
+    {
+      "position": [
+        4,
+        -57,
+        4
+      ],
+      "block": "minecraft:cobblestone"
+    }
+  ],
+  "clear": [
+    [
+      1,
+      -60,
+      1
+    ],
+    [
+      1,
+      -60,
+      2
+    ],
+    [
+      1,
+      -60,
+      3
+    ],
+    [
+      1,
+      -59,
+      1
+    ],
+    [
+      1,
+      -59,
+      2
+    ],
+    [
+      1,
+      -59,
+      3
+    ],
+    [
+      1,
+      -58,
+      1
+    ],
+    [
+      1,
+      -58,
+      2
+    ],
+    [
+      1,
+      -58,
+      3
+    ],
+    [
+      2,
+      -60,
+      -2
+    ],
+    [
+      2,
+      -60,
+      -1
+    ],
+    [
+      2,
+      -60,
+      0
+    ],
+    [
+      2,
+      -60,
+      1
+    ],
+    [
+      2,
+      -60,
+      2
+    ],
+    [
+      2,
+      -60,
+      3
+    ],
+    [
+      2,
+      -59,
+      -2
+    ],
+    [
+      2,
+      -59,
+      -1
+    ],
+    [
+      2,
+      -59,
+      0
+    ],
+    [
+      2,
+      -59,
+      1
+    ],
+    [
+      2,
+      -59,
+      2
+    ],
+    [
+      2,
+      -59,
+      3
+    ],
+    [
+      2,
+      -58,
+      1
+    ],
+    [
+      2,
+      -58,
+      2
+    ],
+    [
+      2,
+      -58,
+      3
+    ],
+    [
+      3,
+      -60,
+      1
+    ],
+    [
+      3,
+      -60,
+      2
+    ],
+    [
+      3,
+      -60,
+      3
+    ],
+    [
+      3,
+      -59,
+      1
+    ],
+    [
+      3,
+      -59,
+      2
+    ],
+    [
+      3,
+      -59,
+      3
+    ],
+    [
+      3,
+      -58,
+      1
+    ],
+    [
+      3,
+      -58,
+      2
+    ],
+    [
+      3,
+      -58,
+      3
+    ]
+  ],
+  "workspace_bounds": [
+    [
+      -16,
+      -60,
+      -16
+    ],
+    [
+      16,
+      -48,
+      16
+    ]
+  ],
+  "floor_material": "minecraft:grass_block"
+}

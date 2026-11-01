@@ -23,10 +23,30 @@ public final class Protocol {
         if(!Double.isFinite(n) || n<min || n>max)throw new IllegalArgumentException("out_of_range: "+key);
         return n;
     }
+    public static boolean bool(JsonObject o,String key,boolean fallback) {
+        if(!o.has(key))return fallback;
+        var v=o.get(key);
+        if(!v.isJsonPrimitive() || !v.getAsJsonPrimitive().isBoolean())throw new IllegalArgumentException("expected_boolean: "+key);
+        return v.getAsBoolean();
+    }
     public static int integer(JsonObject o,String key,int min,int max) {
         double n=number(o,key,min,max);
         if(n!=Math.rint(n))throw new IllegalArgumentException("expected_integer: "+key);
         return (int)n;
+    }
+    /** Optional time-based camera request; omitted duration preserves legacy immediate look. */
+    public static Integer rotationDuration(JsonObject q) {
+        if(!q.has("duration_ms")) {
+            if(q.has("rotation_profile"))throw new IllegalArgumentException("rotation_profile_requires_duration");
+            return null;
+        }
+        return integer(q,"duration_ms",1,RotationController.MAX_DURATION_MS);
+    }
+    public static String rotationProfile(JsonObject q) {
+        if(!q.has("rotation_profile"))return "smoothstep";
+        String profile=string(q,"rotation_profile");
+        if(!Set.of("linear","smoothstep").contains(profile))throw new IllegalArgumentException("unsupported_rotation_profile");
+        return profile;
     }
     /** Optional attack identity guard: never allow a target guard on use or without a session fence. */
     public static Integer actionTarget(JsonObject q) {
@@ -53,6 +73,29 @@ public final class Protocol {
         fields(q,"slot","actor_session");
         if(q.has("actor_session"))string(q,"actor_session");
         return integer(q,"slot",0,8);
+    }
+    /** Optional session fence on native inventory operations; old envelopes remain valid. */
+    public static void inventoryFields(JsonObject q,String... names) {
+        var allowed=new java.util.ArrayList<String>(java.util.List.of(names));allowed.add("actor_session");
+        fields(q,allowed.toArray(String[]::new));
+        if(q.has("actor_session"))string(q,"actor_session");
+    }
+    /** One explicit slash command, bounded like native chat; never trim or split it. */
+    public static String command(JsonObject q) {
+        fields(q,"command","actor_session");
+        if(q.has("actor_session"))string(q,"actor_session");
+        String text=string(q,"command");
+        if(text.length()<2 || text.length()>256 || text.charAt(0)!='/' ||
+            text.charAt(1)=='/' || Character.isWhitespace(text.charAt(1)) || Character.isSpaceChar(text.charAt(1)))
+            throw new IllegalArgumentException("expected_slash_command_max_256");
+        for(int i=0;i<text.length();i++) {
+            char c=text.charAt(i);
+            if(Character.isISOControl(c) || c=='§' || c=='\u2028' || c=='\u2029' ||
+                (Character.isSurrogate(c) && !(Character.isHighSurrogate(c) &&
+                    i+1<text.length() && Character.isLowSurrogate(text.charAt(++i)))))
+                throw new IllegalArgumentException("invalid_command_character");
+        }
+        return text.substring(1);
     }
     public static void requireTarget(Integer expected,Integer actual) {
         if(expected!=null && !expected.equals(actual))throw new IllegalStateException("target_entity_changed");

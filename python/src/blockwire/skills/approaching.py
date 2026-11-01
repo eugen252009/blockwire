@@ -4,7 +4,7 @@ from __future__ import annotations
 from collections import deque
 import math
 from pydantic import Field, field_validator
-from .motion import FlatMotion, turn_view_step
+from .motion import FlatMotion, rotate_view_timed
 from .core import SkillContext, SkillDefinition, SkillParameters, SkillResult, SkillStop
 
 
@@ -14,6 +14,7 @@ class Approach(SkillParameters):
         description="Exact block registry ID; unqualified 'chest' means minecraft:chest, not a translated name.")
     position: list[int] | None = Field(default=None, min_length=3, max_length=3,
         description="Optional exact [x,y,z] BLOCK position, which must already be in the visible interactable list.")
+    terrain: bool = False
     sneak: bool = False
     avoid_damage: bool = True
 
@@ -99,24 +100,26 @@ def _plan(state, selected, reachable):
     return (frontier[0]+.5, frontier[1], frontier[2]+.5), False
 
 
-def approach(context: SkillContext, goal: Approach) -> SkillResult:
+def approach(context: SkillContext, goal: Approach, *, expected_session=None) -> SkillResult:
     block_id = goal.target if ":" in goal.target else "minecraft:"+goal.target
     session = initial = health = None
 
     def navigation():
         nonlocal session, initial, health
         context.check()
-        state = context.player.navigation()
+        state = context.player.navigation(terrain=True) if goal.terrain else context.player.navigation()
         context.check()
-        if state.get("profile") != "flat_full_blocks_v1":
+        if state.get("profile") != ("stepped_full_blocks_v1" if goal.terrain else "flat_full_blocks_v1"):
             raise SkillStop("blocked", "unsupported_navigation_profile")
         if not state.get("ready"):
             raise SkillStop("blocked", state.get("reason", "navigation_not_ready"))
+        if expected_session is not None and state['actor_session'] != expected_session:
+            raise SkillStop('blocked', 'actor_session_changed')
         if session is None:
             session, initial, health = state["actor_session"], state["position"][:], state["health"]
         if state["actor_session"] != session:
             raise SkillStop("blocked", "actor_session_changed")
-        if abs(state["position"][1]-initial[1]) > .2:
+        if not goal.terrain and abs(state["position"][1]-initial[1]) > .2:
             raise SkillStop("blocked", "vertical_route_unsupported")
         if math.hypot(state["position"][0]-initial[0], state["position"][2]-initial[2]) > 64:
             raise SkillStop("blocked", "activity_radius_exceeded")
@@ -148,7 +151,7 @@ def approach(context: SkillContext, goal: Approach) -> SkillResult:
 
     def aim_at(state, selected, scene):
         while True:
-            if not turn_view_step(context, (scene["yaw"], scene["pitch"]), bearing(state, selected), session):
+            if not rotate_view_timed(context, (scene["yaw"], scene["pitch"]), bearing(state, selected), session):
                 context.pause(.1)
                 scene = observe()
                 state = navigation()
@@ -205,7 +208,7 @@ def approach(context: SkillContext, goal: Approach) -> SkillResult:
             raise SkillStop("blocked", "no_known_approach_route")
         destination, standing = plan
         position = state["position"]
-        close = standing and math.hypot(position[0]-destination[0], position[2]-destination[2]) <= .3
+        close = standing and math.dist(position,destination) <= .3
         context.publish({"phase": "aiming" if close else "turning" if motion.turning else "walking", "target": {"id": selected["id"],
             "position": selected["position"]}, "position": position, "standing_destination": destination,
             "route_is_partial": not standing, "steps": steps,
@@ -235,7 +238,7 @@ def approach(context: SkillContext, goal: Approach) -> SkillResult:
         if stationary >= 12:
             raise SkillStop("blocked", "stuck")
         result = motion.pulse(context, state, destination,
-            "sneak" if goal.sneak or goal.avoid_damage else "walk", avoid_damage=goal.avoid_damage, max_ticks=3,
+            "sneak" if goal.sneak else "walk", avoid_damage=goal.avoid_damage, max_ticks=3,
             view=(scene["yaw"], scene["pitch"]), continuous=True)
         if result:
             result.text = "Approach stopped: " + result.reason.replace("_", " ")

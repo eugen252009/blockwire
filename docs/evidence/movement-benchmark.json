@@ -1,0 +1,3344 @@
+{
+  "schema_version": 1,
+  "scope": "Deterministic Minecraft 26.3 native-input movement benchmark; no LLM, teleportation, custom physics or second controller.",
+  "architecture": "goal -> existing Python route/motor -> actor-fenced native look/drive/jump leases -> Minecraft physics -> end-of-client-tick telemetry",
+  "fixture": {
+    "identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+    "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+    "minecraft_version": "26.3",
+    "scenario_count": 49,
+    "repetitions": 211,
+    "baseline_manifest_sha256": "82de86967794fb21565807c18fb10fba42d474de4a1659fc11d2ff852d1d8b63",
+    "restore_policy": "Each independent cohort restores and validates the same owned closed snapshot."
+  },
+  "acceptance": {
+    "native_reference_horizontal_radius": 1.0,
+    "blockwire_horizontal_radius": 0.3,
+    "settled_measurement": true,
+    "note": "Receipts and skill-level arrived never override the independent settled tick trace."
+  },
+  "assessments": {
+    "native_reference": {
+      "decision": "GO",
+      "meaning": "The declared ordinary-input reference completes every scenario at its separate 1.0-block endpoint radius."
+    },
+    "unchanged_controller": {
+      "decision": "NO-GO",
+      "meaning": "The preserved pre-optimization controller does not complete the fixed cohort."
+    },
+    "optimized_controller": {
+      "decision": "GO",
+      "gates": {
+        "same_fixture_scenarios_and_version": true,
+        "all_211_repetitions_pass_independent_settled_predicate": true,
+        "blockwire_max_horizontal_error_at_most_0_3": true,
+        "zero_health_loss": true,
+        "all_runs_settled_and_no_trace_loss": true,
+        "improves_total_ticks_stops_and_input_changes": true,
+        "all_before_failure_scenarios_recovered": true,
+        "final_source_matches_qualified_after_run": true,
+        "python_gradle_tls_and_mutations_pass": true,
+        "fresh_superflat_A15_regression_passes": true,
+        "client_world_closed": true
+      },
+      "meaning": "Final Blockwire source completes every repetition at 0.3 blocks and passes the retained safety/regression gates."
+    },
+    "native_performance_parity": {
+      "decision": "NO-GO",
+      "meaning": "Strict parity requires no more aggregate game ticks than the ordinary-input reference; this is not required for optimized-controller GO."
+    }
+  },
+  "canonical_runs": {
+    "native": {
+      "id": "vanilla-v2",
+      "variant": "vanilla",
+      "metadata": {
+        "run_id": "vanilla-v2",
+        "variant": "vanilla",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "08e588c169b91ce17c7c3dfb446737645fbdbf27a8920ff66bd2729c7a63ddd6",
+          "python/src/blockwire/skills/walking.py": "326a340cf45793ab4e914ef0001a43ea3ded36b77cb61218c39103b5a3ef51bd",
+          "src/main/java/dev/blockwire/NavigationView.java": "7baed27608bfc2ea5a96957241e9e23f46442369f06cd87a6aaf441bbfe6fcb1",
+          "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+        },
+        "scenario_names": [
+          "linear_x_positive_short",
+          "linear_x_positive_medium",
+          "linear_x_positive_long",
+          "linear_x_negative_short",
+          "linear_x_negative_medium",
+          "linear_x_negative_long",
+          "linear_z_positive_short",
+          "linear_z_positive_medium",
+          "linear_z_positive_long",
+          "linear_z_negative_short",
+          "linear_z_negative_medium",
+          "linear_z_negative_long",
+          "diagonal_xz_pp",
+          "diagonal_xz_np",
+          "diagonal_xz_pn",
+          "diagonal_xz_nn",
+          "mode_normal_straight",
+          "mode_normal_diagonal",
+          "mode_fast_straight",
+          "mode_fast_diagonal",
+          "mode_sneak_straight",
+          "mode_sneak_diagonal",
+          "precision_0_2",
+          "precision_0_5",
+          "precision_1_0",
+          "precision_2_0",
+          "step_x_ascend",
+          "step_x_descend",
+          "step_z_ascend",
+          "step_z_descend",
+          "stairs_x_ascend",
+          "stairs_x_descend",
+          "combined_xy",
+          "combined_yz",
+          "combined_xyz",
+          "turn_90_left",
+          "turn_90_right",
+          "curve_gentle_45",
+          "curve_s",
+          "curve_zigzag",
+          "turn_180_while_moving",
+          "parkour_level1_rise",
+          "parkour_level2_gap",
+          "parkour_level2_two_gaps",
+          "parkour_level3_diagonal",
+          "parkour_level4_platforms",
+          "roof_access_ascend",
+          "roof_descent_center",
+          "roof_overhang_recovery"
+        ],
+        "repeat_policy": "Scenario-declared fixed repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_each_measurement": true
+      },
+      "aggregate": {
+        "runs": 211,
+        "successes": 211,
+        "success_rate": 1.0,
+        "success_wilson_95": [
+          0.9821195646232311,
+          0.9999999999999999
+        ],
+        "trace_dropped_samples": 0,
+        "all_settled_at_end": true,
+        "trace_profiles": [
+          "native_player_motion_ticks_v1"
+        ],
+        "game_ticks": {
+          "total": 14945,
+          "median": 58,
+          "min": 5,
+          "max": 232
+        },
+        "path_length": {
+          "total": 2377.633312215312,
+          "median": 9.92576174807661,
+          "min": 0.0,
+          "max": 32.57762333311387
+        },
+        "target_horizontal_error": {
+          "total": 45.886045319727806,
+          "median": 0.1637536661405969,
+          "min": 0.0006551100350709049,
+          "max": 0.8074526602360166
+        },
+        "full_stop_runs": {
+          "total": 59,
+          "median": 0,
+          "min": 0,
+          "max": 3
+        },
+        "input_changes": {
+          "total": 475,
+          "median": 2,
+          "min": 0,
+          "max": 8
+        },
+        "horizontal_collision_ticks": {
+          "total": 750,
+          "median": 0,
+          "min": 0,
+          "max": 71
+        },
+        "health_loss": {
+          "total": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_horizontal_speed": {
+          "total": 24.893844900980593,
+          "median": 0.11785906482182845,
+          "min": 0.0,
+          "max": 0.18156869662254596
+        }
+      },
+      "categories": {
+        "building": {
+          "runs": 13,
+          "successes": 13,
+          "game_ticks_total": 830,
+          "game_ticks_median": 57
+        },
+        "combined": {
+          "runs": 29,
+          "successes": 29,
+          "game_ticks_total": 2014,
+          "game_ticks_median": 75
+        },
+        "curves": {
+          "runs": 11,
+          "successes": 11,
+          "game_ticks_total": 977,
+          "game_ticks_median": 109
+        },
+        "linear": {
+          "runs": 60,
+          "successes": 60,
+          "game_ticks_total": 4561,
+          "game_ticks_median": 58.0
+        },
+        "modes": {
+          "runs": 30,
+          "successes": 30,
+          "game_ticks_total": 3679,
+          "game_ticks_median": 77.5
+        },
+        "parkour": {
+          "runs": 15,
+          "successes": 15,
+          "game_ticks_total": 911,
+          "game_ticks_median": 48
+        },
+        "precision": {
+          "runs": 20,
+          "successes": 20,
+          "game_ticks_total": 229,
+          "game_ticks_median": 10.0
+        },
+        "turns": {
+          "runs": 15,
+          "successes": 15,
+          "game_ticks_total": 1118,
+          "game_ticks_median": 55
+        },
+        "vertical": {
+          "runs": 18,
+          "successes": 18,
+          "game_ticks_total": 626,
+          "game_ticks_median": 33.0
+        }
+      },
+      "scenarios": {
+        "linear_x_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 20,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_x_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 57,
+          "path_length_median": 9.709902679668458,
+          "target_horizontal_error_median": 0.2900973203315447,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504031714
+        },
+        "linear_x_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 150,
+          "path_length_median": 30.000655110035158,
+          "target_horizontal_error_median": 0.0006551100350709049,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_x_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 20,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_x_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 58,
+          "path_length_median": 9.92576174807661,
+          "target_horizontal_error_median": 0.07423825192338995,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504039695
+        },
+        "linear_x_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 150,
+          "path_length_median": 30.000655110035133,
+          "target_horizontal_error_median": 0.0006551100351330774,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 20,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_z_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 58,
+          "path_length_median": 9.925761748076614,
+          "target_horizontal_error_median": 0.07423825192339084,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504039695
+        },
+        "linear_z_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 150,
+          "path_length_median": 30.000655110035158,
+          "target_horizontal_error_median": 0.0006551100350709049,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 20,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_z_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 58,
+          "path_length_median": 9.92576174807661,
+          "target_horizontal_error_median": 0.07423825192338995,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504039695
+        },
+        "linear_z_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 150,
+          "path_length_median": 30.000655110035133,
+          "target_horizontal_error_median": 0.0006551100351330774,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "diagonal_xz_pp": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 75,
+          "path_length_median": 13.810562901419011,
+          "target_horizontal_error_median": 0.3315727279297146,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341521500221
+        },
+        "diagonal_xz_np": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 75,
+          "path_length_median": 13.811224743054366,
+          "target_horizontal_error_median": 0.33091088067658686,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "diagonal_xz_pn": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 75,
+          "path_length_median": 13.811224743054366,
+          "target_horizontal_error_median": 0.33091088067658686,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "diagonal_xz_nn": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 75,
+          "path_length_median": 13.811224743054366,
+          "target_horizontal_error_median": 0.33091088067658686,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "mode_normal_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 81,
+          "path_length_median": 14.890520321464184,
+          "target_horizontal_error_median": 0.10947967853581275,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "mode_normal_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 75,
+          "path_length_median": 13.810562901419013,
+          "target_horizontal_error_median": 0.331572727929714,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341521500221
+        },
+        "mode_fast_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 67,
+          "path_length_median": 15.148425538952196,
+          "target_horizontal_error_median": 0.14842553895219446,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1532167942119428
+        },
+        "mode_fast_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 64,
+          "path_length_median": 14.305889295018371,
+          "target_horizontal_error_median": 0.1637536661405969,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15320944941578157
+        },
+        "mode_sneak_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 231,
+          "path_length_median": 14.458779607605155,
+          "target_horizontal_error_median": 0.541220392394882,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.053508008053839436
+        },
+        "mode_sneak_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 219,
+          "path_length_median": 13.61627641058609,
+          "target_horizontal_error_median": 0.5258592206910072,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.05350544304405506
+        },
+        "precision_0_2": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 5,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 0.1999999999999993,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "precision_0_5": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 6,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 0.5,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "precision_1_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 14,
+          "path_length_median": 0.6418187311274615,
+          "target_horizontal_error_median": 0.35818126887253854,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09867498087929642
+        },
+        "precision_2_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 20,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "step_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 31,
+          "path_length_median": 4.694402090068422,
+          "target_horizontal_error_median": 0.35198354865590886,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 4,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.13626929205361846
+        },
+        "step_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 29,
+          "path_length_median": 4.186593382331892,
+          "target_horizontal_error_median": 0.33602322635474735,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.14299535743512412
+        },
+        "step_z_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 33,
+          "path_length_median": 5.733810936654479,
+          "target_horizontal_error_median": 0.3390725842525697,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1585651536588029
+        },
+        "step_z_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 28,
+          "path_length_median": 3.960704457440538,
+          "target_horizontal_error_median": 0.1156527407563388,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11783440120041885
+        },
+        "stairs_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 52,
+          "path_length_median": 8.780806391929733,
+          "target_horizontal_error_median": 0.35198354865590886,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 8,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15326886789637784
+        },
+        "stairs_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 34,
+          "path_length_median": 5.625202899628523,
+          "target_horizontal_error_median": 0.06983888539113181,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.14782143545411214
+        },
+        "combined_xy": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 52,
+          "path_length_median": 8.780806391929733,
+          "target_horizontal_error_median": 0.35198354865590886,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 8,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15326886789637784
+        },
+        "combined_yz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 53,
+          "path_length_median": 9.578283357793131,
+          "target_horizontal_error_median": 0.8074526602360166,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 3,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1573106742678421
+        },
+        "combined_xyz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 65,
+          "path_length_median": 12.777053866066048,
+          "target_horizontal_error_median": 0.7069711467846093,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 18,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.17047784436184027
+        },
+        "turn_90_left": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 55,
+          "path_length_median": 8.18223363187783,
+          "target_horizontal_error_median": 0.03590083788458413,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 19,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785786823338068
+        },
+        "turn_90_right": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 55,
+          "path_length_median": 8.182231644154358,
+          "target_horizontal_error_median": 0.035798013331678216,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 19,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785786823338068
+        },
+        "curve_gentle_45": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 62,
+          "path_length_median": 11.004529533438951,
+          "target_horizontal_error_median": 0.3091789703547252,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341521137939
+        },
+        "curve_s": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 109,
+          "path_length_median": 15.437355954507959,
+          "target_horizontal_error_median": 0.3497658421447706,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 62,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11784559858224833
+        },
+        "curve_zigzag": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 113,
+          "path_length_median": 15.19505870967949,
+          "target_horizontal_error_median": 0.48639841295051567,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 69,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11784559858224833
+        },
+        "turn_180_while_moving": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 112,
+          "path_length_median": 22.4073404476948,
+          "target_horizontal_error_median": 0.19520806856935136,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 1,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906482182845
+        },
+        "parkour_level1_rise": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 33,
+          "path_length_median": 4.825176776701211,
+          "target_horizontal_error_median": 0.19212902997365688,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 4,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.13626929205361846
+        },
+        "parkour_level2_gap": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 35,
+          "path_length_median": 6.498699951527782,
+          "target_horizontal_error_median": 0.47103238830574057,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15795508411141082
+        },
+        "parkour_level2_two_gaps": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 60,
+          "path_length_median": 13.872263167304519,
+          "target_horizontal_error_median": 0.47469366176180827,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1808364308307929
+        },
+        "parkour_level3_diagonal": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 48,
+          "path_length_median": 10.223977504045008,
+          "target_horizontal_error_median": 0.37274378869810715,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.17532816477424784
+        },
+        "parkour_level4_platforms": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 128,
+          "path_length_median": 32.461454461956954,
+          "target_horizontal_error_median": 0.1108423872690768,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 6,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.18156869662254596
+        },
+        "roof_access_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 57,
+          "path_length_median": 8.978206476528056,
+          "target_horizontal_error_median": 0.032168312800706644,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 8,
+          "horizontal_collision_ticks_median": 3,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11817172880716821
+        },
+        "roof_descent_center": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 44,
+          "path_length_median": 6.2632877878756235,
+          "target_horizontal_error_median": 0.022836587952582477,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 8,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.12981182111006953
+        },
+        "roof_overhang_recovery": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 88,
+          "path_length_median": 4.5648937145723885,
+          "target_horizontal_error_median": 0.1924314331042396,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 8,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11398433117831118
+        }
+      },
+      "failures": [],
+      "artifacts": {
+        "files": 426,
+        "json_files": 215,
+        "csv_files": 211,
+        "sha256": "ef390e928deb078869a2e37584624943fdb156989403a137d4fc2e24758bc607",
+        "summary_sha256": "47f68db25562dccde205a13d140138814f5f6be66e60a47cc4db4d229ef6b872",
+        "ended_world_manifest_sha256": "f74a7fb9f93e97115b13d0c0edf1d6b7e3ced8935d523caf4798bdcc8c52a6ab"
+      }
+    },
+    "before": {
+      "id": "before-v1",
+      "variant": "before",
+      "metadata": {
+        "run_id": "before-v1",
+        "variant": "before",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "08e588c169b91ce17c7c3dfb446737645fbdbf27a8920ff66bd2729c7a63ddd6",
+          "python/src/blockwire/skills/walking.py": "326a340cf45793ab4e914ef0001a43ea3ded36b77cb61218c39103b5a3ef51bd",
+          "src/main/java/dev/blockwire/NavigationView.java": "7baed27608bfc2ea5a96957241e9e23f46442369f06cd87a6aaf441bbfe6fcb1",
+          "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+        },
+        "scenario_names": [
+          "linear_x_positive_short",
+          "linear_x_positive_medium",
+          "linear_x_positive_long",
+          "linear_x_negative_short",
+          "linear_x_negative_medium",
+          "linear_x_negative_long",
+          "linear_z_positive_short",
+          "linear_z_positive_medium",
+          "linear_z_positive_long",
+          "linear_z_negative_short",
+          "linear_z_negative_medium",
+          "linear_z_negative_long",
+          "diagonal_xz_pp",
+          "diagonal_xz_np",
+          "diagonal_xz_pn",
+          "diagonal_xz_nn",
+          "mode_normal_straight",
+          "mode_normal_diagonal",
+          "mode_fast_straight",
+          "mode_fast_diagonal",
+          "mode_sneak_straight",
+          "mode_sneak_diagonal",
+          "precision_0_2",
+          "precision_0_5",
+          "precision_1_0",
+          "precision_2_0",
+          "step_x_ascend",
+          "step_x_descend",
+          "step_z_ascend",
+          "step_z_descend",
+          "stairs_x_ascend",
+          "stairs_x_descend",
+          "combined_xy",
+          "combined_yz",
+          "combined_xyz",
+          "turn_90_left",
+          "turn_90_right",
+          "curve_gentle_45",
+          "curve_s",
+          "curve_zigzag",
+          "turn_180_while_moving",
+          "parkour_level1_rise",
+          "parkour_level2_gap",
+          "parkour_level2_two_gaps",
+          "parkour_level3_diagonal",
+          "parkour_level4_platforms",
+          "roof_access_ascend",
+          "roof_descent_center",
+          "roof_overhang_recovery"
+        ],
+        "repeat_policy": "Scenario-declared fixed repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_each_measurement": true
+      },
+      "aggregate": {
+        "runs": 211,
+        "successes": 176,
+        "success_rate": 0.8341232227488151,
+        "success_wilson_95": [
+          0.7780524589538124,
+          0.8782454491593422
+        ],
+        "trace_dropped_samples": 0,
+        "all_settled_at_end": true,
+        "trace_profiles": [
+          "native_player_motion_ticks_v1"
+        ],
+        "game_ticks": {
+          "total": 34351,
+          "median": 141,
+          "min": 6,
+          "max": 390
+        },
+        "path_length": {
+          "total": 2281.359144219975,
+          "median": 10.389159245381624,
+          "min": 0.0,
+          "max": 30.18278116236379
+        },
+        "target_horizontal_error": {
+          "total": 237.8576762004875,
+          "median": 0.10662916197841099,
+          "min": 0.007861048563686523,
+          "max": 16.855340106446537
+        },
+        "full_stop_runs": {
+          "total": 1737,
+          "median": 7,
+          "min": 0,
+          "max": 29
+        },
+        "input_changes": {
+          "total": 5941,
+          "median": 22,
+          "min": 0,
+          "max": 100
+        },
+        "horizontal_collision_ticks": {
+          "total": 18,
+          "median": 0,
+          "min": 0,
+          "max": 2
+        },
+        "health_loss": {
+          "total": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_horizontal_speed": {
+          "total": 20.72323722264783,
+          "median": 0.1178589592649587,
+          "min": 0.0,
+          "max": 0.15321679421171525
+        }
+      },
+      "categories": {
+        "building": {
+          "runs": 13,
+          "successes": 8,
+          "game_ticks_total": 1238,
+          "game_ticks_median": 85
+        },
+        "combined": {
+          "runs": 29,
+          "successes": 14,
+          "game_ticks_total": 8366,
+          "game_ticks_median": 346
+        },
+        "curves": {
+          "runs": 11,
+          "successes": 8,
+          "game_ticks_total": 3154,
+          "game_ticks_median": 334
+        },
+        "linear": {
+          "runs": 60,
+          "successes": 60,
+          "game_ticks_total": 8258,
+          "game_ticks_median": 141.0
+        },
+        "modes": {
+          "runs": 30,
+          "successes": 30,
+          "game_ticks_total": 7268,
+          "game_ticks_median": 243.0
+        },
+        "parkour": {
+          "runs": 15,
+          "successes": 3,
+          "game_ticks_total": 519,
+          "game_ticks_median": 22
+        },
+        "precision": {
+          "runs": 20,
+          "successes": 20,
+          "game_ticks_total": 450,
+          "game_ticks_median": 21.0
+        },
+        "turns": {
+          "runs": 15,
+          "successes": 15,
+          "game_ticks_total": 3260,
+          "game_ticks_median": 244
+        },
+        "vertical": {
+          "runs": 18,
+          "successes": 18,
+          "game_ticks_total": 1838,
+          "game_ticks_median": 69.0
+        }
+      },
+      "scenarios": {
+        "linear_x_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 1.9815331683611639,
+          "target_horizontal_error_median": 0.018466831638836112,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488831162402208
+        },
+        "linear_x_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 141,
+          "path_length_median": 10.389159245381624,
+          "target_horizontal_error_median": 0.03112072390994136,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 22,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906501823461
+        },
+        "linear_x_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 230,
+          "path_length_median": 30.181384011278897,
+          "target_horizontal_error_median": 0.23889595801272634,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 20,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_x_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 1.9815331683611532,
+          "target_horizontal_error_median": 0.01846683163884677,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488831162402208
+        },
+        "linear_x_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 141,
+          "path_length_median": 10.38915924538163,
+          "target_horizontal_error_median": 0.03112072390993248,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 22,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906501823461
+        },
+        "linear_x_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 230,
+          "path_length_median": 30.18168408255348,
+          "target_horizontal_error_median": 0.23859588673807508,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 20,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 1.9815331683611639,
+          "target_horizontal_error_median": 0.018466831638836112,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488831162402208
+        },
+        "linear_z_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 141,
+          "path_length_median": 10.389159245381624,
+          "target_horizontal_error_median": 0.03112072390994136,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 22,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906501823461
+        },
+        "linear_z_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 230,
+          "path_length_median": 30.181384011278897,
+          "target_horizontal_error_median": 0.23889595801272634,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 20,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 1.9815331683611532,
+          "target_horizontal_error_median": 0.01846683163884677,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488831162402208
+        },
+        "linear_z_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 141,
+          "path_length_median": 10.38915924538163,
+          "target_horizontal_error_median": 0.03112072390993248,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 22,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906501823461
+        },
+        "linear_z_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 230,
+          "path_length_median": 30.1813840112789,
+          "target_horizontal_error_median": 0.23889595801265529,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 20,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "diagonal_xz_pp": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 310,
+          "path_length_median": 20.781260298674724,
+          "target_horizontal_error_median": 0.029786450227357895,
+          "full_stop_runs_median": 15,
+          "input_changes_median": 40,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1178590650283399
+        },
+        "diagonal_xz_np": {
+          "runs": 5,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 346,
+          "path_length_median": 14.24599773164266,
+          "target_horizontal_error_median": 6.103059976431045,
+          "full_stop_runs_median": 18,
+          "input_changes_median": 56,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.153216628270088
+        },
+        "diagonal_xz_pn": {
+          "runs": 5,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 346,
+          "path_length_median": 12.315648225645052,
+          "target_horizontal_error_median": 8.000148167957727,
+          "full_stop_runs_median": 22,
+          "input_changes_median": 60,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785895932598897
+        },
+        "diagonal_xz_nn": {
+          "runs": 5,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 351,
+          "path_length_median": 13.692280869691281,
+          "target_horizontal_error_median": 6.708636863559731,
+          "full_stop_runs_median": 22,
+          "input_changes_median": 56,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906136674903
+        },
+        "mode_normal_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 101,
+          "path_length_median": 14.866570258542882,
+          "target_horizontal_error_median": 0.13342974145711572,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049291
+        },
+        "mode_normal_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 310,
+          "path_length_median": 20.77828154510486,
+          "target_horizontal_error_median": 0.031221253326240476,
+          "full_stop_runs_median": 15,
+          "input_changes_median": 44,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906501823461
+        },
+        "mode_fast_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 151,
+          "path_length_median": 15.354520297704562,
+          "target_horizontal_error_median": 0.06575967158699925,
+          "full_stop_runs_median": 4,
+          "input_changes_median": 24,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1532167942115252
+        },
+        "mode_fast_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 314,
+          "path_length_median": 20.883494305285655,
+          "target_horizontal_error_median": 0.05287211374692041,
+          "full_stop_runs_median": 12,
+          "input_changes_median": 54,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15321678192315483
+        },
+        "mode_sneak_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 243,
+          "path_length_median": 14.976144484177128,
+          "target_horizontal_error_median": 0.023855515822909013,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 8,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.057228445193912195
+        },
+        "mode_sneak_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 360,
+          "path_length_median": 19.93478377980548,
+          "target_horizontal_error_median": 0.010421475202329462,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 18,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.06404871326737961
+        },
+        "precision_0_2": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 6,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 0.1999999999999993,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "precision_0_5": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 16,
+          "path_length_median": 0.4921389514363135,
+          "target_horizontal_error_median": 0.007861048563686523,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 4,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07431584226159708
+        },
+        "precision_1_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 26,
+          "path_length_median": 0.9885961232621661,
+          "target_horizontal_error_median": 0.01140387673783394,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 8,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07463633311724252
+        },
+        "precision_2_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 1.9815331683611497,
+          "target_horizontal_error_median": 0.018466831638850323,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488831162402208
+        },
+        "step_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 39,
+          "path_length_median": 2.9417969320887014,
+          "target_horizontal_error_median": 0.10657237325796842,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 16,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0907372206010384
+        },
+        "step_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 132,
+          "path_length_median": 4.934181549843066,
+          "target_horizontal_error_median": 0.2181354194516203,
+          "full_stop_runs_median": 9,
+          "input_changes_median": 34,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09799039751002586
+        },
+        "step_z_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 58,
+          "path_length_median": 3.988708132260969,
+          "target_horizontal_error_median": 0.07360561108650643,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 26,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09126668629423629
+        },
+        "step_z_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 58,
+          "path_length_median": 3.972500149040969,
+          "target_horizontal_error_median": 0.18947608602162092,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 24,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0979931763356915
+        },
+        "stairs_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 80,
+          "path_length_median": 7.217041019395254,
+          "target_horizontal_error_median": 0.13243009926489613,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 42,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09292054013566285
+        },
+        "stairs_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 245,
+          "path_length_median": 7.578995670378818,
+          "target_horizontal_error_median": 0.0314085844234917,
+          "full_stop_runs_median": 8,
+          "input_changes_median": 38,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09789721765154168
+        },
+        "combined_xy": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 80,
+          "path_length_median": 7.217041019395254,
+          "target_horizontal_error_median": 0.13243009926489613,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 42,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09292054013566285
+        },
+        "combined_yz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 80,
+          "path_length_median": 7.216823058901825,
+          "target_horizontal_error_median": 0.1396730021247663,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 42,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09126668629423629
+        },
+        "combined_xyz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 348,
+          "path_length_median": 11.372605924506498,
+          "target_horizontal_error_median": 0.011617372214666705,
+          "full_stop_runs_median": 25,
+          "input_changes_median": 74,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09126668629423629
+        },
+        "turn_90_left": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 248,
+          "path_length_median": 8.938239155499154,
+          "target_horizontal_error_median": 0.1933534654332033,
+          "full_stop_runs_median": 13,
+          "input_changes_median": 44,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.149366654435179
+        },
+        "turn_90_right": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 244,
+          "path_length_median": 8.938241727225472,
+          "target_horizontal_error_median": 0.1933607585849007,
+          "full_stop_runs_median": 12,
+          "input_changes_median": 44,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1493671958630357
+        },
+        "curve_gentle_45": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 175,
+          "path_length_median": 15.833574467031033,
+          "target_horizontal_error_median": 0.19032583141661652,
+          "full_stop_runs_median": 10,
+          "input_changes_median": 38,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785905558757893
+        },
+        "curve_s": {
+          "runs": 3,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 389,
+          "path_length_median": 15.383580638633063,
+          "target_horizontal_error_median": 0.9037083046953477,
+          "full_stop_runs_median": 27,
+          "input_changes_median": 84,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.14936701612511366
+        },
+        "curve_zigzag": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 334,
+          "path_length_median": 15.30010111376695,
+          "target_horizontal_error_median": 0.011708130813787269,
+          "full_stop_runs_median": 29,
+          "input_changes_median": 100,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.14042086821151553
+        },
+        "turn_180_while_moving": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 202,
+          "path_length_median": 13.45004395960554,
+          "target_horizontal_error_median": 0.027384714194241155,
+          "full_stop_runs_median": 8,
+          "input_changes_median": 23,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504046433
+        },
+        "parkour_level1_rise": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 40,
+          "path_length_median": 2.998901574824064,
+          "target_horizontal_error_median": 0.04927521277692648,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 18,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09292054013566285
+        },
+        "parkour_level2_gap": {
+          "runs": 3,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 7,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 3.0,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "parkour_level2_two_gaps": {
+          "runs": 3,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 22,
+          "path_length_median": 0.7062304234377841,
+          "target_horizontal_error_median": 7.293769576562216,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 6,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07431584226159708
+        },
+        "parkour_level3_diagonal": {
+          "runs": 3,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 6,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 5.656854249492381,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "parkour_level4_platforms": {
+          "runs": 3,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 99,
+          "path_length_median": 3.680421378474412,
+          "target_horizontal_error_median": 16.855320271296346,
+          "full_stop_runs_median": 10,
+          "input_changes_median": 30,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.07488830070732082
+        },
+        "roof_access_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 85,
+          "path_length_median": 7.337690171948478,
+          "target_horizontal_error_median": 0.11549551462340446,
+          "full_stop_runs_median": 8,
+          "input_changes_median": 44,
+          "horizontal_collision_ticks_median": 2,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09126668629423629
+        },
+        "roof_descent_center": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 189,
+          "path_length_median": 7.418678134888205,
+          "target_horizontal_error_median": 0.27970496501691144,
+          "full_stop_runs_median": 7,
+          "input_changes_median": 38,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09799039751002586
+        },
+        "roof_overhang_recovery": {
+          "runs": 5,
+          "successes": 0,
+          "success_rate": 0.0,
+          "game_ticks_median": 7,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 2.4921679999999995,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        }
+      },
+      "failures": [
+        {
+          "scenario": "curve_s",
+          "repeat": 1,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 3.999993602703836,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "curve_s",
+          "repeat": 2,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 0.9035823120499681,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "curve_s",
+          "repeat": 3,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 0.9037083046953477,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_nn",
+          "repeat": 1,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.708636863559731,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_nn",
+          "repeat": 2,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.708625246998351,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_nn",
+          "repeat": 3,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.708636863559731,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_nn",
+          "repeat": 4,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.708636863559731,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_nn",
+          "repeat": 5,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.708636863559731,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_np",
+          "repeat": 1,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.103059976431045,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_np",
+          "repeat": 2,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.103059976431045,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_np",
+          "repeat": 3,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.103059976431045,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_np",
+          "repeat": 4,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.103059976431045,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_np",
+          "repeat": 5,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 6.096516526191397,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_pn",
+          "repeat": 1,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 8.000148167957727,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_pn",
+          "repeat": 2,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 8.000148167957727,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_pn",
+          "repeat": 3,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 8.000145676076697,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_pn",
+          "repeat": 4,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 8.00015870899032,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "diagonal_xz_pn",
+          "repeat": 5,
+          "skill_status": "timed_out",
+          "skill_reason": "deadline_exceeded",
+          "settled_horizontal_error": 8.000149804547227,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_gap",
+          "repeat": 1,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 3.0,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_gap",
+          "repeat": 2,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 3.0,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_gap",
+          "repeat": 3,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 3.0,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_two_gaps",
+          "repeat": 1,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 7.293769576562216,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_two_gaps",
+          "repeat": 2,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 7.293769576562216,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level2_two_gaps",
+          "repeat": 3,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 7.293769576562216,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level3_diagonal",
+          "repeat": 1,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 5.656854249492381,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level3_diagonal",
+          "repeat": 2,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 5.656854249492381,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level3_diagonal",
+          "repeat": 3,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 5.656854249492381,
+          "settled_vertical_error": 0.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level4_platforms",
+          "repeat": 1,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 16.855320271296346,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level4_platforms",
+          "repeat": 2,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 16.855340106446537,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "parkour_level4_platforms",
+          "repeat": 3,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 16.855320271296346,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "roof_overhang_recovery",
+          "repeat": 1,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 2.4921679999999995,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "roof_overhang_recovery",
+          "repeat": 2,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 2.4921679999999995,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "roof_overhang_recovery",
+          "repeat": 3,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 2.4921679999999995,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "roof_overhang_recovery",
+          "repeat": 4,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 2.4921679999999995,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        },
+        {
+          "scenario": "roof_overhang_recovery",
+          "repeat": 5,
+          "skill_status": "blocked",
+          "skill_reason": "no_known_safe_route",
+          "settled_horizontal_error": 2.4921679999999995,
+          "settled_vertical_error": 2.0,
+          "acceptance_radius": 0.3
+        }
+      ],
+      "artifacts": {
+        "files": 426,
+        "json_files": 215,
+        "csv_files": 211,
+        "sha256": "155adca09b386395745eff9a51d5a7716b4676bbb80ba1e12ce95d8fb5ad0049",
+        "summary_sha256": "abbdfae5b627ec0cff802e4d24f29a39e4de3c2bf8da1ef9b8c1dbad300e63fe",
+        "ended_world_manifest_sha256": "3f0e6913a5a2635c77321c87c6d44dd49ca7ba9e1514a846775e9ba6e8f01fa8"
+      }
+    },
+    "after": {
+      "id": "after-v4",
+      "variant": "after",
+      "metadata": {
+        "run_id": "after-v4",
+        "variant": "after",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+          "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+          "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+          "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+        },
+        "scenario_names": [
+          "linear_x_positive_short",
+          "linear_x_positive_medium",
+          "linear_x_positive_long",
+          "linear_x_negative_short",
+          "linear_x_negative_medium",
+          "linear_x_negative_long",
+          "linear_z_positive_short",
+          "linear_z_positive_medium",
+          "linear_z_positive_long",
+          "linear_z_negative_short",
+          "linear_z_negative_medium",
+          "linear_z_negative_long",
+          "diagonal_xz_pp",
+          "diagonal_xz_np",
+          "diagonal_xz_pn",
+          "diagonal_xz_nn",
+          "mode_normal_straight",
+          "mode_normal_diagonal",
+          "mode_fast_straight",
+          "mode_fast_diagonal",
+          "mode_sneak_straight",
+          "mode_sneak_diagonal",
+          "precision_0_2",
+          "precision_0_5",
+          "precision_1_0",
+          "precision_2_0",
+          "step_x_ascend",
+          "step_x_descend",
+          "step_z_ascend",
+          "step_z_descend",
+          "stairs_x_ascend",
+          "stairs_x_descend",
+          "combined_xy",
+          "combined_yz",
+          "combined_xyz",
+          "turn_90_left",
+          "turn_90_right",
+          "curve_gentle_45",
+          "curve_s",
+          "curve_zigzag",
+          "turn_180_while_moving",
+          "parkour_level1_rise",
+          "parkour_level2_gap",
+          "parkour_level2_two_gaps",
+          "parkour_level3_diagonal",
+          "parkour_level4_platforms",
+          "roof_access_ascend",
+          "roof_descent_center",
+          "roof_overhang_recovery"
+        ],
+        "repeat_policy": "Scenario-declared fixed repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_each_measurement": true
+      },
+      "aggregate": {
+        "runs": 211,
+        "successes": 211,
+        "success_rate": 1.0,
+        "success_wilson_95": [
+          0.9821195646232311,
+          0.9999999999999999
+        ],
+        "trace_dropped_samples": 0,
+        "all_settled_at_end": true,
+        "trace_profiles": [
+          "native_player_motion_ticks_v1"
+        ],
+        "game_ticks": {
+          "total": 18004,
+          "median": 70,
+          "min": 10,
+          "max": 309
+        },
+        "path_length": {
+          "total": 2300.116632535474,
+          "median": 10.14162081648476,
+          "min": 0.0,
+          "max": 30.000655110035158
+        },
+        "target_horizontal_error": {
+          "total": 30.046173751358552,
+          "median": 0.12975824300992045,
+          "min": 0.0006551100350709049,
+          "max": 0.2900973203315447
+        },
+        "full_stop_runs": {
+          "total": 185,
+          "median": 0,
+          "min": 0,
+          "max": 11
+        },
+        "input_changes": {
+          "total": 1903,
+          "median": 2,
+          "min": 0,
+          "max": 61
+        },
+        "horizontal_collision_ticks": {
+          "total": 107,
+          "median": 0,
+          "min": 0,
+          "max": 12
+        },
+        "health_loss": {
+          "total": 0.0,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_horizontal_speed": {
+          "total": 24.95342034777726,
+          "median": 0.11785906302342097,
+          "min": 0.0,
+          "max": 0.235583287802046
+        }
+      },
+      "categories": {
+        "building": {
+          "runs": 13,
+          "successes": 13,
+          "game_ticks_total": 1227,
+          "game_ticks_median": 99
+        },
+        "combined": {
+          "runs": 29,
+          "successes": 29,
+          "game_ticks_total": 2551,
+          "game_ticks_median": 83
+        },
+        "curves": {
+          "runs": 11,
+          "successes": 11,
+          "game_ticks_total": 1037,
+          "game_ticks_median": 110
+        },
+        "linear": {
+          "runs": 60,
+          "successes": 60,
+          "game_ticks_total": 4929,
+          "game_ticks_median": 66.0
+        },
+        "modes": {
+          "runs": 30,
+          "successes": 30,
+          "game_ticks_total": 3890,
+          "game_ticks_median": 85.5
+        },
+        "parkour": {
+          "runs": 15,
+          "successes": 15,
+          "game_ticks_total": 1515,
+          "game_ticks_median": 53
+        },
+        "precision": {
+          "runs": 20,
+          "successes": 20,
+          "game_ticks_total": 497,
+          "game_ticks_median": 21.0
+        },
+        "turns": {
+          "runs": 15,
+          "successes": 15,
+          "game_ticks_total": 1213,
+          "game_ticks_median": 62
+        },
+        "vertical": {
+          "runs": 18,
+          "successes": 18,
+          "game_ticks_total": 1145,
+          "game_ticks_median": 46.5
+        }
+      },
+      "scenarios": {
+        "linear_x_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 27,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_x_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 66,
+          "path_length_median": 10.141620816484766,
+          "target_horizontal_error_median": 0.141620816484763,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504044052
+        },
+        "linear_x_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 155,
+          "path_length_median": 29.784796041627,
+          "target_horizontal_error_median": 0.2152039583730847,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_x_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 27,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_x_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 66,
+          "path_length_median": 10.14162081648476,
+          "target_horizontal_error_median": 0.14162081648476033,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504044052
+        },
+        "linear_x_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 155,
+          "path_length_median": 29.784796041626976,
+          "target_horizontal_error_median": 0.2152039583730243,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_positive_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 27,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_z_positive_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 65,
+          "path_length_median": 10.141620816484766,
+          "target_horizontal_error_median": 0.141620816484763,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504044052
+        },
+        "linear_z_positive_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 157,
+          "path_length_median": 30.000655110035158,
+          "target_horizontal_error_median": 0.0006551100350709049,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "linear_z_negative_short": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 27,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "linear_z_negative_medium": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 66,
+          "path_length_median": 10.14162081648476,
+          "target_horizontal_error_median": 0.14162081648476033,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504044052
+        },
+        "linear_z_negative_long": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 155,
+          "path_length_median": 29.784796041626976,
+          "target_horizontal_error_median": 0.2152039583730243,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "diagonal_xz_pp": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 84,
+          "path_length_median": 14.024994044051201,
+          "target_horizontal_error_median": 0.1171417148202357,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 4,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341631486862
+        },
+        "diagonal_xz_np": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 83,
+          "path_length_median": 14.027083807768252,
+          "target_horizontal_error_median": 0.11505181596270098,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "diagonal_xz_pn": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 83,
+          "path_length_median": 14.027083807768252,
+          "target_horizontal_error_median": 0.11505181596270098,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "diagonal_xz_nn": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 83,
+          "path_length_median": 14.027083807768252,
+          "target_horizontal_error_median": 0.11505181596270098,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906302342097
+        },
+        "mode_normal_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 87,
+          "path_length_median": 14.890520321464184,
+          "target_horizontal_error_median": 0.10947967853581275,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785906504049293
+        },
+        "mode_normal_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 84,
+          "path_length_median": 14.024994044051203,
+          "target_horizontal_error_median": 0.11714171482023822,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 4,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341631486862
+        },
+        "mode_fast_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 71,
+          "path_length_median": 14.867808732330563,
+          "target_horizontal_error_median": 0.13219126766943923,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15321679421194195
+        },
+        "mode_fast_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 68,
+          "path_length_median": 14.025285965934675,
+          "target_horizontal_error_median": 0.11684979099602906,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15320945076806125
+        },
+        "mode_sneak_straight": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 240,
+          "path_length_median": 14.71781051070099,
+          "target_horizontal_error_median": 0.2821894892990482,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.053508008053839436
+        },
+        "mode_sneak_diagonal": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 228,
+          "path_length_median": 13.875294927601296,
+          "target_horizontal_error_median": 0.2668407727142088,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.05350544304405506
+        },
+        "precision_0_2": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 11,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 0.1999999999999993,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.0
+        },
+        "precision_0_5": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 19,
+          "path_length_median": 0.4268905659483835,
+          "target_horizontal_error_median": 0.07310943405161652,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.08272338384467842
+        },
+        "precision_1_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 21,
+          "path_length_median": 0.857169526313502,
+          "target_horizontal_error_median": 0.14283047368649804,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.10738455387183765
+        },
+        "precision_2_0": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 27,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "step_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 3.118771491808967,
+          "target_horizontal_error_median": 0.08358235403322567,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 14,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11213998127812054
+        },
+        "step_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 50,
+          "path_length_median": 4.79295086043598,
+          "target_horizontal_error_median": 0.010009198638400107,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 12,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1169539297743702
+        },
+        "step_z_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 3.8897018993819112,
+          "target_horizontal_error_median": 0.17329604948676547,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 10,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11736615832999425
+        },
+        "step_z_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 41,
+          "path_length_median": 3.945548830344255,
+          "target_horizontal_error_median": 0.07834559515076478,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 10,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11735079181837918
+        },
+        "stairs_x_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 70,
+          "path_length_median": 7.132421357005854,
+          "target_horizontal_error_median": 0.1806638502862512,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 34,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11213998127812054
+        },
+        "stairs_x_descend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 137,
+          "path_length_median": 7.090854414664436,
+          "target_horizontal_error_median": 0.054861751113119445,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 32,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.09789721765154168
+        },
+        "combined_xy": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 70,
+          "path_length_median": 7.132421357005854,
+          "target_horizontal_error_median": 0.1806638502862512,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 34,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11213998127812054
+        },
+        "combined_yz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 72,
+          "path_length_median": 7.3922323870088125,
+          "target_horizontal_error_median": 0.03839193773474392,
+          "full_stop_runs_median": 4,
+          "input_changes_median": 32,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.145930483049302
+        },
+        "combined_xyz": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 153,
+          "path_length_median": 10.461287267207359,
+          "target_horizontal_error_median": 0.17967822915716014,
+          "full_stop_runs_median": 4,
+          "input_changes_median": 44,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11561004456400213
+        },
+        "turn_90_left": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 59,
+          "path_length_median": 8.376006431351867,
+          "target_horizontal_error_median": 0.20821346601871135,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 7,
+          "horizontal_collision_ticks_median": 2,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15408516471462105
+        },
+        "turn_90_right": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 59,
+          "path_length_median": 8.375991932932832,
+          "target_horizontal_error_median": 0.208174262356935,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 7,
+          "horizontal_collision_ticks_median": 2,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15409236847497518
+        },
+        "curve_gentle_45": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 70,
+          "path_length_median": 11.220378267798418,
+          "target_horizontal_error_median": 0.09333032349514281,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11785341623788259
+        },
+        "curve_s": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 110,
+          "path_length_median": 15.206536443049895,
+          "target_horizontal_error_median": 0.21893177857657078,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 23,
+          "horizontal_collision_ticks_median": 7,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11969242818678402
+        },
+        "curve_zigzag": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 110,
+          "path_length_median": 15.011093915290386,
+          "target_horizontal_error_median": 0.11205399485969197,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 23,
+          "horizontal_collision_ticks_median": 12,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11990223554171274
+        },
+        "turn_180_while_moving": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 119,
+          "path_length_median": 17.808935829827796,
+          "target_horizontal_error_median": 0.19480397492596185,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 23,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.15320368163815026
+        },
+        "parkour_level1_rise": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 42,
+          "path_length_median": 3.0696135933862285,
+          "target_horizontal_error_median": 0.13243009926490856,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 14,
+          "horizontal_collision_ticks_median": 1,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11213998127812054
+        },
+        "parkour_level2_gap": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 40,
+          "path_length_median": 4.659088448442667,
+          "target_horizontal_error_median": 0.0679106904868263,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 5,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.14691136860507253
+        },
+        "parkour_level2_two_gaps": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 64,
+          "path_length_median": 10.36555782096762,
+          "target_horizontal_error_median": 0.20263755250503834,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 12,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.235583287802046
+        },
+        "parkour_level3_diagonal": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 53,
+          "path_length_median": 8.407769556306308,
+          "target_horizontal_error_median": 0.12975824300992045,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 5,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.17532816493917894
+        },
+        "parkour_level4_platforms": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 307,
+          "path_length_median": 29.7204175180108,
+          "target_horizontal_error_median": 0.1194096919976483,
+          "full_stop_runs_median": 11,
+          "input_changes_median": 61,
+          "horizontal_collision_ticks_median": 2,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.1753281683582866
+        },
+        "roof_access_ascend": {
+          "runs": 3,
+          "successes": 3,
+          "success_rate": 1.0,
+          "game_ticks_median": 66,
+          "path_length_median": 6.983751385569808,
+          "target_horizontal_error_median": 0.18272354828155102,
+          "full_stop_runs_median": 3,
+          "input_changes_median": 28,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11231288506930687
+        },
+        "roof_descent_center": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 106,
+          "path_length_median": 7.0372221809069275,
+          "target_horizontal_error_median": 0.2751791762700098,
+          "full_stop_runs_median": 4,
+          "input_changes_median": 28,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.10767307372212415
+        },
+        "roof_overhang_recovery": {
+          "runs": 5,
+          "successes": 5,
+          "success_rate": 1.0,
+          "game_ticks_median": 99,
+          "path_length_median": 5.267593006205187,
+          "target_horizontal_error_median": 0.22398655409354262,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 20,
+          "horizontal_collision_ticks_median": 0,
+          "health_loss_median": 0.0,
+          "max_horizontal_speed_median": 0.11229805617227472
+        }
+      },
+      "failures": [],
+      "artifacts": {
+        "files": 426,
+        "json_files": 215,
+        "csv_files": 211,
+        "sha256": "6afb47f7e529f87019dc251d2f7854e2c4799cab9a172fc1c76f4a8da34b78fd",
+        "summary_sha256": "02ad5af6d79ed57eff846431c9b5d17cec92fa3f5684771d09132e2b981c1db8",
+        "ended_world_manifest_sha256": "7268f91415acf1456f1a034cb6aa9fdfcdbc0d83c66d8d8268f662de2bcfd1a4"
+      }
+    }
+  },
+  "comparison": {
+    "success_rate_change": 0.16587677725118488,
+    "total_game_ticks_change": -0.4758813426101132,
+    "full_stop_runs_change": -0.8934945308002303,
+    "input_changes_change": -0.6796835549570779,
+    "after_total_ticks_vs_native": 0.2046838407494145,
+    "after_median_ticks_vs_native": 0.20689655172413793,
+    "previously_failing_scenarios_recovered": [
+      "diagonal_xz_np",
+      "diagonal_xz_pn",
+      "diagonal_xz_nn",
+      "curve_s",
+      "parkour_level2_gap",
+      "parkour_level2_two_gaps",
+      "parkour_level3_diagonal",
+      "parkour_level4_platforms",
+      "roof_overhang_recovery"
+    ],
+    "fully_passing_before_and_after_scenarios": 40,
+    "median_tick_wins": 36,
+    "median_tick_ties": 0,
+    "median_tick_regressions": 4,
+    "median_tick_regression_scenarios": [
+      "precision_0_2",
+      "precision_0_5",
+      "step_x_ascend",
+      "parkour_level1_rise"
+    ],
+    "representative": {
+      "linear_x_positive_short": {
+        "native": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 20,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587
+        },
+        "before": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 42,
+          "full_stop_runs_median": 5,
+          "input_changes_median": 16,
+          "path_length_median": 1.9815331683611639,
+          "target_horizontal_error_median": 0.018466831638836112
+        },
+        "after": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 27,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 1.9389924123230564,
+          "target_horizontal_error_median": 0.061007587676943587
+        }
+      },
+      "linear_x_negative_long": {
+        "native": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 150,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 30.000655110035133,
+          "target_horizontal_error_median": 0.0006551100351330774
+        },
+        "before": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 230,
+          "full_stop_runs_median": 6,
+          "input_changes_median": 20,
+          "path_length_median": 30.18168408255348,
+          "target_horizontal_error_median": 0.23859588673807508
+        },
+        "after": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 155,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 29.784796041626976,
+          "target_horizontal_error_median": 0.2152039583730243
+        }
+      },
+      "turn_90_left": {
+        "native": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 55,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 8.18223363187783,
+          "target_horizontal_error_median": 0.03590083788458413
+        },
+        "before": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 248,
+          "full_stop_runs_median": 13,
+          "input_changes_median": 44,
+          "path_length_median": 8.938239155499154,
+          "target_horizontal_error_median": 0.1933534654332033
+        },
+        "after": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 59,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 7,
+          "path_length_median": 8.376006431351867,
+          "target_horizontal_error_median": 0.20821346601871135
+        }
+      },
+      "curve_s": {
+        "native": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 109,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 2,
+          "path_length_median": 15.437355954507959,
+          "target_horizontal_error_median": 0.3497658421447706
+        },
+        "before": {
+          "runs": 3,
+          "successes": 0,
+          "game_ticks_median": 389,
+          "full_stop_runs_median": 27,
+          "input_changes_median": 84,
+          "path_length_median": 15.383580638633063,
+          "target_horizontal_error_median": 0.9037083046953477
+        },
+        "after": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 110,
+          "full_stop_runs_median": 1,
+          "input_changes_median": 23,
+          "path_length_median": 15.206536443049895,
+          "target_horizontal_error_median": 0.21893177857657078
+        }
+      },
+      "parkour_level2_gap": {
+        "native": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 35,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 6.498699951527782,
+          "target_horizontal_error_median": 0.47103238830574057
+        },
+        "before": {
+          "runs": 3,
+          "successes": 0,
+          "game_ticks_median": 7,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 3.0
+        },
+        "after": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 40,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 5,
+          "path_length_median": 4.659088448442667,
+          "target_horizontal_error_median": 0.0679106904868263
+        }
+      },
+      "parkour_level4_platforms": {
+        "native": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 128,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 32.461454461956954,
+          "target_horizontal_error_median": 0.1108423872690768
+        },
+        "before": {
+          "runs": 3,
+          "successes": 0,
+          "game_ticks_median": 99,
+          "full_stop_runs_median": 10,
+          "input_changes_median": 30,
+          "path_length_median": 3.680421378474412,
+          "target_horizontal_error_median": 16.855320271296346
+        },
+        "after": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 307,
+          "full_stop_runs_median": 11,
+          "input_changes_median": 61,
+          "path_length_median": 29.7204175180108,
+          "target_horizontal_error_median": 0.1194096919976483
+        }
+      },
+      "roof_overhang_recovery": {
+        "native": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 88,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 8,
+          "path_length_median": 4.5648937145723885,
+          "target_horizontal_error_median": 0.1924314331042396
+        },
+        "before": {
+          "runs": 5,
+          "successes": 0,
+          "game_ticks_median": 7,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 0,
+          "path_length_median": 0.0,
+          "target_horizontal_error_median": 2.4921679999999995
+        },
+        "after": {
+          "runs": 5,
+          "successes": 5,
+          "game_ticks_median": 99,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 20,
+          "path_length_median": 5.267593006205187,
+          "target_horizontal_error_median": 0.22398655409354262
+        }
+      },
+      "step_x_descend": {
+        "native": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 29,
+          "full_stop_runs_median": 0,
+          "input_changes_median": 2,
+          "path_length_median": 4.186593382331892,
+          "target_horizontal_error_median": 0.33602322635474735
+        },
+        "before": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 132,
+          "full_stop_runs_median": 9,
+          "input_changes_median": 34,
+          "path_length_median": 4.934181549843066,
+          "target_horizontal_error_median": 0.2181354194516203
+        },
+        "after": {
+          "runs": 3,
+          "successes": 3,
+          "game_ticks_median": 50,
+          "full_stop_runs_median": 2,
+          "input_changes_median": 12,
+          "path_length_median": 4.79295086043598,
+          "target_horizontal_error_median": 0.010009198638400107
+        }
+      }
+    }
+  },
+  "optimization_history": [
+    {
+      "id": "after-v1",
+      "runs": 211,
+      "successes": 208,
+      "success_rate": 0.985781990521327,
+      "failed_scenarios": [
+        {
+          "name": "step_x_descend",
+          "successes": 0,
+          "runs": 3
+        }
+      ],
+      "summary_sha256": "3565e1a41fd18ec1c99d99b54f9045e16aebddd87f345ed2b52980a426aa6449"
+    },
+    {
+      "id": "after-v2",
+      "runs": 211,
+      "successes": 210,
+      "success_rate": 0.995260663507109,
+      "failed_scenarios": [
+        {
+          "name": "parkour_level4_platforms",
+          "successes": 2,
+          "runs": 3
+        }
+      ],
+      "summary_sha256": "2cb1aad639a50f6d724c739df32cefbfbd4c42783bf2c756e326c8cbe177acfe"
+    },
+    {
+      "id": "after-v3",
+      "runs": 211,
+      "successes": 211,
+      "success_rate": 1.0,
+      "failed_scenarios": [],
+      "summary_sha256": "3854eee5c07b348a58c35ebaf9c2938abc575bc0eb2af7b2e42053922626e8d3"
+    },
+    {
+      "id": "after-v4",
+      "runs": 211,
+      "successes": 211,
+      "success_rate": 1.0,
+      "failed_scenarios": [],
+      "summary_sha256": "02ad5af6d79ed57eff846431c9b5d17cec92fa3f5684771d09132e2b981c1db8"
+    }
+  ],
+  "qa": {
+    "python": {
+      "tests": 440,
+      "passed": true,
+      "sha256": "337380eb2d7f709de8a0a6a2e9f54ae372bed60bd46659a75eace68df4ff5b9f"
+    },
+    "gradle": {
+      "passed": true,
+      "sha256": "4dd62da225203c6747345f18c5eaabc3bf7481991cda584c1d84c2a1ead3d8d3"
+    },
+    "TLS": {
+      "status": "PASS",
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ]
+    },
+    "mutations": {
+      "skills": {
+        "total": 148,
+        "killed": 148,
+        "all_killed": true,
+        "sha256": "3f219c1b3caee6718c79e667cb123bbe19bd467a2df150a5ef667d9b24c4e8bc"
+      },
+      "native": {
+        "total": 37,
+        "killed": 37,
+        "all_killed": true,
+        "sha256": "db0f8543ccf11f3a11c584c40084200a525551e5202327c3d7b5cf2d9e442ec7"
+      },
+      "controller": {
+        "total": 20,
+        "killed": 20,
+        "all_killed": true,
+        "sha256": "b9aec9292186220f1eb8809a1f181489238cd567e2a386defd02dcb60bf52ca4"
+      },
+      "building": {
+        "total": 22,
+        "killed": 22,
+        "all_killed": true,
+        "sha256": "5407022c8c16288dc9a81b12402ee86b8a6573bf480f7ba1adac6eeff12e7e2d"
+      }
+    },
+    "mutation_total": 227,
+    "all_mutations_killed": true,
+    "superflat_A15_regression": {
+      "passed": true,
+      "objective_verified": true,
+      "elapsed_seconds": 581.9208708119986,
+      "executed_operations": 288,
+      "failed_actions": 0,
+      "verified_native_placement_events": 82,
+      "ended_snapshot_identity": "5829d5a00d546cca9632773e0ebd7ce4d9053cffc2b25679a64c3c674fd5a6b0",
+      "verification": {
+        "expected_blocks": 71,
+        "verified_blocks": 71,
+        "incorrect_blocks": 0,
+        "missing_blocks": 0,
+        "unknown_blocks": 0,
+        "entrance_clear": true,
+        "interior_clear": true,
+        "interior_accessible": true,
+        "roof_complete": true,
+        "floor_intact": true,
+        "safe_player": true,
+        "objective_verified": true
+      }
+    },
+    "superflat_A15_result_sha256": "00478520f5fa99859c542b41194a7b6069c9d838e2f0d41257314530d6a88ae4",
+    "final_client": {
+      "captured_at": 1793485853.3865373,
+      "screen": "Title Screen",
+      "in_world": false,
+      "active_benchmark_controller": false,
+      "world_saved_and_closed": true,
+      "scope": "Post-qualification Minecraft 26.3 test-client closure; no movement/building task active."
+    },
+    "installed_test_jar_sha256": "f3742857a1f953f7775a8fbb7a0ff0f793be76ae0cbc213515bcc660ef42c2bb"
+  },
+  "qualified_source_sha256": {
+    "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+    "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+    "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+    "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+  },
+  "current_source_sha256": {
+    "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+    "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+    "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+    "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+  },
+  "private_evidence_root": "build/movement-benchmark",
+  "artifact_sha256": {
+    "build/movement-benchmark/private/baseline.manifest.json": "82de86967794fb21565807c18fb10fba42d474de4a1659fc11d2ff852d1d8b63",
+    "build/movement-benchmark/private/controller-before.sha256": "af1c1d3fb314db2e557b14fc0fe6fc8100726832c5e37beef3f2306836ac95da",
+    "build/movement-benchmark/final-client.json": "474c74577450460c3b9b7c34d41e3aff108e1c2c219630f02a55dcfb9f5d8efd",
+    "build/movement-benchmark/final-python.log": "337380eb2d7f709de8a0a6a2e9f54ae372bed60bd46659a75eace68df4ff5b9f",
+    "build/movement-benchmark/final-gradle-check.log": "4dd62da225203c6747345f18c5eaabc3bf7481991cda584c1d84c2a1ead3d8d3",
+    "build/movement-benchmark/final-tls-interop.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f",
+    "build/movement-benchmark/final-native-mutations.log": "db0f8543ccf11f3a11c584c40084200a525551e5202327c3d7b5cf2d9e442ec7",
+    "build/movement-benchmark/final-skill-mutations.log": "3f219c1b3caee6718c79e667cb123bbe19bd467a2df150a5ef667d9b24c4e8bc",
+    "build/movement-benchmark/final-controller-mutations.log": "b9aec9292186220f1eb8809a1f181489238cd567e2a386defd02dcb60bf52ca4",
+    "build/movement-benchmark/final-building-mutations.log": "10db1982bac7b4441a5ab604cbc5921cfb27ab12df5447e56d1c6d921ca3072c"
+  },
+  "source_sha256": {
+    "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+    "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+    "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+    "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93",
+    "src/main/java/dev/blockwire/BridgeServer.java": "0a463b391c3700dbdaf90619fa0f6ba940be1a3df834ca52da0bb4330cbcc07f",
+    "src/main/java/dev/blockwire/Protocol.java": "d597fc11b9354f89253d7dd82a60ab44be96b475b11f66690287f4b376af8080",
+    "tests/movement/__init__.py": "87e401abb2955ed395c1b8aaabad0c2ee303d8495426c0891605acc5c9a95232",
+    "tests/movement/fixture.py": "e6c5f6f2ed01c32094607ac55a8034da15482e2e669698d516da919dbc117ade",
+    "tests/movement/live.py": "bc9c224cc30d0a988c779c76f3e98ff466f6959345e2e87c11405f79b8488385",
+    "tests/movement/metrics.py": "e6ad55f0c094ac04b59063692a7af05124d78d747d76482271e0270953fcb29e",
+    "tests/movement/reference.py": "d27ff7aff54e311e600de6169d695daebb8b939a3a59a4afeaf26997ff4bd4bb",
+    "tests/movement/snapshots.py": "ba8696db9e9270dbc9b4e4f633a1da7336923f5e38f3becf24e898f65378a59b",
+    "tools/movement_benchmark.py": "d24abc79e5f1297503da8b2d07289077af7f8f6d62c05337e527056594f0d8ef",
+    "tools/report_movement_benchmark.py": "8af9bba7a62089402c412ff2905ee38c33e0576bfd78ef0db303ac57d7c28486",
+    "tests/run_skill_mutations.py": "858bc8d33d43518670e85e4a0e6c2a2798da36ca5b06e4efaa251281a440d61d",
+    "python/tests/test_movement_benchmark.py": "836b92bcfe9c5d899ac60b754807b04764ee8e3ae8eb0a27c56632bfba8f5c8b",
+    "python/tests/test_motion_trace.py": "f707d195780ecceaa7d87e301aeaac2f88b9661d2a1a4c86a4f6d846cd6488bf",
+    "python/tests/test_continuous_motion.py": "9c0fe2a19946ed4be0c69a76cfc0de6e828ece1fac46449092d7f91f4fe6ec58",
+    "python/tests/test_walking_continuous.py": "2d3f6c88464018d55a942f9c0f9cfb379ce687fc568563d3f94ea035b5c50e0e",
+    "python/tests/test_terrain.py": "6f8791d90698b3160377ab21787eb22875654b5eccbb766c22ffee0d7eafeb07",
+    "python/tests/test_skills.py": "983e25a6503545037fbafc5a74e7190b7a5bc63befa3e18f51b88ca2c1bdec0e",
+    "src/contractTest/java/dev/blockwire/MotionTraceContractTest.java": "ebf3f0b6066a73fd84ee0119e14d18dcdadee2e65277263c234137567ec6baef",
+    "src/contractTest/java/dev/blockwire/TerrainContractTest.java": "77318974980ea864c949e411580bda1be9c3536954f74859204c749a9e0b6b78",
+    "README.md": "68135e706b5d6ccefad76efce513810565fd6de397e8d39c6be2f45c06ced1e7",
+    "python/README.md": "9d81b1b65839a540d86e623d3ff65bb944d93fefc1e92edbbb503d3220315e4f",
+    "docs/movement-benchmark.md": "7d4a5ad8a8aac9861755b89a3effbaad5f198294a6bcee19785eeaca72e8e5ef",
+    "docs/motion.md": "af14ef8fa0911adefc9b5927c58ae7054b3bd4ab36bc66f6403e565976f9f94d",
+    "docs/architecture.md": "71a890da58925ac18188789fe9fe52d4b286d9f05b11b9da5128cdd83d743cc8",
+    "docs/protocol.md": "0cdfeb2b558fd7211c696ba8f65d026e92fa205a901a11a0bb2c32cc1c425e8f",
+    "docs/skills.md": "295bb1d9a0f371117295b0ec1fa0097284af0c1fdc449e5f870e285f76e10e6e",
+    "docs/extensions.md": "e98156ae0578f4459b37bc3533506db45de4febd5c2d09bd545b771536b863c2",
+    "docs/autonomous-survival.md": "69dee36c7e7b82cfe2d262f94c45946714ca4dcd262d76ea63b90ebf3a7b2b39"
+  },
+  "limitations": [
+    "One owned deterministic fixture and one Minecraft version; not general terrain coverage.",
+    "Slabs, fluids, caves, unknown-height long routes and arbitrary non-full-block geometry remain unsupported.",
+    "Known-hazard avoidance is best effort, not immunity; hostile Survival reliability is not qualified.",
+    "Native reference and Blockwire use different declared endpoint radii, so endpoint error/path length are not direct parity metrics.",
+    "Strict native tick parity is NO-GO, principally including the Level-4 platform route.",
+    "Historical construction Test B remains NO-GO; movement results never retroactively requalify it.",
+    "No release, upload or deployment is authorized by this evidence."
+  ]
+}

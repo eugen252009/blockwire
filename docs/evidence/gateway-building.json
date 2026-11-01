@@ -1,0 +1,271 @@
+{
+  "schema_version": 1,
+  "historical_scope": "Original gateway/building qualification retained; see persistent-projects.json for subsequent generic persistence, native building and independent inspection evidence.",
+  "follow_up": "persistent-projects.json",
+  "recorded_at": "2026-10-31T01:20:02.527669+00:00",
+  "scope": "Gateway lifecycle hardening and separate model-generated shelter qualification. Historical BCL evidence remains scoped to its original artifacts.",
+  "assessment": {
+    "gateway": "GO: bounded trusted-local single-native-client profile",
+    "building_A": "CONDITIONAL GO: recovered native shelter verified; uninterrupted fresh terminal reliability not established",
+    "building_B": "NO-GO: regular resources/roof repair observed, full accessible shelter not independently proven"
+  },
+  "execution_architecture": "External tool-free LLM generates BCL -> compiler -> existing bounded runtime/skills -> native Minecraft. No build_house strategy or prepared construction sequence.",
+  "planner": {
+    "provider": "openai-codex",
+    "model": "gpt-6.1-sol",
+    "thinking": "medium",
+    "tools": false,
+    "extensions": false,
+    "mcp": false,
+    "context_files": false,
+    "audit": "Actual model requests/replies and submitted BCL retained in each private run directory."
+  },
+  "fixture_A": {
+    "world": "Blockwire BCL Building A01",
+    "seed": 1409,
+    "type": "Superflat",
+    "mode": "Survival",
+    "difficulty": "Peaceful",
+    "commands": true,
+    "operator_materials": "64 cobblestone via /give after empty inventory proof",
+    "regular_resource_survival": false,
+    "saved_snapshots": "Private CLOSED baseline, qualified A02, after artificial respawn, ended A03 snapshots retained."
+  },
+  "fixture_B": {
+    "world": "Blockwire BCL Building B01",
+    "seed": 2,
+    "type": "Default",
+    "mode": "Survival",
+    "difficulty": "Normal",
+    "respawn_radius": 0,
+    "commands": false,
+    "bonus_chest": false,
+    "initial_inventory": [],
+    "operator_materials": false,
+    "fixture_rule_setting": "Respawn radius zero in creation UI, not gameplay progression.",
+    "closed_snapshots": "Private empty baseline and final B02 snapshots retained."
+  },
+  "runs": {
+    "A01": {
+      "status": "incomplete",
+      "reason": "model_finish_requires_enclosure_acceptance",
+      "model_calls": 19,
+      "acceptance": null,
+      "verified_placement_events": 20,
+      "unique_placement_positions": 20
+    },
+    "A02": {
+      "status": "incomplete",
+      "reason": "decision_budget",
+      "model_calls": 40,
+      "acceptance": null,
+      "verified_placement_events": 26,
+      "unique_placement_positions": 26
+    },
+    "A03": {
+      "status": "incomplete",
+      "reason": "decision_budget",
+      "model_calls": 40,
+      "acceptance": {},
+      "verified_placement_events": 25,
+      "unique_placement_positions": 25
+    },
+    "B01": {
+      "status": "incomplete",
+      "reason": "invalid_expectation_manifest",
+      "model_calls": 17,
+      "acceptance": {
+        "verified": false,
+        "reason": "unsupported_bounded_shelter_dimensions"
+      },
+      "verified_placement_events": 1,
+      "unique_placement_positions": 1
+    },
+    "B02": {
+      "status": "incomplete",
+      "reason": "decision_budget",
+      "model_calls": 30,
+      "acceptance": {
+        "verified": false,
+        "reason": "closed_walls_roof_and_native_entrance_not_proven"
+      },
+      "verified_placement_events": 2,
+      "unique_placement_positions": 1
+    }
+  },
+  "accepted_fresh_uninterrupted_A": {
+    "successes": 0,
+    "fresh_activations": 2,
+    "note": "A02 resumes A01. A03 placed all 23 model-declared shell positions but exhausted budget before complete goal acceptance."
+  },
+  "independent_A02": {
+    "verified": true,
+    "reason": "observed_shelter_shell_and_native_doorway",
+    "bounds": [
+      [
+        9,
+        -60,
+        -5
+      ],
+      [
+        11,
+        -58,
+        -3
+      ]
+    ],
+    "wall_blocks": 14,
+    "roof_blocks": 9,
+    "entrance": [
+      [
+        10,
+        -60,
+        -5
+      ],
+      [
+        10,
+        -59,
+        -5
+      ]
+    ],
+    "scope": "client-observed shell plus bounded native floor/headroom/doorway geometry, not server-atomic truth",
+    "native_V0_samples": 43,
+    "source": "Only recorded native V0 command outputs, not input receipts or hidden block queries"
+  },
+  "independent_B": {
+    "verified": false,
+    "reason": "shell_not_observed",
+    "missing": [
+      [
+        -35,
+        62,
+        2
+      ]
+    ],
+    "native_V0_samples": 105,
+    "mining_invalidates_history": true,
+    "fresh_worlds": 1,
+    "resumes_after_harness_fix": 1,
+    "final_dirt": 11,
+    "final_health": 20,
+    "placement_events": 2,
+    "unique_roof_cells": 1
+  },
+  "live_cancellation": {
+    "status": "PASS",
+    "phase_at_cancel": "acting",
+    "terminal": "cancelled",
+    "inventory_unchanged": true,
+    "cleanup": "released",
+    "scope": "Intentional replay of recorded model program only as a fault test, NOT a new autonomous building success."
+  },
+  "live_death_respawn": {
+    "status": "PASS",
+    "operator_artificial_death": "/kill @s, only Stage A lifecycle fixture after qualified snapshot saved",
+    "stale_actor_rejected": true,
+    "explicit_gateway_permission": true,
+    "native_fenced_respawn": true,
+    "new_actor_observed": true,
+    "explicit_new_binding_and_inventory_execution": true,
+    "natural_damage_survival_qualification": false
+  },
+  "automated_checks": {
+    "python_tests": 333,
+    "python_status": "PASS",
+    "mutations": {
+      "bcl": 24,
+      "gateway_building": 14,
+      "skills_runtime": 128,
+      "native": 33,
+      "controller": 20,
+      "campaign": 14,
+      "total": 233,
+      "status": "ALL KILLED"
+    },
+    "gradle_check": "PASS",
+    "native_TLS_interop": {
+      "checks": 10,
+      "status": "PASS"
+    }
+  },
+  "retained_failures": [
+    "A01 incomplete roof/false full-goal interpretation of subprogram success",
+    "A02 observation collector discarded intermediate V0, false-negative terminal; independent full native record proves recovered shelter",
+    "A03 budget exhausted before accepted finish, despite full placement ledger",
+    "B fixture initially matched a disabled StringWidget rather than active EditBox; corrected UI helper",
+    "B startup TLS timeout/title-screen precondition failure; no gameplay effect",
+    "B01 natural floor/wall manifest rejected by old harness whitelist/rectangular-only policy; corrected separate natural-shelter predicate",
+    "B02 final native entrance/enclosure predicate unproven",
+    "Native mutation anchor duplicated when optional respawn adopted inventory envelope; made close-screen anchor specific and reran 33/33",
+    "Initial extra mutation test class/anchor names invalid; corrected harness and reran 14/14"
+  ],
+  "limitations": [
+    "I3 optional automatic standing-pose selection additionally unit/mutation tested, NOT additionally live-qualified",
+    "One native endpoint/player in actual graphical tests; controller/observer conflicts and failure timing additionally exercised with real TLS and fake native backend",
+    "Trusted noncooperative Python cannot be safely killed/unlocked in-process; quarantine requires explicit host restart",
+    "No future chat native source registered; local filter policy only",
+    "No general uneven-terrain/cave planner, food/farming, 24/7, End/Nether or production/multi-tenant claim",
+    "Gateway BCL program_verified never attests an external free-text goal; objective_verified remains false",
+    "No push/tag/upload/release/production deployment"
+  ],
+  "final_client_state": "World saved/closed, TitleScreen, no live gameplay controller left running.",
+  "private_evidence_directory": "build/building-verification",
+  "source_sha256": {
+    "python/src/blockwire/errors.py": "9e0fc53a52ef6da9df7522a06086438261d322e760651befac5846a168ebf3a0",
+    "python/src/blockwire/client.py": "fe897135fd200fed71290b9801930a3118c1051a32435604cff2e333b331780c",
+    "python/src/blockwire/agent.py": "0f0aad407982ba44da86ba2ca53749d408d96ef01d1ffb7cf9d02121be609267",
+    "python/src/blockwire/command_decider.py": "b3048655b6c8a8fa71b304028be0ebef3657134bf0bf6b6d085110ba7c790adf",
+    "python/src/blockwire/bcl/gateway.py": "28f26a7d86d684f5e77e903e613372af9cc6798c30249ba878a092c5cecb091b",
+    "python/src/blockwire/bcl/runtime.py": "0545ebee411865bca6864e67871b93173e65ac3c710cbcc482a405d37641fc65",
+    "python/src/blockwire/bcl/client.py": "b5a2065dbff2f198549dfa11c82fd05c85cb45f8a5527fc617e6bfbd054cfef1",
+    "python/src/blockwire/bcl/registry.py": "c06764412cb531f82d50075c0ad8d08212e13be5efa1457095f1284f9ebe7a06",
+    "python/src/blockwire/bcl/event_policy.py": "9149178ef40f31cf82cc60559ecb51faaa6623f3b9a3994bc7dd0580cf00cd6b",
+    "python/src/blockwire/bcl/verification.py": "59f254a1a2461ae18474cdb5b4eb130a26c70c8ccf0442e882e23a98f8c61fe0",
+    "python/src/blockwire/skills/viewing.py": "a10e6c5d0e897c5676a4f4b039e18d79181829f83d56f64d4e23d381180f9a1e",
+    "python/src/blockwire/skills/item_actions.py": "4b326517e43ab2ee1b32b04090e3a6abeffa85c9792faba9999f89ab049ea3e7",
+    "src/main/java/dev/blockwire/Blockwire.java": "22baa5be5edf1b3467aea155fa50e18fa34193395babd2c28192f73b651ea02e",
+    "src/contractTest/java/dev/blockwire/InventoryContractTest.java": "bb08e3a292618028de98c8a92c53d08fff1a8642efc29e045a263f1b8f1b02bc",
+    "python/tests/test_gateway_hardening.py": "c507a79ba0fc0da5fe0baf50cc89d6051b43f9a9e88fb7facf517d4c9c509575",
+    "python/tests/test_building_verification.py": "852c7ded2fb3f6eb26d639e2a5df715d9dc417602ac5026587ca4fd229d4ee42",
+    "python/tests/test_placement.py": "e43a1507a7fe20a8dbd68fa9cfc4e7880bdcac406781c810a6b472d79ed33acf",
+    "tests/run_gateway_mutations.py": "52a5f41786bfcc1f30d331ad55e18e2e7d386ff07ceb6d27d125e56acd3c2c4c",
+    "tests/run_mutations.py": "ec1b4f539f9178cc96a885d255091f3d48e8aad6abe0c453174337a62d89b3f5",
+    "docs/bcl-commands.json": "85f056d4c89f30c53c7d8213d114a250831e17ee024010520fb886dea8144933",
+    "docs/bcl-reference.md": "c1bc7852b4cffbfb871194280abf1f114a9e19ddc108cd17bf35a7b9cf529be3"
+  },
+  "artifact_sha256": {
+    "build/building-verification/initial-A.json": "c649b8318d2279164e3e0b71c3f64ea6007cf702cdbf137078fe6a1b2d7dbddf",
+    "build/building-verification/initial-B.json": "012a160a9d464eabd4edfdf63aa4b562acca91ac5e6ceed877d4d91f0c9700f0",
+    "build/building-verification/install.json": "a6caaba2f172936775234f617f665f73221d381b229308875b3629c10ed5e8de",
+    "build/building-verification/independent-A02.json": "99d71bbc251376b69192637343398d6534a437e4ad76019ed9c3196c4237b4e0",
+    "build/building-verification/independent-B-final.json": "680c67aff93c532fbe07f710ce17f8dd478a536cb78001204e237e1441a906f6",
+    "build/building-verification/native-respawn.json": "5cf4b8b35f87baa83b99de3381d209dcf4b9433010cdfc58d85433041d47428b",
+    "build/building-verification/native-cancellation.json": "df44b2f08b1856d2003cc0cf6bdb5fdbfe04a22949ed03aac8ba9d0a53cda82e",
+    "build/building-verification/final-B.json": "7ee25e01c81f43d34b7b6550d5aaaff66737cd7b4f52a90d1e12131dbbbf7dca",
+    "build/building-verification/python-final.log": "77d0d1f93d689c7df6dfb9fcd2d09039b5db2cfb2006311f35d11f0195c67be9",
+    "build/building-verification/llm_build.py": "8705cc144fae159b6a63f25860f18451514b5baff1ed186e268695c8e7a1e5c3",
+    "build/building-verification/live_respawn.py": "7dee0da1e1e9dbc6efd778b9e6d5138f91285a6e817b3523f44eac9cfb02eb84",
+    "build/building-verification/live_cancel.py": "4885549af878cf1491b2a1918302daa55e2a9a7b55bd146d9322a3939ee88b9a",
+    "build/building-verification/checks/gradle-final.log": "34f4de1c4e86a64d66fa8ca2db087dcd8baa5dd54ad8c51454c4464793572cc0",
+    "build/building-verification/checks/native-final.log": "9d8f61d758e79292b7ff7bf207e55dae9946a2445eff59e7c7224494e2792ad5",
+    "build/building-verification/checks/native-final-followup.log": "9f6cfedfe021e2c529bafb25628e6dab0b60723c04a9ce60406b43176d81de6e",
+    "build/building-verification/gateway-mutations-followup.log": "f90b4b1696076f5112362576a305c862a150effca82edc0854ead5a5c07ff9f5",
+    "build/building-verification/gateway-mutations-final-valid.log": "4bcd0782b3dd06679ad03bd30dcd6d31d433b2afc77ce0ee3aab9e18ba30b29f",
+    "build/building-verification/checks/native-final/mutations/results.json": "9f6cfedfe021e2c529bafb25628e6dab0b60723c04a9ce60406b43176d81de6e",
+    "build/building-verification/checks/skills-final/skill-mutations/results.json": "d013eefd4aa4e871fb34f3ec3f47fdbe40fc8696abaa694626caba70ae4bd727",
+    "build/building-verification/checks/controller-final/controller-mutations/results.json": "b9aec9292186220f1eb8809a1f181489238cd567e2a386defd02dcb60bf52ca4",
+    "build/building-verification/checks/campaign-final/mutations/results.json": "965f0121ad38ceaa33b2f66057fff2b5db52441e0ab706d5f49b4587812bc92b",
+    "build/building-verification/checks/bcl-final/mutations/results.json": "87175569a68f803b8fcacdfe95d3a4fbe534fa27e44cc2ff9b4721edbdf85a7b",
+    "build/building-verification/gateway-mutations/results.json": "4bcd0782b3dd06679ad03bd30dcd6d31d433b2afc77ce0ee3aab9e18ba30b29f",
+    "build/building-verification/checks/tls-final/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/building-verification/A01/result.json": "61e10ab0e9837a41c9995808cae5b7d065b9df4a47bc19303a393d577b5d8248",
+    "build/building-verification/A01/metadata.json": "ef9c457e9856b1c4b1ff521a4eed9ef5bd16649262a927f8860d43cabf6aa5aa",
+    "build/building-verification/A02/result.json": "7e34c7d5499990df99b378d8fb6f3a103f553dfb6b90d9999c3f7af0c88418fa",
+    "build/building-verification/A02/metadata.json": "ef9c457e9856b1c4b1ff521a4eed9ef5bd16649262a927f8860d43cabf6aa5aa",
+    "build/building-verification/A03/result.json": "4b560db78db0ef085631123a972a564c50732b7d57ec68076da09532c4452d8d",
+    "build/building-verification/A03/metadata.json": "ef9c457e9856b1c4b1ff521a4eed9ef5bd16649262a927f8860d43cabf6aa5aa",
+    "build/building-verification/B01/result.json": "6819682b85a8ebd8f852b17d2acef2eeea3ebd09c752ee264f082dc7ab50b80a",
+    "build/building-verification/B01/metadata.json": "3044664875a1c558c25aec31695de153645fc08c564bbcbc4fefb7e2281d8a1b",
+    "build/building-verification/B02/result.json": "5eb1c9d3271f54b28d84a3dba7301c81462bc2f575829e506a2cb2847b671e64",
+    "build/building-verification/B02/metadata.json": "3044664875a1c558c25aec31695de153645fc08c564bbcbc4fefb7e2281d8a1b"
+  }
+}

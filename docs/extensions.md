@@ -74,7 +74,10 @@ is needed per extension. Keep human labels precise about limitations and effects
   arbitrary Python. An extension that blocks or ignores checks breaks that contract;
   native leases and F8 remain separate safeguards.
 - For multi-step motion, bind the observed actor with `actor_session` and pass it
-  to each `player.look(...)`/`player.drive(...)`. Stop if it changes.
+  to each `player.look(...)`/`player.drive(...)`. Stop if it changes. Prefer one
+  bounded timed look (`duration_ms`, `linear|smoothstep`) over a Python fixed-angle
+  loop; observe terminal orientation rather than treating scheduling as success.
+  Never assume 50 ms ticks or let a camera helper own movement keys.
 
 ## Where to extend
 
@@ -86,11 +89,13 @@ is needed per extension. Keep human labels precise about limitations and effects
 | MCP convenience tool | Thin wrapper dispatching the existing skill |
 | TLS/authentication | Do not change for a gameplay feature |
 
-The built-in walker is deliberately flat/full-block only. A later stairs/jump/
-swimming implementation needs new motion/geometry contracts, negative tests,
-session fencing and actual native gameplay evidence—not merely a more optimistic
-planner. Do not expand its supported set by hiding blocked results or weakening
-hazard filters.
+The built-in walker remains deliberately bounded to loaded full-block geometry.
+Its opt-in terrain profile supports only native-observed diagonals, one-block
+steps and conservatively proven short gaps. Slabs, fluids, ladders, arbitrary
+collision shapes and general caves still require new motion/geometry contracts,
+negative tests, session fencing and actual native gameplay evidence—not merely a
+more optimistic planner. Do not expand the supported set by hiding blocked results
+or weakening hazard filters.
 
 Tests should cover positive, invalid, boundary, blocked, damage, cancellation,
 deadline, actor replacement, cleanup and meaningful mutations. See

@@ -44,14 +44,21 @@ to client-known inventory/world information. Protect the API key and TLS identit
   an old endpoint releasing a new endpoint's held input.
 - Holds expire by ticks and monotonic deadline. Cleanup requires the game thread
   to advance; no real-time release guarantee during a JVM/OS stall.
-- Inputs release on unexpected dispatch errors. No command RPC, arbitrary code,
-  file API, NBT evaluation, remote container opening or creative cloning.
+- Inputs release on unexpected dispatch errors. An explicit, bounded Minecraft
+  slash-command RPC uses native client submission and server permission checks.
+  It does not grant OP/cheats. No host code/shell execution, file API, direct NBT
+  evaluation, remote container opening or creative cloning primitive is exposed.
+  Permitted Minecraft commands may nevertheless change NBT, spawn items/entities,
+  teleport, destroy terrain, affect players or invoke server/plugin functionality.
+  Enabling the endpoint authorizes this expanded player-command authority: only
+  grant it to trusted controllers, and approve commands independently of game text.
 - Native menu control can create/delete worlds, join servers, change options and
   open native external links. Do not authorize destructive actions casually.
   Chat screens are not controllable. Text values are redacted, but other menu
   labels can contain personal world/server names.
 - World/server/item labels are untrusted data, never authorization/instructions.
-  No telemetry or model connections are added; Minecraft's usual services remain.
+  No telemetry or implicit model connection is added; Minecraft's usual services remain.
+  An optional explicitly configured external LLM client is described below.
 
 The optional Mod Menu screen uses the existing local F8 lifecycle and can save
 only the startup `enabled` flag. Opening it never enables control; saving a draft
@@ -117,6 +124,101 @@ replacement actor is silently rebound. Final cleanup waits for workers/in-flight
 RPCs; uncertain disconnection is not automatically retried or reconnected.
 No movement/damage/consumption engine, automatic respawn, startup Python loading,
 TLS exception or F8 bypass is introduced. Released input is not player safety.
+
+## Optional strategic LLM runtime
+
+The [agent runtime](docs/autonomous-survival.md) is explicitly started in the Python
+host. It never obtains a model endpoint/key from ambient agent settings. Its HTTP
+adapter uses a selected endpoint, separate model credential, no ambient proxies,
+redirects or automatic retries. Remote game-context disclosure requires explicit
+opt-in and HTTPS with ordinary certificate verification. Native Minecraft TLS,
+per-instance trust, hostname checks and API-key handling are unchanged.
+
+The model receives bounded identity/goal/game observations/history, not Minecraft
+credentials, NBT or host files. Native freeform display labels are omitted; all
+world data, notes and model output remain untrusted data. Only strict JSON decisions
+for explicitly allowed existing skills can execute. Raw commands, menu events,
+respawn, module imports and host code are not exposed to that decision interface.
+This does not sandbox malicious trusted host Python/providers or reduce the broader
+authority of separately authorized raw native clients.
+
+One activation owns its actor. UUID/session fences, short native leases, bounded
+failure/model/action budgets, fresh checks and input cleanup remain mandatory.
+An uncertain connection is not reconnected/retried; interrupted pending actions
+are never auto-replayed. Partial crafting/cursor state requires explicit recovery.
+A planner finish is unverified unless a trusted host checker observes its goal.
+Private state/mailbox files contain player identity, locations and goal/history;
+protect and exclude them from bundles. The current file-lock runner is POSIX-only.
+No autonomous survival, response-time, damage-avoidance or 24/7 guarantee is made.
+
+## BCL/1 modal protocol
+
+[BCL](docs/bcl.md) is data, never generated/evaluated Python or slash commands.
+Full-frame static validation and operator permissions precede every modal/native
+effect. Existing UUID/session fences, ownership, bounded leases, cancellation and
+postconditions remain in AgentRuntime. Continue-on-error cannot bypass fatal
+transport/actor/partial-inventory checks or turn failed actions into success.
+No S6 gamemode adapter is registered. Extensions remain explicitly trusted host code.
+
+The opt-in loopback WebSocket gateway requires TLS >=1.2, an explicitly provisioned
+private gateway key/certificate and a private selected gateway token. It does not
+export the Minecraft PKCS12 key. Clients reuse pinned-certificate/hostname checking;
+no plaintext/system-trust fallback. The native authenticated TLS transport remains
+unchanged. Authoritative events cannot be submitted by clients. Session-owned
+subscriptions, queue/frame bounds and persistent monotonic request dedup isolate
+agents and prevent accidental replay of non-idempotent cycles. Lost connections
+cancel their work; uncertain native transport latches closed until host restart.
+Keep private modal/action journals, gateway keys/tokens and raw game evidence out
+of bundles. Do not expose this development gateway publicly.
+
+## Persistent project host
+
+`ProjectJournal`/`ProjectAgent` add trusted-host persistence and model context above
+BCL, not native authority. The model supplies strict bounded data/source only;
+world namespace, state/audit paths, model argv and fixed acceptance policy remain
+operator-selected. Journals reuse private POSIX locks/SQLite. Native world/save
+identity is NOT inferred: the operator must select the correct owned world before
+an explicit resumed actor bind. No hidden save/NBT inspection is added.
+
+Pending intent commits before effects. New activation discards old proof and never
+replays uncertain work. Final objective acceptance requires independent fresh world
+observations and native floor/headroom/access, not model finish or BCL receipts.
+Read-only idempotent placement does not use an item. Existing Native actor fences,
+TLS, F8, ownership and queue bounds remain. Persistent operation/model/resource
+request caps cannot be reset by model plan revisions. See [projects](docs/projects.md).
+
+## Opt-in closed-save building benchmark
+
+`tests/building/` is privileged TEST infrastructure, not a skill, MCP capability or
+agent observation API. It may read the explicitly owned CLOSED benchmark save's
+bounded declared voxels to verify blocks AND literal air independently of receipts.
+It never edits NBT, supplies hidden save contents to the model, or qualifies this
+as unprepared Survival knowledge. Closed snapshot manifests include inventory and
+world state; ownership markers, TitleScreen guards and an exclusive fixture lease
+protect restoration. Never select a productive world or distribute saves/journals.
+Fixture administrative commands are disclosed and separate from both BCL builders.
+Unknown cells, uncertain effects or quarantined workers cannot certify completion.
+See [benchmark conditions](docs/superflat-building.md).
+
+## Gateway lifecycle hardening follow-up
+
+The gateway reserves one controller per player UUID, including old cleanup; pure
+observers do not obtain an input lease. It supervises sender/watcher failures,
+bounded send deadlines and queue overflow, and retains a reaper for cleanup that
+finishes after disconnect grace. Never force-release a genuinely stuck trusted
+Python handler: quarantine plus explicit authorized host restart is the safe boundary.
+
+Authenticated native rejections now carry typed fault domains; recoverable does
+NOT mean an action can be blindly retried or rolled back. Death/not-in-world do
+not invalidate TLS. Critical actor loss ends its session; uncertain transport or
+backend invariants latch closed. Optional explicit gateway respawn requires an
+operator permission and a matching new native actor fence; replacement requires
+new explicit binding. Critical events cannot be suppressed by a chat/display filter.
+No native chat source or game-mode/cheat adapter is invented.
+
+BCL program success is explicitly not the external building/Survival objective.
+Supplied-material building evidence and regular-resource building are separate;
+see [gateway/building qualification](docs/gateway-building.md).
 
 ## Boundaries and rotation
 

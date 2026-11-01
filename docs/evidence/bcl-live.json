@@ -1,0 +1,205 @@
+{
+  "recorded_utc": "2026-10-30T23:48:05.371822+00:00",
+  "language": "BCL/1",
+  "persistent_project_follow_up": "persistent-projects.json",
+  "historical_scope": "Initial qualification below is retained unchanged. Current lifecycle/building follow-up has separate artifacts and source hashes.",
+  "follow_up": {
+    "evidence": "gateway-building.json",
+    "documentation": "../gateway-building.md",
+    "gateway": "GO within bounded trusted-local single-native-client profile",
+    "building_supplied_materials": "CONDITIONAL GO: recovered native shelter independently verified, fresh uninterrupted terminal reliability not established",
+    "building_regular_survival": "NO-GO: resource acquisition and roof repair observed, complete accessible shelter not proven"
+  },
+  "assessment": "GO for bounded implemented interface, modal sessions and local TLS event protocol; not general gameplay/Survival qualification",
+  "architecture": "Compiler/modal/FIFO adapters into existing AgentRuntime/SessionStore/skills/native motor; Java transport unchanged",
+  "commands": {
+    "client_gameplay": [
+      "M0",
+      "M1",
+      "M2",
+      "C0",
+      "C1",
+      "C2",
+      "I0",
+      "I1",
+      "I2",
+      "I3",
+      "V0",
+      "V1",
+      "F0"
+    ],
+    "modal": [
+      "S0",
+      "S1",
+      "S2",
+      "S3",
+      "S4"
+    ],
+    "subscription": [
+      "E0",
+      "E1",
+      "E2",
+      "E3"
+    ],
+    "server_only": [
+      "E100",
+      "E101",
+      "E102",
+      "E103"
+    ],
+    "gamemode_S6": "NOT REGISTERED"
+  },
+  "verification": {
+    "python_tests": 312,
+    "python_status": "PASS",
+    "bcl_specific_tests": 41,
+    "isolated_mutations": {
+      "bcl": {
+        "total": 24,
+        "killed": 24
+      },
+      "skills": {
+        "total": 128,
+        "killed": 128
+      },
+      "native": {
+        "total": 32,
+        "killed": 32
+      },
+      "controller": {
+        "total": 20,
+        "killed": 20
+      },
+      "campaign": {
+        "total": 14,
+        "killed": 14
+      }
+    },
+    "isolated_mutations_total": 218,
+    "gradle_check": "PASS",
+    "native_tls_interop_checks": 10,
+    "native_tls_interop_status": "PASS",
+    "bcl_tls_websocket_tests": 9,
+    "retained_initial_failure": "Skill mutation run initially stopped on an obsolete whitespace anchor, corrected in test runner; follow-up 128/128 killed. Initial log retained. No product safeguard weakened."
+  },
+  "native_graphical_client": {
+    "minecraft": "26.3",
+    "display": "Authenticated nested Xephyr :99; real graphical client, not a simulated world",
+    "fixture": "Owned Prism Blockwire-alpha3-test; fresh Survival/Normal world labelled Blockwire Stone Age 11, seed 2, respawn radius 0, commands/bonus chest OFF, no supplied items",
+    "first_fixture": "World 10 preflight had no connected same-height adjacent candidate; no BCL gameplay issued. Raw observation/failure preserved; fixture 11 used instead.",
+    "direct_skill_adapter": [
+      {
+        "source": "M0 X-31.5 Z1.5\nI0",
+        "status": "succeeded"
+      },
+      {
+        "source": "M0 -31.5 66.0 0.5 fast",
+        "status": "succeeded"
+      }
+    ],
+    "real_tls_websocket_runs": 2,
+    "movement_commands_in_ws_runs": 4,
+    "latest_wire_sources": [
+      "S0 sync\nS1 relative\nS2 sneak\nE0 player.position\nE0 player.health\nE0 command.completed\nM0 0 0 1",
+      "S0 async\nS2 fast\nM0 0.0 0 -0.8921741002701746"
+    ],
+    "latest_ws_events": 10,
+    "event_types": [
+      "command.completed",
+      "player.health",
+      "player.position"
+    ],
+    "initial_position": [
+      -31.5,
+      66.0,
+      0.5733896374152889
+    ],
+    "final_position": [
+      -31.5,
+      66.0,
+      0.6358915369664544
+    ],
+    "initial_health": 20.0,
+    "final_health": 20.0,
+    "verified": "Sync relative sneak travel; async relative fast return; correlated native position/health/command-completion events; setting reads/unsubscriptions; existing native cleanup",
+    "terminal_state": "Save and Quit to TitleScreen after final tests; world saved",
+    "not_claimed": [
+      "LLM BCL strategy acceptance",
+      "BCL crafting/combat native qualification",
+      "long-distance/general terrain",
+      "multi-client native gameplay",
+      "new F8 physical-key test in this session"
+    ]
+  },
+  "performance": {
+    "measurement": "UTF-8 bytes and local wall-clock milliseconds; NOT model-specific token billing",
+    "bcl_source_bytes": 17,
+    "bcl_envelope_bytes": 58,
+    "equivalent_json_decision_bytes": 107,
+    "ir_bytes": 407,
+    "registry_definitions": 26,
+    "full_registry_bytes": 32865,
+    "four_bcl_mcp_tool_schemas_bytes": 2187,
+    "compile_samples": 100,
+    "compile_median_ms": 8.218465496611316,
+    "compile_max_ms": 15.60448799864389,
+    "exact_model_token_measurement": "NOT RUN"
+  },
+  "compatibility": {
+    "existing_MCP_tools": "retained",
+    "native_wire_TLS_identity_keybinding": "unchanged",
+    "WalkTo.movement": "additive; legacy default walk; explicit sneak precedence",
+    "BCL_draft_S0": "Unavailable unreleased placeholder superseded by modal addendum; no released BCL-client migration",
+    "non_POSIX": "Offline compiler and legacy MCP imports remain usable; persistent BCL execution fails explicitly before files/native effects. Guard regression tested by simulation, not Windows gameplay."
+  },
+  "limits": [
+    "Loopback-only optional TLS gateway; separate operator-selected gateway cert/key/token, native identity never exported",
+    "POSIX session journal; cooperative cancellation; no automatic retry/replay/rebind",
+    "Events are bounded sampled client observations, not server-authoritative truth or a world map",
+    "No gamemode/cheat adapter, wiki, release, push or upload",
+    "Exact model tokenizer/cost measurement NOT RUN; performance reports bytes and wall-clock only"
+  ],
+  "artifact_sha256": {
+    "build/bcl-verification/live.json": "5badd3e62d431c38458844821c9db1310dedfe2d2e5ca3138ffb717ac9949b1a",
+    "build/bcl-verification/auto-height.json": "1c45ac39bb47d4f1739be70246be84b386ddaea029486b4853d87baa90856745",
+    "build/bcl-verification/explicit-fast.json": "ba3353a35c237e6b6589bf69f76bcad248448e9d5d11b6ffebc470441edd05bd",
+    "build/bcl-verification/websocket-live-initial.json": "4ff7a487aad2f0958408146a5f9c4c76685bff22dd5226a0b1ab53e053c762ee",
+    "build/bcl-verification/websocket-live.json": "c9efa77341bb9957d39e44998169d4bd96f5fde7276dd1ecf1607aa6fc307acc",
+    "build/bcl-verification/initial-fixture-unusable.json": "60b21c3f4acefcda4bea698e55e296aa52a5ef63a3d2e396ec8f2accaa9ad553",
+    "build/bcl-verification/fixture11.log": "2ae4c9c17be932c99e90bc24ea5128459e24bb25900b7a3b3424c757cfdd5ee4",
+    "build/bcl-verification/fixed11.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "build/bcl-verification/save-quit.log": "080db48008a3c541a8f758006a129d27039c3da556e085ebdbd0bce520823eea",
+    "build/bcl-verification/performance.json": "1ea77a683411164a3e8d5e9ba11de21d2ad57864c79bb32908782e9e436c4a3e",
+    "build/bcl-verification/python-final.log": "eb72f88e9fee903307e6dddf0ef9f4ec0ef57afb8b5fe9e7718f3902c7aa6a30",
+    "build/bcl-verification/checks/gradle.log": "464deadc566ac2bb81f1d93e66eaf0ce3fa541a5a4af8a4621c1cb934781becf",
+    "build/bcl-verification/checks/tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/bcl-verification/checks/skills.log": "896efa1d5a9d4b800c7f7339417b0b038b5e4399f2dd5e085d35307f389872f8",
+    "build/bcl-verification/checks/skills-followup.log": "d013eefd4aa4e871fb34f3ec3f47fdbe40fc8696abaa694626caba70ae4bd727",
+    "build/bcl-verification/mutations/results.json": "87175569a68f803b8fcacdfe95d3a4fbe534fa27e44cc2ff9b4721edbdf85a7b",
+    "build/bcl-verification/checks/skills/skill-mutations/results.json": "d013eefd4aa4e871fb34f3ec3f47fdbe40fc8696abaa694626caba70ae4bd727",
+    "build/bcl-verification/checks/native/mutations/results.json": "8a3f91934c9d092fd95f3021249612db5950889c04606a24f3137b97447ec05c",
+    "build/bcl-verification/checks/controller/controller-mutations/results.json": "b9aec9292186220f1eb8809a1f181489238cd567e2a386defd02dcb60bf52ca4",
+    "build/bcl-verification/checks/campaign/mutations/results.json": "965f0121ad38ceaa33b2f66057fff2b5db52441e0ab706d5f49b4587812bc92b",
+    "build/bcl-verification/checks/skills-final.log": "d013eefd4aa4e871fb34f3ec3f47fdbe40fc8696abaa694626caba70ae4bd727"
+  },
+  "source_sha256": {
+    "python/src/blockwire/bcl/__main__.py": "c3dc6c510a7d6b70cf13f5fa3a3cf3e0e3def0ba103bce1077356fd81ca96cf1",
+    "python/src/blockwire/bcl/compiler.py": "d8c7147a7cabf634b25f02894f8d13b59a742f9937ed1df92690fb83be9a671f",
+    "python/src/blockwire/bcl/modal.py": "83c923c6f57faeacddad06e93a77c640e4ce559da1a738ffec2d4df24350d72c",
+    "python/src/blockwire/bcl/__init__.py": "71aff088201a23fb6396c450929d0a846358e950400d4385c5df454010499634",
+    "python/src/blockwire/bcl/client.py": "1c36fd0b58a23b8bb9b55f1e3ab60cc33ebdb168daa842221116b0c623964298",
+    "python/src/blockwire/bcl/runtime.py": "68bcfd9d8a45aa5ed6fe4f1fa50b7a9ee974ccf65516b8d7e9c157b7088c2ddb",
+    "python/src/blockwire/bcl/registry.py": "cfbf1c0c311679929657b87bdd4382f006af91d77499070004487ad2f3399d40",
+    "python/src/blockwire/bcl/gateway.py": "5b214dee6db89cd205e66e08db375d4cdf5f98303de9c52700c152763eb08709",
+    "python/src/blockwire/agent.py": "913b7b103a145dff577a50533fb2202a29f83b909f1ac87f6b9e9a37890c905e",
+    "python/src/blockwire/mcp_server.py": "3541097ce286944b343b4473e261db3c185540acf2816ddabb73cf50b096072c",
+    "python/src/blockwire/skills/walking.py": "e7bc983c617161b3e35e30d4eb6dc2ddd02ae8d39dacbf197b4d8c94fcb0055f",
+    "python/tests/test_bcl_modal.py": "95c61e2f539de1ad3a560372b0ae89d0f65e9da8dc54c44c0a2eb7459d980f03",
+    "python/tests/test_bcl_websocket.py": "c3b612f3942ed8dbf2fef107f427685aa4ffb166c64914e074b5d8c05af19457",
+    "python/tests/test_bcl_mcp.py": "d345dafcd5d25ce85c3f655c6448372e3f48e08a41119aaa9d03ab0b0e4b4eb6",
+    "python/tests/test_bcl.py": "5c4275100e2c263ddde6079d7611cf5f6662dbcf81d60184b14913b6066c88ee",
+    "tests/run_bcl_mutations.py": "9e82b0fb06160c016171d65aff67f0d58a4a7969c8f3429653b672410f6bb82d",
+    "tools/generate_bcl_reference.py": "0d86026bf72473feebe1b65c70dce8842bf212bc576ec29016d9c49c0fbc89b7"
+  },
+  "distribution": "Private build/ contains logs, journals and ephemeral gateway TLS material; never included in bundles. This manifest includes only scoped facts and hashes."
+}

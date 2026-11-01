@@ -11,6 +11,8 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get("BLOCKWIRE_VERIFICATION_DIR", ROOT / "build/controller-verification")) / "controller-mutations"
 mutations = [
+    ("walk_eat_pitch_override", "controller.py", 'value = {**value, "pitch": self._pitch}',
+     'value = value', "CR27"),
     ("scoped_stop", "controller.py", "control.buttons, control.expires = (), 0",
      'await self._wire("stop"); control.buttons, control.expires = (), 0', "CR02"),
     ("input_union", "controller.py", "buttons = frozenset(button for control in active for button in control.buttons)",
@@ -18,10 +20,10 @@ mutations = [
     ("lease_cap", "controller.py", "LEASE_TICKS = 8", "LEASE_TICKS = 100", "CR02"),
     ("resource_conflict", "controller.py", "if any(resources & control.resources for control in self._controls):",
      "if False:", "CR05"),
-    ("food_postcondition", "controller.py", 'if scene.get("hunger", 0) > initial_hunger and current.get("count", 0) < before["count"]:',
-     'if current.get("count", 0) < before["count"]:', "CR07"),
-    ("food_stack_postcondition", "controller.py", 'if scene.get("hunger", 0) > initial_hunger and current.get("count", 0) < before["count"]:',
-     'if scene.get("hunger", 0) > initial_hunger:', "CR07"),
+    ("food_postcondition", "food.py", 'return hunger > initial_hunger and after_count < before_count',
+     'return after_count < before_count', "CR07"),
+    ("food_stack_postcondition", "food.py", 'return hunger > initial_hunger and after_count < before_count',
+     'return hunger > initial_hunger', "CR07"),
     ("food_crosshair", "controller.py", 'control.blocked_reason or scene.get("target") or scene.get("pitch", 0) > -89',
      'control.blocked_reason or False or scene.get("pitch", 0) > -89', "CR08"),
     ("food_offhand", "controller.py", 'elif any(i["inventory_index"] == 40 and not i.get("empty", False) for i in inventory["items"]):',

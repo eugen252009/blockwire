@@ -1,0 +1,2435 @@
+{
+  "language": "BCL/1",
+  "commands": [
+    {
+      "namespace": "core",
+      "opcode": "M0",
+      "command": "movement.walk",
+      "language": "BCL/1",
+      "description": "Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M0 X Y Z F",
+      "parameters": [
+        {
+          "key": "X",
+          "name": "x",
+          "type": "number",
+          "default_kind": "runtime",
+          "default": "current_x",
+          "enum": [],
+          "schema": {
+            "maximum": 29999984,
+            "minimum": -29999984,
+            "type": "number"
+          }
+        },
+        {
+          "key": "Y",
+          "name": "y",
+          "type": "number",
+          "default_kind": "runtime",
+          "default": "reachable_height",
+          "enum": [],
+          "schema": {
+            "maximum": 2048,
+            "minimum": -2048,
+            "type": "number"
+          }
+        },
+        {
+          "key": "Z",
+          "name": "z",
+          "type": "number",
+          "default_kind": "runtime",
+          "default": "current_z",
+          "enum": [],
+          "schema": {
+            "maximum": 29999984,
+            "minimum": -29999984,
+            "type": "number"
+          }
+        },
+        {
+          "key": "F",
+          "name": "mode",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "normal",
+          "enum": [
+            "normal",
+            "fast",
+            "sneak"
+          ],
+          "schema": {
+            "enum": [
+              "normal",
+              "fast",
+              "sneak"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "skill": "walk_to",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "M1",
+      "command": "movement.approach",
+      "language": "BCL/1",
+      "description": "Approach an initially visible interactable by exact block ID (chest means minecraft:chest). Choose the nearest candidate with a supported local route; optional exact visible block position. Face the route and primarily walk forward on flat full-block terrain, with tiny lateral corrections. Recheck out-of-view targets at bounded stopped checkpoints; aim and confirm the exact native target. Never opens/uses it. Partial visibility/routes, at most 64 blocks; damage avoidance is best effort.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M1 T P E",
+      "parameters": [
+        {
+          "key": "T",
+          "name": "target",
+          "type": "string",
+          "default_kind": "static",
+          "default": "minecraft:chest",
+          "enum": [],
+          "schema": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^(?:[a-z0-9_.-]+:)?[a-z0-9_./-]+$",
+            "type": "string"
+          }
+        },
+        {
+          "key": "P",
+          "name": "position",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "E",
+          "name": "terrain",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "approach",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "M2",
+      "command": "movement.dig_step",
+      "language": "BCL/1",
+      "description": "Excavate 1\u20133 descending one-block steps in a selected cardinal direction. Centers on retained support, clears only fresh exposed dry soil/stone/leaves/plants in the adjacent column, top-down, then enters ONLY if new native collision geometry proves supported floor/headroom and an edge. Appropriate equipped tool required for stone/coal. Never own support, sand/gravel, fluids or hidden voxel queries. Useful for bounded access/clearance; not an ore finder. Success verifies movement, NOT collected resource counts.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M2 D N",
+      "parameters": [
+        {
+          "key": "D",
+          "name": "direction",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "north",
+          "enum": [
+            "north",
+            "south",
+            "east",
+            "west"
+          ],
+          "schema": {
+            "enum": [
+              "north",
+              "south",
+              "east",
+              "west"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "N",
+          "name": "steps",
+          "type": "integer",
+          "default_kind": "static",
+          "default": 1,
+          "enum": [],
+          "schema": {
+            "maximum": 3,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ],
+      "skill": "dig_step",
+      "available": true,
+      "permissions": [
+        "mining"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "C0",
+      "command": "crafting.item",
+      "language": "BCL/1",
+      "description": "Craft recipe batches (NOT desired output count); existing recipe and native station contracts apply.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "C0 I N",
+      "parameters": [
+        {
+          "key": "I",
+          "name": "item",
+          "type": "resource",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_./-]+$",
+            "type": "string"
+          }
+        },
+        {
+          "key": "N",
+          "name": "batches",
+          "type": "integer",
+          "default_kind": "static",
+          "default": 1,
+          "enum": [],
+          "schema": {
+            "maximum": 16,
+            "minimum": 1,
+            "type": "integer"
+          }
+        }
+      ],
+      "skill": "craft_item",
+      "available": true,
+      "permissions": [
+        "crafting"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "C1",
+      "command": "crafting.gather_wood",
+      "language": "BCL/1",
+      "description": "Gather additional vanilla logs from initially observed exposed blocks within a six-block local radius. Known full-block routes; terrain=True enables observed one-block climbs/descents. No slabs/gaps, leaf clearing, hidden wood search or crafting. Use native mining and require inventory gain; crouching is not forced. Stops on danger, damage, replacement actor or uncollected drops. Target checks are best effort, not atomic block guards.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "C1 N E",
+      "parameters": [
+        {
+          "key": "N",
+          "name": "count",
+          "type": "integer",
+          "default_kind": "static",
+          "default": 1,
+          "enum": [],
+          "schema": {
+            "maximum": 16,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "key": "E",
+          "name": "terrain",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "gather_wood",
+      "available": true,
+      "permissions": [
+        "mining"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "C2",
+      "command": "crafting.gather_block",
+      "language": "BCL/1",
+      "description": "Mine currently exposed stone/cobblestone/dirt/coal ore within radius 6 using the shared harvesting motor. terrain=True enables bounded one-block routes. Pickaxe required per mechanics contract except soil. No Silk Touch or hidden lookup. Optional position selects ONE exact currently exposed target (count=1), not a hidden coordinate query. excavate=True with terrain=True permits observed one-block-lower SIDE cuts and entry only with newly observed supported geometry, NEVER own support. ground_soil matches exposed dirt/grass. Success requires additional expected drops in inventory, not attack receipts. Unsupported terrain stops.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "C2 B N E D P",
+      "parameters": [
+        {
+          "key": "B",
+          "name": "block",
+          "type": "enum",
+          "default_kind": "required",
+          "default": null,
+          "enum": [
+            "minecraft:stone",
+            "minecraft:cobblestone",
+            "minecraft:dirt",
+            "minecraft:grass_block",
+            "minecraft:crafting_table",
+            "minecraft:coal_ore",
+            "ground_soil"
+          ],
+          "schema": {
+            "enum": [
+              "minecraft:stone",
+              "minecraft:cobblestone",
+              "minecraft:dirt",
+              "minecraft:grass_block",
+              "minecraft:crafting_table",
+              "minecraft:coal_ore",
+              "ground_soil"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "N",
+          "name": "count",
+          "type": "integer",
+          "default_kind": "static",
+          "default": 1,
+          "enum": [],
+          "schema": {
+            "maximum": 16,
+            "minimum": 1,
+            "type": "integer"
+          }
+        },
+        {
+          "key": "E",
+          "name": "terrain",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "key": "D",
+          "name": "excavate",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "key": "P",
+          "name": "position",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      ],
+      "skill": "gather_block",
+      "available": true,
+      "permissions": [
+        "mining"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "C3",
+      "command": "crafting.remove_block",
+      "language": "BCL/1",
+      "description": "Remove ONE exact currently exposed dirt/grass/stone/cobblestone full cube using the shared guarded mining motor. Requires fresh native body/head clearance afterward, NOT drops or attack receipts. No hidden coordinate lookup, automatic scaffolding or pickup claim. Optional one-level cardinal side cut, never own support.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "C3 B P D",
+      "parameters": [
+        {
+          "key": "B",
+          "name": "block",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "minecraft:dirt",
+          "enum": [
+            "minecraft:dirt",
+            "minecraft:grass_block",
+            "minecraft:stone",
+            "minecraft:cobblestone"
+          ],
+          "schema": {
+            "enum": [
+              "minecraft:dirt",
+              "minecraft:grass_block",
+              "minecraft:stone",
+              "minecraft:cobblestone"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "P",
+          "name": "position",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        {
+          "key": "D",
+          "name": "excavate",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "remove_block",
+      "available": true,
+      "permissions": [
+        "mining"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "I0",
+      "command": "inventory.inspect",
+      "language": "BCL/1",
+      "description": "Fresh observed inventory; does not open a GUI.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "I0",
+      "parameters": [],
+      "skill": "inspect_inventory",
+      "available": true,
+      "permissions": [
+        "observe"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "I1",
+      "command": "inventory.equip",
+      "language": "BCL/1",
+      "description": "Equip an inventory item, using a free hotbar slot if needed. Verify held item; fenced native inventory only.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "I1 I",
+      "parameters": [
+        {
+          "key": "I",
+          "name": "item",
+          "type": "resource",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[a-z0-9_.-]+:[a-z0-9_./-]+$",
+            "type": "string"
+          }
+        }
+      ],
+      "skill": "equip_item",
+      "available": true,
+      "permissions": [
+        "inventory"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "I2",
+      "command": "inventory.consume",
+      "language": "BCL/1",
+      "description": "Eat an explicitly supported existing food while stationary, empty offhand and clear upward target. Fenced native hotbar/use; verify hunger gain AND item reduction. already_full means no food consumed. No food search, crafting or survival guarantee; leaves requested food selected.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "I2",
+      "parameters": [],
+      "skill": "consume_item",
+      "available": true,
+      "permissions": [
+        "inventory"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "I3",
+      "command": "inventory.place",
+      "language": "BCL/1",
+      "description": "Place an equipped supported block against a selected currently observed full-cube support face within 3 blocks. Verify block and inventory consumption. No hidden coordinate lookup.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "I3 B P F A C",
+      "parameters": [
+        {
+          "key": "B",
+          "name": "block",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "minecraft:crafting_table",
+          "enum": [
+            "minecraft:crafting_table",
+            "minecraft:cobblestone",
+            "minecraft:dirt",
+            "minecraft:oak_planks",
+            "minecraft:spruce_planks",
+            "minecraft:birch_planks",
+            "minecraft:jungle_planks",
+            "minecraft:acacia_planks",
+            "minecraft:dark_oak_planks",
+            "minecraft:mangrove_planks",
+            "minecraft:cherry_planks",
+            "minecraft:pale_oak_planks"
+          ],
+          "schema": {
+            "enum": [
+              "minecraft:crafting_table",
+              "minecraft:cobblestone",
+              "minecraft:dirt",
+              "minecraft:oak_planks",
+              "minecraft:spruce_planks",
+              "minecraft:birch_planks",
+              "minecraft:jungle_planks",
+              "minecraft:acacia_planks",
+              "minecraft:dark_oak_planks",
+              "minecraft:mangrove_planks",
+              "minecraft:cherry_planks",
+              "minecraft:pale_oak_planks"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "P",
+          "name": "support",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "F",
+          "name": "face",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "up",
+          "enum": [
+            "up",
+            "down",
+            "north",
+            "south",
+            "east",
+            "west"
+          ],
+          "schema": {
+            "enum": [
+              "up",
+              "down",
+              "north",
+              "south",
+              "east",
+              "west"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "A",
+          "name": "auto_position",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "key": "C",
+          "name": "clear_plants",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": true,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "place_block",
+      "available": true,
+      "permissions": [
+        "inventory"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "I4",
+      "command": "inventory.place_at",
+      "language": "BCL/1",
+      "description": "Place ONE agent-selected block coordinate. Select support/face among currently observed dry full-cube neighbors, bounded to three pre-use candidates; delegate native positioning and verified placement. Never retry uncertain use. No structure, resource or scaffold strategy.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "I4 B P C",
+      "parameters": [
+        {
+          "key": "B",
+          "name": "block",
+          "type": "enum",
+          "default_kind": "static",
+          "default": "minecraft:crafting_table",
+          "enum": [
+            "minecraft:crafting_table",
+            "minecraft:cobblestone",
+            "minecraft:dirt",
+            "minecraft:oak_planks",
+            "minecraft:spruce_planks",
+            "minecraft:birch_planks",
+            "minecraft:jungle_planks",
+            "minecraft:acacia_planks",
+            "minecraft:dark_oak_planks",
+            "minecraft:mangrove_planks",
+            "minecraft:cherry_planks",
+            "minecraft:pale_oak_planks"
+          ],
+          "schema": {
+            "enum": [
+              "minecraft:crafting_table",
+              "minecraft:cobblestone",
+              "minecraft:dirt",
+              "minecraft:oak_planks",
+              "minecraft:spruce_planks",
+              "minecraft:birch_planks",
+              "minecraft:jungle_planks",
+              "minecraft:acacia_planks",
+              "minecraft:dark_oak_planks",
+              "minecraft:mangrove_planks",
+              "minecraft:cherry_planks",
+              "minecraft:pale_oak_planks"
+            ],
+            "type": "string"
+          }
+        },
+        {
+          "key": "P",
+          "name": "position",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "type": "integer"
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        {
+          "key": "C",
+          "name": "clear_plants",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": true,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "place_at",
+      "available": true,
+      "permissions": [
+        "inventory"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "V0",
+      "command": "view.observe",
+      "language": "BCL/1",
+      "description": "Fresh bounded client observation, no hidden world queries.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "V0",
+      "parameters": [],
+      "skill": "observe_environment",
+      "available": true,
+      "permissions": [
+        "observe"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "V1",
+      "command": "view.interact",
+      "language": "BCL/1",
+      "description": "Approach a currently visible crafting table and open its native 3x3 menu. Other blocks unsupported.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "V1 T P E",
+      "parameters": [
+        {
+          "key": "T",
+          "name": "target",
+          "type": "string",
+          "default_kind": "static",
+          "default": "minecraft:crafting_table",
+          "enum": [],
+          "schema": {
+            "const": "minecraft:crafting_table",
+            "type": "string"
+          }
+        },
+        {
+          "key": "P",
+          "name": "position",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "integer"
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "E",
+          "name": "terrain",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "interact_with_block",
+      "available": true,
+      "permissions": [
+        "inventory"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "V2",
+      "command": "view.aim",
+      "language": "BCL/1",
+      "description": "Aim native camera at a supplied world point using actor-fenced native time-based rotation. No hidden coordinate/block lookup; success is observed camera orientation.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "V2 X Y Z",
+      "parameters": [
+        {
+          "key": "X",
+          "name": "x",
+          "type": "number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maximum": 29999984,
+            "minimum": -29999984,
+            "type": "number"
+          }
+        },
+        {
+          "key": "Y",
+          "name": "y",
+          "type": "number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maximum": 2048,
+            "minimum": -2048,
+            "type": "number"
+          }
+        },
+        {
+          "key": "Z",
+          "name": "z",
+          "type": "number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maximum": 29999984,
+            "minimum": -29999984,
+            "type": "number"
+          }
+        }
+      ],
+      "skill": "aim_at",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "F0",
+      "command": "combat.fight",
+      "language": "BCL/1",
+      "description": "Explicit bounded combat against zombies, skeletons, spiders and creepers with per-mob fight/evade/ignore policies. Evade wins. Uses selected vanilla sword/axe (unarmed only by opt-in), guarded native attacks and short flat-ground pursuit. Bounded stationary waits retain the job/cooldown after knockback, target height or temporary visibility loss; no blind attacks or vertical movement. Low health terminates after at most one safe retreat pulse. Creeper fighting hits then backs off; no fuse prediction or immunity. Success means selected enemies absent from bounded observations, NEVER confirmed kills. Cancel releases controls.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "F0 D H U",
+      "parameters": [
+        {
+          "key": "D",
+          "name": "duration_seconds",
+          "type": "number",
+          "default_kind": "static",
+          "default": 20.0,
+          "enum": [],
+          "schema": {
+            "maximum": 120,
+            "minimum": 0.1,
+            "type": "number"
+          }
+        },
+        {
+          "key": "H",
+          "name": "min_health",
+          "type": "number",
+          "default_kind": "static",
+          "default": 8.0,
+          "enum": [],
+          "schema": {
+            "maximum": 20.0,
+            "minimum": 1.0,
+            "type": "number"
+          }
+        },
+        {
+          "key": "U",
+          "name": "allow_unarmed",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        }
+      ],
+      "skill": "fight",
+      "available": true,
+      "permissions": [
+        "combat"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "S0",
+      "command": "execution_mode",
+      "language": "BCL/1",
+      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "category": "setting",
+      "direction": "client_to_server",
+      "signature": "S0 V",
+      "parameters": [
+        {
+          "key": "V",
+          "name": "value",
+          "type": "enum",
+          "default_kind": "runtime",
+          "default": "cycle",
+          "enum": [
+            "sync",
+            "async",
+            "?",
+            "status"
+          ],
+          "schema": {
+            "enum": [
+              "sync",
+              "async",
+              "?",
+              "status"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "settings"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ],
+      "setting": {
+        "name": "execution_mode",
+        "values": [
+          "sync",
+          "async"
+        ],
+        "default": "sync",
+        "cyclic": true
+      }
+    },
+    {
+      "namespace": "core",
+      "opcode": "S1",
+      "command": "coordinate_mode",
+      "language": "BCL/1",
+      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "category": "setting",
+      "direction": "client_to_server",
+      "signature": "S1 V",
+      "parameters": [
+        {
+          "key": "V",
+          "name": "value",
+          "type": "enum",
+          "default_kind": "runtime",
+          "default": "cycle",
+          "enum": [
+            "absolute",
+            "relative",
+            "?",
+            "status"
+          ],
+          "schema": {
+            "enum": [
+              "absolute",
+              "relative",
+              "?",
+              "status"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "settings"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ],
+      "setting": {
+        "name": "coordinate_mode",
+        "values": [
+          "absolute",
+          "relative"
+        ],
+        "default": "absolute",
+        "cyclic": true
+      }
+    },
+    {
+      "namespace": "core",
+      "opcode": "S2",
+      "command": "movement_mode",
+      "language": "BCL/1",
+      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "category": "setting",
+      "direction": "client_to_server",
+      "signature": "S2 V",
+      "parameters": [
+        {
+          "key": "V",
+          "name": "value",
+          "type": "enum",
+          "default_kind": "runtime",
+          "default": "cycle",
+          "enum": [
+            "normal",
+            "fast",
+            "sneak",
+            "?",
+            "status"
+          ],
+          "schema": {
+            "enum": [
+              "normal",
+              "fast",
+              "sneak",
+              "?",
+              "status"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "settings"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ],
+      "setting": {
+        "name": "movement_mode",
+        "values": [
+          "normal",
+          "fast",
+          "sneak"
+        ],
+        "default": "normal",
+        "cyclic": true
+      }
+    },
+    {
+      "namespace": "core",
+      "opcode": "S3",
+      "command": "error_mode",
+      "language": "BCL/1",
+      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "category": "setting",
+      "direction": "client_to_server",
+      "signature": "S3 V",
+      "parameters": [
+        {
+          "key": "V",
+          "name": "value",
+          "type": "enum",
+          "default_kind": "runtime",
+          "default": "cycle",
+          "enum": [
+            "stop",
+            "continue",
+            "?",
+            "status"
+          ],
+          "schema": {
+            "enum": [
+              "stop",
+              "continue",
+              "?",
+              "status"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "settings"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ],
+      "setting": {
+        "name": "error_mode",
+        "values": [
+          "stop",
+          "continue"
+        ],
+        "default": "stop",
+        "cyclic": true
+      }
+    },
+    {
+      "namespace": "core",
+      "opcode": "S4",
+      "command": "timeout_seconds",
+      "language": "BCL/1",
+      "description": "Modal setting: get with ?/status; set value; omitted cycles ordered enum.",
+      "category": "setting",
+      "direction": "client_to_server",
+      "signature": "S4 V",
+      "parameters": [
+        {
+          "key": "V",
+          "name": "value",
+          "type": "setting_number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "maximum": 120,
+                "minimum": 0.1,
+                "type": "number"
+              },
+              {
+                "enum": [
+                  "?",
+                  "status"
+                ],
+                "type": "string"
+              }
+            ]
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "settings"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ],
+      "setting": {
+        "name": "timeout_seconds",
+        "values": [],
+        "default": 30.0,
+        "cyclic": false
+      }
+    },
+    {
+      "namespace": "core",
+      "opcode": "E0",
+      "command": "events.subscribe",
+      "language": "BCL/1",
+      "description": "Own-session event subscription control.",
+      "category": "event_control",
+      "direction": "client_to_server",
+      "signature": "E0 T",
+      "parameters": [
+        {
+          "key": "T",
+          "name": "event",
+          "type": "string",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E1",
+      "command": "events.unsubscribe",
+      "language": "BCL/1",
+      "description": "Own-session event subscription control.",
+      "category": "event_control",
+      "direction": "client_to_server",
+      "signature": "E1 T",
+      "parameters": [
+        {
+          "key": "T",
+          "name": "event",
+          "type": "string",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E2",
+      "command": "events.subscriptions",
+      "language": "BCL/1",
+      "description": "Own-session event subscription control.",
+      "category": "event_control",
+      "direction": "client_to_server",
+      "signature": "E2",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E3",
+      "command": "events.clear",
+      "language": "BCL/1",
+      "description": "Own-session event subscription control.",
+      "category": "event_control",
+      "direction": "client_to_server",
+      "signature": "E3",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E100",
+      "command": "event.player.position",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E100",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E101",
+      "command": "event.player.health",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E101",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E102",
+      "command": "event.inventory.changed",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E102",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E103",
+      "command": "event.command.completed",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E103",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E104",
+      "command": "event.player.dead",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E104",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E105",
+      "command": "event.player.respawned",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E105",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E106",
+      "command": "event.player.not_in_world",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E106",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "E107",
+      "command": "event.transport.disconnected",
+      "language": "BCL/1",
+      "description": "Server-originated observation event; clients cannot emit it.",
+      "category": "event_out",
+      "direction": "server_to_client",
+      "signature": "E107",
+      "parameters": [],
+      "skill": null,
+      "available": true,
+      "permissions": [
+        "events"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    }
+  ],
+  "events": {
+    "player.position": {
+      "opcode": "E100",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "player.health": {
+      "opcode": "E101",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "inventory.changed": {
+      "opcode": "E102",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "command.completed": {
+      "opcode": "E103",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "player.dead": {
+      "opcode": "E104",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "player.respawned": {
+      "opcode": "E105",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "player.not_in_world": {
+      "opcode": "E106",
+      "namespace": "core",
+      "direction": "server_to_client"
+    },
+    "transport.disconnected": {
+      "opcode": "E107",
+      "namespace": "core",
+      "direction": "server_to_client"
+    }
+  }
+}

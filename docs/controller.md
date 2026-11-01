@@ -30,7 +30,8 @@ if __name__ == "__main__":
 **Choose your own known, nearby flat-ground coordinates and food slot.** The
 example coordinates are not a destination discovery service. Walking retains
 [the existing flat/full-block, 64-block and avoid_damage contracts](skills.md).
-The default still crouches and blocks on known nearby danger; it is not immunity.
+Sneaking is explicit; the default blocks on known nearby danger without forcing
+crouching. It is not immunity.
 Walking while eating is an implemented composition, **not yet real-Minecraft
 acceptance**. A [real-client follow-up](evidence/controller-live.json) verified
 walking arrival/cancellation, independent lease expiry, hotbar actor fences and

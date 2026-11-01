@@ -1,0 +1,46 @@
+{
+  "status": "PASS_SCOPED",
+  "scope": "Operator-authorized walk_to follow-up on an actual isolated graphical Minecraft client, not full-route rendered smoothness or Survival acceptance.",
+  "fixture": "Bridge Skill Flat, existing isolated Creative/Peaceful test world",
+  "implementation": "Python walker now uses the existing FlatMotion motor with continuous=True and precision_sneak=False; no Java or transport change is required.",
+  "observed": {
+    "successful_legs": 2,
+    "approximate_leg_distances_blocks": [10, 10],
+    "arrival_errors_blocks": [0.26669175410457413, 0.24781947792933856],
+    "forward_requests": 48,
+    "maximum_requested_lease_ticks": 7,
+    "longest_sequence_of_renewals_before_prior_lease_expiry_without_explicit_stop": 16,
+    "renewal_sequence_duration_seconds": 1.7500867569997354,
+    "sneak_requested": false,
+    "health_before": 20,
+    "health_after": 20,
+    "stationary_after_native_deceleration_and_release": true,
+    "final_menu": "PauseScreen"
+  },
+  "limitations": [
+    "Short/uncertain segments and final positioning still use stopped pulses and can look jerky.",
+    "Renewal timings and input intent are not rendered-frame measurements or authoritative observations of native key state.",
+    "No claim of general terrain safety, edge behavior, Survival gameplay, combat, or concurrent food consumption.",
+    "The live harness pre-aligned large route turns using stopped three-degree steps; integrated turn staging is covered by deterministic WC03, not this live run."
+  ],
+  "checks": {
+    "python_tests": 150,
+    "skill_mutations_killed": 72,
+    "controller_mutations_killed": 20,
+    "gradle_check": "PASS",
+    "real_tls_interop_checks": 10
+  },
+  "raw_local_evidence": "build/script-play-verification/",
+  "sha256": {
+    "python/src/blockwire/skills/walking.py": "2d70cf7745b20e96f17a9d43253362ee13e870d3389229a8540559487ddb8e03",
+    "python/src/blockwire/skills/motion.py": "002c60a865f6b125847cdcaf080f9ee564bffcccb199067c3f3e103b679c9c5b",
+    "python/src/blockwire/controller.py": "8e1ebd59469b946fcd0753678a006bf93b16cf9630a8f4b4a25e6b71013baea3",
+    "build/script-play-verification/play.py": "8a271b736398a24e080bb2bc0116a5e711e63360a28b387e373da5d52dad5f3a",
+    "build/script-play-verification/result.json": "3784c3bb5ba64de71c07a999c4effe2f78a42c19a0995f2788787dbfdabdd863"
+  },
+  "preserved_prior_trials": [
+    "build/script-play-verification/first-attempt.json records the earlier harness yaw-range failure.",
+    "build/script-play-verification/native-deceleration.json records the earlier too-early stationarity check.",
+    "build/script-play-verification/pulsed-baseline.json records the preceding short-pulse walker trial."
+  ]
+}

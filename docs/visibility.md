@@ -31,6 +31,15 @@ contents, custom container names, sign text and other block-entity values are
 never inspected or returned by this observation. Ordinary `inventory` still
 requires a genuinely open native container before exposing its slots.
 
+## Read-only distance estimation
+
+The Python [estimate_distance skill](estimate-distance.md) consumes one current
+observation without extending this visibility budget. It measures observed block
+centers only; unknown positions stay unknown, and a visible side is not a verified
+landing surface. It never uses cached renderer hits alone, moves the camera or
+queries a supplied coordinate. Native visibility semantics and limits below are
+unchanged.
+
 ## Compact encoding
 
 `visible_blocks.encoding` is `palette_x_runs_v1`:

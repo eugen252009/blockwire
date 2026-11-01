@@ -70,9 +70,11 @@ MCP rejects raw mutating tools and additional jobs while a job owns the actor.
   hunger and game rules still apply; run requests sprint, not a guaranteed speed.
   Final waypoint centering slows to sneak in every mode. Ordinary travel uses the
   shared [feedback motor](motion.md): hold W during observations/small steering
-  on known straight segments with 4–8-tick native leases; stop for larger turns,
-  short/uncertain routes and precise arrival. Creeper evasion retains unstaged
-  camera alignment and short pulses rather than gradual travel turns.
+  on known straight segments with 4–8-tick native leases; one native elapsed-time
+  camera plan may overlap travel only with fresh broad lateral support. Narrow or
+  uncertain support, short routes and precise arrival stop/replan. Creeper evasion
+  retains its separately scoped short reactive behavior; combat policy is not
+  requalified by the camera migration.
 - `combat`: `off` (default) or `defend`. Defense means **proximity defense**, not
   proof of who attacked: it faces a visible client-known Monster within 3 blocks
   and submits a native attack only if the refreshed crosshair matches. No pursuit,

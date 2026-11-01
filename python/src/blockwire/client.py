@@ -24,6 +24,13 @@ class BridgeError(RuntimeError):
     """Rejected operation or unavailable bridge; requests are never automatically retried."""
 
 
+from .errors import NativeOperationError
+
+class NativeRejected(BridgeError,NativeOperationError):
+    """Authenticated native reply ok=false; the transport is still trustworthy."""
+    def __init__(self,code):NativeOperationError.__init__(self,code)
+
+
 class Backend(Protocol):
     """Actor operations. Providers own authorization, game-thread scheduling and actor identity."""
 
@@ -131,7 +138,7 @@ class Bridge:
                 if reply.get("id") != request["id"]:
                     raise BridgeError("Mismatched response ID")
                 if not reply.get("ok"):
-                    raise BridgeError(reply.get("error", "request_failed"))
+                    raise NativeRejected(reply.get("error", "request_failed"))
                 return reply["result"]
             except BridgeError:
                 raise
@@ -169,13 +176,34 @@ class Player:
     def inventory(self) -> Json:
         return self.backend.call("inventory")
 
-    def navigation(self) -> Json:
-        return self.backend.call("navigation")
+    def navigation(self, *, terrain: bool = False) -> Json:
+        return self.backend.call("navigation", **({"terrain": True} if terrain else {}))
 
-    def look(self, yaw: float, pitch: float, *, actor_session: str | None = None) -> Json:
+    def motion_trace(self, *, limit: int = 4096, reset: bool = False,
+                     actor_session: str | None = None) -> Json:
+        """Read bounded end-of-client-tick native motion samples; reset clears telemetry only."""
+        if isinstance(limit, bool) or not isinstance(limit, int) or not 1 <= limit <= 4096:
+            raise ValueError("limit must be an integer in 1..4096")
+        args: Json = {"limit": limit}
+        if reset: args["reset"] = True
+        if actor_session is not None: args["actor_session"] = actor_session
+        return self.backend.call("motion_trace", **args)
+
+    def look(self, yaw: float, pitch: float, *, actor_session: str | None = None,
+             duration_ms: int | None = None, rotation_profile: str | None = None) -> Json:
+        """Set legacy orientation immediately, or schedule one native time-based rotation."""
+        if duration_ms is not None:
+            if isinstance(duration_ms, bool) or not isinstance(duration_ms, int) or not 1 <= duration_ms <= 5000:
+                raise ValueError("duration_ms must be an integer in 1..5000")
+        if rotation_profile is not None:
+            if duration_ms is None:
+                raise ValueError("rotation_profile requires duration_ms")
+            if rotation_profile not in {"linear", "smoothstep"}:
+                raise ValueError("rotation_profile must be linear or smoothstep")
         args: Json = {"yaw": yaw, "pitch": pitch}
-        if actor_session is not None:
-            args["actor_session"] = actor_session
+        if actor_session is not None: args["actor_session"] = actor_session
+        if duration_ms is not None: args["duration_ms"] = duration_ms
+        if rotation_profile is not None: args["rotation_profile"] = rotation_profile
         return self.backend.call("look", **args)
 
     def look_at(self, x: float, y: float, z: float) -> Json:
@@ -213,6 +241,29 @@ class Player:
         from .skills import default_registry, run_skill
         return run_skill(default_registry(), self, "walk_to", dict(x=x,y=y,z=z,sneak=sneak,
             avoid_damage=avoid_damage,timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def craft_item(self, item: str, batches: int = 1, *, timeout_seconds: float = 30) -> Json:
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "craft_item", dict(item=item, batches=batches,
+            timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def equip_item(self, item: str, *, timeout_seconds: float = 30) -> Json:
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "equip_item", dict(item=item,
+            timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def estimate_distance(self, target: str = "minecraft:dirt", *, position: list[int] | None = None,
+                          timeout_seconds: float = 30) -> Json:
+        """Measure a current observed block only; no hidden coordinate query or controls."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "estimate_distance", dict(target=target, position=position,
+            timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
+    def gather_wood(self, count: int = 1, *, scan: bool = True, timeout_seconds: float = 30) -> Json:
+        """Gather additional observed vanilla logs locally; success requires inventory gain."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "gather_wood", dict(count=count, scan=scan,
+            timeout_seconds=timeout_seconds)).model_dump(mode="json")
 
     def approach(self, target: str = "minecraft:chest", *, position: list[int] | None = None,
                  sneak: bool = False, avoid_damage: bool = True, timeout_seconds: float = 30) -> Json:
@@ -258,16 +309,17 @@ class Player:
             arguments["actor_session"] = actor_session
         return self.backend.call("hotbar", **arguments)
 
-    def open_inventory(self) -> Json:
-        return self.backend.call("open_inventory")
+    def open_inventory(self, *, actor_session: str | None = None) -> Json:
+        return self.backend.call("open_inventory", **({"actor_session": actor_session} if actor_session is not None else {}))
 
-    def close_screen(self) -> Json:
-        return self.backend.call("close_screen")
+    def close_screen(self, *, actor_session: str | None = None) -> Json:
+        return self.backend.call("close_screen", **({"actor_session": actor_session} if actor_session is not None else {}))
 
     def click_slot(self, slot: int, button: int = 0, mode: str = "pickup", *,
-                   menu_id: int, state_id: int) -> Json:
+                   menu_id: int, state_id: int, actor_session: str | None = None) -> Json:
         return self.backend.call("click_slot", slot=slot, button=button, mode=mode,
-                                 menu_id=menu_id, state_id=state_id)
+                                 menu_id=menu_id, state_id=state_id,
+                                 **({"actor_session": actor_session} if actor_session is not None else {}))
 
     def menu(self) -> Json:
         return self.backend.call("menu")
@@ -293,5 +345,22 @@ class Player:
     def stop(self) -> Json:
         return self.backend.call("stop")
 
-    def respawn(self) -> Json:
-        return self.backend.call("respawn")
+    def command(self, command: str, *, actor_session: str | None = None) -> Json:
+        """Submit one explicit slash command with native permissions, not a success result.
+
+        May irreversibly change the world. Output is not captured; never blindly retry.
+        """
+        if (not isinstance(command, str) or not command.startswith("/") or len(command) < 2
+                or command[1] == "/" or command[1].isspace()
+                or any(ord(c) < 32 or 127 <= ord(c) <= 159 or c in "§\u2028\u2029"
+                       or 0xD800 <= ord(c) <= 0xDFFF for c in command)
+                or len(command.encode("utf-16-le")) // 2 > 256):
+            raise ValueError("expected one slash command, max 256 UTF-16 code units, no control characters")
+        arguments: Json = {"command": command}
+        if actor_session is not None:
+            arguments["actor_session"] = actor_session
+        return self.backend.call("command", **arguments)
+
+    def respawn(self, *, actor_session: str | None = None) -> Json:
+        arguments = {} if actor_session is None else {"actor_session": actor_session}
+        return self.backend.call("respawn", **arguments)

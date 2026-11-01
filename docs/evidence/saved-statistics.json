@@ -1,0 +1,38 @@
+{
+  "status": "PASS_SAVED_COUNTER_REPORT_ONLY",
+  "scope": "Read-only parsing/reporting of the explicitly selected existing isolated Survival world's native saved player statistics. Not live scoreboard synchronization or a fresh per-run measurement.",
+  "fixture": "Blockwire Endportal Survival, Minecraft 26.3, Survival/Normal, commands disabled",
+  "observed_saved_totals": {
+    "deaths": 0,
+    "mob_kills": 0,
+    "player_kills": 0,
+    "jumps": 0,
+    "walked_m": 5.88,
+    "sprinted_m": 0.69,
+    "fallen_m": 8.0,
+    "play_time_seconds": 54.9,
+    "damage_taken_hp": 5.0,
+    "blocks_mined": 2,
+    "items_crafted": 0,
+    "items_picked_up": 1
+  },
+  "freshness": "saved_only_not_live_verified",
+  "baseline_for_prior_gameplay": "NOT AVAILABLE; no per-attempt delta reconstructed",
+  "report": "build/script-play-verification/saved-statistics-report.json",
+  "source_file_copied_into_repository": false,
+  "game_actions_requested": false,
+  "save_modifications": false,
+  "scoreboard_or_other_commands": false,
+  "cheats_enabled": false,
+  "limitations": [
+    "Saved values can lag live events and may include manual gameplay in this world.",
+    "Missing counters mean zero only within a valid saved snapshot; missing files report unknown totals.",
+    "Snapshot identity is operator-selected, not proven from JSON. Counter decreases suppress deltas; increasing counters do not prove same identity.",
+    "No live game synchronization, kill/death event stream or end-of-run flush is implemented."
+  ],
+  "checks": {"python_tests": 186, "skill_and_statistics_mutations_killed": 86, "campaign_mutations_killed": 14, "gradle_check": "PASS", "tls_interop_checks": 10},
+  "sha256": {
+    "python/src/blockwire/statistics.py": "5a91ce3c9c79331c62976321ad4e8fee281445b790ffcf1bbc72a8cf5bd19df0",
+    "build/script-play-verification/saved-statistics-report.json": "91417d60da6b567a336e81f8662c74c4d0903d07c5d5f5623b04e86987f44842"
+  }
+}

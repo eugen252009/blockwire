@@ -65,7 +65,8 @@ class NaturalApproachContracts(unittest.TestCase):
         result = self.execute(player, publish=progress.append)
         self.assertEqual(result.reason, "ready_to_interact")
         self.assertFalse(any(p["phase"] == "checking_target" for p in progress))
-        self.assertTrue(all(d["buttons"] == ["forward", "sneak"] for d in player.drive_trace))
+        self.assertTrue(any(d["buttons"] == ["forward"] for d in player.drive_trace))
+        self.assertTrue(all(d["buttons"] in (["forward"], ["forward", "sneak"]) for d in player.drive_trace))
         self.assertTrue(all(abs(d["yaw"]+90) < 1e-6 and abs(d["pitch"]) < 1e-6 for d in player.drive_trace))
         self.assertGreaterEqual(player.observations, len(player.drive_trace)+1)
 

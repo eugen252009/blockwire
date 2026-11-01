@@ -1,0 +1,258 @@
+{
+  "scope": "Partial native crafting + external-LLM mailbox replanning; NOT full autonomous Survival acceptance",
+  "world": {
+    "name": "Blockwire Endportal Survival",
+    "terrain": "Default",
+    "mode": "Survival",
+    "difficulty": "Normal",
+    "commands": "off at creation; no cheat/teleport/spawn actions used in qualification",
+    "isolated_client": true,
+    "fresh_world_autonomous_start": false
+  },
+  "implementation": {
+    "execution": "Existing native Player/skill/transport stack",
+    "runtime": "AgentRuntime with private SessionStore",
+    "strategy": "External LLM supplies each nonce-matched next Decision; no fixed campaign sequence",
+    "java_change": "Optional actor fences on native inventory operations and bounded identity/menu/slot metadata"
+  },
+  "native_skill_trials": {
+    "additional_logs_collected": 2,
+    "crafts": [
+      "minecraft:dark_oak_planks",
+      "minecraft:crafting_table",
+      "minecraft:stick",
+      "minecraft:wooden_pickaxe"
+    ],
+    "placed": {
+      "block": "minecraft:crafting_table",
+      "position": [
+        -21,
+        69,
+        14
+      ]
+    },
+    "equipped": "minecraft:wooden_pickaxe",
+    "qualification": "Explicit developer skill harness, not autonomous orchestration",
+    "retained_failure": {
+      "artifact": "build/autonomous-survival-verification/more-wood.json",
+      "reason": "wood_not_collected",
+      "followup": "Restricted upper targets/prioritized low targets; lower-wood.json observed additional inventory logs"
+    }
+  },
+  "live_llm_runtime": {
+    "interface": "Private nonce-bound mailbox; external LLM host answered each fresh context",
+    "history": [
+      {
+        "action": "gather_block",
+        "parameters": {
+          "block": "minecraft:stone",
+          "count": 3,
+          "timeout_seconds": 30
+        },
+        "status": "blocked",
+        "reason": "no_reachable_exposed_blocks",
+        "details": {
+          "collected": 0,
+          "requested": 3,
+          "observed_logs": []
+        }
+      },
+      {
+        "action": "interact_with_block",
+        "parameters": {
+          "target": "minecraft:crafting_table",
+          "position": [
+            -21,
+            69,
+            14
+          ],
+          "timeout_seconds": 30
+        },
+        "status": "succeeded",
+        "reason": "workbench_opened",
+        "details": {
+          "target": {
+            "id": "minecraft:crafting_table",
+            "position": [
+              -21,
+              69,
+              14
+            ]
+          },
+          "menu_id": 2
+        }
+      },
+      {
+        "action": "craft_item",
+        "parameters": {
+          "item": "minecraft:wooden_hoe",
+          "batches": 1,
+          "timeout_seconds": 30
+        },
+        "status": "succeeded",
+        "reason": "item_crafted",
+        "details": {
+          "item": "minecraft:wooden_hoe",
+          "crafted": 1,
+          "batches": 1,
+          "consumed": {
+            "minecraft:dark_oak_planks": 2,
+            "minecraft:stick": 2
+          },
+          "inventory_counts": {
+            "minecraft:brown_mushroom": 1,
+            "minecraft:wooden_hoe": 1,
+            "minecraft:wooden_pickaxe": 1,
+            "minecraft:dark_oak_planks": 1
+          }
+        }
+      },
+      {
+        "action": "equip_item",
+        "parameters": {
+          "item": "minecraft:wooden_hoe",
+          "timeout_seconds": 30
+        },
+        "status": "succeeded",
+        "reason": "item_equipped",
+        "details": {
+          "item": "minecraft:wooden_hoe",
+          "hotbar_slot": 6
+        }
+      }
+    ],
+    "result": {
+      "status": "stopped",
+      "reason": "planner_finished_unverified",
+      "objective_verified": false,
+      "cleanup": "released"
+    },
+    "durable_pending_after_run": null,
+    "automatic_http_provider_trial": "NOT RUN",
+    "no_pause_unattended_trial": "NOT RUN"
+  },
+  "native_inventory_fences": {
+    "obsolete_sessions_rejected": [
+      "open_inventory",
+      "close_screen",
+      "click_slot"
+    ],
+    "menu_unchanged": true,
+    "config_token_tls_identity_preserved": true,
+    "installed_mod_sha256": "b43e22d109ed3e517720a5247c9ee32c1905fc0a03e9ef054c8b6546d5d5128e"
+  },
+  "final_observation_before_operator_save_quit": {
+    "alive": true,
+    "health": 20,
+    "hunger": 17,
+    "position": [
+      -19.49976717309289,
+      69,
+      13.488518445589222
+    ],
+    "held_item": "minecraft:wooden_hoe",
+    "inventory": [
+      {
+        "item": "minecraft:brown_mushroom",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wooden_hoe",
+        "count": 1
+      },
+      {
+        "item": "minecraft:wooden_pickaxe",
+        "count": 1
+      },
+      {
+        "item": "minecraft:dark_oak_planks",
+        "count": 1
+      }
+    ],
+    "screen": "PauseScreen"
+  },
+  "final_client_state": "TitleScreen after operator development Save/Quit; world saved, not an LLM survival goal",
+  "native_saved_statistics": {
+    "scope": "Saved world totals including earlier probes, NOT per-run attribution",
+    "totals": {
+      "deaths": 0,
+      "mob_kills": 0,
+      "player_kills": 0,
+      "jumps": 0,
+      "walked_m": 8.22,
+      "sprinted_m": 1.5,
+      "crouched_m": 0,
+      "swum_m": 0,
+      "climbed_m": 0,
+      "fallen_m": 8,
+      "elytra_m": 0,
+      "play_time_seconds": 212.35,
+      "damage_taken_hp": 5,
+      "damage_dealt_hp": 0,
+      "blocks_mined": 4,
+      "items_crafted": 19,
+      "items_picked_up": 4
+    },
+    "run_delta": null,
+    "content_sha256": "5b6024f07b61c7b79dfbc67337d9eb875b609877d39bdc34c4bb7be6bb4d8348",
+    "freshness": "saved_only_not_live_verified",
+    "warning": "Totals may omit unsaved gameplay. Missing native counters mean zero in this snapshot, not proof of zero live events."
+  },
+  "verification": {
+    "python_unit_tests": {
+      "passed": 245,
+      "scope": "Deterministic contracts, not Minecraft acceptance"
+    },
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "isolated_mutations": {
+      "native": 32,
+      "skill_runtime_utility": 114,
+      "controller": 20,
+      "campaign": 14,
+      "status": "All KILLED; 180 total"
+    },
+    "diff_check": "PASS"
+  },
+  "not_implemented_or_not_qualified": [
+    "successful live stone gathering/stone tools",
+    "supported uneven-terrain resource navigation",
+    "food acquisition",
+    "native consume_item acceptance (unit tested only)",
+    "native till/plant/growth/water/harvest/replant skills",
+    "independent hazard retreat and death/respawn recovery",
+    "full fresh-world wood-to-stone-to-food-to-farm scenario",
+    "automatic actor/dimension handoff or reconnect",
+    "24/7 supervision/soak",
+    "full Nether/End campaign"
+  ],
+  "version_scope": "Live trial exercised the initial implemented skill/runtime slice. Later compact-memory, completion-checker and preflight hardening are deterministically tested; no full final-source unattended gameplay qualification is claimed.",
+  "artifacts_retained_under": "build/autonomous-survival-verification/",
+  "artifact_sha256": {
+    "build/autonomous-survival-verification/planks.json": "9b39fd853bfb5ed61999b282a1f3bc116e98685a3618ca4ee54cf2e3b99404d2",
+    "build/autonomous-survival-verification/more-wood.json": "5857926f2e5a6a3697b476a70166f414f3a69e696ce929645f250ea714b08a88",
+    "build/autonomous-survival-verification/lower-wood.json": "022bd2965845fcbb3e167b2849510d0ff16983412a55bd5ab6540ec41b892f1a",
+    "build/autonomous-survival-verification/crafting-basics.json": "72e416ae7141aab74d2ddb6ca4102337a1eca62f531b71fdc8afe50fc93807fd",
+    "build/autonomous-survival-verification/place-workbench.json": "6b236192ee24b0c77386041bb7a75077f36d0fb8c475af20a9c78bd21d2dd063",
+    "build/autonomous-survival-verification/wooden-pickaxe.json": "a55216193d075ddf002a970fbff46a249afb7da91c9076f4752ce7c929db8777",
+    "build/autonomous-survival-verification/native-inventory-fences.json": "c8239d2bc270e9f6b09fdd559112afce1cd773926b7b567906f266d5d412407e",
+    "build/autonomous-survival-verification/agent-live.log": "f2fcad81537aa36860142bec917d1464acdc63fb4c75e106079db78891be5443",
+    "build/autonomous-survival-verification/agent-session.sqlite": "ceef1ee4f193c0dc728ff41e92030c6d1e9f1bf8773e2af73b739d2d32d51a98",
+    "build/autonomous-survival-verification/final-native-state.json": "e6b4f76b762a6593ab8fa3584918f7aac52f6bf64f16619bd2539f22c1918a4f",
+    "build/autonomous-survival-verification/save-quit.json": "b1a0a07b686dcdf715a14cb2110f975550e7be9e0ca5cefe73de4a1137ef3dcd",
+    "build/autonomous-survival-verification/final-saved-statistics.json": "5b6024f07b61c7b79dfbc67337d9eb875b609877d39bdc34c4bb7be6bb4d8348",
+    "build/autonomous-survival-verification/final-statistics-report.json": "75058d8e63c65b1af6bcf8c513c8d610f59ab4af029ce369b5c0adf2ec394d67",
+    "build/autonomous-survival-verification/install.json": "cefa5224efb4f1d3eba6a63067fd7bca81b4da06ba6df6a4b7623e583fd8adce",
+    "build/autonomous-survival-verification/llm-mailbox/reply-020ecf57ef244061ab61aa2cb9414563.json": "18abc6f120682e0f7c9bc9423c94a137a59d884135e81323a84032886664906e",
+    "build/autonomous-survival-verification/llm-mailbox/reply-5ccc8fe4359c44d9ba02b2ea24130639.json": "fcd29a16807e9b22c6d520694a1caa0093eae67e4dd7855be2dfff4aa2388637",
+    "build/autonomous-survival-verification/llm-mailbox/reply-64dd274095994c67b0f3b320de94b1c0.json": "38f4755e8525425c37e2c938eb7b9cdd5e3d581e44a4669b98017fce184252c7",
+    "build/autonomous-survival-verification/llm-mailbox/reply-77c863604577459990448836938e079e.json": "5d0bf889161bc0c63d09ea1029d3477f095758aee4104a9299e51aeb18cd0fb5",
+    "build/autonomous-survival-verification/llm-mailbox/reply-8fcd87e21b264345b553c6ab68bcc8ea.json": "456daaf25ab52140e3ca161d7f879fc376f96675672eeffdc50b86d2dee1039e",
+    "build/autonomous-survival-verification/llm-mailbox/request-020ecf57ef244061ab61aa2cb9414563.json": "0c50841747094b03901ad451d0ea1fc5d6420b20a8346fd11608e7447f4afe41",
+    "build/autonomous-survival-verification/llm-mailbox/request-5ccc8fe4359c44d9ba02b2ea24130639.json": "a9dfc585f871ed9e69f404f6db3662f3255080597158ca604ad36c4b98c8a60e",
+    "build/autonomous-survival-verification/llm-mailbox/request-64dd274095994c67b0f3b320de94b1c0.json": "58ca770bd05d81f8bb5b8c651bc1300f3f201d65771bcb104e5c570634cdc60a",
+    "build/autonomous-survival-verification/llm-mailbox/request-77c863604577459990448836938e079e.json": "643b03c846f883b35d799349636ecce9e89e6cf7f9c6ba65532b6c037d7aac9f",
+    "build/autonomous-survival-verification/llm-mailbox/request-8fcd87e21b264345b553c6ab68bcc8ea.json": "6da39f7f9f944a1e458836d970260a064e2f4d9a7867f11afe64dfc81d1909e4"
+  },
+  "distribution": "Private raw game context/journals/stats remain in ignored build/, not included in bundles. This manifest contains scoped facts, not saves, credentials or certificates."
+}

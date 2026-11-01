@@ -26,6 +26,8 @@ public final class Blockwire implements ClientModInitializer {
     private TlsIdentity tls;
     private final MenuBridge menus=new MenuBridge();
     private final NavigationView navigation=new NavigationView();
+    private final MotionTrace motionTrace=new MotionTrace();
+    private final RotationController rotation=new RotationController();
     private final InputLeases inputLeases=new InputLeases();
     private long deadline, generation;
     private net.minecraft.client.player.LocalPlayer actor;
@@ -43,6 +45,7 @@ public final class Blockwire implements ClientModInitializer {
         toggle=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.block_bridge.toggle",InputConstants.Type.KEYBOARD,
             InputConstants.KEY_F8,KeyMapping.Category.register(Identifier.parse("blockwire:controls"))));
         ClientTickEvents.START_CLIENT_TICK.register(client->tick());
+        ClientTickEvents.END_CLIENT_TICK.register(client->motionTrace.sample(client,navigation.actorSession(client),held,keys(),rotation));
         ClientLifecycleEvents.CLIENT_STOPPING.register(client->stop());
         ClientLifecycleEvents.CLIENT_STARTED.register(client->{if(config.enabled())startServer();});
         LOG.info("Blockwire configured; auto-start {}. F8 toggles local control.",config.enabled());
@@ -94,14 +97,17 @@ public final class Blockwire implements ClientModInitializer {
         } catch(Exception e){message("Could not bind configured address; bridge remains disabled.");}
     }
     private void tick() {
+        rotation.tick(mc,server!=null && server.connected());
         if(held.isEmpty())return;
         if(server==null || !server.connected() || mc.player==null || mc.player!=actor || mc.level!=world || !mc.player.isAlive() ||
-            mc.gui.screen()!=null || mc.isPaused() || ticksLeft--<=0 || System.nanoTime()>=deadline) {release();return;}
-        var expired=inputLeases.expire(System.nanoTime());
+            mc.gui.screen()!=null || mc.isPaused()) {release();return;}
+        long now=System.nanoTime();
+        if(ticksLeft--<=0 || now>=deadline){releaseInputs();return;}
+        var expired=inputLeases.expire(now);
         expired.forEach(key->InputState.set(keys().get(key),false));
         if(!expired.isEmpty()) {
             var remaining=new HashSet<>(held);remaining.removeAll(expired);held=Set.copyOf(remaining);
-            if(held.isEmpty()){release();return;}
+            if(held.isEmpty()){releaseInputs();return;}
         }
         held.forEach(key->InputState.set(keys().get(key),true));
     }
@@ -110,9 +116,12 @@ public final class Blockwire implements ClientModInitializer {
         return Map.of("forward",o.keyUp,"back",o.keyDown,"left",o.keyLeft,"right",o.keyRight,
             "jump",o.keyJump,"sneak",o.keyShift,"sprint",o.keySprint,"attack",o.keyAttack,"use",o.keyUse);
     }
-    private void release() {
+    private void releaseInputs() {
         held.forEach(key->InputState.set(keys().get(key),false));
         held=Set.of();inputLeases.clear();ticksLeft=0;actor=null;world=null;
+    }
+    private void release() {
+        rotation.cancel(mc,"controls_released");releaseInputs();
     }
     private void stop() {++generation;release();if(server!=null){server.close();server=null;}}
     public static boolean holdingAttack() {
@@ -134,25 +143,39 @@ public final class Blockwire implements ClientModInitializer {
         if(q.has("actor_session") && !navigation.matches(mc,Protocol.string(q,"actor_session")))
             throw new IllegalStateException("actor_session_changed");
     }
+    private JsonObject inventorySnapshot() {
+        var out=Observations.inventory(mc);
+        out.addProperty("actor_session",navigation.actorSession(mc));
+        out.addProperty("guarded_inventory",true);return out;
+    }
     private JsonObject dispatch(JsonObject q) {
         String op=Protocol.operation(q);
         switch(op) {
             case "observe" -> {
-                Protocol.fields(q);var scene=Observations.scene(mc);
-                scene.addProperty("actor_session",navigation.actorSession(mc));return scene;
+                Protocol.fields(q);var scene=Observations.scene(mc);String session=navigation.actorSession(mc);
+                scene.addProperty("actor_session",session);scene.add("rotation",rotation.snapshot(mc,session));return scene;
             }
-            case "navigation" -> {Protocol.fields(q);return navigation.snapshot(mc);}
-            case "inventory" -> {Protocol.fields(q);playerRequired();return Observations.inventory(mc);}
+            case "navigation" -> {Protocol.fields(q,"terrain");return navigation.snapshot(mc,Protocol.bool(q,"terrain",false));}
+            case "motion_trace" -> {
+                Protocol.fields(q,"limit","reset","actor_session");
+                if(q.has("actor_session"))guardedActor(q);
+                int limit=MotionTrace.requestLimit(q);boolean reset=Protocol.bool(q,"reset",false);
+                if(reset)motionTrace.reset(mc);
+                return motionTrace.snapshot(mc,navigation.actorSession(mc),limit);
+            }
+            case "inventory" -> {Protocol.fields(q);playerRequired();return inventorySnapshot();}
             case "menu" -> {Protocol.fields(q);return menus.snapshot(mc);}
             case "menu_click", "menu_key", "menu_text", "menu_scroll" -> {return menus.act(mc,q);}
             case "open_pause" -> {
                 Protocol.fields(q);playing();release();mc.pauseGame(false);return menus.snapshot(mc);
             }
-            case "stop" -> {Protocol.fields(q);release();return Protocol.ok("Inputs released.");}
+            case "stop" -> {Protocol.fields(q);release();return Protocol.ok("Inputs and active camera rotation released.");}
             case "look" -> {
-                Protocol.fields(q,"yaw","pitch","actor_session");double yaw=Protocol.number(q,"yaw",-180,180),pitch=Protocol.number(q,"pitch",-90,90);
-                guardedActor(q);playing();mc.player.setYRot((float)yaw);mc.player.setXRot((float)pitch);
-                return Protocol.ok("Camera set. Target observation refreshes on the next rendered frame.");
+                Protocol.fields(q,"yaw","pitch","actor_session","duration_ms","rotation_profile");
+                double yaw=Protocol.number(q,"yaw",-180,180),pitch=Protocol.number(q,"pitch",-90,90);
+                Integer duration=Protocol.rotationDuration(q);String profile=Protocol.rotationProfile(q);
+                guardedActor(q);playing();
+                return duration==null?rotation.immediate(mc,yaw,pitch):rotation.schedule(mc,yaw,pitch,duration,profile);
             }
             case "drive" -> {
                 Protocol.fields(q,"buttons","ticks","actor_session","button_ticks");int ticks=Protocol.integer(q,"ticks",1,100);
@@ -196,21 +219,21 @@ public final class Blockwire implements ClientModInitializer {
                 mc.player.getInventory().setSelectedSlot(slot);return Protocol.ok("Selected hotbar slot "+slot+".");
             }
             case "open_inventory" -> {
-                Protocol.fields(q);playing();release();mc.gui.setScreen(new InventoryScreen(mc.player));
-                return Observations.inventory(mc);
+                Protocol.inventoryFields(q);guardedActor(q);playing();release();mc.gui.setScreen(new InventoryScreen(mc.player));
+                return inventorySnapshot();
             }
             case "close_screen" -> {
-                Protocol.fields(q);playerRequired();
+                Protocol.inventoryFields(q);guardedActor(q);playerRequired();
                 if(!(mc.gui.screen() instanceof AbstractContainerScreen<?>))throw new IllegalStateException("no_container_screen");
                 release();mc.player.closeContainer();return Protocol.ok("Native container close requested.");
             }
             case "click_slot" -> {
-                Protocol.fields(q,"menu_id","state_id","slot","button","mode");
+                Protocol.inventoryFields(q,"menu_id","state_id","slot","button","mode");
                 int menuId=Protocol.integer(q,"menu_id",0,Integer.MAX_VALUE),stateId=Protocol.integer(q,"state_id",0,Integer.MAX_VALUE);
                 int slot=Protocol.integer(q,"slot",0,4095),button=Protocol.integer(q,"button",0,1);
                 String mode=Protocol.string(q,"mode");
                 if(!Set.of("pickup","quick_move").contains(mode))throw new IllegalArgumentException("unsupported_click_mode");
-                playerRequired();
+                guardedActor(q);playerRequired();
                 if(!(mc.gui.screen() instanceof AbstractContainerScreen<?> screen) ||
                     screen.getMenu()!=mc.player.containerMenu)throw new IllegalStateException("no_container_screen");
                 var menu=mc.player.containerMenu;
@@ -219,8 +242,14 @@ public final class Blockwire implements ClientModInitializer {
                 mc.gameMode.handleContainerInput(menuId,slot,button,mode.equals("pickup")?ContainerInput.PICKUP:ContainerInput.QUICK_MOVE,mc.player);
                 return Protocol.ok("Native slot click submitted; server acknowledgement may be pending. Refresh inventory.");
             }
+            case "command" -> {
+                String command=Protocol.command(q);guardedActor(q);playing();
+                release();mc.player.connection.sendCommand(command);
+                var receipt=Protocol.ok("Command submitted through Minecraft; server permissions apply. Outcome and output are not confirmed. Do not blindly retry.");
+                receipt.addProperty("submitted",true);return receipt;
+            }
             case "respawn" -> {
-                Protocol.fields(q);playerRequired();
+                Protocol.inventoryFields(q);guardedActor(q);playerRequired();
                 if(mc.player.isAlive())throw new IllegalStateException("player_not_dead");
                 release();mc.player.respawn();return Protocol.ok("Native respawn requested.");
             }

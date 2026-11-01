@@ -10,7 +10,7 @@ from unittest.mock import patch
 from pydantic import ValidationError
 from blockwire import BridgeError, CallableBackend, Player
 from blockwire.skills import Approach, SkillContext, default_registry, run_skill
-from blockwire.skills.autopilot import travel_inputs, turn_view_step
+from blockwire.skills.motion import travel_inputs,rotate_view_timed,_yaw_delta
 from test_skills import FlatPlayer
 
 
@@ -30,6 +30,7 @@ class ApproachPlayer(FlatPlayer):
         self.native_override = False
         self.observations = 0
         self.view_trace = []
+        self.rotation_request_trace = []
         self.drive_trace = []
         self.scene_records = []
         self.events = []
@@ -51,6 +52,7 @@ class ApproachPlayer(FlatPlayer):
                 self._physics_time = self.now
                 break
             end = min(self.now, self.lease_until, self._physics_time+.05)
+            self._update_rotation(end)
             forward = int("forward" in self.held)-int("back" in self.held)
             right = int("right" in self.held)-int("left" in self.held)
             length = max(1., math.hypot(forward, right))
@@ -71,7 +73,7 @@ class ApproachPlayer(FlatPlayer):
 
     def sleep(self, seconds):
         self.now += seconds
-        self._advance()
+        self._advance();self._update_rotation()
 
     def _event(self, kind):
         self._advance()
@@ -83,7 +85,7 @@ class ApproachPlayer(FlatPlayer):
     def stop(self):
         self._event("stop")
         self.calls.append(("stop",))
-        self.held = ()
+        self.held = ();self.rotation=None
         self.lease_until = self.now
 
     def navigation(self):
@@ -92,11 +94,12 @@ class ApproachPlayer(FlatPlayer):
         state["eye_position"] = [self.position[0], self.position[1]+1.62, self.position[2]]
         return state
 
-    def look(self, yaw, pitch, *, actor_session):
+    def look(self, yaw, pitch, *, actor_session, duration_ms=None, rotation_profile=None):
         self._event("look")
-        super().look(yaw, pitch, actor_session=actor_session)
+        super().look(yaw, pitch, actor_session=actor_session,duration_ms=duration_ms,rotation_profile=rotation_profile)
         self.pitch = pitch
-        self.view_trace.append((yaw, pitch))
+        self.view_trace.append((yaw, pitch));self.rotation_request_trace.append(
+            {'yaw':yaw,'pitch':pitch,'duration_ms':duration_ms,'rotation_profile':rotation_profile,'time':self.now})
 
     def drive(self, buttons, ticks, *, wait, actor_session):
         assert actor_session == self.session
@@ -170,7 +173,8 @@ class ApproachContracts(unittest.TestCase):
         self.assertNotIn((7, 64, 0), player.trace)
         self.assertTrue(any(p["route_is_partial"] for p in progress))
         self.assertGreater(player.observations, 2)
-        self.assertTrue(all("sneak" in c[1] and set(c[1]) <= {"forward", "back", "left", "right", "sneak"}
+        self.assertTrue(any("sneak" not in c[1] for c in player.calls if c[0] == "drive"))
+        self.assertTrue(all(set(c[1]) <= {"forward", "back", "left", "right", "sneak"}
                             for c in player.calls if c[0] == "drive"))
         self.assertEqual(player.calls[-1], ("stop",))
         self.assertEqual(result.cleanup, "released")
@@ -385,85 +389,80 @@ class ApproachContracts(unittest.TestCase):
         self.assertEqual(result.cleanup, "released")
         self.assertEqual(player.calls[-1], ("stop",))
 
-    def test_AR16_forward_travel_and_only_tiny_aligned_strafe_corrections(self):
+    def test_AR16_native_direction_keys_approximate_world_vector_during_turns(self):
         for motion in range(-180, 181, 15):
             for distance in [.14, .349, .35, 1.5]:
                 for current in [-179., -90., -70., 0., 90., 110., 458.5]:
                     yaw, keys = travel_inputs(motion, current, distance)
-                    forward = int("forward" in keys)
+                    forward = int("forward" in keys)-int("back" in keys)
                     right = int("right" in keys)-int("left" in keys)
-                    angle = math.radians(yaw)
+                    length=max(1.,math.hypot(forward,right));forward,right=forward/length,right/length
+                    angle = math.radians(current)
                     dx = -math.sin(angle)*forward-math.cos(angle)*right
                     dz = math.cos(angle)*forward-math.sin(angle)*right
-                    self.assertAlmostEqual(dx, -math.sin(math.radians(motion)), places=10)
-                    self.assertAlmostEqual(dz, math.cos(math.radians(motion)), places=10)
-                    self.assertIn(keys, [("forward",), ("left",), ("right",)])
-                    if keys != ("forward",):
-                        self.assertLess(distance, .35)
-                        self.assertLessEqual(abs((yaw-current+180) % 360-180), 8.+1e-6)
-                    else:
-                        self.assertLess(abs((yaw-motion+180) % 360-180), 1e-6)
+                    actual=math.degrees(math.atan2(-dx,dz))
+                    self.assertLessEqual(abs((actual-motion+180)%360-180),22.5+1e-6)
+                    self.assertLess(abs((yaw-motion+180)%360-180),1e-6)
+                    self.assertTrue(set(keys)<={"forward","back","left","right"})
+                    self.assertFalse({"forward","back"}<=set(keys));self.assertFalse({"left","right"}<=set(keys))
 
-    def test_AR17_approach_camera_has_no_per_pulse_turn_back_and_bounded_steps(self):
+    def test_AR17_approach_travel_uses_timed_rotation_without_stopping_motion(self):
         player = ApproachPlayer([target(7, z=6)])
-        initial_view = (player.yaw, player.pitch)
         progress = []
         result = run_skill(default_registry(), player, "approach", {"timeout_seconds": 25.},
             clock=player.clock, sleeper=player.sleep, publish=progress.append)
         self.assertEqual(result.reason, "ready_to_interact")
-        views = [initial_view]+player.view_trace
-        yaw_steps = [abs((b[0]-a[0]+180) % 360-180) for a, b in zip(views, views[1:])]
-        pitch_steps = [abs(b[1]-a[1]) for a, b in zip(views, views[1:])]
-        self.assertLessEqual(max(yaw_steps), 8.+1e-6)
-        self.assertLessEqual(max(pitch_steps), 8.+1e-6)
-        checkpoints = sum(p["phase"] == "checking_target" for p in progress)
-        # A right-angle route plus final aim, with at most one out-and-back glance per checkpoint.
-        self.assertLess(sum(yaw_steps), 180.+180*checkpoints)
+        timed=[request for request in player.rotation_request_trace if request['duration_ms'] is not None]
+        self.assertTrue(timed)
+        self.assertTrue(all(request['duration_ms']==200 and request['rotation_profile']=='smoothstep' for request in timed))
+        self.assertTrue(any(abs((request['yaw']+90+180)%360-180)>8 for request in timed))
+        self.assertTrue(any(event['held'] for event in player.events if event['kind']=='look'))
         drives = player.drive_trace
-        travel_yaw = [abs((b["yaw"]-a["yaw"]+180) % 360-180) for a, b in zip(drives, drives[1:])]
-        self.assertLess(sum(travel_yaw), 120.)
-        self.assertTrue(all(abs(d["pitch"]) < 1e-6 for d in drives))
-        self.assertGreaterEqual(sum("forward" in c["buttons"] for c in drives)/len(drives), .8)
-        self.assertTrue(all("back" not in c["buttons"] for c in drives))
-        self.assertTrue(all(c["ticks"] == 1 for c in drives if {"left", "right"} & set(c["buttons"])))
+        self.assertTrue(all(math.isfinite(d["pitch"]) and abs(d["pitch"])<=90 for d in drives))
+        self.assertLessEqual(abs(drives[-1]['pitch']),1.)
+        self.assertGreaterEqual(sum("forward" in c["buttons"] for c in drives)/len(drives), .55)
+        self.assertTrue(all(c["ticks"] <= 8 for c in drives if {"left", "right"} & set(c["buttons"])))
+        self.assertTrue(any(p["phase"] == "checking_target" for p in progress))
         self.assertEqual(player.calls[-1], ("stop",))
 
     def test_AR18_actor_and_cancel_checked_during_turning_before_any_drive(self):
         player = ApproachPlayer([target(7, z=6)])
         player.yaw = -80.
-        def replace(scene):
-            if player.observations == 2:
-                player.session = "replacement"
-            return scene
-        player.scene_transform = replace
+        original_look=player.look;drives_at_replacement=[]
+        def replace_during_turn(*args,**kwargs):
+            original_look(*args,**kwargs);drives_at_replacement.append(len(player.drive_trace));player.session="replacement"
+        player.look=replace_during_turn
         result = self.execute(player)
         self.assertEqual(result.reason, "actor_session_changed")
-        self.assertFalse(any(c[0] == "drive" for c in player.calls))
+        self.assertEqual(len(player.drive_trace),drives_at_replacement[0])  # Fresh actor fence precedes any post-turn drive.
         self.assertEqual(player.calls[-1], ("stop",))
         player = ApproachPlayer([target(7, z=6)])
         player.yaw = -80.
         event = threading.Event()
         original_look = player.look
+        drives_at_cancel=[]
         def cancel_on_turn(*args, **kwargs):
-            original_look(*args, **kwargs)
-            event.set()
+            original_look(*args, **kwargs);drives_at_cancel.append(len(player.drive_trace));event.set()
         player.look = cancel_on_turn
         result = run_skill(default_registry(), player, "approach", {}, clock=player.clock,
                            sleeper=player.sleep, cancel_event=event)
         self.assertEqual(result.status, "cancelled")
-        self.assertFalse(any(c[0] == "drive" for c in player.calls))
+        self.assertEqual(len(player.drive_trace),drives_at_cancel[0])  # Cancellation check precedes another drive.
         self.assertEqual(player.calls[-1], ("stop",))
 
-    def test_AR19_turn_uses_shortest_yaw_arc_and_accepts_unwrapped_observations(self):
+    def test_AR19_timed_turn_uses_shortest_arc_and_accepts_unwrapped_observations(self):
         player = ApproachPlayer()
         context = SkillContext(player, threading.Event(), 10., lambda _: None, player.clock, player.sleep)
-        for view, wanted, expected in [((179., 0.), (-179., 0.), -179.),
-                                       ((-179., 0.), (179., 0.), 179.),
-                                       ((458.5, 0.), (98.7, 0.), 98.7)]:
-            player.yaw, player.pitch = view
-            self.assertFalse(turn_view_step(context, view, wanted, player.session))
-            self.assertAlmostEqual(player.yaw, expected)
-            self.assertLessEqual(abs((player.yaw-view[0]+180) % 360-180), 8.)
+        for view, wanted in [((179.,0.),(-179.,0.)),((-179.,0.),(179.,0.)),((458.5,0.),(99.5,0.))]:
+            player.rotation=None;player.yaw,player.pitch=view
+            delta=_yaw_delta(wanted[0],view[0])
+            self.assertTrue(rotate_view_timed(context,view,wanted,player.session))
+            advanced=_yaw_delta(player.yaw,view[0])
+            self.assertGreater(advanced*delta,0.);self.assertLess(abs(advanced),abs(delta))
+            player.sleep(.15)
+            self.assertLess(abs(_yaw_delta(wanted[0],player.yaw)),1e-6)
+            request=player.rotation_request_trace[-1]
+            self.assertEqual((request['duration_ms'],request['rotation_profile']),(200,'smoothstep'))
         self.assertFalse(any(c[0] == "drive" for c in player.calls))
 
     def test_AR11_python_and_cli_dispatch(self):

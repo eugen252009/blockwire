@@ -37,9 +37,10 @@ class ContinuousMotionContracts(unittest.TestCase):
         for _ in range(4):
             self.assertIsNone(self.update(motor, context))  # No input receipt is a goal outcome.
         self.assertEqual(motor.mode, "rolling")
-        self.assertEqual(sum(e["kind"] == "stop" for e in player.events), 1)  # First alignment only.
-        for kind in ["navigation", "observe", "look", "drive"]:
+        self.assertEqual(sum(e["kind"] == "stop" for e in player.events), 0)  # Already aligned: no synthetic release stage.
+        for kind in ["navigation", "observe", "drive"]:
             self.assertTrue(any(e["kind"] == kind and "forward" in e["held"] for e in player.events))
+        self.assertFalse(any(e["kind"] == "look" for e in player.events))
         self.assertTrue(all(d["previously_held"] == ("forward", "sneak") for d in player.drive_trace[1:]))
         self.assertTrue(all(4 <= d["ticks"] <= 8 for d in player.drive_trace))
         # Four renewals execute four feedback intervals, NOT four complete 8-tick impulses.
@@ -59,7 +60,7 @@ class ContinuousMotionContracts(unittest.TestCase):
         self.assertEqual(player.position, position)
         self.assertEqual(len(player.drive_trace), 1)
 
-    def test_CM04_small_steering_overlaps_but_large_turn_releases_first(self):
+    def test_CM04_small_right_angle_and_reverse_rotation_keep_world_motion(self):
         player, motor = ApproachPlayer([]), FlatMotion()
         context = self.context(player)
         self.update(motor, context)
@@ -67,16 +68,64 @@ class ContinuousMotionContracts(unittest.TestCase):
         previous_yaw = player.yaw
         self.update(motor, context)
         self.assertGreater(abs(player.yaw-previous_yaw), .01)
-        self.assertLess(abs(player.yaw-previous_yaw), 4.)
         self.assertIn("forward", [e for e in player.events if e["kind"] == "look"][-1]["held"])
-        self.assertEqual(sum(e["kind"] == "stop" for e in player.events), 1)
+        self.assertEqual(sum(e["kind"] == "stop" for e in player.events), 0)
         count = len(player.drive_trace)
-        player.yaw += 45.  # A fresh large camera error on the SAME straight route.
+        player.rotation=None;player.yaw += 45.
         self.update(motor, context)
         self.assertTrue(motor.turning)
-        self.assertEqual(len(player.drive_trace), count)
-        self.assertFalse(player.held)
-        self.assertFalse([e for e in player.events if e["kind"] == "look"][-1]["held"])
+        self.assertEqual(len(player.drive_trace), count+1)
+        self.assertTrue({"left","right"} & set(player.drive_trace[-1]["buttons"]))
+        self.assertTrue(player.held)
+        count = len(player.drive_trace);player.rotation=None;player.yaw = 90.
+        self.update(motor, context)
+        self.assertTrue(motor.turning)
+        self.assertEqual(len(player.drive_trace), count+1)
+        self.assertIn("back",player.drive_trace[-1]["buttons"])
+        self.assertTrue(player.held)
+        self.assertTrue(all(request['duration_ms']==200 and request['rotation_profile']=='smoothstep'
+                            for request in player.rotation_request_trace))
+
+    def test_CM17_narrow_support_turns_before_driving_but_broad_ground_overlaps(self):
+        player,motor=ApproachPlayer([]),FlatMotion();player.yaw=90.
+        player.cells={(x,64,0) for x in range(-1,13)}
+        context=self.context(player)
+        for _ in range(4):self.update(motor,context)
+        self.assertFalse(player.drive_trace);self.assertTrue(player.rotation_request_trace)
+        self.update(motor,context)
+        self.assertTrue(player.drive_trace);self.assertIn('forward',player.drive_trace[-1]['buttons'])
+        broad=ApproachPlayer([]);broad.yaw=90.
+        self.update(FlatMotion(),self.context(broad))
+        self.assertTrue(broad.drive_trace)
+
+    def test_CM16_drive_quantization_uses_fresh_view_after_timed_rotation_update(self):
+        player,motor=ApproachPlayer([]),FlatMotion();player.yaw=90.
+        self.assertIsNone(self.update(motor,self.context(player)))
+        drive=player.drive_trace[-1];buttons=set(drive['buttons'])
+        forward=int('forward' in buttons)-int('back' in buttons)
+        right=int('right' in buttons)-int('left' in buttons)
+        length=max(1.,math.hypot(forward,right));forward,right=forward/length,right/length
+        angle=math.radians(drive['yaw'])
+        dx=-math.sin(angle)*forward-math.cos(angle)*right
+        dz=math.cos(angle)*forward-math.sin(angle)*right
+        actual=math.degrees(math.atan2(-dx,dz))
+        self.assertLessEqual(abs((actual+90+180)%360-180),22.5+1e-6)
+        self.assertTrue({'back','left'}<=buttons)
+
+    def test_CM15_transient_turn_revalidation_uncertainty_stops_and_replans(self):
+        player,motor=ApproachPlayer([]),FlatMotion();context=self.context(player)
+        self.update(motor,context);count=len(player.drive_trace)
+        player.rotation=None;player.yaw=90.;samples=[0]
+        def transient(state):
+            samples[0]+=1
+            return dict(state,current_center_access=False) if samples[0]==2 else state
+        player.transform=transient;before=player.now
+        self.assertIsNone(self.update(motor,context))
+        self.assertGreater(player.now-before,.19)  # Timed request feedback plus bounded settling checks.
+        self.assertEqual(len(player.drive_trace),count);self.assertFalse(player.held)
+        self.assertEqual(motor.mode,'turning')
+        player.transform=lambda state:state
+        self.assertIsNone(self.update(motor,context));self.assertEqual(len(player.drive_trace),count+1)
 
     def test_CM05_uncertain_route_readiness_and_replacement_stop_before_renewal(self):
         for invalid in ["route", "ready", "session"]:
@@ -168,6 +217,13 @@ class ContinuousMotionContracts(unittest.TestCase):
         self.assertFalse(player.held)
         self.assertEqual(len(player.drive_trace), 1)
 
+    def test_CM14_native_speed_brakes_before_final_arrival(self):
+        player,motor=ApproachPlayer([]),FlatMotion();player.position=[4.1,64.,.5]
+        state=player.navigation();state['horizontal_speed']=.15;motor.holding=True;motor._session=player.session
+        count=len(player.drive_trace);self.assertIsNone(motor.pulse(self.context(player),state,(4.5,64.,.5),'walk',
+            view=(player.yaw,player.pitch),continuous=True,precision_sneak=False,arrival_radius=.3))
+        self.assertEqual(motor.mode,'braking');self.assertEqual(len(player.drive_trace),count);self.assertFalse(player.held)
+
     def test_CM11_autopilot_and_approach_share_real_rolling_integration(self):
         for skill, player, parameters in [
             ("approach", ApproachPlayer(), {}),
@@ -208,7 +264,8 @@ class ContinuousMotionContracts(unittest.TestCase):
         ]:
             with self.subTest(skill=skill):
                 event = threading.Event()
-                player.speed = .15  # .00975 blocks/sample: below the old per-sample stationary threshold.
+                # Same .00975-block feedback step for upright approach and sneak autopilot.
+                player.speed = .00975 / (.215 if skill == "approach" else .065)
                 def cancel():
                     if len(player.drive_trace) >= 20:
                         event.set()

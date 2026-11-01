@@ -233,7 +233,7 @@ class AutopilotContracts(unittest.TestCase):
         finally:
             call("cancel_skill", job_id=job["id"])
 
-    def test_AP11_unknown_threat_profile_and_offcenter_escape_fail_closed(self):
+    def test_AP11_unknown_threat_profile_fails_closed_and_offcenter_escape_never_approaches(self):
         player = AutoPlayer()
         nav = player.navigation
         player.navigation = lambda: dict(nav(), threat_profile="old")
@@ -242,8 +242,11 @@ class AutopilotContracts(unittest.TestCase):
         player = AutoPlayer()
         player.position[0] = .2
         player.threats = [threat()]
-        self.assertEqual(self.execute(player, evade_creepers=True).reason, "escape_would_approach_threat")
-        self.assertFalse(player.trace)
+        result=self.execute(player, evade_creepers=True)
+        self.assertEqual(result.reason,"monitoring_completed")
+        initial=2.3
+        self.assertTrue(player.trace)
+        self.assertTrue(all(math.dist([x+.5,64.,z+.5],[2.5,64.,.5])>=initial for x,_,z in player.trace))
 
     def test_AP12_late_native_session_or_target_rejection_stops_without_retry(self):
         for reason in ["actor_session_changed", "target_entity_changed"]:

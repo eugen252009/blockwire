@@ -30,24 +30,36 @@ Unauthenticated/origin/wrong-endpoint upgrades receive HTTP 403.
 
 | op | Parameters | Effect |
 |---|---|---|
-| observe | none | Bounded scene, extended sight/interactables, compact sampled surfaces, readable text, version/timestamp |
+| observe | none | Bounded scene, extended sight/interactables, compact sampled surfaces, readable text, version/timestamp and current native rotation-plan state |
 | inventory | none | Player items and, if open, native container slots |
-| navigation | none | Bounded loaded flat-ground collision mesh, hazards and actor session |
-| look | yaw -180..180, pitch -90..90; optional actor_session | Absolute native orientation; target refreshes next frame |
+| navigation | optional terrain boolean | Bounded loaded full-block collision mesh, typed transitions, native motion fields, hazards and actor session |
+| motion_trace | limit 1..4096; optional reset boolean and actor_session | Read bounded end-of-client-tick native motion/input telemetry; reset clears telemetry only |
+| look | yaw -180..180, pitch -90..90; optional actor_session; optional duration_ms 1..5000 and rotation_profile linear/smoothstep | Omitted duration preserves immediate orientation; timed requests schedule one actor-bound elapsed-time plan |
 | drive | buttons array, ticks integer 1..100; optional actor_session, button_ticks object | Replace held set; bounded overall and per-key leases |
 | action | name: attack/use; optional actor_session; optional target_entity_id for attack with actor_session | One native press; optional session/target guards |
 | hotbar | slot integer 0..8; optional actor_session | Native selected slot; guarded against player/world replacement when supplied |
-| open_inventory | none | Open genuine inventory screen |
-| close_screen | none | Close an open native container only |
-| click_slot | menu_id, state_id, slot, button 0/1, mode pickup/quick_move | Native menu click with identity/state guard |
-| stop | none | Release held input; can be called without a world |
-| respawn | none | Native request, only when dead |
+| open_inventory | optional actor_session | Open genuine inventory screen |
+| close_screen | optional actor_session | Close an open native container only |
+| click_slot | menu_id, state_id, slot, button 0/1, mode pickup/quick_move; optional actor_session | Native menu click with identity/state guard |
+| stop | none | Explicit global release: held input plus an active camera plan; can be called without a world |
+| respawn | optional actor_session | Native request only when dead; supplied actor fence checked before effects |
+| command | command string; optional actor_session | Submit one explicit slash command through the native client; server permissions apply, no output/success confirmation |
 | menu | none | Native screen title, widget IDs/labels, bounds, focus, redacted text fields |
 | open_pause | none | Open ordinary pause screen from live gameplay |
 | menu_click | screen_id; widget_id OR x,y; button 0/1 optional | Route native screen click/release |
 | menu_key | screen_id, key; modifiers optional | Native screen key press/release |
 | menu_text | screen_id, text; replace optional | Type into focused EditBox; optional native select-all/backspace |
 | menu_scroll | screen_id, x,y, amount -20..20 | Native screen scroll |
+
+`command` requires a leading `/` and a nonempty command name immediately after
+it (not whitespace or another slash). Maximum 256 UTF-16 code units including
+the slash. Control characters (including DEL/C1), §, Unicode line/paragraph
+separators and malformed surrogate pairs are rejected. Text is never trimmed,
+split or interpolated; only the first slash is removed for native `sendCommand`.
+Requires live, unpaused, non-spectator gameplay with no screen; optional
+`actor_session` fences replacement before effects. Releases held inputs before
+submission. Returns `{"submitted":true,"text":"..."}`, **not** execution success,
+chat output or server acknowledgement. No retries. See [authority and limits](commands.md).
 
 `buttons`: forward, back, left, right, jump, sneak, sprint, attack, use.
 Maximum nine unique entries; opposed forward/back or left/right are rejected.
@@ -65,7 +77,17 @@ The standalone Python controller caps its writes at 8 ticks, although the raw
 protocol retains its existing 100-tick bound. See [controller](controller.md).
 
 Camera convention: 0 south, 90 west, -90 east, ±180 north; positive pitch down.
-Snapshots use native world coordinates and localized friendly names alongside IDs.
+A timed request uses `System.nanoTime()`, real client ticks, shortest equivalent yaw,
+clamped pitch and simultaneous axes. `rotation_profile` is rejected without
+`duration_ms`; when omitted for a timed request it defaults to `smoothstep`.
+Repeated identical active targets are idempotent; a different target supersedes
+from the currently applied view. `observe.rotation` reports plan ID/status,
+requested duration/profile, start/target/current orientation, elapsed monotonic
+time and the prior terminal plan. This is read-only state, not completion merely
+because scheduling returned. Natural drive-lease expiry releases only input keys;
+explicit stop/F8, authority loss, actor/world replacement, death, pause or UI
+transition cancels the plan. Snapshots use native world coordinates and localized
+friendly names alongside IDs.
 
 ## Descriptive skills (Python/MCP layer)
 
@@ -82,18 +104,33 @@ a navigation mesh. `navigation` advertises `hotbar_actor_session: true` and
 `independent_input_leases: true` for the standalone controller. Missing capabilities
 cause the runner to require a mod upgrade before setup/gameplay actions.
 
-`navigation` has profile `flat_full_blocks_v1`, opaque `actor_session`, readiness
-and reason, position/health, `current_cell`, `current_center_access`, and at most
-81 same-level cells (integer `[x,y,z]` with hazard markers). `edges` are undirected
-index pairs validated with native swept collision boxes. Only loaded chunks and
-full support/headroom qualify; omitted cells are unknown/unsupported, not air.
-The response also reports fire and up to 16 nearby client-known hostile mobs.
+Default `navigation` has profile `flat_full_blocks_v1` and at most 81 same-level
+cells. `terrain:true` selects `stepped_full_blocks_v1`, at most 405 loaded cells
+within radius 4 and Y +/-2. Both include opaque `actor_session`, readiness/reason,
+position/health, native velocity and collision/ground/sprint/sneak fields,
+`current_cell`, `position_cell`, `current_center_access`, hazard markers and
+undirected `edges`. `transitions` types only native-validated `flat`, same-height
+`diagonal`, one-block axial `step` and bounded proven `gap_jump` edges. Diagonals
+require both corner cells; gap edges require absent middle geometry, a clear
+bounded envelope, a run-up cell and broad landing support. A grounded
+partial-support body may report `source_recovered_from_partial_support` for one
+nearby same-height collision-valid source cell. Only loaded chunks and full
+support/headroom qualify; omitted cells are unknown/unsupported, not air. The
+response also reports fire and up to 16 nearby client-known hostile mobs.
 Updated observations advertise `threat_profile: nearby_hostiles_v1`, player
 `eye_position`, and the nearest 16 alive client-known Monsters within 8 blocks.
 Each hostile includes `entity_id`, registry `type`, `position`, `eye_position`,
 `distance` and approximate `visible` (native line of sight and invisibility check).
 These are bounded nearby client data, not pixel visibility or complete threats.
 No arbitrary block lookup, resource IDs/NBT or generation is provided.
+
+`motion_trace` reads a 4,096-sample ring populated at the end of client ticks.
+Samples include tick/time identity, position, velocity, orientation, collisions,
+ground/mode/health/fall state, bounding box, actual inputs, remotely owned inputs,
+actor session and the active/terminal rotation ID, status, target, duration and
+profile. A supplied actor fence is checked before read/reset. `reset`
+only clears telemetry; it never moves the player or changes world state. Samples
+are observations, not action acknowledgements or server-authoritative outcomes.
 
 A supplied `actor_session` on look/drive/hotbar must still identify the same player and
 level at execution or the native operation is rejected before control changes.
@@ -107,6 +144,16 @@ that alive entity in the same level, within 3 blocks and native line of sight;
 otherwise `target_entity_changed` is returned before attack. Existing unguarded
 native actions retain their semantics. A guarded attack is still a submission,
 not proof of damage, a kill or server acknowledgement.
+
+## Respawn lifecycle (development follow-up)
+
+The existing respawn operation accepts an optional actor_session envelope, using
+the same strict guard as inventory operations. Legacy empty envelopes still work.
+A mismatched token is rejected before native respawn; no health/entity mutation or
+custom packet replaces Minecraft's normal respawn. The submission receipt does
+not prove recovery. Observe alive/new actor session, explicitly bind the new actor,
+and do not replay old pending work. Matching SDK/mod installation is required.
+Gateway permission is separately opt-in; see [hardening](gateway-building.md).
 
 ## Menus
 
@@ -125,13 +172,27 @@ Keys: escape, enter, tab, up/down/left/right, backspace, delete, home/end,
 page_up/page_down, space. Optional modifiers: shift, control. Text is single-line,
 at most 2048 UTF-16 code units, sent through native character handlers, not
 `setValue` or the OS clipboard. Chat screens, global hotkeys and arbitrary
-command execution are not exposed. Screens can nevertheless perform powerful
+command execution through menu events are not exposed. Use the separate explicit
+`command` operation for authorized slash commands. Screens can nevertheless perform powerful
 ordinary GUI actions, including destructive confirmations; get operator approval.
 
 Native 26.3 input uses SDL numbering. The API's 0/1 mouse buttons are mapped to
 native left/right, and key events carry both scancodes and logical keycodes.
 
 ## Inventory identities
+
+Development observations include `player_uuid` for explicit persistent actor
+binding. Inventory snapshots advertise `guarded_inventory: true`, `actor_session`
+and native `menu_type` (`InventoryMenu` / `CraftingMenu` for supported crafting).
+Player-owned `slots[]` additionally carry `inventory_index`; result/grid slots do
+not. The optional actor fence on `open_inventory`, `close_screen` and `click_slot`
+is validated before effects against the current player/level. Legacy envelopes
+remain accepted, but long-running crafting/equipment skills always supply it and
+require the new capability metadata. Rebuild/install the matching development mod.
+
+The [strategic LLM runtime](autonomous-survival.md) adds no native RPC, model
+connection or Java planner. It uses these primitives through the existing skills.
+
 
 `items[].inventory_index` is a player-inventory index, **not** a menu slot ID.
 `slots[].slot` identifies the current native menu slot. Use it with the returned

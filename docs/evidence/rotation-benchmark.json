@@ -1,0 +1,1594 @@
+{
+  "schema_version": 1,
+  "scope": "Minecraft 26.3 native timed-camera qualification plus unchanged movement and deterministic construction regressions; no LLM calls in rotation/movement.",
+  "architecture": "goal -> existing Python skills -> one actor-bound native RotationController and ordinary input leases -> Minecraft tick updates -> bounded telemetry",
+  "fixture": {
+    "identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+    "scenario_identity": "e51fbdcc599a007ff9e864432511f2adfa00d8088aa764fe4cfef6fbbc59fea5",
+    "minecraft_version": "26.3",
+    "full_scenarios": 50,
+    "repetitions_per_profile": 150,
+    "restore_policy": "Each independent cohort restores and byte-validates the same owned closed snapshot."
+  },
+  "acceptance": {
+    "duration_tolerance_ms": "max(75, requested_duration * 0.35)",
+    "endpoint_tolerance_degrees": 0.25,
+    "instant_snap_detector": "For arcs > 5 degrees, one tick may not consume >= 80% of the requested arc.",
+    "note": "Receipts never substitute for terminal native rotation state, endpoint orientation, cancellation stability or tick traces."
+  },
+  "assessments": {
+    "rotation": {
+      "decision": "GO",
+      "gates": {
+        "identical_full_fixture_scenarios_and_version": true,
+        "linear_profile": true,
+        "smoothstep_profile": true,
+        "current_native_rotation_sources_match_full_profiles": true,
+        "final_source_smoke_8_of_8_and_hash_match": true,
+        "python_gradle_tls_and_mutations_pass": true,
+        "client_world_closed_and_process_exited": true
+      },
+      "profile_gates": {
+        "linear": {
+          "all_150_runs_pass": true,
+          "all_applicable_durations_within_tolerance": true,
+          "zero_instant_snaps": true,
+          "endpoint_errors_at_most_0_25_degrees": true,
+          "zero_overshoot_within_float_precision": true,
+          "moving_runs_pass_without_full_stops": true,
+          "cancellation_is_stable": true,
+          "no_dropped_tick_telemetry": true
+        },
+        "smoothstep": {
+          "all_150_runs_pass": true,
+          "all_applicable_durations_within_tolerance": true,
+          "zero_instant_snaps": true,
+          "endpoint_errors_at_most_0_25_degrees": true,
+          "zero_overshoot_within_float_precision": true,
+          "moving_runs_pass_without_full_stops": true,
+          "cancellation_is_stable": true,
+          "no_dropped_tick_telemetry": true
+        }
+      }
+    },
+    "movement": {
+      "decision": "GO",
+      "gates": {
+        "same_fixed_fixture_and_scenarios": true,
+        "all_211_repetitions_pass": true,
+        "max_error_at_most_0_3": true,
+        "zero_health_loss": true,
+        "settled_without_trace_loss": true,
+        "qualified_sources_match_current": true
+      }
+    },
+    "building": {
+      "decision": "GO",
+      "gates": {
+        "fresh_closed_snapshot_run": true,
+        "objective_verified": true,
+        "all_71_required_blocks": true,
+        "no_wrong_missing_or_unknown_required_blocks": true,
+        "access_clearance_roof_floor_and_safe_player": true,
+        "zero_failed_actions": true
+      }
+    },
+    "historical_superflat_test_B": {
+      "decision": "NO-GO",
+      "meaning": "Unchanged historical assessment; this regression does not rerun or relabel B01."
+    },
+    "historical_native_movement_parity": {
+      "decision": "NO-GO",
+      "meaning": "Unchanged historical strict tick-parity assessment; correctness regression GO is separate."
+    }
+  },
+  "rotation_runs": {
+    "legacy": {
+      "id": "legacy-v1",
+      "variant": "legacy",
+      "metadata": {
+        "run_id": "legacy-v1",
+        "variant": "legacy",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "e51fbdcc599a007ff9e864432511f2adfa00d8088aa764fe4cfef6fbbc59fea5",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+          "python/src/blockwire/client.py": "ae0242810d3b2486a77d72034286ff9403c9dc48958e7bb4ed22e5caceb907b4",
+          "src/main/java/dev/blockwire/Blockwire.java": "0702c3f5d28e06f729f01b4d4e0906c521a38ad0ac2d60cfc355e68385742462",
+          "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93",
+          "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+          "tests/rotation/live.py": "6e9738e7b105da5c4e8557a94eb5135f794cd6177a24d8f51fca8606ff2573df",
+          "tests/rotation/metrics.py": "ea74a95ea076dfd3602b83fa96433083c2fcc50c8f08c7aa9ea8f8d3e35f9203"
+        },
+        "scenario_names": [
+          "yaw_15_100ms",
+          "yaw_15_200ms",
+          "yaw_15_400ms",
+          "yaw_45_100ms",
+          "yaw_45_200ms",
+          "yaw_45_400ms",
+          "yaw_90_100ms",
+          "yaw_90_200ms",
+          "yaw_90_400ms",
+          "yaw_135_100ms",
+          "yaw_135_200ms",
+          "yaw_135_400ms",
+          "yaw_180_100ms",
+          "yaw_180_200ms",
+          "yaw_180_400ms",
+          "yaw_270_100ms",
+          "yaw_270_200ms",
+          "yaw_270_400ms",
+          "pitch_up_30_100ms",
+          "pitch_down_45_100ms",
+          "combined_yaw90_pitch30_100ms",
+          "wrap_179_to_negative179_100ms",
+          "pitch_up_30_200ms",
+          "pitch_down_45_200ms",
+          "combined_yaw90_pitch30_200ms",
+          "wrap_179_to_negative179_200ms",
+          "pitch_up_30_400ms",
+          "pitch_down_45_400ms",
+          "combined_yaw90_pitch30_400ms",
+          "wrap_179_to_negative179_400ms",
+          "wrap_negative179_to_179_200ms",
+          "yaw_90_to_negative90_200ms",
+          "yaw_180_to_0_200ms",
+          "identical_yaw_pitch_200ms",
+          "pitch_to_upper_boundary_200ms",
+          "pitch_to_lower_boundary_200ms",
+          "moving_walk_yaw45_200ms",
+          "moving_walk_yaw90_100ms",
+          "moving_walk_yaw90_200ms",
+          "moving_walk_yaw90_400ms",
+          "moving_walk_yaw180_200ms",
+          "moving_sprint_yaw90_200ms",
+          "moving_sneak_yaw90_200ms",
+          "moving_diagonal_yaw90_200ms",
+          "moving_diagonal_yaw135_200ms",
+          "supersede_yaw90_to150_after80ms",
+          "moving_supersede_yaw90_to150_after80ms",
+          "cancel_yaw180_after80ms",
+          "moving_cancel_yaw180_after80ms",
+          "moving_three_curves_200ms"
+        ],
+        "repeat_policy": "Fixed declared repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_measurement": true,
+        "combat": false
+      },
+      "aggregate": {
+        "runs": 150,
+        "successes": 147,
+        "success_rate": 0.98,
+        "success_wilson_95": [
+          0.9428533167296139,
+          0.9931752486770326
+        ],
+        "duration_applicable_runs": 141,
+        "duration_within_tolerance": 17,
+        "instant_snaps": 0,
+        "final_yaw_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 172.0
+        },
+        "final_pitch_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_yaw_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 4.0
+        },
+        "completion_final_pitch_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_angular_step_degrees": {
+          "count": 150,
+          "median": 8.0,
+          "min": 0.0,
+          "max": 8.432740848752795
+        },
+        "max_overshoot_degrees": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "trajectory_rmse_degrees": {
+          "count": 141,
+          "median": 38.81347311469148,
+          "min": 0.5896431418391829,
+          "max": 98.09042966374933
+        },
+        "tick_interval_ms": {
+          "count": 150,
+          "median": 50.000361749999996,
+          "min": 49.818833,
+          "max": 51.561262
+        },
+        "trace_dropped_samples": 0
+      },
+      "duration_ms": {
+        "100": {
+          "runs": 33,
+          "within_tolerance": 5,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 998.250483,
+            "min": 48.645892,
+            "max": 1898.808117
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": 898.250483,
+            "min": -51.354108,
+            "max": 1798.808117
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 898.250483,
+            "min": 0.4989779999999939,
+            "max": 1798.808117
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 8.0,
+            "min": 2.0,
+            "max": 8.432740848752795
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 44.079028875043385,
+            "min": 0.5896431418391829,
+            "max": 98.09042966374933
+          }
+        },
+        "200": {
+          "runs": 75,
+          "within_tolerance": 3,
+          "actual_duration_ms": {
+            "count": 72,
+            "median": 1098.714925,
+            "min": 48.749755,
+            "max": 1900.776679
+          },
+          "duration_error_ms": {
+            "count": 72,
+            "median": 898.714925,
+            "min": -151.250245,
+            "max": 1700.776679
+          },
+          "absolute_duration_error_ms": {
+            "count": 72,
+            "median": 898.714925,
+            "min": 51.15368699999999,
+            "max": 1700.776679
+          },
+          "max_angular_step_degrees": {
+            "count": 75,
+            "median": 8.0,
+            "min": 2.0,
+            "max": 8.432740848752795
+          },
+          "trajectory_rmse_degrees": {
+            "count": 75,
+            "median": 39.70031613804617,
+            "min": 0.6522431593064858,
+            "max": 92.4897063654252
+          }
+        },
+        "400": {
+          "runs": 33,
+          "within_tolerance": 9,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 998.582894,
+            "min": 48.622626,
+            "max": 1898.727651
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": 598.582894,
+            "min": -351.37737400000003,
+            "max": 1498.727651
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 598.582894,
+            "min": 50.48068000000001,
+            "max": 1498.727651
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 8.0,
+            "min": 2.0,
+            "max": 8.432740848752795
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 28.200127050828197,
+            "min": 0.8820977295568012,
+            "max": 81.54267675332495
+          }
+        }
+      },
+      "categories": {
+        "cancellation": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 3,
+          "trace_dropped_samples": 0,
+          "stable": 6
+        },
+        "combined_axes": {
+          "runs": 9,
+          "successes": 9,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "moving": {
+          "runs": 36,
+          "successes": 33,
+          "full_stop_runs": 0,
+          "input_changes": 6,
+          "trace_dropped_samples": 0
+        },
+        "pitch_only": {
+          "runs": 24,
+          "successes": 24,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "sequence": {
+          "runs": 3,
+          "successes": 3,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "stationary": {
+          "runs": 114,
+          "successes": 114,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "supersession": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "wraparound": {
+          "runs": 12,
+          "successes": 12,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        }
+      },
+      "failures": [
+        {
+          "scenario": "moving_walk_yaw180_200ms",
+          "repeat": 1,
+          "terminal_status": "timed_out",
+          "final_yaw_error": 4.0,
+          "final_pitch_error": 0.0,
+          "duration_error_ms": null
+        },
+        {
+          "scenario": "moving_walk_yaw180_200ms",
+          "repeat": 2,
+          "terminal_status": "timed_out",
+          "final_yaw_error": 4.0,
+          "final_pitch_error": 0.0,
+          "duration_error_ms": null
+        },
+        {
+          "scenario": "moving_walk_yaw180_200ms",
+          "repeat": 3,
+          "terminal_status": "timed_out",
+          "final_yaw_error": 4.0,
+          "final_pitch_error": 0.0,
+          "duration_error_ms": null
+        }
+      ],
+      "artifacts": {
+        "files": 304,
+        "json_files": 154,
+        "csv_files": 150,
+        "sha256": "cfb55aa6eb7b3b4c90d8c3596f33c7de1faba1094d5ba51e43fbbd87fd69fc58",
+        "summary_sha256": "1e98419f40dc3ceaebdc7d0b8769bffb67b2cbe57b21d5da534f206e13149c90",
+        "ended_world_manifest_sha256": "6f27865a1fd7fb932811c99a78a5780474ffbe91708de5f8f84c6ab39bf3316f"
+      }
+    },
+    "linear": {
+      "id": "linear-v2",
+      "variant": "linear",
+      "metadata": {
+        "run_id": "linear-v2",
+        "variant": "linear",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "e51fbdcc599a007ff9e864432511f2adfa00d8088aa764fe4cfef6fbbc59fea5",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "c4dd2109387ca85ede3501723bec9a533239ed75fac50d25268658962ff04b40",
+          "python/src/blockwire/client.py": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+          "src/main/java/dev/blockwire/Blockwire.java": "02d54aa6947c3f79928860ea3849273dacbf4fe9988427ad7a8392ae071f3013",
+          "src/main/java/dev/blockwire/Protocol.java": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+          "src/main/java/dev/blockwire/RotationController.java": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+          "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+          "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+          "tests/rotation/live.py": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+          "tests/rotation/metrics.py": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04"
+        },
+        "scenario_names": [
+          "yaw_15_100ms",
+          "yaw_15_200ms",
+          "yaw_15_400ms",
+          "yaw_45_100ms",
+          "yaw_45_200ms",
+          "yaw_45_400ms",
+          "yaw_90_100ms",
+          "yaw_90_200ms",
+          "yaw_90_400ms",
+          "yaw_135_100ms",
+          "yaw_135_200ms",
+          "yaw_135_400ms",
+          "yaw_180_100ms",
+          "yaw_180_200ms",
+          "yaw_180_400ms",
+          "yaw_270_100ms",
+          "yaw_270_200ms",
+          "yaw_270_400ms",
+          "pitch_up_30_100ms",
+          "pitch_down_45_100ms",
+          "combined_yaw90_pitch30_100ms",
+          "wrap_179_to_negative179_100ms",
+          "pitch_up_30_200ms",
+          "pitch_down_45_200ms",
+          "combined_yaw90_pitch30_200ms",
+          "wrap_179_to_negative179_200ms",
+          "pitch_up_30_400ms",
+          "pitch_down_45_400ms",
+          "combined_yaw90_pitch30_400ms",
+          "wrap_179_to_negative179_400ms",
+          "wrap_negative179_to_179_200ms",
+          "yaw_90_to_negative90_200ms",
+          "yaw_180_to_0_200ms",
+          "identical_yaw_pitch_200ms",
+          "pitch_to_upper_boundary_200ms",
+          "pitch_to_lower_boundary_200ms",
+          "moving_walk_yaw45_200ms",
+          "moving_walk_yaw90_100ms",
+          "moving_walk_yaw90_200ms",
+          "moving_walk_yaw90_400ms",
+          "moving_walk_yaw180_200ms",
+          "moving_sprint_yaw90_200ms",
+          "moving_sneak_yaw90_200ms",
+          "moving_diagonal_yaw90_200ms",
+          "moving_diagonal_yaw135_200ms",
+          "supersede_yaw90_to150_after80ms",
+          "moving_supersede_yaw90_to150_after80ms",
+          "cancel_yaw180_after80ms",
+          "moving_cancel_yaw180_after80ms",
+          "moving_three_curves_200ms"
+        ],
+        "repeat_policy": "Fixed declared repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_measurement": true,
+        "combat": false
+      },
+      "aggregate": {
+        "runs": 150,
+        "successes": 150,
+        "success_rate": 1.0,
+        "success_wilson_95": [
+          0.9750297556319235,
+          1.0
+        ],
+        "duration_applicable_runs": 141,
+        "duration_within_tolerance": 141,
+        "instant_snaps": 0,
+        "final_yaw_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 172.4284835
+        },
+        "final_pitch_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_yaw_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_pitch_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_angular_step_degrees": {
+          "count": 150,
+          "median": 22.547891750000005,
+          "min": 0.0,
+          "max": 91.85696200000001
+        },
+        "max_overshoot_degrees": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 1.4210854715202004e-14
+        },
+        "trajectory_rmse_degrees": {
+          "count": 141,
+          "median": 0.13689147385580433,
+          "min": 0.001806647451920454,
+          "max": 11.855596127034882
+        },
+        "tick_interval_ms": {
+          "count": 150,
+          "median": 50.05461025,
+          "min": 48.867917,
+          "max": 51.291681
+        },
+        "trace_dropped_samples": 0
+      },
+      "duration_ms": {
+        "100": {
+          "runs": 33,
+          "within_tolerance": 33,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 133.736458,
+            "min": 83.57003,
+            "max": 135.954578
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": 33.736458,
+            "min": -16.429969999999997,
+            "max": 35.954578
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 33.736458,
+            "min": 16.429969999999997,
+            "max": 35.954578
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 43.834047,
+            "min": 0.9726100000000031,
+            "max": 91.85696200000001
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 0.23075450265517003,
+            "min": 0.005208063969984908,
+            "max": 0.7940435921474112
+          }
+        },
+        "200": {
+          "runs": 75,
+          "within_tolerance": 75,
+          "actual_duration_ms": {
+            "count": 75,
+            "median": 234.975541,
+            "min": 168.232019,
+            "max": 239.816643
+          },
+          "duration_error_ms": {
+            "count": 75,
+            "median": 34.97554099999999,
+            "min": -31.767980999999992,
+            "max": 39.816643
+          },
+          "absolute_duration_error_ms": {
+            "count": 75,
+            "median": 34.97554099999999,
+            "min": 1.6999319999999898,
+            "max": 39.816643
+          },
+          "max_angular_step_degrees": {
+            "count": 75,
+            "median": 23.241353000000004,
+            "min": 0.5124999999999886,
+            "max": 46.847954000000016
+          },
+          "trajectory_rmse_degrees": {
+            "count": 75,
+            "median": 0.1647464437507781,
+            "min": 0.003185830062335207,
+            "max": 11.855596127034882
+          }
+        },
+        "400": {
+          "runs": 33,
+          "within_tolerance": 33,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 417.445238,
+            "min": 317.133817,
+            "max": 436.880363
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": 17.445238000000018,
+            "min": -82.86618299999998,
+            "max": 36.88036299999999
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 33.854217000000006,
+            "min": 2.2484600000000228,
+            "max": 82.86618299999998
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 11.55444,
+            "min": 0.25704999999999245,
+            "max": 23.43153000000001
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 0.07198362649527701,
+            "min": 0.001806647451920454,
+            "max": 0.16805781850171259
+          }
+        }
+      },
+      "categories": {
+        "cancellation": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 3,
+          "trace_dropped_samples": 0,
+          "stable": 6
+        },
+        "combined_axes": {
+          "runs": 9,
+          "successes": 9,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "moving": {
+          "runs": 36,
+          "successes": 36,
+          "full_stop_runs": 0,
+          "input_changes": 3,
+          "trace_dropped_samples": 0
+        },
+        "pitch_only": {
+          "runs": 24,
+          "successes": 24,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "sequence": {
+          "runs": 3,
+          "successes": 3,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "stationary": {
+          "runs": 114,
+          "successes": 114,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "supersession": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "wraparound": {
+          "runs": 12,
+          "successes": 12,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        }
+      },
+      "failures": [],
+      "artifacts": {
+        "files": 304,
+        "json_files": 154,
+        "csv_files": 150,
+        "sha256": "7d17b0f5d3f4fad37e51acc6ffc1f237758d9c0d8cc16cee4ff6ddda3756f3c8",
+        "summary_sha256": "cd599c1061a2deca9e505db641d32661389e8cf867634a94b1de6cd8d378e802",
+        "ended_world_manifest_sha256": "3e8830224c570725587f515786a8237170efca0a65e63daef37114060a075517"
+      }
+    },
+    "smoothstep": {
+      "id": "smoothstep-v2",
+      "variant": "smoothstep",
+      "metadata": {
+        "run_id": "smoothstep-v2",
+        "variant": "smoothstep",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "e51fbdcc599a007ff9e864432511f2adfa00d8088aa764fe4cfef6fbbc59fea5",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "c4dd2109387ca85ede3501723bec9a533239ed75fac50d25268658962ff04b40",
+          "python/src/blockwire/client.py": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+          "src/main/java/dev/blockwire/Blockwire.java": "02d54aa6947c3f79928860ea3849273dacbf4fe9988427ad7a8392ae071f3013",
+          "src/main/java/dev/blockwire/Protocol.java": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+          "src/main/java/dev/blockwire/RotationController.java": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+          "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+          "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+          "tests/rotation/live.py": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+          "tests/rotation/metrics.py": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04"
+        },
+        "scenario_names": [
+          "yaw_15_100ms",
+          "yaw_15_200ms",
+          "yaw_15_400ms",
+          "yaw_45_100ms",
+          "yaw_45_200ms",
+          "yaw_45_400ms",
+          "yaw_90_100ms",
+          "yaw_90_200ms",
+          "yaw_90_400ms",
+          "yaw_135_100ms",
+          "yaw_135_200ms",
+          "yaw_135_400ms",
+          "yaw_180_100ms",
+          "yaw_180_200ms",
+          "yaw_180_400ms",
+          "yaw_270_100ms",
+          "yaw_270_200ms",
+          "yaw_270_400ms",
+          "pitch_up_30_100ms",
+          "pitch_down_45_100ms",
+          "combined_yaw90_pitch30_100ms",
+          "wrap_179_to_negative179_100ms",
+          "pitch_up_30_200ms",
+          "pitch_down_45_200ms",
+          "combined_yaw90_pitch30_200ms",
+          "wrap_179_to_negative179_200ms",
+          "pitch_up_30_400ms",
+          "pitch_down_45_400ms",
+          "combined_yaw90_pitch30_400ms",
+          "wrap_179_to_negative179_400ms",
+          "wrap_negative179_to_179_200ms",
+          "yaw_90_to_negative90_200ms",
+          "yaw_180_to_0_200ms",
+          "identical_yaw_pitch_200ms",
+          "pitch_to_upper_boundary_200ms",
+          "pitch_to_lower_boundary_200ms",
+          "moving_walk_yaw45_200ms",
+          "moving_walk_yaw90_100ms",
+          "moving_walk_yaw90_200ms",
+          "moving_walk_yaw90_400ms",
+          "moving_walk_yaw180_200ms",
+          "moving_sprint_yaw90_200ms",
+          "moving_sneak_yaw90_200ms",
+          "moving_diagonal_yaw90_200ms",
+          "moving_diagonal_yaw135_200ms",
+          "supersede_yaw90_to150_after80ms",
+          "moving_supersede_yaw90_to150_after80ms",
+          "cancel_yaw180_after80ms",
+          "moving_cancel_yaw180_after80ms",
+          "moving_three_curves_200ms"
+        ],
+        "repeat_policy": "Fixed declared repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_measurement": true,
+        "combat": false
+      },
+      "aggregate": {
+        "runs": 150,
+        "successes": 150,
+        "success_rate": 1.0,
+        "success_wilson_95": [
+          0.9750297556319235,
+          1.0
+        ],
+        "duration_applicable_runs": 141,
+        "duration_within_tolerance": 141,
+        "instant_snaps": 0,
+        "final_yaw_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 179.0588477
+        },
+        "final_pitch_error": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_yaw_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_pitch_error": {
+          "count": 144,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_angular_step_degrees": {
+          "count": 150,
+          "median": 31.18360300000001,
+          "min": 0.0,
+          "max": 122.78675399999999
+        },
+        "max_overshoot_degrees": {
+          "count": 150,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 1.4210854715202004e-14
+        },
+        "trajectory_rmse_degrees": {
+          "count": 141,
+          "median": 0.1257888943006006,
+          "min": 0.0015906162758579253,
+          "max": 14.039078459482827
+        },
+        "tick_interval_ms": {
+          "count": 150,
+          "median": 50.11581675,
+          "min": 49.549171,
+          "max": 51.254829
+        },
+        "trace_dropped_samples": 0
+      },
+      "duration_ms": {
+        "100": {
+          "runs": 33,
+          "within_tolerance": 33,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 117.303729,
+            "min": 68.309308,
+            "max": 136.700478
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": 17.303729000000004,
+            "min": -31.690692,
+            "max": 36.700478000000004
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 31.690692,
+            "min": 16.340979000000004,
+            "max": 36.700478000000004
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 58.48879600000001,
+            "min": 1.2968000000000188,
+            "max": 122.78675399999999
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 0.22719413257319557,
+            "min": 0.005798175274622623,
+            "max": 0.43679549579384147
+          }
+        },
+        "200": {
+          "runs": 75,
+          "within_tolerance": 75,
+          "actual_duration_ms": {
+            "count": 75,
+            "median": 234.905407,
+            "min": 135.026181,
+            "max": 240.279067
+          },
+          "duration_error_ms": {
+            "count": 75,
+            "median": 34.905407,
+            "min": -64.97381899999999,
+            "max": 40.279067
+          },
+          "absolute_duration_error_ms": {
+            "count": 75,
+            "median": 34.93030300000001,
+            "min": 1.8849329999999895,
+            "max": 64.97381899999999
+          },
+          "max_angular_step_degrees": {
+            "count": 75,
+            "median": 33.48652999999999,
+            "min": 0.7074899999999786,
+            "max": 68.02671000000001
+          },
+          "trajectory_rmse_degrees": {
+            "count": 75,
+            "median": 0.15546480604811677,
+            "min": 0.002762132128946112,
+            "max": 14.039078459482827
+          }
+        },
+        "400": {
+          "runs": 33,
+          "within_tolerance": 33,
+          "actual_duration_ms": {
+            "count": 33,
+            "median": 385.124261,
+            "min": 283.96347,
+            "max": 435.654801
+          },
+          "duration_error_ms": {
+            "count": 33,
+            "median": -14.87573900000001,
+            "min": -116.03653000000003,
+            "max": 35.65480100000002
+          },
+          "absolute_duration_error_ms": {
+            "count": 33,
+            "median": 17.02123499999999,
+            "min": 14.594918000000007,
+            "max": 116.03653000000003
+          },
+          "max_angular_step_degrees": {
+            "count": 33,
+            "median": 16.450147000000015,
+            "min": 0.36582999999998833,
+            "max": 34.41566
+          },
+          "trajectory_rmse_degrees": {
+            "count": 33,
+            "median": 0.06627315687472668,
+            "min": 0.0015906162758579253,
+            "max": 0.14719236847092268
+          }
+        }
+      },
+      "categories": {
+        "cancellation": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 3,
+          "trace_dropped_samples": 0,
+          "stable": 6
+        },
+        "combined_axes": {
+          "runs": 9,
+          "successes": 9,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "moving": {
+          "runs": 36,
+          "successes": 36,
+          "full_stop_runs": 0,
+          "input_changes": 3,
+          "trace_dropped_samples": 0
+        },
+        "pitch_only": {
+          "runs": 24,
+          "successes": 24,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "sequence": {
+          "runs": 3,
+          "successes": 3,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "stationary": {
+          "runs": 114,
+          "successes": 114,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "supersession": {
+          "runs": 6,
+          "successes": 6,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "wraparound": {
+          "runs": 12,
+          "successes": 12,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        }
+      },
+      "failures": [],
+      "artifacts": {
+        "files": 304,
+        "json_files": 154,
+        "csv_files": 150,
+        "sha256": "2f988051b19000c09bd85328b52f72b16f2cda76195862cf20c6e89633264635",
+        "summary_sha256": "4202149cca755e856a9734b8e0a578e300835decf9ebb776f72e6634711040e3",
+        "ended_world_manifest_sha256": "5c010600a244e99e389bee796b1e7bdbd336815bf393effa5a02a82f018f9bfe"
+      }
+    },
+    "final_source_smoke": {
+      "id": "smoothstep-final-smoke-v3",
+      "variant": "smoothstep",
+      "metadata": {
+        "run_id": "smoothstep-final-smoke-v3",
+        "variant": "smoothstep",
+        "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+        "scenario_identity": "e51fbdcc599a007ff9e864432511f2adfa00d8088aa764fe4cfef6fbbc59fea5",
+        "minecraft_version": "26.3",
+        "source_sha256": {
+          "python/src/blockwire/skills/motion.py": "0dfd8c776b3f94233f158dd1a9bff1bd9eb43ebd1429269abf2156b473c43ba7",
+          "python/src/blockwire/client.py": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+          "src/main/java/dev/blockwire/Blockwire.java": "02d54aa6947c3f79928860ea3849273dacbf4fe9988427ad7a8392ae071f3013",
+          "src/main/java/dev/blockwire/Protocol.java": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+          "src/main/java/dev/blockwire/RotationController.java": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+          "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+          "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+          "tests/rotation/live.py": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+          "tests/rotation/metrics.py": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04"
+        },
+        "scenario_names": [
+          "yaw_90_100ms",
+          "yaw_90_200ms",
+          "yaw_90_400ms",
+          "combined_yaw90_pitch30_200ms",
+          "wrap_179_to_negative179_200ms",
+          "moving_walk_yaw90_200ms",
+          "supersede_yaw90_to150_after80ms",
+          "cancel_yaw180_after80ms"
+        ],
+        "repeat_policy": "Fixed declared repetitions; failures retained",
+        "llm_calls": 0,
+        "administrative_commands_only_before_measurement": true,
+        "combat": false
+      },
+      "aggregate": {
+        "runs": 8,
+        "successes": 8,
+        "success_rate": 1.0,
+        "success_wilson_95": [
+          0.6755924351161198,
+          1.0
+        ],
+        "duration_applicable_runs": 7,
+        "duration_within_tolerance": 7,
+        "instant_snaps": 0,
+        "final_yaw_error": {
+          "count": 8,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 179.07035553
+        },
+        "final_pitch_error": {
+          "count": 8,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_yaw_error": {
+          "count": 7,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "completion_final_pitch_error": {
+          "count": 7,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0
+        },
+        "max_angular_step_degrees": {
+          "count": 8,
+          "median": 32.846345,
+          "min": 0.7097500000000139,
+          "max": 53.65310600000001
+        },
+        "max_overshoot_degrees": {
+          "count": 8,
+          "median": 0.0,
+          "min": 0.0,
+          "max": 1.4210854715202004e-14
+        },
+        "trajectory_rmse_degrees": {
+          "count": 7,
+          "median": 0.1327065535947792,
+          "min": 0.0031903987470060283,
+          "max": 0.30683854085126794
+        },
+        "tick_interval_ms": {
+          "count": 8,
+          "median": 50.50014725,
+          "min": 49.891502,
+          "max": 51.7277625
+        },
+        "trace_dropped_samples": 0
+      },
+      "duration_ms": {
+        "100": {
+          "runs": 1,
+          "within_tolerance": 1,
+          "actual_duration_ms": {
+            "count": 1,
+            "median": 135.529422,
+            "min": 135.529422,
+            "max": 135.529422
+          },
+          "duration_error_ms": {
+            "count": 1,
+            "median": 35.52942200000001,
+            "min": 35.52942200000001,
+            "max": 35.52942200000001
+          },
+          "absolute_duration_error_ms": {
+            "count": 1,
+            "median": 35.52942200000001,
+            "min": 35.52942200000001,
+            "max": 35.52942200000001
+          },
+          "max_angular_step_degrees": {
+            "count": 1,
+            "median": 53.65310600000001,
+            "min": 53.65310600000001,
+            "max": 53.65310600000001
+          },
+          "trajectory_rmse_degrees": {
+            "count": 1,
+            "median": 0.30683854085126794,
+            "min": 0.30683854085126794,
+            "max": 0.30683854085126794
+          }
+        },
+        "200": {
+          "runs": 5,
+          "within_tolerance": 5,
+          "actual_duration_ms": {
+            "count": 5,
+            "median": 234.740276,
+            "min": 168.86224,
+            "max": 235.584127
+          },
+          "duration_error_ms": {
+            "count": 5,
+            "median": 34.740275999999994,
+            "min": -31.137759999999986,
+            "max": 35.584126999999995
+          },
+          "absolute_duration_error_ms": {
+            "count": 5,
+            "median": 34.740275999999994,
+            "min": 1.636257999999998,
+            "max": 35.584126999999995
+          },
+          "max_angular_step_degrees": {
+            "count": 5,
+            "median": 33.800163,
+            "min": 0.7097500000000139,
+            "max": 50.78027700000001
+          },
+          "trajectory_rmse_degrees": {
+            "count": 5,
+            "median": 0.1327065535947792,
+            "min": 0.0031903987470060283,
+            "max": 0.24279197514307077
+          }
+        },
+        "400": {
+          "runs": 1,
+          "within_tolerance": 1,
+          "actual_duration_ms": {
+            "count": 1,
+            "median": 416.990744,
+            "min": 416.990744,
+            "max": 416.990744
+          },
+          "duration_error_ms": {
+            "count": 1,
+            "median": 16.990744000000007,
+            "min": 16.990744000000007,
+            "max": 16.990744000000007
+          },
+          "absolute_duration_error_ms": {
+            "count": 1,
+            "median": 16.990744000000007,
+            "min": 16.990744000000007,
+            "max": 16.990744000000007
+          },
+          "max_angular_step_degrees": {
+            "count": 1,
+            "median": 16.479374000000007,
+            "min": 16.479374000000007,
+            "max": 16.479374000000007
+          },
+          "trajectory_rmse_degrees": {
+            "count": 1,
+            "median": 0.07382798298175235,
+            "min": 0.07382798298175235,
+            "max": 0.07382798298175235
+          }
+        }
+      },
+      "categories": {
+        "cancellation": {
+          "runs": 1,
+          "successes": 1,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0,
+          "stable": 1
+        },
+        "combined_axes": {
+          "runs": 1,
+          "successes": 1,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "moving": {
+          "runs": 1,
+          "successes": 1,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "stationary": {
+          "runs": 7,
+          "successes": 7,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "supersession": {
+          "runs": 1,
+          "successes": 1,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        },
+        "wraparound": {
+          "runs": 1,
+          "successes": 1,
+          "full_stop_runs": 0,
+          "input_changes": 0,
+          "trace_dropped_samples": 0
+        }
+      },
+      "failures": [],
+      "artifacts": {
+        "files": 20,
+        "json_files": 12,
+        "csv_files": 8,
+        "sha256": "dd5c48746342941ccba7b1a5bd270c00939708d982cf14b9a7afd37d9b32364e",
+        "summary_sha256": "b2ed278ce0c1dca50228e42d1869ac93373e579b1d307ff68e5d53c1da86a039",
+        "ended_world_manifest_sha256": "e37f2b0faf1045a64ddb234c40d79673df437b2e6530708722ce19bfca18178a"
+      }
+    }
+  },
+  "profile_comparison": {
+    "selected_default": "smoothstep",
+    "selection_reason": "Both profiles meet all gates; smoothstep retains zero-slope eased endpoints while linear remains explicitly selectable.",
+    "linear_trajectory_rmse_median_degrees": 0.13689147385580433,
+    "smoothstep_trajectory_rmse_median_degrees": 0.1257888943006006
+  },
+  "legacy_comparison": {
+    "legacy_successes": 147,
+    "legacy_runs": 150,
+    "legacy_duration_within_tolerance": 17,
+    "legacy_duration_applicable_runs": 141,
+    "legacy_failures": [
+      {
+        "scenario": "moving_walk_yaw180_200ms",
+        "repeat": 1,
+        "terminal_status": "timed_out",
+        "final_yaw_error": 4.0,
+        "final_pitch_error": 0.0,
+        "duration_error_ms": null
+      },
+      {
+        "scenario": "moving_walk_yaw180_200ms",
+        "repeat": 2,
+        "terminal_status": "timed_out",
+        "final_yaw_error": 4.0,
+        "final_pitch_error": 0.0,
+        "duration_error_ms": null
+      },
+      {
+        "scenario": "moving_walk_yaw180_200ms",
+        "repeat": 3,
+        "terminal_status": "timed_out",
+        "final_yaw_error": 4.0,
+        "final_pitch_error": 0.0,
+        "duration_error_ms": null
+      }
+    ]
+  },
+  "movement_regression": {
+    "id": "after-rotation-v4",
+    "runs": 211,
+    "successes": 211,
+    "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+    "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+    "minecraft_version": "26.3",
+    "game_ticks_total": 17908,
+    "game_ticks_median": 70,
+    "full_stop_runs": 227,
+    "input_changes": 1756,
+    "max_horizontal_error": 0.2900973203315447,
+    "health_loss": 0.0,
+    "all_settled_at_end": true,
+    "trace_dropped_samples": 0,
+    "source_sha256": {
+      "python/src/blockwire/skills/motion.py": "0dfd8c776b3f94233f158dd1a9bff1bd9eb43ebd1429269abf2156b473c43ba7",
+      "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+      "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+      "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5"
+    },
+    "source_matches_current": true,
+    "summary_sha256": "581c4a9f82bb62ba1b6d6e5c69bbcbb085aec325c29c3599ea43996a87539542",
+    "versus_pre_rotation_after_v4": {
+      "game_ticks_change": -0.005332148411464119,
+      "full_stop_runs_change": 0.22702702702702704,
+      "input_changes_change": -0.07724645296899632
+    }
+  },
+  "pre_rotation_movement_reference": {
+    "id": "after-v4",
+    "runs": 211,
+    "successes": 211,
+    "fixture_identity": "209d2035d44c6824f3958d924b35147fb250eb61d36f4ff189884e9b0c92f481",
+    "scenario_identity": "5f72a81f82a1ea1a62356a12d2a96a83942bd2eb028e87dba7bda0fa67670eb6",
+    "minecraft_version": "26.3",
+    "game_ticks_total": 18004,
+    "game_ticks_median": 70,
+    "full_stop_runs": 185,
+    "input_changes": 1903,
+    "max_horizontal_error": 0.2900973203315447,
+    "health_loss": 0.0,
+    "all_settled_at_end": true,
+    "trace_dropped_samples": 0,
+    "source_sha256": {
+      "python/src/blockwire/skills/motion.py": "371ab8bbfcd366f697d06c0a169df03015ed14a0879f78eafa67b67dbb98caf2",
+      "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+      "src/main/java/dev/blockwire/NavigationView.java": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+      "src/main/java/dev/blockwire/MotionTrace.java": "1c91e959c40502eb97d962d8a23a05989115c82c6d7dc31c84fbc68e233b5e93"
+    },
+    "source_matches_current": false,
+    "summary_sha256": "02ad5af6d79ed57eff846431c9b5d17cec92fa3f5684771d09132e2b981c1db8"
+  },
+  "building_regression": {
+    "id": "A19",
+    "scope": "Fresh restored-snapshot trial",
+    "fixture_identity": "d61d166e4431e7693907cc0590f1808e2d8f12d62befe3b0a5a64c22b70696a7",
+    "passed": true,
+    "objective_verified": true,
+    "elapsed_seconds": 342.65800714200304,
+    "executed_operations": 288,
+    "verified_native_placement_events": 82,
+    "failed_actions": 0,
+    "ended_snapshot_identity": "08dccf684060bb9bb70d9e5b298917528ead80942bfbfeda37c9e43c8d08fd9c",
+    "verification": {
+      "expected_blocks": 71,
+      "verified_blocks": 71,
+      "incorrect_blocks": 0,
+      "missing_blocks": 0,
+      "unknown_blocks": 0,
+      "entrance_clear": true,
+      "interior_clear": true,
+      "interior_accessible": true,
+      "roof_complete": true,
+      "floor_intact": true,
+      "safe_player": true,
+      "objective_verified": true
+    },
+    "result_sha256": "ebbea8085239b66669a8b8ad08cb6f199a7a8ee01c92994c8bb2633ea935c97a"
+  },
+  "retained_building_failures": [
+    {
+      "id": "A16",
+      "passed": false,
+      "executed_operations": 0,
+      "verified_native_placement_events": 0,
+      "failed_actions": 0,
+      "failure": {
+        "layer": "host_or_transport",
+        "frame": null,
+        "type": "SSLCertVerificationError",
+        "reason": "[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: certificate has expired (_ssl.c:1016)",
+        "terminal_action_reason": null
+      },
+      "verified_blocks": 0,
+      "result_sha256": "ca7a1c211895682aeed1b9ac2b687fcdd6301b501ca3b62fd8fa67553d12654c"
+    },
+    {
+      "id": "A17",
+      "passed": false,
+      "executed_operations": 180,
+      "verified_native_placement_events": 59,
+      "failed_actions": 1,
+      "failure": {
+        "layer": "execution",
+        "frame": 18,
+        "type": null,
+        "reason": "batch_operation_failed",
+        "terminal_action_reason": "not_grounded"
+      },
+      "verified_blocks": 48,
+      "result_sha256": "935ec31ce079f7d1a3da3ffdcbeefbb0698f0d18821c4fc880bc397178523e16"
+    },
+    {
+      "id": "A18",
+      "passed": false,
+      "executed_operations": 165,
+      "verified_native_placement_events": 55,
+      "failed_actions": 1,
+      "failure": {
+        "layer": "execution",
+        "frame": 16,
+        "type": null,
+        "reason": "batch_operation_failed",
+        "terminal_action_reason": "observed_placement_supports_blocked"
+      },
+      "verified_blocks": 46,
+      "result_sha256": "50f186f057fa0493a4ec9a8976d677c2eb0e7093cf57885ff90a0cf8dc9a08f1"
+    }
+  ],
+  "qa": {
+    "python": {
+      "tests": 455,
+      "passed": true,
+      "sha256": "268abcc9cb4743fb5b915ed41d6a990b01d4a08b3a162f7b07ca45b6611295e9"
+    },
+    "gradle": {
+      "passed": true,
+      "sha256": "05399a851655e8ee4544486705ca8db31690d7915ab3dbd2c45fc51d11285346"
+    },
+    "tls": {
+      "status": "PASS",
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ]
+    },
+    "mutations": {
+      "skills": {
+        "total": 155,
+        "killed": 155,
+        "all_killed": true,
+        "sha256": "2f1010ad6f8f81a7d2cbac4cf157ccba078629189c6c90612490ea56d3cd2166"
+      },
+      "native": {
+        "total": 46,
+        "killed": 46,
+        "all_killed": true,
+        "sha256": "2f7056abbe7d9afc8fd7af2f9a55d6f89f307469849b9ba365031500fb5cb33c"
+      },
+      "controller": {
+        "total": 20,
+        "killed": 20,
+        "all_killed": true,
+        "sha256": "3bafea5c4cd4786a559a0c261a53548b47a3e188588bdabfff6b78ce1fb97afc"
+      },
+      "building": {
+        "total": 22,
+        "killed": 22,
+        "all_killed": true,
+        "sha256": "5407022c8c16288dc9a81b12402ee86b8a6573bf480f7ba1adac6eeff12e7e2d"
+      }
+    },
+    "mutation_total": 243,
+    "all_mutations_killed": true,
+    "final_client": {
+      "captured_at_utc": "2026-11-01T00:45:37Z",
+      "minecraft_version": "26.3",
+      "screen": "Title Screen",
+      "screen_type": "TitleScreen",
+      "in_world": false,
+      "world_saved_and_closed": true,
+      "bridge_connected_at_closure_observation": true,
+      "client_process_exited_after_native_quit": true,
+      "owned_launcher_wrappers_terminated": true,
+      "bridge_port_closed": true,
+      "rotation_active": false,
+      "rotation_status": "cancelled",
+      "rotation_reason": "controls_released",
+      "installed_test_jar_sha256": "898c596dffa2ecf29f81f95a30df16d91a0d759f3ced9d3ed35efa7083eeee31",
+      "built_test_jar_sha256": "898c596dffa2ecf29f81f95a30df16d91a0d759f3ced9d3ed35efa7083eeee31",
+      "note": "Read-only closure observation after all retained live cohorts; terminal cancelled state is the explicit stop from the cancellation scenario, not an active plan. The game JVM exited through native Quit Game; only the owned stale launch wrappers were then terminated.",
+      "sha256": "8f3d2ae828a651c3df9bfc191bb3c05481abc3ae2c323c33115c3c1cd88e4cf2"
+    }
+  },
+  "qualified_rotation_source_sha256": {
+    "python/src/blockwire/skills/motion.py": "0dfd8c776b3f94233f158dd1a9bff1bd9eb43ebd1429269abf2156b473c43ba7",
+    "python/src/blockwire/client.py": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+    "src/main/java/dev/blockwire/Blockwire.java": "02d54aa6947c3f79928860ea3849273dacbf4fe9988427ad7a8392ae071f3013",
+    "src/main/java/dev/blockwire/Protocol.java": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+    "src/main/java/dev/blockwire/RotationController.java": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+    "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+    "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+    "tests/rotation/live.py": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+    "tests/rotation/metrics.py": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04"
+  },
+  "artifact_sha256": {
+    "build/rotation-benchmark/legacy-v1/summary.json": "1e98419f40dc3ceaebdc7d0b8769bffb67b2cbe57b21d5da534f206e13149c90",
+    "build/rotation-benchmark/linear-v2/summary.json": "cd599c1061a2deca9e505db641d32661389e8cf867634a94b1de6cd8d378e802",
+    "build/rotation-benchmark/smoothstep-v2/summary.json": "4202149cca755e856a9734b8e0a578e300835decf9ebb776f72e6634711040e3",
+    "build/rotation-benchmark/smoothstep-final-smoke-v3/summary.json": "b2ed278ce0c1dca50228e42d1869ac93373e579b1d307ff68e5d53c1da86a039",
+    "build/movement-benchmark/after-rotation-v4/summary.json": "581c4a9f82bb62ba1b6d6e5c69bbcbb085aec325c29c3599ea43996a87539542",
+    "build/superflat-benchmark/A19/result.json": "ebbea8085239b66669a8b8ad08cb6f199a7a8ee01c92994c8bb2633ea935c97a",
+    "build/rotation-benchmark/final-client.json": "8f3d2ae828a651c3df9bfc191bb3c05481abc3ae2c323c33115c3c1cd88e4cf2",
+    "build/libs/blockwire-0.2.0-alpha.4.jar": "898c596dffa2ecf29f81f95a30df16d91a0d759f3ced9d3ed35efa7083eeee31"
+  },
+  "source_sha256": {
+    "python/src/blockwire/skills/motion.py": "0dfd8c776b3f94233f158dd1a9bff1bd9eb43ebd1429269abf2156b473c43ba7",
+    "python/src/blockwire/client.py": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+    "src/main/java/dev/blockwire/Blockwire.java": "02d54aa6947c3f79928860ea3849273dacbf4fe9988427ad7a8392ae071f3013",
+    "src/main/java/dev/blockwire/Protocol.java": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+    "src/main/java/dev/blockwire/RotationController.java": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+    "src/main/java/dev/blockwire/MotionTrace.java": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+    "tests/rotation/reference.py": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+    "tests/rotation/live.py": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+    "tests/rotation/metrics.py": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04",
+    "python/src/blockwire/skills/item_actions.py": "f914948dbb810a2a112637ab0bf08b9e65ee0cdb8341e459db81c37f6fb78013",
+    "python/src/blockwire/skills/walking.py": "7ff9a5825d2c143c5059bf9d362f0a1b13fdfb7f349ce09b0347be595658acb8",
+    "tools/rotation_benchmark.py": "9678cd2dc056ce40905aaa2bbc4865a188bc8009efaacae95cf098588bed40b6",
+    "tools/report_rotation_benchmark.py": "e70552dccaa07bbdc98217543d680fbd2abd6c679adbfe7bd359345552579468",
+    "python/tests/test_rotation.py": "4571f546ab2d3cb38773b64c422e2ea74685eb8b482796d33ac66704c11a1296",
+    "python/tests/test_rotation_benchmark.py": "ee09bad07ce38b2ca001db01a5f54edd92b2ed90aeddd691da6c872e992d95eb",
+    "python/tests/test_continuous_motion.py": "126f286ac931075fa666ce5d3afda7e8e2eb36dbe942e92a0c0f438308a7ef9e",
+    "python/tests/test_placement.py": "51cc367b27241d2174b5ae33d8829ca6c00d70f413e20f0304e0e924ebe0a8f1",
+    "python/tests/test_controller.py": "24555e57dd8b76437144f29846bba8d214666fb243a0519779000b168c0814b5",
+    "src/contractTest/java/dev/blockwire/RotationContractTest.java": "1dce9ecd8f459b755e702ac6510c2c6ab7157c9882f04c572f9870a1e0c0788e",
+    "src/contractTest/java/dev/blockwire/ControllerContractTest.java": "789c2412d8be1a32851d5b46a030eedb615c55dfe4c7374e7670ff4e7bf31ae3",
+    "tests/run_skill_mutations.py": "64c3c1a7fadf1c0229168e763bfa565952597f8384a4aa86b5ed15805f612823",
+    "tests/run_mutations.py": "1bb07ae4a437c833372b67a864109a21650e102a04388d600e948b741e642de1",
+    "docs/rotation-benchmark.md": "ef71c17a8da41249338026dea4a51138296a97c74337eef79dd737491367126a"
+  },
+  "limitations": [
+    "One owned deterministic Minecraft 26.3 fixture; this is not general renderer, server or mod-pack qualification.",
+    "Requested durations are quantized by actual client ticks; tolerance is explicit and does not promise sub-tick completion.",
+    "Combat camera behavior remains separate and was intentionally not migrated by this work.",
+    "Movement still does not qualify slabs, fluids, caves, arbitrary collision shapes or hostile unattended Survival.",
+    "Construction A19 is a fresh regression, not a replacement for the frozen A11-A13 Test-A cohort or a Test-B rerun.",
+    "A16, A17 and A18 remain failures; no debug continuation is counted as a fresh success.",
+    "No release, upload or production deployment is authorized by this evidence."
+  ]
+}

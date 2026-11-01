@@ -1,0 +1,41 @@
+{
+  "status": "BLOCKED_HARVEST_NOT_VERIFIED",
+  "scope": "Operator-authorized native-client trial of the first local wood subgoal, not campaign or successful mining acceptance.",
+  "fixture": "Blockwire Endportal Survival: existing isolated default-terrain Survival/Normal world, commands disabled",
+  "implementation": "Python gather_wood skill, Player.gather_wood and explicit examples/end_portal.py --gather-wood mode. No Java, TLS, input-lease or transport authority changes.",
+  "observed": {
+    "requested_additional_logs": 1,
+    "status": "blocked",
+    "reason": "no_reachable_exposed_logs",
+    "diagnostic_log_positions_reported": 16,
+    "collected_logs": 0,
+    "inventory_items": [],
+    "start_and_final_position": [-18.5, 77, 10.5],
+    "final_health": 20,
+    "final_hunger": 20,
+    "drive_requests": 0,
+    "cleanup": "released",
+    "final_menu": "PauseScreen"
+  },
+  "interpretation": "Visible logs were lower and farther away than the supported six-block same-level local approach. The skill did not attempt unsupported descent or movement. This confirms discovery and blocked cleanup only; native log breaking and item pickup remain unverified.",
+  "checks": {
+    "python_unit_tests": 167,
+    "skill_mutations_killed": 78,
+    "campaign_example_mutations_killed": 7,
+    "gradle_check": "PASS",
+    "real_tls_interop_checks": 10,
+    "successful_native_wood_harvest": "NOT RUN successfully",
+    "crafting": "NOT IMPLEMENTED"
+  },
+  "raw_local_evidence": [
+    "build/script-play-verification/wood-live-first.json",
+    "build/script-play-verification/wood-scan.json",
+    "build/script-play-verification/wood-live-trial.json",
+    "build/script-play-verification/wood-live-trial.log"
+  ],
+  "sha256": {
+    "python/src/blockwire/skills/woodcutting.py": "fc893c7261b64ac0172ea717337168b2a7a9ccfec074ac7002e0f62f29b23da2",
+    "build/script-play-verification/wood-live-trial.json": "d9a71007aad8f8cb45f7f052b51b9fb2a0e9b148984f7d3725a0fde877e149d1"
+  },
+  "other_preserved_attempt": "A separate resume connection timed out before the trial. The subsequent skill observed screen_or_pause and released inputs. Current state was inspected before a separately executed single-connection trial; no uncertain mining action was blindly retried."
+}

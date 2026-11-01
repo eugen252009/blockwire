@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+"""Isolated project/goal/recovery mutations. Never contacts Minecraft."""
+import os
+import run_bcl_mutations as runner
+from pathlib import Path
+runner.OUT=Path(os.environ.get('BLOCKWIRE_VERIFICATION_DIR',runner.ROOT/'build/project-verification'))/'project-mutations'
+runner.OUT.mkdir(parents=True,exist_ok=True)
+runner.MUTATIONS=[
+ ('project_removal_mutator','projects.py',",'core:crafting.remove_block'",'', 'test_projects.ProjectContracts.test_PJ24_removal_invalidates_surfaces_without_a_pickup_claim'),
+ ('project_compiler_feedback','project_agent.py','[error.diagnostic.to_dict()] if isinstance(error,BCLError) else []','[]','test_project_agent.ProjectAgentContracts.test_PA08_compiler_diagnostics_reach_model_and_effect_free_audit'),
+ ('project_verification_permissions','project_agent.py','compile_bcl(source,self.registry,permissions=self.permissions)','compile_bcl(source,self.registry)','test_project_agent.ProjectAgentContracts.test_PA07_verification_only_permissions_reject_whole_mutating_frame'),
+ ('inspection_face_centres','project_inspection.py','position[i]+.5+normal[i]*.5','position[i]+.5','test_project_inspection.InspectionContracts.test_IN01_face_centre_acquisition_not_cube_centre_assumption'),
+ ('inspection_world_mismatch','project_inspection.py',"if any(r['status'] in {'wrong','missing'} for r in journal.p['progress'].values()):",'if False:','test_project_inspection.InspectionContracts.test_IN02_real_mismatch_returns_to_external_planner_without_actions'),
+ ('inspection_not_model_claim','project_inspection.py',"check();journal.reconcile()\n        if journal.p['status']=='OBJECTIVE_VERIFIED':",'check();journal.reconcile()\n        if True:','test_project_inspection.InspectionContracts.test_IN02_real_mismatch_returns_to_external_planner_without_actions'),
+ ('project_compatible_revision_witness','projects.py','if desired.get(k)==v','if False','test_projects.ProjectContracts.test_PJ23_compatible_revision_preserves_observed_change_not_current_proof'),
+ ('place_at_uncertain_never_retry','skills/item_actions.py',"if result.reason not in {'support_not_observed','exact_support_top_not_acquired','no_known_placement_pose','support_out_of_reach','placement_too_close_to_player'}:",'if False:','test_place_at.PlaceAtContracts.test_PA12_uncertain_use_never_retries_another_face'),
+ ('place_at_known_support_only','skills/item_actions.py',"if not any(r['position']==position and r['id'] in DRY_SUPPORTS for r in rows):continue",'if False:continue','test_place_at.PlaceAtContracts.test_PA11_unknown_neighbor_never_becomes_a_support'),
+ ('place_at_delegated_actor_fence','skills/item_actions.py',"if expected_session is not None and ui.session!=expected_session:raise SkillStop('blocked','actor_session_changed')",'if False:pass','test_place_at.PlaceAtContracts.test_PA15_delegated_actor_replacement_is_rejected_before_use'),
+ ('project_real_world_change','projects.py',"(self.policy!='enclosure_v1' or changed or contributed)","True",'test_projects.ProjectContracts.test_PJ21_unrelated_old_construction_cannot_certify_new_enclosure'),
+ ('project_receipt_not_world_truth','projects.py',"(self.policy!='enclosure_v1' or changed or contributed)","(self.policy!='enclosure_v1' or self.p['counters']['placement_events']>0)",'test_projects.ProjectContracts.test_PJ22_first_batch_lost_receipt_does_not_force_repeating_completed_work'),
+ ('small_flower_native_clearance','skills/item_actions.py',"context.check();context.player.action('attack',actor_session=ui.session)",'context.check()','test_placement.PlacementContracts.test_PL07_small_flower_clearance_requires_observed_ground_before_use'),
+ ('project_sample_timestamp','projects.py','stamp=now if observed_at is None else observed_at','stamp=now','test_projects.ProjectContracts.test_PJ16_old_batch_samples_do_not_become_fresh_at_receipt'),
+ ('project_material_budget','project_agent.py',"if any(self.journal.p['counters'].get(k,0)+v>caps[k] for k,v in costs.items()):",'if False:','test_project_agent.ProjectAgentContracts.test_PA05_material_request_budget_precedes_native_send'),
+ ('project_failure_visibility','project_agent.py',"'last_action_result':self.last_action_result","'last_action_result':None",'test_project_agent.ProjectAgentContracts.test_PA06_followup_observation_does_not_hide_failed_action'),
+ ('project_durable_intent','projects.py','self.save()  # Durable BEFORE effects, never auto-replayed.','pass  # Lost pending intent','test_projects.ProjectContracts.test_PJ01_persistence_restore_stales_proof_and_never_replays_intent'),
+ ('project_actor_rebind','projects.py',"if self.p['binding'] and self.p['binding']!=binding and not allow_rebind:",'if False:','test_projects.ProjectContracts.test_PJ08_death_rebind_is_explicit_and_retains_plan_not_proof'),
+ ('project_request_dedup','projects.py',"if request_id<=watermarks.get(session_id,0):",'if False:','test_projects.ProjectContracts.test_PJ10_durable_bounds_and_deduplicated_receipt'),
+ ('project_result_correlation','projects.py',"if not pending or receipt!=[pending['session_id'],pending['request_id']]:",'if False:','test_projects.ProjectContracts.test_PJ07_partial_batch_invalidates_old_surface_and_correlates'),
+ ('project_unknown_not_missing','projects.py',"else:status='unknown'","else:status='missing'",'test_projects.ProjectContracts.test_PJ02_unknown_wrong_and_native_clearance_missing_are_distinct'),
+ ('project_final_sweep','projects.py',"and self.p.get('final_sweep')",'', 'test_projects.ProjectContracts.test_PJ14_constructed_blocks_without_final_sweep_cannot_finish'),
+ ('project_observation_expiry','projects.py',"if proof and now-proof['at']<=120:",'if proof:','test_projects.ProjectContracts.test_PJ04_stale_evidence_never_confirms_completion'),
+ ('project_envelope_holes','projects.py','if any(materials.get(p) not in SOLIDS for p in required):','if False:','test_projects.ProjectContracts.test_PJ05_plan_validation_rejects_holes_headroom_and_dimension'),
+ ('project_reachable_interior','projects.py',"and needed<=reachable and connected",'and connected','test_projects.ProjectContracts.test_PJ15_local_edge_without_reachable_interior_is_not_access'),
+ ('project_mutation_invalidation','projects.py',"else:self.invalidate('world_mutation_requires_fresh_sweep')",'else:pass','test_projects.ProjectContracts.test_PJ13_observation_order_after_mutation_no_stale_before_snapshot'),
+ ('project_recipe_yield','projects.py',"'possible_output':batches*recipe.count","'possible_output':batches",'test_projects.ProjectContracts.test_PJ06_material_inventory_and_recipe_arithmetic_not_a_strategy'),
+ ('project_stagnation','project_agent.py','if stagnant>=self.max_stagnation:','if False:','test_project_agent.ProjectAgentContracts.test_PA02_false_finish_and_no_progress_budget'),
+ ('placement_idempotence','skills/item_actions.py',"if any(r['position']==destination and r['id']==goal.block for r in _observed(context,scene)):",'if False:','test_placement.PlacementContracts.test_PL05_fresh_existing_destination_is_idempotent_without_item_or_use'),
+]
+if __name__=='__main__':raise SystemExit(runner.main())

@@ -12,6 +12,7 @@ from unittest.mock import patch
 from pydantic import ValidationError
 from blockwire import CallableBackend, Controller, Player, ResourceBusy
 from blockwire.client import BridgeError
+from blockwire.controller import _Control
 from blockwire.controller_cli import load_controller
 from blockwire.ownership import cancel_control, control_busy
 from blockwire.skills import SkillManager, default_registry, run_skill
@@ -191,6 +192,18 @@ class ControllerContracts(unittest.IsolatedAsyncioTestCase):
         self.assertTrue(any(q["button_ticks"].get("forward", 0) < q["button_ticks"]["use"] for q in combined))
         self.assertEqual(sum(op == "stop" for op, _ in native.calls), 1)
         self.assertTrue(all(q["actor_session"] == "actor-a" for _, op, q in native.effects))
+
+    async def test_CR27_scoped_observation_hides_temporary_food_pitch_override(self):
+        native = Native();native.pitch = -90.
+        bot = Controller(Player(native), duration_seconds=3.)
+        bot._deadline = time.monotonic()+2.;bot._session = native.flat.session;bot._pitch = 12.
+        task = asyncio.current_task();deadline = time.monotonic()+1.
+        observer = _Control('observer', frozenset({'movement'}), task, deadline)
+        eater = _Control('eater', frozenset({'food'}), task, deadline, sky=True)
+        bot._controls = {observer,eater}
+        scene = await bot._skill_call(observer,'observe',{})
+        self.assertEqual(scene['pitch'],12.)
+        self.assertEqual(native.pitch,-90.)
 
     async def test_CR03_cancel_eating_does_not_cancel_or_stop_walking(self):
         native = Native()

@@ -1,5 +1,12 @@
 # Architecture
 
+Persistent project follow-up: [projects](projects.md). `ProjectJournal` reuses
+`SessionStore`; a strict model-authored plan is separate from pending BCL intent,
+terminal operations, observed blocks/native geometry and independently verified
+objective. `ProjectAgent` is an external-model orchestration host over the existing
+BCL TLS SDK, never another input controller or construction/progression planner.
+
+
 ```
 Python script ─ Player(Backend) ─ Bridge ─ authenticated TLS WebSocket ─ Fabric client
                    │                                             │
@@ -24,8 +31,9 @@ There is no implicit operator elevation, fake player or server agent in v0.1.
 - **Thread boundary:** Network callbacks enqueue on Minecraft's client executor.
   They never read/write a player or menu directly. Closed/obsolete channels are
   rechecked at execution. Ownership is not released until input cleanup runs.
-- **Native actions:** key mappings and view orientation; native attack/use
-  invokers, native container input handling, native respawn. No custom server
+- **Native actions:** key mappings and immediate or elapsed-time view orientation;
+  one actor-bound `RotationController`; native attack/use invokers, native
+  container input handling, native respawn. No custom server
   packets, damage logic, stack mutation, physics or per-entity scanning tick.
 - **Two narrow client mixins:** an accessor interface for the native attack/use
   methods; an input mixin for the global, remappable kill switch and allowing
@@ -33,8 +41,10 @@ There is no implicit operator elevation, fake player or server agent in v0.1.
   behavior is unchanged when no bridge attack is held.
 - **Lifecycle:** local config auto-start at CLIENT_STARTED (works before a world)
   or explicit F8 enable; tick + monotonic input lease; player/level
-  identity check; generation-gated endpoint cleanup; release on screen, pause,
-  death, disconnect, stop or unexpected dispatcher exception.
+  identity check; generation-gated endpoint cleanup; global release on screen,
+  pause, death, disconnect, stop or unexpected dispatcher exception. Natural key
+  lease expiry releases input ownership without cancelling an independent camera
+  plan.
 - **Menus:** bounded widget traversal and one-use screen snapshots. Events route
   through native screen mouse/key/character/scroll handlers with SDL input conversion.
   No direct `onPress` callback or text-value mutation.
@@ -67,9 +77,11 @@ that same registry and rejects competing raw control while a job runs. See
 The Python-only [approach](approach.md) skill discovers from bounded visible
 interactables and plans standing positions from the native navigation mesh, not
 from sparse surface samples. It shares a Python [feedback motor](motion.md) with
-autopilot: bounded rolling leases on known straight segments, stopped precision
-pulses/turns elsewhere. It retains actor/session checks and requires an observed exact native block hit;
-no opening/use or Java/transport changes are needed per target type.
+autopilot: bounded W/A/S/D leases, observed-speed braking, native elapsed-time
+shortest-arc rotation, broad-support-only turn/drive overlap and separate native
+step/gap loops. It retains actor/session checks and requires
+an observed exact native block hit; no opening/use or target-specific Java
+controller is needed.
 
 The optional [autopilot](autopilot.md) is another explicitly started Python skill.
 One deterministic controller arbitrates creeper evasion, proximity defense,
@@ -78,10 +90,60 @@ native primitives, not a parallel Java planner. It never auto-starts or reconnec
 Guarded native attacks fence both actor session and expected crosshair entity;
 receipts still do not establish a combat outcome.
 
-The first walker consumes an explicit on-demand `navigation` mesh (radius 4,
-81 loaded flat full-block cells), uses native collision edges and short guarded
-look/drive operations. It never loads chunks, changes physics or guarantees safety.
-Player/world session tokens fence old observations from replacement actors.
+The walker consumes an explicit on-demand `navigation` mesh (radius 4): at most
+81 flat cells, or 405 loaded full-block cells across Y +/-2 when terrain support
+is requested. Native code emits conservative typed flat/diagonal/step/proven-gap
+edges and motion/collision fields; Python performs geometric-cost receding-horizon
+routing and sends short native input leases. End-of-client-tick `MotionTrace`
+telemetry is read-only qualification/diagnostic state, not a second controller.
+The stack never loads chunks, replaces physics or guarantees safety. Player/world
+session tokens fence old observations and every long-running look/drive loop from
+replacement actors.
+
+Normal noncombat camera goals use the same native `RotationController`, normally
+200 ms smoothstep. It interpolates from the observed current orientation using
+`System.nanoTime()` and real client updates, owns no movement key, and exposes
+terminal/cancel/supersede state through ordinary observations and tick telemetry.
+Omitting timing fields retains the protocol's legacy immediate `look`; combat
+camera behavior remains separate and unchanged. See
+[rotation qualification](rotation-benchmark.md).
+
+## Strategic LLM runtime boundary
+
+The opt-in [AgentRuntime](autonomous-survival.md) sits above the **same** strict
+skill executor and `Player` API. An external `Decider` selects the next goal from
+bounded fresh observations; the runtime supplies ownership, compact private SQLite
+working memory, typed decision validation, status/cancel and bounded execution.
+Recipe data describes native crafting dependencies, not progression policy.
+MCP remains discovery/dispatch; the deterministic autopilot is not repurposed as
+an LLM planner. No strategy executes inside Fabric.
+
+Native inventory open/close/click now accept optional actor fences while retaining
+legacy envelopes. Inventory metadata advertises guarded support, native menu type
+and player-index slot mapping. Scene UUIDs bind persistent actor identities. Native
+clicks/crafting still own all stack changes; skills require observed inventory and
+material postconditions. Partial/uncertain actions are not rolled back or replayed.
+No implicit rebind, reconnect or respawn; historical remembered targets are not a
+current world map. Windows, complete Survival and long-running operation are not
+qualified. See the linked document for activation and remaining acceptance gates.
+
+## BCL/1 interface boundary
+
+[BCL](bcl.md) adds a bounded offline compiler, declarative skill-derived registry
+and frozen typed IR. A transactional modal interpreter snapshots settings per
+queued operation; the FIFO scheduler invokes **the same AgentRuntime**, strict
+skills and native motor. There is no second gameplay controller or progression
+planner. Relative coordinates resolve from fresh dispatch-time observations;
+request IDs prevent replaying cycles/actions. Private modal journals use SessionStore.
+
+The optional explicitly started Python TLS gateway terminates a separately pinned,
+operator-provisioned loopback TLS connection, authenticates its selected token and
+forwards compiled operations through the existing native TLS connection. Java's
+protocol, identity, F8 and authentication are unchanged. Events use the existing
+controller Event data contract and bounded read-only observations. Source/direction
+restrictions prevent clients emitting server events. MCP uses the same session/
+queue implementation and its existing status/cancel tools. Separate MCP/gateway
+hosts must not compete for the sole native controller connection.
 
 ## Standalone controller boundary
 
@@ -115,7 +177,10 @@ authoritative actions remain outside this client's control. Other mods can alter
 native input/combat/container semantics; compatibility must be qualified per pack.
 
 No embedded Python runtime, server-side entity control, arbitrary RPC evaluation,
-cloud service or general portal to commands. Bounded planning belongs in the
+bundled cloud service or host shell execution. Explicit external LLM adapters are
+optional host-side clients, not native telemetry or implicit cloud connections. The explicit [command](commands.md) primitive
+submits bounded slash commands through the native client with server permissions;
+it does not add a command interpreter or grant operator status. Bounded planning belongs in the
 external Python skills layer, not a replacement native movement/combat engine.
 The actor API is intentionally small so future providers can implement it without
 forcing a transport into their game code.
