@@ -3,6 +3,7 @@ build/
 run/
 logs/
 crash-reports/
+recordings/
 .venv/
 __pycache__/
 *.pyc

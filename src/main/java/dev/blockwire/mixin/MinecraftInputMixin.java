@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.*;
 public abstract class MinecraftInputMixin {
     @Inject(method="handleGlobalKeyPress",at=@At("HEAD"),cancellable=true)
     private void blockwire$toggle(InputConstants.Key key,boolean control,CallbackInfoReturnable<Boolean> ci) {
-        if(Blockwire.toggleKey(key))ci.setReturnValue(true);
+        if(Blockwire.toggleKey(key) || Blockwire.play2CodeKey(key))ci.setReturnValue(true);
     }
     // Background local automation must not depend on the desktop mouse being grabbed.
     @ModifyVariable(method="continueAttack",at=@At("HEAD"),argsOnly=true)

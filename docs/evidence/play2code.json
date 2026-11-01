@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-01T15:00:40Z",
+  "scope": "Passive local Play2Code capture and conservative BCL export only; not generated-BCL replay or the owner-only 71-block human benchmark",
+  "assessment": {
+    "native_capture_and_export": "GO within the isolated Minecraft 26.3 test-client smoke",
+    "generated_bcl_replay": "NOT_RUN",
+    "manual_superflat_house": "PENDING_OWNER_MANUAL_BUILD"
+  },
+  "architecture": {
+    "recorder": "Local F9/F10 passive observer; owns no key, camera, hotbar, packet or world mutation",
+    "remote_exclusion": "Recording requires the authenticated control endpoint to be disabled; endpoint activation invalidates capture before startup",
+    "exporter": "Offline Python validation and mapping through default_commands() and compile_bcl()",
+    "execution_stack": "Any future replay uses the existing authenticated BCL/runtime/skill/native-action stack",
+    "new_protocol_rpc": false,
+    "new_mcp_tool": false,
+    "new_skill": false,
+    "new_bcl_opcode": false,
+    "automatic_replay": false
+  },
+  "native_graphical_smoke": {
+    "status": "PASS",
+    "minecraft": "26.3",
+    "input_scope": "PID/cwd-verified automated local X11 window input through the real graphical client; explicitly not treated as an owner human baseline",
+    "endpoint_disabled_during_capture": true,
+    "remote_controller_interference": false,
+    "capture": {
+      "native_tick_samples": 515,
+      "confirmed_placements": 1,
+      "confirmed_breaks": 1,
+      "unconfirmed_interactions_retained": 1,
+      "hotbar_changes": 1,
+      "raw_timeline_unchanged_by_export": true
+    },
+    "conversion": {
+      "generated_payload_operations": 17,
+      "movement_checkpoints": 13,
+      "equipment_operations": 2,
+      "placement_operations": 1,
+      "break_operations": 1,
+      "bcl_batches": 1,
+      "unsupported_conversion_records": 3,
+      "all_batches_compiled": true,
+      "path_smoothing": false,
+      "action_optimization": false,
+      "manifest_sha256": "1ac8ae28cb39022000d4b056a44a4eec4ac59f464bd2abc853c2760ce5025124"
+    },
+    "cleanup": {
+      "client_closed_normally": true,
+      "endpoint_ports_closed": true,
+      "fixture_restored_identity": "d61d166e4431e7693907cc0590f1808e2d8f12d62befe3b0a5a64c22b70696a7"
+    },
+    "not_claimed": [
+      "Generated-BCL replay correctness",
+      "External building-objective acceptance",
+      "A human performance baseline",
+      "The complete 71-block house benchmark",
+      "Server-authoritative block confirmation"
+    ]
+  },
+  "verification": {
+    "gradle_build_and_check": "PASS",
+    "java_play2code_contract_checks": 20,
+    "python_tests": {
+      "total": 478,
+      "play2code_focused": 12,
+      "status": "PASS"
+    },
+    "mutations": {
+      "native_total": {
+        "total": 51,
+        "killed": 51
+      },
+      "native_play2code_subset": {
+        "total": 5,
+        "killed": 5
+      },
+      "play2code_exporter": {
+        "total": 14,
+        "killed": 14
+      }
+    },
+    "documentation_links": "PASS",
+    "json_validation": "PASS",
+    "frozen_b11_b14_and_source_hashes": "PASS",
+    "packaging": {
+      "allowlisted_local_bundle": "PASS",
+      "expected_bundle_entries": 313,
+      "packaged_cli_import_and_help": "PASS",
+      "credentials_saves_recordings_and_private_keys_excluded": true,
+      "published_or_uploaded": false
+    },
+    "artifact_hashes": {
+      "mod_jar_sha256": "3cc10f3d72436cbca1e1490551df00817e1c860cc8ba1c6ef80a94328ea77ec5"
+    }
+  },
+  "benchmark": {
+    "run_id": "H01",
+    "status": "PENDING_OWNER_MANUAL_BUILD",
+    "human_baseline_recorded": false,
+    "replay_attempted": false,
+    "independent_acceptance_run": false
+  },
+  "privacy": "Raw timeline, recording ID, player UUID, precise coordinates and save data remain private and outside this evidence file and distributable bundle.",
+  "retained_verdicts": {
+    "test_a": "GO",
+    "test_b_capability": "GO via B12",
+    "test_b_b12_b14_repeatability": "NO-GO / not established",
+    "strict_native_movement_performance_parity": "NO-GO"
+  }
+}

@@ -43,10 +43,17 @@ def close(player):
 
 def load(player,*,audit=lambda value:None):
     title(player);click(player,'Singleplayer')
-    menu=player.menu();rows=[w for w in menu['widgets'] if w['label'].split('\n')[0]==NAME and w['active']]
-    # Native list labels can include date/version on subsequent lines.
-    if len(rows)!=1:rows=[w for w in menu['widgets'] if ('Selected '+NAME+', last played:') in w['label'] and w['active']]
-    if len(rows)!=1:raise ValueError('Dedicated world must be uniquely selectable')
+    # The native world list is populated asynchronously after the screen opens.
+    # Wait only for one unambiguous owned fixture row; never click a stale/default
+    # selection while the list is still empty.
+    end=time.monotonic()+5.
+    while True:
+        menu=player.menu();rows=[w for w in menu['widgets'] if w['label'].split('\n')[0]==NAME and w['active']]
+        # Native list labels can include selection state/date/version text.
+        if len(rows)!=1:rows=[w for w in menu['widgets'] if ('Selected '+NAME+', last played:') in w['label'] and w['active']]
+        if len(rows)==1:break
+        if time.monotonic()>=end:raise ValueError('Dedicated world must be uniquely selectable')
+        time.sleep(.1)
     player.click_widget(menu['screen_id'],rows[0]['widget_id'])
     from blockwire.client import BridgeError,NativeRejected
     uncertain=False

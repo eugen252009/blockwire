@@ -1,4 +1,5 @@
 """Trusted model-command boundary tests; no provider/network/Minecraft requests."""
+import json
 import os
 from pathlib import Path
 import subprocess
@@ -26,6 +27,19 @@ class CommandDeciderContracts(unittest.TestCase):
         with self.assertRaises(RuntimeError):CommandJSONDecider([sys.executable,'-c','raise SystemExit(2)']).decide({})
         for argv in ['pi --print',[],[''],['a\0b']]:
             with self.assertRaises(ValueError):CommandJSONDecider(argv)
+    def test_CD04_private_audit_retains_bounded_nonzero_exit_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit=Path(directory)/'audit';model=CommandJSONDecider([sys.executable,'-c','raise SystemExit(7)'],audit_directory=audit)
+            with self.assertRaisesRegex(RuntimeError,'model_command_failed'):model.decide({})
+            self.assertTrue((audit/'001-failure.json').exists())
+            self.assertEqual(json.loads((audit/'001-failure.json').read_text()),{'kind':'nonzero_exit','returncode':7})
+            self.assertFalse((audit/'001-reply.json').exists())
+    def test_CD05_private_audit_retains_malformed_bounded_reply(self):
+        with tempfile.TemporaryDirectory() as directory:
+            audit=Path(directory)/'audit';model=CommandJSONDecider([sys.executable,'-c',"print('{not json')"],audit_directory=audit)
+            with self.assertRaises(ValueError):model.decide({})
+            self.assertTrue((audit/'001-reply.json').exists())
+            self.assertEqual((audit/'001-reply.json').read_bytes(),b'{not json\n')
 
 
 if __name__=='__main__':unittest.main()

@@ -73,6 +73,10 @@ mutations = [
      "test_CD01_explicit_no_shell_json_and_native_env_scrubbing"),
     ("model_command_output_bound", "../command_decider.py", "if len(body)>16384:", "if False:",
      "test_CD02_duplicate_and_oversized_output_are_rejected"),
+    ("model_command_failure_audit", "../command_decider.py", "record('failure',json.dumps({'kind':'nonzero_exit','returncode':run.returncode}).encode())", "pass",
+     "test_CD04_private_audit_retains_bounded_nonzero_exit_metadata"),
+    ("model_malformed_reply_audit", "../command_decider.py", "record('reply',body)\n        parsed=strict_json(body)", "parsed=strict_json(body)",
+     "test_CD05_private_audit_retains_malformed_bounded_reply"),
 
     ("agent_allowlist", "../agent.py", "elif decision.skill not in self.allowed:", "elif False:",
      "test_AG17_registered_but_unselected_skill_cannot_be_chosen_by_model"),

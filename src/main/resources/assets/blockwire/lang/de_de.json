@@ -1,5 +1,7 @@
 {
   "key.block_bridge.toggle": "Blockwire umschalten (lokale Automatisierung)",
+  "key.blockwire.play2code.start": "Play2Code-Aufzeichnung starten",
+  "key.blockwire.play2code.stop": "Play2Code-Aufzeichnung stoppen",
   "key.category.blockwire.controls": "Blockwire",
   "blockwire.settings.title": "Blockwire-Einstellungen",
   "blockwire.settings.enable": "Steuerung jetzt aktivieren",

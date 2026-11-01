@@ -35,10 +35,12 @@ There is no implicit operator elevation, fake player or server agent in v0.1.
   one actor-bound `RotationController`; native attack/use invokers, native
   container input handling, native respawn. No custom server
   packets, damage logic, stack mutation, physics or per-entity scanning tick.
-- **Two narrow client mixins:** an accessor interface for the native attack/use
+- **Three narrow client mixins:** an accessor interface for the native attack/use
   methods; an input mixin for the global, remappable kill switch and allowing
-  bridge-held native mining without a grabbed desktop mouse. Ordinary input
-  behavior is unchanged when no bridge attack is held.
+  bridge-held native mining without a grabbed desktop mouse; and passive
+  Play2Code hooks that observe native block-use/mining dispatch without changing
+  its result. They do not cancel or replace ordinary interaction behavior;
+  bridge-held attack augmentation remains inactive when no bridge attack is owned.
 - **Lifecycle:** local config auto-start at CLIENT_STARTED (works before a world)
   or explicit F8 enable; tick + monotonic input lease; player/level
   identity check; generation-gated endpoint cleanup; global release on screen,
@@ -144,6 +146,25 @@ controller Event data contract and bounded read-only observations. Source/direct
 restrictions prevent clients emitting server events. MCP uses the same session/
 queue implementation and its existing status/cancel tools. Separate MCP/gateway
 hosts must not compete for the sole native controller connection.
+
+## Passive Play2Code boundary
+
+[Play2Code](play2code.md) is a local native observer plus an explicit offline
+Python exporter. F9/F10 start/stop a private append-only human-input timeline only
+while the remote endpoint is disabled. Interaction mixins observe the existing
+native `startDestroyBlock` and `useItemOn` calls; bounded candidate positions are
+then checked for stable client-observed state changes. The recorder never owns a
+key, camera, hotbar, packet or world mutation, and it performs no background world
+scan. Actor/world replacement, death, endpoint activation, remote-owned input,
+write limits or shutdown invalidate/stop the capture.
+
+The exporter maps only confirmed evidence to existing M0/I1/I4/C3 contracts and
+compiles each ordinary bounded BCL/1 batch with the existing registry. Raw key
+and camera timing, airborne motion, unsupported blocks and uncertain interactions
+stay explicit unsupported conversions. Generated source is not executed by the
+exporter and compilation is not replay qualification. No protocol/MCP/skill/opcode
+or second controller is added; replay uses the same guarded runtime and requires a
+fresh actor plus independent objective verification.
 
 ## Standalone controller boundary
 

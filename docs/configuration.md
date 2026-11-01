@@ -38,6 +38,11 @@ does not rewrite the file: `enabled: true` will start again on the next launch.
 Configuration is read at startup; restart after editing it. Invalid configuration
 disables the bridge instead of falling back to a public listener.
 
+Development builds also register remappable **F9 Play2Code start** and **F10
+Play2Code stop** bindings. They do not read or change this configuration. F9
+requires the endpoint to be disabled; enabling it during a recording invalidates
+that capture before startup. See [passive recording](play2code.md).
+
 Existing initial-version `{"port":8765}` configs migrate by adding disabled
 startup, loopback bind and the existing private token. Unknown fields and wrong
 types are rejected. The legacy private `token` file is refreshed from the key

@@ -4,7 +4,8 @@
   "compatibilityLevel": "JAVA_25",
   "client": [
     "MinecraftInputMixin",
-    "MinecraftActions"
+    "MinecraftActions",
+    "Play2CodeInteractionMixin"
   ],
   "injectors": {
     "defaultRequire": 1

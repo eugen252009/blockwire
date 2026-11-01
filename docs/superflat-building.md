@@ -125,6 +125,24 @@ quarantined cleanup or insufficient storage cannot be bypassed to restore a worl
 Transport/API credentials, raw journals, saves and model audits stay under ignored
 `build/superflat-benchmark/`, never in a bundle or public evidence.
 
+## Separate Play2Code human baseline — PENDING
+
+The passive [Play2Code](play2code.md) benchmark is a new, separate comparison arm;
+it does not change or relabel Test A, Test B, B12 capability, or B12–B14
+repeatability verdicts. It will use this same 71-block objective and canonical
+snapshot, but the complete baseline house must be built manually by the owner with
+ordinary local keyboard/mouse input while the control endpoint is disabled.
+Test-A source, model-generated BCL, commands, teleportation, creative/admin rescue,
+a hidden generator, or hand-authored recording artifacts are forbidden substitutes.
+
+`tools/play2code_benchmark.py prepare --run-id H01` writes only private pending
+metadata. It does not restore/load a world, start the recorder, build, export,
+replay or verify anything. Current status is **PENDING_OWNER_MANUAL_BUILD**; no
+human baseline, replay run or independent acceptance result exists yet. When the
+owner performs it, generated source must remain unchanged for replay in a fresh
+restored snapshot, and compile success must remain separate from native/closed-save
+objective acceptance.
+
 `--resume-from ... --start-frame ...` is explicit deterministic DEBUG continuation,
 not a fresh run or automatic retry. Fault-only runs use `--fault truncate`,
 `--fault lost-ack`, `--fault cancel`; `recover-probe --from-run ...` reconciles a

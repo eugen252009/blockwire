@@ -1,5 +1,7 @@
 {
   "key.block_bridge.toggle": "Toggle Blockwire (local automation)",
+  "key.blockwire.play2code.start": "Start Play2Code recording",
+  "key.blockwire.play2code.stop": "Stop Play2Code recording",
   "key.category.blockwire.controls": "Blockwire",
   "blockwire.settings.title": "Blockwire settings",
   "blockwire.settings.enable": "Enable control now",

@@ -89,6 +89,14 @@ explicit stop/F8, authority loss, actor/world replacement, death, pause or UI
 transition cancels the plan. Snapshots use native world coordinates and localized
 friendly names alongside IDs.
 
+## Passive local recording is not a wire operation
+
+Play2Code adds **no** protocol request, MCP tool or controller authority. Its F9/F10
+recorder runs locally only while this endpoint is disabled, and enabling the
+endpoint invalidates the capture before startup. The offline exporter emits
+ordinary bounded BCL/1 source for the existing Python stack; it never sends a
+request or executes replay automatically. See [Play2Code](play2code.md).
+
 ## Descriptive skills (Python/MCP layer)
 
 The wire primitives remain explicit native operations. Python builds descriptive

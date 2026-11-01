@@ -51,6 +51,28 @@ class BenchmarkLifecycle(unittest.TestCase):
         self.assertEqual(p.plays,1);self.assertEqual(result['actor_session'],'fresh')
         self.assertEqual(len(audit),2);self.assertTrue(all(x['action_replayed'] is False for x in audit))
         self.assertEqual(audit[-1]['follow_up'],'fresh_native_actor_observed')
+    def test_async_world_list_population_is_awaited_before_selection(self):
+        class UI:
+            state='TitleScreen';select_reads=0;plays=0;premature=False
+            def menu(self):
+                if self.state=='TitleScreen':widgets=[{'label':'Singleplayer','active':True,'widget_id':'Singleplayer'}]
+                elif self.state=='SelectWorldScreen':
+                    self.select_reads+=1
+                    entries=[{'label':f'Selected {NAME}, last played: ready','active':True,'widget_id':'fixture'}] if self.select_reads>=3 else [
+                        {'label':f'Selected {NAME}, last played: loading-a','active':True,'widget_id':'loading-a'},
+                        {'label':f'Selected {NAME}, last played: loading-b','active':True,'widget_id':'loading-b'}]
+                    widgets=[{'label':'Play Selected World','active':True,'widget_id':'Play Selected World'},*entries]
+                else:widgets=[]
+                return {'type':self.state,'screen_id':'screen','screen_open':self.state!='game','widgets':widgets}
+            def click_widget(self,screen,widget):
+                if widget=='Singleplayer':self.state='SelectWorldScreen'
+                if widget.startswith('loading-'):self.premature=True
+                if widget=='Play Selected World':self.plays+=1;self.state='game'
+            def observe(self):return {'alive':True,'on_ground':True,'actor_session':'fresh'}
+        p=UI()
+        with patch('building.fixture.time.sleep'):result=load(p)
+        self.assertGreaterEqual(p.select_reads,3);self.assertFalse(p.premature);self.assertEqual(p.plays,1)
+        self.assertEqual(result['actor_session'],'fresh')
     def test_failed_evidence_publication_preserves_last_complete_record(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/'event.json';write_json(p,{'completed':1})

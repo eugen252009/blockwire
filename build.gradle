@@ -99,4 +99,9 @@ tasks.register("rotationContractTest", JavaExec) {
     classpath = sourceSets.contractTest.runtimeClasspath
     mainClass = 'dev.blockwire.RotationContractTest'
 }
-check.dependsOn contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest, controllerContractTest, commandContractTest, inventoryContractTest, terrainContractTest, motionTraceContractTest, rotationContractTest
+tasks.register("play2CodeContractTest", JavaExec) {
+    dependsOn contractTestClasses
+    classpath = sourceSets.contractTest.runtimeClasspath
+    mainClass = 'dev.blockwire.Play2CodeContractTest'
+}
+check.dependsOn contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest, controllerContractTest, commandContractTest, inventoryContractTest, terrainContractTest, motionTraceContractTest, rotationContractTest, play2CodeContractTest

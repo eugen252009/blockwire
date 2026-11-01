@@ -35,8 +35,10 @@ one native elapsed-time camera controller. `Player.look(...)` preserves immediat
 behavior when timing is omitted; `duration_ms=1..5000` plus optional
 `rotation_profile="linear"|"smoothstep"` schedules a bounded actor-fenced plan.
 Scheduling is not completion; observe terminal orientation. Use the matching rebuilt mod for the new
-observation/settings features; the SDK is installed separately. Read `docs/skills.md` and
-`docs/extensions.md` in the project for safety limits and extension contracts.
+observation/settings features; the SDK is installed separately. Development builds also provide
+`blockwire-play2code` to validate/export a sealed passive local-human recording into raw evidence and
+ordinary compiling BCL/1 batches; it never starts recording remotely or executes replay. Read
+`docs/play2code.md`, `docs/skills.md` and `docs/extensions.md` in the project for limits and contracts.
 
 Development SDK 0.2.0a6 provides `Player.fight(reactions={"zombies":"fight", "creeper":"evade"})`
 and the matching MCP `fight` job. See `docs/fight.md`; native hits and limited

@@ -97,6 +97,78 @@ class ProjectAgentContracts(unittest.IsolatedAsyncioTestCase):
             rejected=next(x for x in audit if x['source']=='M999')
             self.assertFalse(rejected['response']['effects_started'])
 
+    async def test_PA09_malformed_model_json_is_feedback_not_host_failure(self):
+        class MalformedThenValid:
+            def __init__(self):self.calls=0;self.contexts=[]
+            def decide(self,context):
+                self.calls+=1;self.contexts.append(context)
+                if self.calls==1:raise ValueError('invalid model JSON escape')
+                return {'plan':plan_fixture(),'finish':True}
+        m=MalformedThenValid();c=FakeClient()
+        with self.journal() as p:
+            p.bind(scene_fixture());r=await ProjectAgent(c,p,m,default_commands(),max_calls=2).run()
+            self.assertEqual(m.calls,2);self.assertEqual(r['status'],'OBJECTIVE_INCOMPLETE')
+            self.assertEqual(m.contexts[1]['last_action_result']['status'],'rejected')
+            self.assertIn('invalid model JSON escape',m.contexts[1]['last_action_result']['reason'])
+            self.assertTrue(any(e['kind']=='plan_or_program_rejected' for e in p.p['history']))
+    async def test_PA10_model_action_preserves_mandatory_followup_budget(self):
+        class AtLimit:
+            def decide(_,context):
+                p.p['counters']['operations']=508
+                return {'source':'M0 X0.5 Y64 Z0.5'}
+        with self.journal() as p:
+            p.bind(scene_fixture());p.revise(plan_fixture());c=FakeClient();a=ProjectAgent(c,p,AtLimit(),default_commands(),max_calls=1)
+            r=await a.run()
+            self.assertEqual(r['status'],'OBJECTIVE_INCOMPLETE');self.assertEqual(p.p['counters']['operations'],510)
+            self.assertFalse(any(source.startswith('M0 ') for source in c.sources))
+            self.assertTrue(any(e['kind']=='plan_or_program_rejected' for e in p.p['history']))
+            await a.exchange('V0\nI0');self.assertEqual(p.p['counters']['operations'],512)
+    async def test_PA12_plan_baseline_preserves_mandatory_followup_budget(self):
+        class PlanAtLimit:
+            def decide(_,context):
+                p.p['counters']['operations']=508
+                return {'plan':plan_fixture()}
+        with self.journal() as p:
+            p.bind(scene_fixture());c=FakeClient();a=ProjectAgent(c,p,PlanAtLimit(),default_commands(),max_calls=1)
+            r=await a.run()
+            self.assertEqual(r['status'],'OBJECTIVE_INCOMPLETE');self.assertEqual(p.p['counters']['operations'],510)
+            self.assertEqual(c.sources.count('V0\nI0'),1)
+            self.assertTrue(any(e['kind']=='plan_or_program_rejected' for e in p.p['history']))
+            await a.exchange('V0\nI0');self.assertEqual(p.p['counters']['operations'],512)
+    async def test_PA11_inspection_reserves_one_final_model_action(self):
+        from unittest.mock import patch
+        captured=[]
+        class NearLimit:
+            def decide(_,context):
+                p.p['counters']['operations']=500
+                return {'begin_verification':True}
+        async def inspect(journal,exchange,*,max_operations,check):
+            captured.append(max_operations);return {'verified':False,'reason':'bounded_test','operations':0,'origin_restored':True}
+        with self.journal() as p:
+            p.bind(scene_fixture());p.revise(plan_fixture())
+            with patch('blockwire.project_inspection.inspect_project',inspect):
+                await ProjectAgent(FakeClient(),p,NearLimit(),default_commands(),max_calls=1).run()
+            self.assertEqual(captured,[5])
+    async def test_PA14_successful_terminal_V0_I0_is_not_duplicated(self):
+        with self.journal() as p:
+            p.bind(scene_fixture());c=FakeClient()
+            r=await ProjectAgent(c,p,Model([{'source':'V0\nI0'}]),default_commands(),max_calls=1).run()
+            self.assertEqual(r['status'],'OBJECTIVE_INCOMPLETE');self.assertEqual(p.p['counters']['operations'],7)
+            self.assertEqual(c.sources.count('V0\nI0'),1)
+    async def test_PA13_runtime_stops_before_consuming_final_audit_reserve(self):
+        class TwoDecisions:
+            def __init__(self):self.calls=0
+            def decide(self,context):
+                self.calls+=1
+                if self.calls==1:p.p['counters']['operations']=508
+                return {}
+        m=TwoDecisions()
+        with self.journal() as p:
+            p.bind(scene_fixture());a=ProjectAgent(FakeClient(),p,m,default_commands(),max_calls=2)
+            r=await a.run()
+            self.assertEqual(m.calls,1);self.assertEqual(r['reason'],'project_operation_budget')
+            self.assertEqual(p.p['counters']['operations'],510)
+            await a.exchange('V0\nI0');self.assertEqual(p.p['counters']['operations'],512)
     async def test_PA04_active_cancellation_uses_existing_gateway_cancel(self):
         c=FakeClient();c.hold=True
         with self.journal() as p:

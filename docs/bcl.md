@@ -170,6 +170,18 @@ Subscriptions persist for the bound session; events missed during disconnection
 are not replayed. Reset is explicit, idle-only, restores modal defaults and clears
 subscriptions, but retains request dedup history. F8 is not a resettable setting.
 
+## Play2Code source below BCL execution
+
+[Play2Code](play2code.md) can translate a sealed local-human timeline into ordered
+ordinary BCL/1 batches. It adds no opcode, runtime branch, skill or controller.
+The exporter derives admissibility from this registry/compiler: grounded movement
+checkpoints map to M0, required held items to I1, stably observed main-hand
+placements to I4 with `C=false`, and stably observed breaks-to-air to exact C3.
+Unsupported/uncertain actions remain explicit records rather than guessed commands.
+Every batch compiles before publication, uses absolute mode and retains source order
+without path smoothing or action optimization. Export never executes the source;
+compile success is not replay or external-objective verification.
+
 ## Persistent projects above BCL
 
 [ProjectJournal / ProjectAgent](projects.md) retain model-authored typed plans,

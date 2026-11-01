@@ -42,10 +42,12 @@ class CommandJSONDecider:
         with tempfile.TemporaryDirectory(prefix='blockwire-model-') as cwd, tempfile.TemporaryFile() as output:
             run=subprocess.run(self.argv,input=data,stdout=output,stderr=subprocess.DEVNULL,
                                cwd=cwd,env=env,timeout=self.timeout,check=False,shell=False)
-            if run.returncode:raise RuntimeError('model_command_failed')
+            if run.returncode:
+                record('failure',json.dumps({'kind':'nonzero_exit','returncode':run.returncode}).encode())
+                raise RuntimeError('model_command_failed')
             output.seek(0);body=output.read(16385)
         if len(body)>16384:raise ValueError('Model decision output bound exceeded')
+        record('reply',body)
         parsed=strict_json(body)
         if not isinstance(parsed,dict):raise ValueError('Model must return one JSON object')
-        record('reply',body)
         return parsed

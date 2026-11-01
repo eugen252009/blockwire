@@ -10,11 +10,15 @@ from .skills.approaching import _reachable
 async def inspect_project(journal,exchange,*,max_operations=64,check=lambda:None):
     if type(max_operations)is not int or not 1<=max_operations<=128:raise ValueError('Bounded inspection required')
     if not journal.p['plan'] or journal.p['pending']:raise ValueError('Quiescent typed plan required')
-    journal.begin_verification();used=0;scene=None;visited=set();attempted=set();origin=None
-    async def send(source):
+    # A bounded follow-up continues the same read-only sweep. Restarting it here
+    # would discard still-fresh evidence and can exhaust the project budget while
+    # repeatedly proving different subsets of one unchanged objective.
+    if not journal.p.get('final_sweep'):journal.begin_verification()
+    used=0;scene=None;visited=set();attempted=set();origin=None
+    async def send(source,*,reserve=0):
         nonlocal used,scene
         check();count=len(source.splitlines())
-        if used+count>max_operations:return False
+        if used+count+reserve>max_operations:return False
         used+=count
         response=await exchange(source)
         check()
@@ -23,14 +27,32 @@ async def inspect_project(journal,exchange,*,max_operations=64,check=lambda:None
         return response.get('status')=='completed'
     if not await send('V0'):return {'verified':False,'reason':'inspection_observation_failed','operations':used}
     if not scene or not scene.get('navigation',{}).get('ready'):return {'verified':False,'reason':'inspection_geometry_required','operations':used}
-    origin=tuple(scene['navigation']['current_cell']);visited.add(origin)
+    origin=tuple(scene['navigation']['current_cell']);visited.add(origin);return_reserve=6
+    async def finish(reason):
+        current=tuple(scene.get('navigation',{}).get('current_cell',origin));return_visited={current}
+        for _ in range(3):
+            if current==origin or used+2>max_operations:break
+            nav=scene.get('navigation',{});reachable=[tuple(c) for c in _reachable(nav,True)] if nav.get('ready') else []
+            if origin in reachable:target=origin
+            else:
+                candidates=[c for c in reachable if c[1]==origin[1] and c!=current and c not in return_visited]
+                if not candidates:break
+                target=min(candidates,key=lambda c:(math.dist(c,origin),-math.dist(c,current)))
+            return_visited.add(target)
+            if not await send(f'M0 X{target[0]+.5} Y{float(target[1])} Z{target[2]+.5}\nV0'):break
+            current=tuple(scene.get('navigation',{}).get('current_cell',()))
+        restored=current==origin;journal.reconcile();verified=journal.p['status']=='OBJECTIVE_VERIFIED'
+        if verified and not restored:
+            journal.p['final_sweep']=False;journal.event('inspection_origin_restore_failed',origin=list(origin),current=list(current));journal.reconcile()
+            verified=False;reason='inspection_origin_restore_failed'
+        return {'verified':verified,'reason':'observed_project' if verified else reason,'operations':used,'origin_restored':restored}
     normals=((1,0,0),(-1,0,0),(0,1,0),(0,-1,0),(0,0,1),(0,0,-1))
     for _ in range(8):
         check();journal.reconcile()
-        if journal.p['status']=='OBJECTIVE_VERIFIED':return {'verified':True,'reason':'observed_project','operations':used}
+        if journal.p['status']=='OBJECTIVE_VERIFIED':return await finish('observed_project')
         # A real mismatch needs external replanning, not repeated blind views.
         if any(r['status'] in {'wrong','missing'} for r in journal.p['progress'].values()):
-            return {'verified':False,'reason':'observed_project_mismatch','operations':used}
+            return await finish('observed_project_mismatch')
         unknown=[list(map(int,k.split(','))) for k,r in journal.p['progress'].items() if r['status']=='unknown']
         eye=scene['eye_position']
         unknown.sort(key=lambda p:math.dist(eye,[v+.5 for v in p]))
@@ -46,11 +68,12 @@ async def inspect_project(journal,exchange,*,max_operations=64,check=lambda:None
                 if sum((eye[i]-aim[i])*normal[i] for i in range(3))>.01:points.append(aim)
             points.sort(key=lambda p:math.dist(eye,p))
             for aim in points[:3]:
-                if used+2>max_operations:break
-                if not await send('V2 X'+str(float(aim[0]))+' Y'+str(float(aim[1]))+' Z'+str(float(aim[2]))+'\nV0'):break
-                if journal.p['status']=='OBJECTIVE_VERIFIED':return {'verified':True,'reason':'observed_project','operations':used}
+                reserve=return_reserve if tuple(scene.get('navigation',{}).get('current_cell',origin))!=origin else 0
+                if used+2+reserve>max_operations:break
+                if not await send('V2 X'+str(float(aim[0]))+' Y'+str(float(aim[1]))+' Z'+str(float(aim[2]))+'\nV0',reserve=reserve):break
+                if journal.p['status']=='OBJECTIVE_VERIFIED':return await finish('observed_project')
                 if journal.p['progress'].get(key,{}).get('status')=='correct':break
-        if used+3>max_operations:break
+        if used+2+return_reserve>max_operations:break
         nav=scene.get('navigation',{});current=tuple(nav.get('current_cell',origin));reachable=_reachable(nav,True) if nav.get('ready') else []
         unknown=[list(map(int,k.split(','))) for k,r in journal.p['progress'].items() if r['status']=='unknown']
         if not unknown:
@@ -62,6 +85,5 @@ async def inspect_project(journal,exchange,*,max_operations=64,check=lambda:None
             candidates.sort(key=lambda c:(min(math.dist((c[0]+.5,c[1]+1.62,c[2]+.5),[v+.5 for v in p]) for p in unknown),math.dist(current,c)))
         if not candidates:break
         cell=candidates[0];visited.add(cell)
-        if not await send(f'M0 X{cell[0]+.5} Y{float(cell[1])} Z{cell[2]+.5}\nV0'):break
-    journal.reconcile()
-    return {'verified':journal.p['status']=='OBJECTIVE_VERIFIED','reason':'inspection_budget_or_visibility_limit','operations':used}
+        if not await send(f'M0 X{cell[0]+.5} Y{float(cell[1])} Z{cell[2]+.5}\nV0',reserve=return_reserve):break
+    return await finish('inspection_budget_or_visibility_limit')

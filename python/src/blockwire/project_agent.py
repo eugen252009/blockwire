@@ -13,6 +13,12 @@ from .bcl import compile_bcl
 from .bcl.compiler import arguments,BCLError
 from .bcl.registry import DEFAULT_PERMISSIONS
 
+def _terminal_followup(response):
+    if response.get('status')!='completed':return False
+    ops=response.get('result',{}).get('operations',[])
+    return len(ops)>=2 and [(o.get('command'),o.get('status')) for o in ops[-2:]]==[
+        ('core:view.observe','succeeded'),('core:inventory.inspect','succeeded')]
+
 class ProjectDecision(Strict):
     source: str = Field(default='',max_length=16384)
     note: str = Field(default='',max_length=1024)
@@ -34,13 +40,16 @@ class ProjectAgent:
     def check(self):
         if self.cancelled:raise RuntimeError('project_cancelled')
         if time.monotonic()>=self.deadline:raise RuntimeError('project_deadline')
-    async def exchange(self,source,*,intent=False):
+    async def exchange(self,source,*,intent=False,reserve_operations=0):
         self.check()
+        if type(reserve_operations)is not int or not 0<=reserve_operations<=512:raise ValueError('Invalid reserved operation count')
         try:program=compile_bcl(source,self.registry,permissions=self.permissions)
         except BCLError as error:
             if self.audit:self.audit({'source':source,'response':{'status':'rejected','phase':'compile','effects_started':False,'diagnostics':[error.diagnostic.to_dict()]}})
             raise
-        if self.journal.p['counters']['operations']+len(program.operations)>512:raise RuntimeError('project_operation_budget')
+        if self.journal.p['counters']['operations']+len(program.operations)+reserve_operations>512:
+            if reserve_operations:raise ValueError('Project operation budget must preserve the mandatory follow-up observation')
+            raise RuntimeError('project_operation_budget')
         mutates=any(self.registry.resolve(o.namespace,o.opcode).skill not in {'observe_environment','inspect_inventory','aim_at','walk_to',None} for o in program.operations)
         identifier=self.client.next_id
         if intent:
@@ -108,6 +117,7 @@ class ProjectAgent:
                 self.check();summary=self.journal.summary()
                 if summary['status']=='OBJECTIVE_VERIFIED':result={'status':'OBJECTIVE_VERIFIED','reason':'trusted_project_postcondition'};break
                 if self.journal.p['counters']['model_calls']>=160:result['reason']='persistent_model_budget';break
+                if self.journal.p['counters']['operations']>508:result['reason']='project_operation_budget';break
                 # Re-seeing an expired old surface is not new project progress.
                 progress=[self.journal.p['revision'],self.journal.p.get('activation_confirmed',[]),self.journal.p['counters']['placement_events']]
                 fingerprint=hashlib.sha256(json.dumps([progress,self.journal.p['inventory']],sort_keys=True).encode()).hexdigest()
@@ -115,39 +125,48 @@ class ProjectAgent:
                 if stagnant>=self.max_stagnation:result['reason']='no_relevant_progress_budget';break
                 self.journal.p['counters']['model_calls']+=1;self.journal.save()
                 payload={'project':summary,'registry':catalog,'latest_result':self.last_response,'last_action_result':self.last_action_result,
-                         'remaining_seconds':max(0.,self.deadline-time.monotonic()),'stagnant_decisions':stagnant,
-                         'contract':'COMMAND_COMPLETED/BATCH_COMPLETED are not OBJECTIVE_VERIFIED. Model finish is a proposal only. Unknown blocks require observations. Choose all design, resources, access and repairs yourself.'}
+                         'remaining_seconds':max(0.,self.deadline-time.monotonic()),'remaining_operations':512-self.journal.p['counters']['operations'],
+                         'max_source_operations_this_decision':max(0,508-self.journal.p['counters']['operations']),'stagnant_decisions':stagnant,
+                         'contract':'COMMAND_COMPLETED/BATCH_COMPLETED are not OBJECTIVE_VERIFIED. Model finish is a proposal only. Unknown blocks require observations. Every decision reserves V0/I0 follow-up operations and the independent final audit. Choose all design, resources, access and repairs yourself.'}
                 try:raw=await asyncio.wait_for(asyncio.to_thread(self.decider.decide,payload),min(180.,max(.1,self.deadline-time.monotonic())))
                 except TimeoutError:raise RuntimeError('model_decision_timeout') from None
-                self.check()
+                except ValueError as error:
+                    self.last_response={'status':'rejected','reason':str(error)[:2048],'diagnostics':[]};self.last_action_result=self.last_response
+                    self.journal.event('plan_or_program_rejected',reason=str(error)[:512])
+                    await self.exchange('V0\nI0',reserve_operations=2);self.journal.save();continue
+                self.check();followup_observed=False
                 try:
                     decision=ProjectDecision.model_validate(raw)
                     if decision.plan:
                         revision=self.journal.p['revision'];self.journal.revise(decision.plan.model_dump())
-                        if self.journal.p['revision']!=revision:await self.exchange('V0\nI0')  # Fresh target baseline, never infer an empty site from the plan.
+                        if self.journal.p['revision']!=revision:
+                            followup_observed=_terminal_followup(await self.exchange('V0\nI0',reserve_operations=4))  # Fresh target baseline, never infer an empty site from the plan.
                     if decision.note:self.journal.event('model_note',note=decision.note)
                     if decision.begin_verification and not self.journal.p.get('final_sweep'):self.journal.begin_verification()
                     if decision.source:
                         if not self.journal.p['plan']:
-                            await self.exchange(decision.source,intent=False)
-                        else:await self.exchange(decision.source,intent=True)
+                            response=await self.exchange(decision.source,intent=False,reserve_operations=4)
+                        else:response=await self.exchange(decision.source,intent=True,reserve_operations=4)
+                        followup_observed=_terminal_followup(response)
                     self.journal.reconcile()
                     # Start a fresh sweep once every declared block has evidence.
                     # The model chooses camera/walking/inspection actions, not us.
                     if self.journal.p['progress'] and all(r['status']=='correct' for r in self.journal.p['progress'].values()) and not self.journal.p.get('final_sweep'):
-                        self.journal.begin_verification()
+                        self.journal.begin_verification();followup_observed=False
                     if (decision.begin_verification or self.journal.p.get('final_sweep')) and self.journal.p['status']!='OBJECTIVE_VERIFIED' and self.inspection_sweeps<3:
-                        remaining=512-self.journal.p['counters']['operations']
+                        # Preserve V0/I0 after this decision, one final native
+                        # action with its V0/I0, and the host's final read-only audit.
+                        remaining=512-self.journal.p['counters']['operations']-7
                         if remaining>0:
                             from .project_inspection import inspect_project
                             self.inspection_sweeps+=1
                             outcome=await inspect_project(self.journal,self.exchange,max_operations=min(64,remaining),check=self.check)
-                            self.journal.event('independent_inspection',**outcome)
+                            self.journal.event('independent_inspection',**outcome);followup_observed=False
                     if decision.finish and self.journal.p['status']!='OBJECTIVE_VERIFIED':self.journal.event('OBJECTIVE_INCOMPLETE',reason='model_finish_not_independent_proof')
                 except ValueError as error:
                     if self.journal.p['pending']:raise RuntimeError('uncertain_project_intent_requires_explicit_rebind') from error
                     self.last_response={'status':'rejected','reason':str(error)[:2048],'diagnostics':[error.diagnostic.to_dict()] if isinstance(error,BCLError) else []};self.last_action_result=self.last_response;self.journal.event('plan_or_program_rejected',reason=str(error)[:512])
-                await self.exchange('V0\nI0')
+                if not followup_observed:await self.exchange('V0\nI0',reserve_operations=2)
                 self.journal.save()
             if self.journal.summary()['status']=='OBJECTIVE_VERIFIED':result={'status':'OBJECTIVE_VERIFIED','reason':'trusted_project_postcondition'}
         except asyncio.CancelledError:

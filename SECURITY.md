@@ -151,6 +151,28 @@ Private state/mailbox files contain player identity, locations and goal/history;
 protect and exclude them from bundles. The current file-lock runner is POSIX-only.
 No autonomous survival, response-time, damage-avoidance or 24/7 guarantee is made.
 
+## Passive Play2Code recordings
+
+[Play2Code](docs/play2code.md) is local-only and adds no recorder RPC, MCP authority,
+startup controller or input owner. Recording start fails while the native endpoint
+is enabled. Enabling it during capture invalidates/stops the capture before the
+endpoint starts; remote-owned input, actor/world replacement, death and write
+bounds also fail closed. F8 retains its existing endpoint/input-release behavior.
+The interaction hooks only correlate native human use/mining with bounded watched
+positions and stable client-observed changes; they do not scan the world or claim
+server-authoritative confirmation.
+
+Raw captures contain player UUIDs, precise coordinates, inventory item IDs and an
+input/action timeline. They are private evidence: POSIX directories/files use
+0700/0600, runtime `recordings/` is ignored by Git, and the bundle builder never
+copies game directories. Review/redact before sharing. The exporter rejects
+symlinks, malformed/duplicate/nonfinite JSON, incomplete/unsafe captures, sequence
+changes and bounds; it writes hashed artifacts without overwriting an earlier
+export. Generated BCL is compiled but never executed automatically. Replay requires
+a fresh authorized actor/fixture and inherits all ordinary TLS, actor, lease,
+cancellation and postcondition constraints. Compile success is not gameplay or
+objective success.
+
 ## BCL/1 modal protocol
 
 [BCL](docs/bcl.md) is data, never generated/evaluated Python or slash commands.

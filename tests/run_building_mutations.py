@@ -12,6 +12,7 @@ OUT=Path(os.environ.get('BLOCKWIRE_VERIFICATION_DIR',ROOT/'build/superflat-bench
 MUTATIONS=[
  ('inspection_actor_bracket','live.py',"if before.get('actor_session')!=actor:",'if False:','test_benchmark_lifecycle.BenchmarkLifecycle.test_native_inspection_is_actor_bracketed'),
  ('atomic_evidence_publication','evidence.py','os.replace(temporary,path)','path.write_text(temporary.read_text())','test_benchmark_lifecycle.BenchmarkLifecycle.test_failed_evidence_publication_preserves_last_complete_record'),
+ ('world_list_population_wait','fixture.py','if len(rows)==1:break','if rows:break','test_benchmark_lifecycle.BenchmarkLifecycle.test_async_world_list_population_is_awaited_before_selection'),
  ('material_identity','reference.py','actual==block','actual is not None','BenchmarkReference.test_BM03_wrong_material'),
  ('unknown_not_correct','reference.py',"'UNKNOWN' if actual is None","'CORRECT' if actual is None",'BenchmarkReference.test_BM04_unknown_never_correct_or_missing'),
  ('missing_not_correct','reference.py',"else 'MISSING' if actual in AIR","else 'CORRECT' if actual in AIR",'BenchmarkReference.test_BM02_missing_required_block'),

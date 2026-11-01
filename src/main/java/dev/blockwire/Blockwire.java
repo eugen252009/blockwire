@@ -19,7 +19,8 @@ public final class Blockwire implements ClientModInitializer {
     private static final Logger LOG=LoggerFactory.getLogger("blockwire");
     private static Blockwire instance;
     private BridgeServer server;
-    private KeyMapping toggle;
+    private KeyMapping toggle,play2CodeStart,play2CodeStop;
+    private Play2CodeRecorder play2Code;
     private int ticksLeft;
     private BridgeConfig config;
     private java.nio.file.Path configDirectory;
@@ -42,13 +43,20 @@ public final class Blockwire implements ClientModInitializer {
             config=BridgeConfig.load(configDirectory);
             tls=TlsIdentity.load(configDirectory); // Generate once, even while remote control is disabled.
         } catch(Exception e) {LOG.error("Blockwire disabled: could not initialize private configuration ({})",e.getClass().getSimpleName());return;}
-        toggle=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.block_bridge.toggle",InputConstants.Type.KEYBOARD,
-            InputConstants.KEY_F8,KeyMapping.Category.register(Identifier.parse("blockwire:controls"))));
+        var category=KeyMapping.Category.register(Identifier.parse("blockwire:controls"));
+        toggle=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.block_bridge.toggle",InputConstants.Type.KEYBOARD,InputConstants.KEY_F8,category));
+        play2CodeStart=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.blockwire.play2code.start",InputConstants.Type.KEYBOARD,InputConstants.KEY_F9,category));
+        play2CodeStop=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.blockwire.play2code.stop",InputConstants.Type.KEYBOARD,InputConstants.KEY_F10,category));
+        play2Code=new Play2CodeRecorder(FabricLoader.getInstance().getGameDir().resolve("recordings"),this::message);
         ClientTickEvents.START_CLIENT_TICK.register(client->tick());
-        ClientTickEvents.END_CLIENT_TICK.register(client->motionTrace.sample(client,navigation.actorSession(client),held,keys(),rotation));
-        ClientLifecycleEvents.CLIENT_STOPPING.register(client->stop());
+        ClientTickEvents.END_CLIENT_TICK.register(client->{
+            String session=navigation.actorSession(client);var currentKeys=keys();
+            motionTrace.sample(client,session,held,currentKeys,rotation);
+            play2Code.sample(client,session,held,currentKeys,server!=null);
+        });
+        ClientLifecycleEvents.CLIENT_STOPPING.register(client->{play2Code.abort("client_stopping");stop();});
         ClientLifecycleEvents.CLIENT_STARTED.register(client->{if(config.enabled())startServer();});
-        LOG.info("Blockwire configured; auto-start {}. F8 toggles local control.",config.enabled());
+        LOG.info("Blockwire configured; auto-start {}. F8 toggles local control; F9/F10 start/stop passive Play2Code recording.",config.enabled());
     }
     /** No Mod Menu types or secrets cross this boundary; all mutations use the existing client-thread paths. */
     public static LocalSettingsModel.Backend localSettings() {
@@ -81,9 +89,30 @@ public final class Blockwire implements ClientModInitializer {
         if(instance==null || instance.toggle==null || !instance.toggle.matches(key))return false;
         instance.toggleServer();return true;
     }
+    public static boolean play2CodeKey(InputConstants.Key key) {
+        if(instance==null || instance.play2Code==null)return false;
+        if(instance.play2CodeStart!=null && instance.play2CodeStart.matches(key)) {
+            instance.startPlay2Code();return true;
+        }
+        if(instance.play2CodeStop!=null && instance.play2CodeStop.matches(key)) {
+            instance.play2Code.requestStop();return true;
+        }
+        return false;
+    }
+    public static void recordBreakIntent(net.minecraft.core.BlockPos position,net.minecraft.core.Direction face) {
+        if(instance!=null && instance.play2Code!=null)instance.play2Code.breakIntent(position,face);
+    }
+    public static void recordUseIntent(net.minecraft.client.player.LocalPlayer player,net.minecraft.world.InteractionHand hand,
+                                       net.minecraft.world.phys.BlockHitResult hit) {
+        if(instance!=null && instance.play2Code!=null)instance.play2Code.useIntent(player,hand,hit);
+    }
+    private void startPlay2Code() {
+        if(mc.player==null || mc.level==null){message("Play2Code requires a loaded world.");return;}
+        play2Code.start(mc,navigation.actorSession(mc),server!=null);
+    }
     private void toggleServer() {
         if(server!=null){stop();message("Disabled; inputs released.");}
-        else startServer();
+        else {play2Code.abort("control_endpoint_enabled");startServer();}
     }
     private void startServer() {
         if(server!=null)return;

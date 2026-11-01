@@ -137,6 +137,21 @@ The opt-in [Superflat building benchmark](docs/superflat-building.md) compares a
 versioned deterministic BCL program with independently model-generated BCL against
 one frozen 71-block reference, closed-snapshot resets and independent acceptance.
 
+### Play2Code — record human play as conservative BCL (development)
+
+With the control endpoint disabled, press **F9** to start a passive local recording
+and **F10** to stop after a bounded world-mutation confirmation window. The recorder
+observes native movement/input, hotbar changes, block-use/mining intents and stable
+client-observed placement/break outcomes; it never drives the player. Export with
+`blockwire-play2code export <minecraft>/recordings/<id>` to retain the raw JSONL,
+explicit unsupported conversions, unoptimized compiling BCL/1 batches and a hashed
+manifest. Generated BCL is **not replay qualification**. There is no recorder RPC,
+new opcode, controller or planner. A small isolated native movement/placement/break
+capture-and-export smoke passed, but generated-BCL replay remains **NOT RUN**. The
+owner-only 71-block human-house benchmark is prepared but remains **PENDING**; no
+Test-A/model output is accepted as a human baseline. See
+[Play2Code architecture, format and benchmark protocol](docs/play2code.md).
+
 ### Strategic LLM agent (development prototype)
 
 `blockwire-agent` / `python -m blockwire.agent_cli` adds an explicitly selected LLM
@@ -222,6 +237,8 @@ Graphical command acceptance is **NOT RUN**. See [commands](docs/commands.md).
    **isolated test instance** first. Do not install the sources JAR.
 3. Launch Minecraft. The first-run default is disabled. **Press F8 to enable/disable**;
    rebind under Controls if needed. The toggle works in the main menu and other screens.
+   Development builds also register local **F9/F10** Play2Code start/stop keys;
+   recording requires the endpoint to be disabled and never enables it.
    Optional **Mod Menu 21.x for Minecraft 26.3** adds **Mods → Blockwire → Configure**:
    live control status, immediate enable/stop and an explicitly saved startup preference.
    Mod Menu is not bundled or required. See [configuration](docs/configuration.md#optional-mod-menu-screen).
@@ -286,6 +303,8 @@ fallback. See [TLS and certificate trust](docs/tls.md).
   releases held input as the game thread advances.
 - F8 disables the endpoint and releases inputs. Bridge ownership of a held key
   can override a simultaneous human press of that key; stop automation first.
+- Play2Code is passive and local-only. F9 refuses to record while the endpoint is
+  enabled; enabling it during a capture invalidates that capture before startup.
 - Normal reach, collision, crafting, combat, cooldowns and server authority remain
   in Minecraft. Python skills use native movement, not teleportation or item spawning.
   Explicit slash commands can change the world if the server grants permission; they

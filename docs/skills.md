@@ -134,6 +134,14 @@ native `eat` may coexist. Other skills retain exclusive resource ownership.
 It does not remove the MCP/global actor lock. See [controller API and limits](controller.md);
 real-client concurrency acceptance is NOT RUN.
 
+## Play2Code is not a skill
+
+[Play2Code](play2code.md) passively records local human input and exports source for
+existing BCL skill adapters. It is not registered in `SkillRegistry`, never claims
+actor ownership and cannot be started remotely. Replaying exported M0/I1/I4/C3
+still invokes these same skill contracts, actor fences, cancellation checks and
+observed postconditions; the recording itself grants no authority or success claim.
+
 ## BCL/1 adapter and additive movement mode
 
 [BCL/1](bcl.md) compiles compact commands, modal settings and event subscriptions

@@ -2,6 +2,15 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Play2Code passive local-human recorder: F9/F10 start/stop only while the remote
+  endpoint is disabled; native tick/input/hotbar/interaction timelines and stable
+  client-observed placement/break correlation. No input ownership or protocol RPC.
+- Explicit offline export retains raw JSONL, unsupported conversions, absolute and
+  relative coordinate contracts, unoptimized compiling BCL/1 batches and hashes.
+  Replay is never automatic or implied by compilation. A private isolated native
+  movement/placement/break capture-and-export smoke passed; generated BCL replay
+  remains NOT RUN. The manual 71-block human benchmark is prepared but remains
+  PENDING until the owner performs it.
 - Standalone trusted Python `setup`/`loop` controllers, normal asyncio TaskGroups,
   bounded subscribed events, read-only state snapshots and managed cancellation.
 - Concurrent `walk_to` + conservative native `eat`; one input mixer, per-task
