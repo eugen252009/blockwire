@@ -1,0 +1,1520 @@
+{
+  "H05": "PENDING_OWNER_MANUAL_BUILD",
+  "architecture": "Same BCL/1 bytes, ordered operations, native movement, per-skill cleanup, actor fences and authenticated TLS; no new opcode, input owner or cross-task lease transfer",
+  "automated_regression": {
+    "gradle_check": "PASS",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 184,
+        "total": 184
+      }
+    },
+    "python": "558/558 PASS in final serial run",
+    "retained_parallel_python_failure": "One earlier concurrent full-suite run failed test_terminal_repl_modal_invalid_bcl_and_request_correlation (three replies instead of four); retained, not weakened. Final serial rerun passed.",
+    "tls_interop": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "baseline": {
+    "automatic_action_retries": 0,
+    "closed_save_matches": true,
+    "completed_batches": 20,
+    "elapsed_seconds": 464.227393166002,
+    "ended_snapshot_identity": "a6ad435e4a226eaca1e9b7972a3dd348198b4cddc9f35f4cac89e29b27a8c663",
+    "entrance_clear": true,
+    "executed_operations": 572,
+    "expected_batches": 20,
+    "failed_actions": 0,
+    "missing_blocks": 0,
+    "native_read_only_verified": true,
+    "objective_verified": true,
+    "profile": {
+      "action_timings": {
+        "aim_at": {
+          "count": 69,
+          "median_wall_seconds": 0.3437220189953223,
+          "total_wall_seconds": 22.089777568930003
+        },
+        "equip_item": {
+          "count": 2,
+          "median_wall_seconds": 0.20962830299686175,
+          "total_wall_seconds": 0.4192566059937235
+        },
+        "place_block": {
+          "count": 69,
+          "median_wall_seconds": 0.8416537520024576,
+          "total_wall_seconds": 58.37593803393975
+        },
+        "replay_recorded_drop": {
+          "count": 1,
+          "median_wall_seconds": 1.180362785999023,
+          "total_wall_seconds": 1.180362785999023
+        },
+        "replay_recorded_sequence": {
+          "count": 1,
+          "median_wall_seconds": 10.242633134999778,
+          "total_wall_seconds": 10.242633134999778
+        },
+        "walk_to": {
+          "count": 429,
+          "median_wall_seconds": 0.26137995900353417,
+          "total_wall_seconds": 183.81366455106036
+        }
+      },
+      "collected_native_ticks": 9283,
+      "collected_tick_gap_count": 0,
+      "collected_tick_span": 9283,
+      "cooperative_wait_wall_seconds": 187.55694281122123,
+      "health_minimum": 20.0,
+      "input_transitions": {
+        "attack": {
+          "activations": 0,
+          "releases": 0
+        },
+        "back": {
+          "activations": 0,
+          "releases": 0
+        },
+        "forward": {
+          "activations": 111,
+          "releases": 111
+        },
+        "jump": {
+          "activations": 3,
+          "releases": 3
+        },
+        "left": {
+          "activations": 0,
+          "releases": 0
+        },
+        "right": {
+          "activations": 19,
+          "releases": 19
+        },
+        "sneak": {
+          "activations": 162,
+          "releases": 162
+        },
+        "sprint": {
+          "activations": 0,
+          "releases": 0
+        },
+        "use": {
+          "activations": 0,
+          "releases": 0
+        }
+      },
+      "instrumentation_wall_seconds": 4.186784530014847,
+      "lease_RPCs": 512,
+      "look_RPCs": 531,
+      "movement_input_ticks": 152,
+      "native_use_RPC_attempts": 71,
+      "rotation_ticks": 973,
+      "rpc_counts": {
+        "action": 71,
+        "drive": 512,
+        "hotbar": 2,
+        "inventory": 2772,
+        "look": 531,
+        "menu": 1774,
+        "navigation": 3376,
+        "observe": 6280,
+        "stop": 778
+      },
+      "rpc_wall_seconds": 251.64607268247346,
+      "zero_step_walk_operations": 331
+    },
+    "roof_complete": true,
+    "run_id": "PERF-BASE-C",
+    "scenario": "ID",
+    "status": "GO",
+    "verified_blocks": 71,
+    "verified_placement_events": 71
+  },
+  "candidate_change": "Reuse a verified post-action observation only for the following deterministic dispatch; retain a fresh complete observation before every effect and after every skill. No input state is retained between skills.",
+  "candidate_cohort": {
+    "PERF-01": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 412.27936399100145,
+      "ended_snapshot_identity": "cdd4ebc5d971fa7b0d3d99285e45929b9cc270e1029add2ce461f27b7fde115b",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34490901199751534,
+            "total_wall_seconds": 22.024817050027195
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.2184182500022871,
+            "total_wall_seconds": 0.4368365000045742
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8442625379975652,
+            "total_wall_seconds": 58.227708816972154
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.194188107001537,
+            "total_wall_seconds": 1.194188107001537
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.162047214995255,
+            "total_wall_seconds": 10.162047214995255
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.2719141880006646,
+            "total_wall_seconds": 184.13901807402
+          }
+        },
+        "collected_native_ticks": 8234,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8234,
+        "cooperative_wait_wall_seconds": 186.86756363210588,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 111,
+            "releases": 111
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 0,
+            "releases": 0
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 161,
+            "releases": 161
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.776196012928267,
+        "lease_RPCs": 510,
+        "look_RPCs": 521,
+        "movement_input_ticks": 151,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 970,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 510,
+          "hotbar": 2,
+          "inventory": 2112,
+          "look": 521,
+          "menu": 1203,
+          "navigation": 2792,
+          "observe": 5040,
+          "stop": 778
+        },
+        "rpc_wall_seconds": 205.02304918111622,
+        "zero_step_walk_operations": 331
+      },
+      "roof_complete": true,
+      "run_id": "PERF-01",
+      "scenario": "ID",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-02": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 411.4813463380051,
+      "ended_snapshot_identity": "f2172a74f2b514dea5d931a40ba2043d390d720e04c4e8d3aa3bc47e9252d6f0",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34515603999898303,
+            "total_wall_seconds": 22.21428081299382
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.22756724049759214,
+            "total_wall_seconds": 0.4551344809951843
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8449136929993983,
+            "total_wall_seconds": 56.39002399499441
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.1110274930033484,
+            "total_wall_seconds": 1.1110274930033484
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.059968909998133,
+            "total_wall_seconds": 10.059968909998133
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.26284256399958394,
+            "total_wall_seconds": 184.822725906939
+          }
+        },
+        "collected_native_ticks": 8225,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8225,
+        "cooperative_wait_wall_seconds": 186.2426521209054,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 110,
+            "releases": 110
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 0,
+            "releases": 0
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 161,
+            "releases": 161
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.7521695590621675,
+        "lease_RPCs": 505,
+        "look_RPCs": 516,
+        "movement_input_ticks": 148,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 946,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 505,
+          "hotbar": 2,
+          "inventory": 2111,
+          "look": 516,
+          "menu": 1203,
+          "navigation": 2784,
+          "observe": 5021,
+          "stop": 777
+        },
+        "rpc_wall_seconds": 204.67585164152842,
+        "zero_step_walk_operations": 330
+      },
+      "roof_complete": true,
+      "run_id": "PERF-02",
+      "scenario": "ID",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-03": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 413.0643864129961,
+      "ended_snapshot_identity": "b096445972f775b776a2993121dda03a83086c00bc070da97ab6812e23635ac7",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34522732500045095,
+            "total_wall_seconds": 21.923778065996885
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.21105771699512843,
+            "total_wall_seconds": 0.42211543399025686
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8452411830003257,
+            "total_wall_seconds": 59.86883150399808
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.095765948004555,
+            "total_wall_seconds": 1.095765948004555
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.344935501998407,
+            "total_wall_seconds": 10.344935501998407
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.2767986460021348,
+            "total_wall_seconds": 183.89974467702268
+          }
+        },
+        "collected_native_ticks": 8237,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8237,
+        "cooperative_wait_wall_seconds": 187.70408460382168,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 111,
+            "releases": 111
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 0,
+            "releases": 0
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 162,
+            "releases": 162
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.75337904101616,
+        "lease_RPCs": 516,
+        "look_RPCs": 527,
+        "movement_input_ticks": 150,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 973,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 516,
+          "hotbar": 2,
+          "inventory": 2115,
+          "look": 527,
+          "menu": 1203,
+          "navigation": 2793,
+          "observe": 5046,
+          "stop": 780
+        },
+        "rpc_wall_seconds": 205.51847741652455,
+        "zero_step_walk_operations": 331
+      },
+      "roof_complete": true,
+      "run_id": "PERF-03",
+      "scenario": "ID",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-04": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 411.59483517300396,
+      "ended_snapshot_identity": "fdfffa3f357e031f312d465ab197eefb2ef84754d2134b006487986b56ac5852",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.3457175269941217,
+            "total_wall_seconds": 22.82172021498991
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.21067538100032834,
+            "total_wall_seconds": 0.4213507620006567
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8450730010008556,
+            "total_wall_seconds": 55.9560731510137
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.162295283000276,
+            "total_wall_seconds": 1.162295283000276
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.36176687299303,
+            "total_wall_seconds": 10.36176687299303
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.275511933999951,
+            "total_wall_seconds": 185.94590890397376
+          }
+        },
+        "collected_native_ticks": 8248,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8248,
+        "cooperative_wait_wall_seconds": 186.78602113714442,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 114,
+            "releases": 114
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 0,
+            "releases": 0
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 163,
+            "releases": 163
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.776434422987222,
+        "lease_RPCs": 504,
+        "look_RPCs": 519,
+        "movement_input_ticks": 149,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 949,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 504,
+          "hotbar": 2,
+          "inventory": 2110,
+          "look": 519,
+          "menu": 1203,
+          "navigation": 2801,
+          "observe": 5036,
+          "stop": 779
+        },
+        "rpc_wall_seconds": 206.30816203211725,
+        "zero_step_walk_operations": 328
+      },
+      "roof_complete": true,
+      "run_id": "PERF-04",
+      "scenario": "ID",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-180": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 421.5234026439939,
+      "ended_snapshot_identity": "82543f96a35a3a2ee15b85be0ab2f4b51fee836ade9102f5320fd896d8f0e78d",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34558898400428006,
+            "total_wall_seconds": 22.466570362987113
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.227513142497628,
+            "total_wall_seconds": 0.455026284995256
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8454238909980631,
+            "total_wall_seconds": 59.02529511902685
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.1953887499985285,
+            "total_wall_seconds": 1.1953887499985285
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.29492840400053,
+            "total_wall_seconds": 10.29492840400053
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.2625384229977499,
+            "total_wall_seconds": 191.2905893040006
+          }
+        },
+        "collected_native_ticks": 8401,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8401,
+        "cooperative_wait_wall_seconds": 191.18013114205678,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 125,
+            "releases": 125
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 1,
+            "releases": 1
+          },
+          "right": {
+            "activations": 22,
+            "releases": 22
+          },
+          "sneak": {
+            "activations": 164,
+            "releases": 164
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.780890529997123,
+        "lease_RPCs": 531,
+        "look_RPCs": 565,
+        "movement_input_ticks": 204,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 1070,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 531,
+          "hotbar": 2,
+          "inventory": 2131,
+          "look": 565,
+          "menu": 1203,
+          "navigation": 2867,
+          "observe": 5120,
+          "stop": 787
+        },
+        "rpc_wall_seconds": 209.99710389870597,
+        "zero_step_walk_operations": 328
+      },
+      "roof_complete": true,
+      "run_id": "PERF-180",
+      "scenario": "ROT180",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-270": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 4,
+      "elapsed_seconds": 73.1048453129988,
+      "ended_snapshot_identity": "d8bc4fa26e224e35883d7800997b2008494ba0b2d904dc2715ece9959b83c3eb",
+      "entrance_clear": true,
+      "executed_operations": 92,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 4,
+        "failed_operations": [
+          {
+            "command": "core:inventory.place",
+            "evidence": {},
+            "index": 1,
+            "reason": "not_grounded",
+            "status": "blocked"
+          }
+        ]
+      },
+      "missing_blocks": 64,
+      "native_read_only_verified": false,
+      "objective_verified": false,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 8,
+            "median_wall_seconds": 0.34400782349985093,
+            "total_wall_seconds": 2.0649476219841745
+          },
+          "equip_item": {
+            "count": 1,
+            "median_wall_seconds": 0.20902927599672694,
+            "total_wall_seconds": 0.20902927599672694
+          },
+          "place_block": {
+            "count": 8,
+            "median_wall_seconds": 0.868984659002308,
+            "total_wall_seconds": 8.164272695008549
+          },
+          "walk_to": {
+            "count": 74,
+            "median_wall_seconds": 0.2777158850003616,
+            "total_wall_seconds": 39.026916598988464
+          }
+        },
+        "collected_native_ticks": 1469,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 1469,
+        "cooperative_wait_wall_seconds": 33.44661891502619,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 34,
+            "releases": 34
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 1,
+            "releases": 1
+          },
+          "right": {
+            "activations": 1,
+            "releases": 1
+          },
+          "sneak": {
+            "activations": 20,
+            "releases": 20
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 0.6768145160167478,
+        "lease_RPCs": 64,
+        "look_RPCs": 94,
+        "movement_input_ticks": 70,
+        "native_use_RPC_attempts": 7,
+        "rotation_ticks": 188,
+        "rpc_counts": {
+          "action": 7,
+          "drive": 64,
+          "hotbar": 1,
+          "inventory": 345,
+          "look": 94,
+          "menu": 201,
+          "menu_click": 1,
+          "navigation": 526,
+          "observe": 834,
+          "open_pause": 1,
+          "stop": 140
+        },
+        "rpc_wall_seconds": 35.21641101376008,
+        "zero_step_walk_operations": 51
+      },
+      "roof_complete": false,
+      "run_id": "PERF-270",
+      "scenario": "ROT270",
+      "status": "NO_GO",
+      "verified_blocks": 7,
+      "verified_placement_events": 7
+    },
+    "PERF-90": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 4,
+      "elapsed_seconds": 70.80162379000103,
+      "ended_snapshot_identity": "5312265fb55867abeb1ea27e1000a59a276e8822c6d55795a6405b47989b0321",
+      "entrance_clear": true,
+      "executed_operations": 92,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 4,
+        "failed_operations": [
+          {
+            "command": "core:inventory.place",
+            "evidence": {},
+            "index": 1,
+            "reason": "not_grounded",
+            "status": "blocked"
+          }
+        ]
+      },
+      "missing_blocks": 64,
+      "native_read_only_verified": false,
+      "objective_verified": false,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 8,
+            "median_wall_seconds": 0.2949054295022506,
+            "total_wall_seconds": 1.9577822700084653
+          },
+          "equip_item": {
+            "count": 1,
+            "median_wall_seconds": 0.2277267760000541,
+            "total_wall_seconds": 0.2277267760000541
+          },
+          "place_block": {
+            "count": 8,
+            "median_wall_seconds": 0.8612672495000879,
+            "total_wall_seconds": 8.274699736997718
+          },
+          "walk_to": {
+            "count": 74,
+            "median_wall_seconds": 0.2779401660009171,
+            "total_wall_seconds": 37.62434503003897
+          }
+        },
+        "collected_native_ticks": 1424,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 1424,
+        "cooperative_wait_wall_seconds": 32.50423658301588,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 32,
+            "releases": 32
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 1,
+            "releases": 1
+          },
+          "right": {
+            "activations": 0,
+            "releases": 0
+          },
+          "sneak": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 0.6571405229988159,
+        "lease_RPCs": 68,
+        "look_RPCs": 78,
+        "movement_input_ticks": 69,
+        "native_use_RPC_attempts": 7,
+        "rotation_ticks": 156,
+        "rpc_counts": {
+          "action": 7,
+          "drive": 68,
+          "hotbar": 1,
+          "inventory": 341,
+          "look": 78,
+          "menu": 201,
+          "menu_click": 1,
+          "navigation": 515,
+          "observe": 822,
+          "open_pause": 1,
+          "stop": 138
+        },
+        "rpc_wall_seconds": 34.77276519903535,
+        "zero_step_walk_operations": 52
+      },
+      "roof_complete": false,
+      "run_id": "PERF-90",
+      "scenario": "ROT90",
+      "status": "NO_GO",
+      "verified_blocks": 7,
+      "verified_placement_events": 7
+    },
+    "PERF-X01": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 418.3119180569993,
+      "ended_snapshot_identity": "c8a8671981ba5e188a4a7ac6383b44a19afe9b9ee64b5d96f535a61b880290b4",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34589415400114376,
+            "total_wall_seconds": 22.32332736396347
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.2349125330001698,
+            "total_wall_seconds": 0.4698250660003396
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8455556659973809,
+            "total_wall_seconds": 59.8029964300149
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.0830097270008991,
+            "total_wall_seconds": 1.0830097270008991
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.312054738998995,
+            "total_wall_seconds": 10.312054738998995
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.2696089060045779,
+            "total_wall_seconds": 187.55954307498905
+          }
+        },
+        "collected_native_ticks": 8358,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 8358,
+        "cooperative_wait_wall_seconds": 189.4589282241286,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 1,
+            "releases": 1
+          },
+          "forward": {
+            "activations": 117,
+            "releases": 117
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 3,
+            "releases": 3
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 164,
+            "releases": 164
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 3.791456683007709,
+        "lease_RPCs": 525,
+        "look_RPCs": 547,
+        "movement_input_ticks": 179,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 1020,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 525,
+          "hotbar": 2,
+          "inventory": 2120,
+          "look": 547,
+          "menu": 1203,
+          "navigation": 2833,
+          "observe": 5084,
+          "stop": 785
+        },
+        "rpc_wall_seconds": 207.70162367986632,
+        "zero_step_walk_operations": 329
+      },
+      "roof_complete": true,
+      "run_id": "PERF-X01",
+      "scenario": "X01",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "PERF-X03": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 4,
+      "elapsed_seconds": 71.80031297299865,
+      "ended_snapshot_identity": "d28952f3bc2f18304ecc15037bba1c2d7892e8b6acafde5be4fa39bae1053602",
+      "entrance_clear": true,
+      "executed_operations": 92,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 4,
+        "failed_operations": [
+          {
+            "command": "core:inventory.place",
+            "evidence": {},
+            "index": 1,
+            "reason": "not_grounded",
+            "status": "blocked"
+          }
+        ]
+      },
+      "missing_blocks": 64,
+      "native_read_only_verified": false,
+      "objective_verified": false,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 8,
+            "median_wall_seconds": 0.28346220750245266,
+            "total_wall_seconds": 1.903801211003156
+          },
+          "equip_item": {
+            "count": 1,
+            "median_wall_seconds": 0.22543713900086004,
+            "total_wall_seconds": 0.22543713900086004
+          },
+          "place_block": {
+            "count": 8,
+            "median_wall_seconds": 0.8680950839989237,
+            "total_wall_seconds": 8.200879693984461
+          },
+          "walk_to": {
+            "count": 74,
+            "median_wall_seconds": 0.27417405800224515,
+            "total_wall_seconds": 38.186403948995576
+          }
+        },
+        "collected_native_ticks": 1430,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 1430,
+        "cooperative_wait_wall_seconds": 32.69506589505181,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 1,
+            "releases": 1
+          },
+          "forward": {
+            "activations": 30,
+            "releases": 30
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 1,
+            "releases": 1
+          },
+          "right": {
+            "activations": 0,
+            "releases": 0
+          },
+          "sneak": {
+            "activations": 18,
+            "releases": 18
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 0.6612966279863031,
+        "lease_RPCs": 75,
+        "look_RPCs": 79,
+        "movement_input_ticks": 73,
+        "native_use_RPC_attempts": 7,
+        "rotation_ticks": 145,
+        "rpc_counts": {
+          "action": 7,
+          "drive": 75,
+          "hotbar": 1,
+          "inventory": 343,
+          "look": 79,
+          "menu": 201,
+          "menu_click": 1,
+          "navigation": 519,
+          "observe": 831,
+          "open_pause": 1,
+          "stop": 138
+        },
+        "rpc_wall_seconds": 34.514142075000564,
+        "zero_step_walk_operations": 50
+      },
+      "roof_complete": false,
+      "run_id": "PERF-X03",
+      "scenario": "X03",
+      "status": "NO_GO",
+      "verified_blocks": 7,
+      "verified_placement_events": 7
+    }
+  },
+  "candidate_outcome": {
+    "ROT180": "GO, 1/1",
+    "ROT270": "NO_GO",
+    "ROT90": "NO_GO",
+    "X01": "GO, 1/1",
+    "X03": "NO_GO",
+    "failure": "All three regressions stopped in batch 4 with not_grounded before the eighth placement. No automatic retry or rescue was attempted.",
+    "identity": "GO, 4/4 (first experiment plus three confirmations)",
+    "identity_confirmation_repeatability": "GO, 3/3",
+    "mechanism": "Earlier timing/position-dependent loss of grounding during placement repositioning is observed. A precise causal lease/stance mechanism remains UNCONFIRMED.",
+    "overall_native_runs": "NO_GO, 6/9"
+  },
+  "commit_push_upload_release_deployment": false,
+  "current_source_sha256": {
+    "python/src/blockwire/agent.py": "96177b9d2d7a5c97addf8906f49f9d9bfee027b085b87cef2337dcab1a98e9d6",
+    "python/tests/test_bcl.py": "a1c3f992533a9a0fa5fb559504449ba37178ed8d70ad6557603b7633ca6a25f2",
+    "tests/run_bcl_mutations.py": "79a527dc47df67e3e6c5051ee2d4624bffecacdc01155ae10ec6892a583463fc"
+  },
+  "default_restored_native_checks": {
+    "SAFE-90": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 459.8085962460027,
+      "ended_snapshot_identity": "39d20838b6bace014a2ecd3e620c4b8cb7768260ddc511512a21718dcb11b5b6",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.34581717899709474,
+            "total_wall_seconds": 22.79670936002367
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.21119474250008352,
+            "total_wall_seconds": 0.42238948500016704
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8452160920060123,
+            "total_wall_seconds": 58.426988288993016
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.1119768130010925,
+            "total_wall_seconds": 1.1119768130010925
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.277985179003736,
+            "total_wall_seconds": 10.277985179003736
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.2624165879969951,
+            "total_wall_seconds": 187.13085935204435
+          }
+        },
+        "collected_native_ticks": 9208,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 9208,
+        "cooperative_wait_wall_seconds": 188.63698625591496,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 114,
+            "releases": 114
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 1,
+            "releases": 1
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 161,
+            "releases": 161
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 4.129641908941267,
+        "lease_RPCs": 522,
+        "look_RPCs": 541,
+        "movement_input_ticks": 184,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 1018,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 522,
+          "hotbar": 2,
+          "inventory": 2765,
+          "look": 541,
+          "menu": 1774,
+          "navigation": 3397,
+          "observe": 6299,
+          "stop": 780
+        },
+        "rpc_wall_seconds": 251.77650735318457,
+        "zero_step_walk_operations": 331
+      },
+      "roof_complete": true,
+      "run_id": "SAFE-90",
+      "scenario": "ROT90",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    "SAFE-ID": {
+      "automatic_action_retries": 0,
+      "closed_save_matches": true,
+      "completed_batches": 20,
+      "elapsed_seconds": 454.71931861000485,
+      "ended_snapshot_identity": "9d810a13e4014a41323996e726c044c5e74fe0a42619523701a7f1f323329a37",
+      "entrance_clear": true,
+      "executed_operations": 572,
+      "expected_batches": 20,
+      "failed_actions": 0,
+      "missing_blocks": 0,
+      "native_read_only_verified": true,
+      "objective_verified": true,
+      "profile": {
+        "action_timings": {
+          "aim_at": {
+            "count": 69,
+            "median_wall_seconds": 0.3599411600007443,
+            "total_wall_seconds": 22.9317862130265
+          },
+          "equip_item": {
+            "count": 2,
+            "median_wall_seconds": 0.21188338049978483,
+            "total_wall_seconds": 0.42376676099956967
+          },
+          "place_block": {
+            "count": 69,
+            "median_wall_seconds": 0.8288075270029367,
+            "total_wall_seconds": 55.20184218202485
+          },
+          "replay_recorded_drop": {
+            "count": 1,
+            "median_wall_seconds": 1.1952546020038426,
+            "total_wall_seconds": 1.1952546020038426
+          },
+          "replay_recorded_sequence": {
+            "count": 1,
+            "median_wall_seconds": 10.395205482003803,
+            "total_wall_seconds": 10.395205482003803
+          },
+          "walk_to": {
+            "count": 429,
+            "median_wall_seconds": 0.27748731699830387,
+            "total_wall_seconds": 185.55736118095956
+          }
+        },
+        "collected_native_ticks": 9066,
+        "collected_tick_gap_count": 0,
+        "collected_tick_span": 9066,
+        "cooperative_wait_wall_seconds": 186.1637667826435,
+        "health_minimum": 20.0,
+        "input_transitions": {
+          "attack": {
+            "activations": 0,
+            "releases": 0
+          },
+          "back": {
+            "activations": 0,
+            "releases": 0
+          },
+          "forward": {
+            "activations": 114,
+            "releases": 114
+          },
+          "jump": {
+            "activations": 3,
+            "releases": 3
+          },
+          "left": {
+            "activations": 0,
+            "releases": 0
+          },
+          "right": {
+            "activations": 19,
+            "releases": 19
+          },
+          "sneak": {
+            "activations": 162,
+            "releases": 162
+          },
+          "sprint": {
+            "activations": 0,
+            "releases": 0
+          },
+          "use": {
+            "activations": 0,
+            "releases": 0
+          }
+        },
+        "instrumentation_wall_seconds": 4.063804798963247,
+        "lease_RPCs": 504,
+        "look_RPCs": 516,
+        "movement_input_ticks": 149,
+        "native_use_RPC_attempts": 71,
+        "rotation_ticks": 950,
+        "rpc_counts": {
+          "action": 71,
+          "drive": 504,
+          "hotbar": 2,
+          "inventory": 2754,
+          "look": 516,
+          "menu": 1774,
+          "navigation": 3361,
+          "observe": 6247,
+          "stop": 779
+        },
+        "rpc_wall_seconds": 249.39647116601554,
+        "zero_step_walk_operations": 328
+      },
+      "roof_complete": true,
+      "run_id": "SAFE-ID",
+      "scenario": "ID",
+      "status": "GO",
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    }
+  },
+  "disposition": "The candidate is not enabled by BCLRunner. Trusted-host observation reuse is explicit opt-in and defaults false. Native input/motion/placement behavior remains unchanged.",
+  "gates": {
+    "H04_identity_performance": "GO_FOR_C01_IDENTITY_ONLY",
+    "H04_identity_repeatability": "GO_FOR_C01_IDENTITY_ONLY",
+    "consecutive_placement_efficiency": "NOT_ESTABLISHED",
+    "continuous_sneak_walking": "NOT_NEWLY_QUALIFIED",
+    "full_rotation_regression": "NO_GO",
+    "input_ownership_specific_new_scenarios": "NOT_RUN",
+    "release_or_default_enablement": "NO_GO",
+    "stateful_input_execution": "NOT_IMPLEMENTED"
+  },
+  "historical_verdicts_overwritten": false,
+  "human_generalization": "PENDING",
+  "measurement_limits": [
+    "RPC, action and sleep wall times are nested; do not sum them or interpret RPC duration as simulation time.",
+    "Read-only native traces use a 128-sample window polled at most every two seconds. Reported tick spans are collected trace windows, not exact execution-boundary-aligned total ticks.",
+    "Movement/rotation/input tick categories can overlap. Exact placement-tick and idle-tick attribution, and same-position inter-placement timing, remain NOT_QUALIFIED.",
+    "No new native held-input cancellation/F8/actor-change qualification or isolated scenarios A-G were completed.",
+    "No human-level performance, universal repeatability or broader gameplay reliability is claimed."
+  ],
+  "overall_decision": "NO_GO",
+  "performance": {
+    "baseline_wall_seconds": 464.227393166002,
+    "candidate_identity_max_wall_seconds": 413.0643864129961,
+    "candidate_identity_mean_wall_seconds": 412.10498297875165,
+    "candidate_identity_min_wall_seconds": 411.4813463380051,
+    "candidate_identity_runs": 4,
+    "comparison": "Same instrumented unchanged H04/v16 program and equivalent fresh canonical snapshot; one baseline versus four candidate identity runs",
+    "human_speed_parity": "NOT_ESTABLISHED",
+    "mean_reduction_percent": 11.22777564498698
+  },
+  "production_optimization_enabled": false,
+  "public_evidence_excludes": "Credentials, player/actor identities, raw traces, exact private observations and saves",
+  "retained_attempts": {
+    "B01/PERF-BASE-A": "Pre-BCL world-load timeout; no performance measurement; client closed.",
+    "B02/PERF-BASE-B": "UNKNOWN transport loss after two batches and four placement events; diagnostic polling requested an excessively large telemetry window. No replay/resume or success claimed.",
+    "B03/PERF-BASE-C": "GO; new telemetry window bounded to 128 samples with diagnostic transport failures terminal.",
+    "C02_local_draft": "A within-skill sneak-lease prototype failed 86-test targeted regression (four failures, twelve errors, including incomplete fixture API support). Draft movement and test changes were removed before any native run or source freeze; log retained."
+  },
+  "grounding_followup": {
+    "record": "docs/evidence/stateful-input-grounding.json",
+    "historical_scope": "All original C01/D01 fields remain the point-in-time outcome; the original 6/9 NO_GO is not relabelled.",
+    "local_grounding_root_cause": "CONFIRMED_BY_NATIVE_COMPONENT_AB",
+    "independent_reuse_components": "Scoped native checks passed within one owned skill context; all controls remain default-off.",
+    "new_full_replay_pilots": "NO_GO; unchanged recorded partial-pose safety guards rejected the next placement.",
+    "final_nine_case_cohort": "NOT_RUN_BLOCKED_BY_PILOTS",
+    "standard_BCL_activation": "NO_GO"
+  },
+  "schema_version": 1,
+  "scope": "Measured executor-dispatch experiment; complete stateful-input optimization NOT completed",
+  "source_freezes": {
+    "baseline_B03": "460eaabbdbe82cc05d6d058aabe7f783702756bf390b7626874aa87f5af89f47",
+    "candidate_C01": "a913f5f73324b1510c0b1807785f2ccaea29d7bbc32aedf51869b5e1950546b9",
+    "default_restored_D01": "6416d6d3349ea1032e81b3974506d0a7e50f825f6668f20b4101426c730c73be"
+  }
+}

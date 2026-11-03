@@ -46,10 +46,10 @@ def plan(run_id: str):
         },
         'required_execution': [
             'Restore and verify the canonical owned closed snapshot before the owner starts.',
-            'Disable the Blockwire endpoint with F8; Play2Code refuses to start while it is enabled.',
+            'Use an isolated instance with the Blockwire endpoint disabled before launch; Play2Code refuses to start while it is enabled.',
             'The owner presses F9 and manually builds the complete house with ordinary keyboard/mouse input.',
             'The owner presses F10 and waits for the bounded mutation-confirmation drain.',
-            'Export the sealed native recording with blockwire-play2code; generated BCL must compile.',
+            'Export the sealed native recording with blockwire-play2code --coordinate-mode relative --benchmark superflat_house_5x5; the first batch homes exactly once and all generated BCL must compile.',
             'Restore a fresh canonical snapshot before any replay. Never replay in the human baseline world.',
             'Run the unchanged independent native/access plus closed-save acceptance after replay.',
         ],

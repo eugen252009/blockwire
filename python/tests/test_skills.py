@@ -68,16 +68,17 @@ class FlatPlayer:
         self.calls.append(("look", yaw));self.rotation_requests.append(
             {'yaw':yaw,'pitch':pitch,'duration_ms':duration_ms,'rotation_profile':rotation_profile,'time':self.now})
 
-    def drive(self, buttons, ticks, *, wait, actor_session):
+    def drive(self, buttons, ticks, *, wait, actor_session, button_ticks=None):
         assert actor_session == self.session
         assert ticks <= 8 and not wait
-        self.calls.append(("drive", buttons, ticks))
+        self.calls.append(("drive", buttons, ticks, button_ticks) if button_ticks is not None else ("drive", buttons, ticks))
         speed = .065 if "sneak" in buttons else .215
         forward=int("forward" in buttons)-int("back" in buttons)
         right=int("right" in buttons)-int("left" in buttons)
         length=max(1.,math.hypot(forward,right));forward,right=forward/length,right/length
         yaw=math.radians(self.yaw)
-        for _ in range(ticks):
+        movement_ticks=max((button_ticks.get(button,ticks) for button in ('forward','back','left','right') if button in buttons),default=ticks) if button_ticks is not None else ticks
+        for _ in range(movement_ticks):
             distance=speed*self.speed
             candidate = [self.position[0]+(-math.sin(yaw)*forward-math.cos(yaw)*right)*distance, 64.,
                          self.position[2]+(math.cos(yaw)*forward-math.sin(yaw)*right)*distance]
@@ -93,6 +94,167 @@ class SkillContracts(unittest.TestCase):
         parameters = {"x": 3.5, "y": 64., "z": .5, "timeout_seconds": 20., **arguments}
         return run_skill(default_registry(), player, "walk_to", parameters,
                          clock=player.clock, sleeper=player.sleep)
+
+    def test_recorded_crouch_path_keeps_native_sneak_across_ordered_samples(self):
+        player=FlatPlayer();player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        navigation=player.navigation
+        def observed_navigation():player.calls.append(('navigation',));return navigation()
+        player.navigation=observed_navigation
+        result=run_skill(default_registry(),player,'replay_recorded_path',
+                         {'samples':[[.5,64.,.43,0.,0.,1],[.5,64.,.36,0.,0.,1]],'arrival_radius':.08},
+                         clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded')
+        drives=[call for call in player.calls if call[0]=='drive']
+        self.assertTrue(drives);self.assertTrue(all('sneak' in call[1] for call in drives))
+        pulse=('drive',['back','sneak'],8,{'back':1,'sneak':8})
+        self.assertIn(pulse,drives)
+        self.assertEqual(pulse[3]['back'],1);self.assertEqual(pulse[3]['sneak'],8)
+        self.assertLessEqual(math.hypot(player.position[0]-.5,player.position[2]-.36),.08)
+
+    def test_recorded_path_requires_stable_native_settling_before_release(self):
+        player=FlatPlayer()
+        def unstable(state):
+            position=state['position'][:]
+            if player.samples>=4:position[0]+=.01*(player.samples-3)
+            return {**state,'position':position,'on_ground':True,'horizontal_speed':0.}
+        player.transform=unstable
+        result=run_skill(default_registry(),player,'replay_recorded_path',
+                         {'samples':[[.5,64.,.5,0.,0.,8],[.5,64.,.5,0.,0.,8]]},
+                         clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'blocked');self.assertEqual(result.reason,'recorded_path_not_settled')
+
+    def test_recorded_sequence_keeps_crouch_owned_across_exact_placement(self):
+        player=FlatPlayer();player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        events=[[0,.5,64.,.43,0.,0.,1],
+                [1,'minecraft:cobblestone',0,63,0,0,.5,64.,.43,.5,64.,.5],
+                [0,.5,64.,.36,0.,0.,1]]
+        placed=SkillResult(status='succeeded',reason='block_placed',text='placed');samples_at_placement=[]
+        def place(*args,**kwargs):samples_at_placement.append(player.samples);return placed
+        with patch('blockwire.skills.item_actions.place_block',side_effect=place) as action:
+            result=run_skill(default_registry(),player,'replay_recorded_sequence',
+                             {'events':events,'arrival_radius':.08},clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded');self.assertEqual(result.details['placements'],1)
+        self.assertTrue(action.call_args.kwargs['preserve_recorded_sneak'])
+        self.assertEqual(action.call_args.kwargs['expected_session'],'actor-a')
+        self.assertGreaterEqual(samples_at_placement[0],3)
+        self.assertTrue(all('sneak' in call[1] for call in player.calls if call[0]=='drive'))
+
+    def test_recorded_sequence_observes_native_coast_after_final_one_tick_pulse(self):
+        class CoastPlayer(FlatPlayer):
+            def __init__(self):
+                super().__init__();self.directional_pulses=0;self.post_third_elapsed=0.;self.coasted=False
+            def drive(self,buttons,ticks,**kwargs):
+                super().drive(buttons,ticks,**kwargs)
+                if 'back' in buttons:self.directional_pulses+=1
+            def sleep(self,seconds):
+                super().sleep(seconds)
+                if self.directional_pulses==3 and not self.coasted:
+                    self.post_third_elapsed+=seconds
+                    if self.post_third_elapsed>.08:
+                        self.position[2]-=.07;self.coasted=True
+        player=CoastPlayer();player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':.02 if player.directional_pulses and not player.coasted else 0.}
+        events=[[0,.5,64.,.5,0.,0.,8],
+                [1,'minecraft:cobblestone',0,63,0,0,.5,64.,.5,.5,64.,.5],
+                [0,.5,64.,0.,0.,0.,1]]
+        placed=SkillResult(status='succeeded',reason='block_placed',text='placed')
+        with patch('blockwire.skills.item_actions.place_block',return_value=placed):
+            result=run_skill(default_registry(),player,'replay_recorded_sequence',
+                             {'events':events,'arrival_radius':.3},clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded',result)
+        self.assertTrue(player.coasted);self.assertEqual(player.directional_pulses,3)
+        directional=[call for call in player.calls if call[0]=='drive' and 'back' in call[1]]
+        self.assertEqual(len(directional),3)
+        self.assertLessEqual(math.hypot(player.position[0]-.5,player.position[2]),.3)
+
+    def test_recorded_path_directional_tick_covers_immediate_terminal_hold_checkpoint(self):
+        player=FlatPlayer();player.position=[-2.7028867757736146,64.,-.9640921198414746]
+        player.yaw,player.pitch=-137.24973,15.749997
+        player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        samples=[[-2.70643406892,64.,-.68578578836,-137.24973,15.749997,3],
+                 [-2.70643406892,64.,-.6622411968800002,-116.5497,16.649996,8]]
+        result=run_skill(default_registry(),player,'replay_recorded_path',
+                         {'samples':samples,'arrival_radius':.3},clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded',result)
+        directional=[call for call in player.calls if call[0]=='drive' and 'right' in call[1]]
+        self.assertEqual(directional,[('drive',['right','sneak'],8,{'right':1,'sneak':8})])
+        self.assertLessEqual(math.hypot(player.position[0]-samples[-1][0],player.position[2]-samples[-1][2]),.3)
+
+    def test_recorded_path_never_invents_direction_for_unreachable_hold_pair(self):
+        player=FlatPlayer();player.position=[-2.7028867757736146,64.,-.9640921198414746]
+        player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        samples=[[*player.position[:3],-137.24973,15.749997,8],
+                 [-2.70643406892,64.,-.6622411968800002,-116.5497,16.649996,8]]
+        result=run_skill(default_registry(),player,'replay_recorded_path',
+                         {'samples':samples,'arrival_radius':.3},clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'blocked');self.assertEqual(result.reason,'recorded_path_sample_not_reached')
+        self.assertEqual(result.details['sample'],1);self.assertEqual(result.details['hold_target'],None)
+        self.assertFalse(any(call[0]=='drive' and any(button in call[1] for button in ('forward','back','left','right')) for call in player.calls))
+
+    def test_recorded_path_terminal_hold_actor_and_deadline_precede_directional_tick(self):
+        samples=[[-2.70643406892,64.,-.68578578836,-137.24973,15.749997,3],
+                 [-2.70643406892,64.,-.6622411968800002,-116.5497,16.649996,8]]
+        class ReplacedPlayer(FlatPlayer):
+            def observe(self):
+                value=super().observe();value['actor_session']='actor-b';return value
+        replaced=ReplacedPlayer();replaced.position=[-2.7028867757736146,64.,-.9640921198414746]
+        replaced.yaw,replaced.pitch=-137.24973,15.749997
+        replaced.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        actor=run_skill(default_registry(),replaced,'replay_recorded_path',{'samples':samples,'arrival_radius':.3},
+                        clock=replaced.clock,sleeper=replaced.sleep)
+        self.assertEqual(actor.reason,'actor_session_changed')
+        self.assertFalse(any(call[0]=='drive' and 'right' in call[1] for call in replaced.calls))
+        deadline=FlatPlayer();deadline.position=[-2.7028867757736146,64.,-.9640921198414746]
+        deadline.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        timed=run_skill(default_registry(),deadline,'replay_recorded_path',
+                        {'samples':samples,'arrival_radius':.3,'timeout_seconds':.1},
+                        clock=deadline.clock,sleeper=deadline.sleep)
+        self.assertEqual(timed.status,'timed_out');self.assertEqual(timed.reason,'deadline_exceeded')
+        self.assertFalse(any(call[0]=='drive' and 'right' in call[1] for call in deadline.calls))
+
+    def test_recorded_path_terminal_hold_pre_cancel_has_no_directional_tick(self):
+        player=FlatPlayer();event=threading.Event();event.set()
+        samples=[[-2.70643406892,64.,-.68578578836,-137.24973,15.749997,3],
+                 [-2.70643406892,64.,-.6622411968800002,-116.5497,16.649996,8]]
+        result=run_skill(default_registry(),player,'replay_recorded_path',{'samples':samples,'arrival_radius':.3},cancel_event=event)
+        self.assertEqual(result.status,'cancelled');self.assertEqual(result.reason,'cancel_requested')
+        self.assertFalse(any(call[0]=='drive' and 'right' in call[1] for call in player.calls))
+
+    def test_recorded_drop_uses_bounded_native_step_off_and_observed_landing(self):
+        class DropPlayer(FlatPlayer):
+            def __init__(self):
+                super().__init__();self.position=[3.876,64.,3.627];self.on_ground=True;self.falling=False;self.pulses=0
+            def navigation(self):
+                state=super().navigation();return {**state,'position':self.position[:],'on_ground':self.on_ground,
+                    'ready':self.on_ground,'reason':None if self.on_ground else 'not_grounded','horizontal_speed':0.}
+            def drive(self,buttons,ticks,**kwargs):
+                super().drive(buttons,ticks,**kwargs)
+                if buttons==['forward']:
+                    self.pulses+=1
+                    if self.pulses==2:self.on_ground=False;self.falling=True
+            def sleep(self,seconds):
+                super().sleep(seconds)
+                if self.falling:
+                    self.position[1]-=.5
+                    if self.position[1]<=61.:
+                        self.position=[3.53,61.,3.34];self.on_ground=True;self.falling=False
+        player=DropPlayer()
+        result=run_skill(default_registry(),player,'replay_recorded_drop',
+                         {'edge':[3.648,64.,3.422],'landing':[3.53,61.,3.34],
+                          'yaw':126.3,'pitch':67.5,'direction':'forward'},clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded',result);self.assertEqual(player.pulses,2)
+        self.assertTrue(all(call[2]==1 for call in player.calls if call[0]=='drive' and call[1]==['forward']))
+        self.assertLessEqual(result.details['distance'],.5);self.assertEqual(player.calls[-1],('stop',))
+
+    def test_recorded_grounded_checkpoint_uses_exact_view_and_one_tick_native_direction(self):
+        player=FlatPlayer();player.transform=lambda state:{**state,'on_ground':True,'horizontal_speed':0.}
+        result=run_skill(default_registry(),player,'walk_to',
+                         {'x':.5,'y':64.,'z':.37,'movement':'sneak','arrival_radius':.08,
+                          'recorded_yaw':0.,'recorded_pitch':0.,'recorded_direction':'back'},
+                         clock=player.clock,sleeper=player.sleep)
+        self.assertEqual(result.status,'succeeded')
+        self.assertIn(('drive',['back','sneak'],1),player.calls)
+        self.assertLessEqual(math.hypot(player.position[0]-.5,player.position[2]-.37),.08)
+        self.assertEqual(player.calls[-1],('stop',))
 
     def test_flat_arrival_is_observed_and_releases(self):
         player = FlatPlayer()
@@ -274,7 +436,7 @@ class SkillContracts(unittest.TestCase):
             load_selected_plugins(registry, "")
             with self.assertRaises(ValueError):
                 load_selected_plugins(registry, "not_installed")
-        self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at"])
+        self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "replay_recorded_path", "replay_recorded_sequence", "replay_recorded_drop", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at"])
 
     def test_read_only_extension_contract(self):
         registry = SkillRegistry()

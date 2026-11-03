@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-02T08:24:00Z",
+  "scope": "Frozen H04/v16 replay repeatability, relative-origin portability, execution metrics, and H05 owner handoff readiness",
+  "source_freeze": {
+    "cohort": "Q03",
+    "git_head": "9f25948030b85d26863195337878d1d514430cb4",
+    "freeze_identity": "f59a123e428fa23ca94b9653f8370c79ca628c9a6faa117ee9f387a5c1c54bb3",
+    "working_source_identity": "b2bf17ab41ce8b0103de9294aa9f99ad51428696a75fecae2734dc9663f5c9f2",
+    "bcl_source_identity": "7bc1fc61f1d73aee4025acc0f24a68cd3b5b92b49e9f64ff21deeeda56aad3c4",
+    "export_manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "installed_mod_jar_sha256": "3cc10f3d72436cbca1e1490551df00817e1c860cc8ba1c6ef80a94328ea77ec5",
+    "bcl_batches": 20,
+    "payload_operations": 571,
+    "compiled_operations": 612,
+    "source_or_bcl_changes_within_cohort": false,
+    "private_final_evidence_identity": "e8983d277fb323e0309ccc53ae98ffae2e604cfef2c10d13db81824bc864ae98"
+  },
+  "retained_failed_cohorts": {
+    "Q01": {
+      "status": "NO_GO",
+      "run": "R34",
+      "effects_started": false,
+      "reason": "Qualification harness omitted its local TLS certificate/key before gateway startup. No BCL batch or gameplay action was submitted."
+    },
+    "Q02": {
+      "status": "NO_GO",
+      "runs": {
+        "R35": "GO",
+        "R36": "NO_GO",
+        "R37": "NO_GO"
+      },
+      "strict_successes": 1,
+      "attempts": 3,
+      "reason": "R36 and R37 stopped at recorded M4 sample 22 because the checkpoint was evaluated before residual native motion after the final permitted one-tick pulse had settled."
+    }
+  },
+  "implementation_correction": {
+    "behavior": "After the third and final permitted one-tick recorded directional pulse, observe native motion for at most four cancellable 50 ms intervals before declaring the sample unreached.",
+    "additional_directional_pulses": 0,
+    "action_retries": 0,
+    "actor_ground_damage_and_deadline_checks_retained": true,
+    "regression_test": "test_recorded_sequence_observes_native_coast_after_final_one_tick_pulse"
+  },
+  "repeatability": {
+    "decision": "GO",
+    "cohort": "Q03",
+    "runs": {
+      "R38": {
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 452.79923935900115,
+        "closed_client_objective_verified": true
+      },
+      "R39": {
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 452.65715227200053,
+        "closed_client_objective_verified": true
+      },
+      "R40": {
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 451.032173566,
+        "closed_client_objective_verified": true
+      }
+    },
+    "strict_successes": 3,
+    "attempts": 3
+  },
+  "portability": {
+    "decision": "GO",
+    "cohort": "P03",
+    "origins": {
+      "A": {
+        "run": "R38",
+        "verified_blocks": 71
+      },
+      "B": {
+        "run": "P03-B",
+        "verified_blocks": 71,
+        "elapsed_seconds": 456.9529563959986
+      },
+      "C": {
+        "run": "P03-C",
+        "verified_blocks": 71,
+        "elapsed_seconds": 457.130504914001
+      }
+    },
+    "voxel_home_deltas": {
+      "A_to_B": [48, 0, 0],
+      "A_to_C": [48, 0, 48],
+      "B_to_C": [0, 0, 48]
+    },
+    "all_71_corresponding_blocks_translated_exactly": true,
+    "other_qualified_origins_remained_clear": true,
+    "identical_bcl_bytes": true,
+    "identical_source_freeze": true,
+    "manual_or_administrative_intervention_after_replay_start": false
+  },
+  "execution_metrics": {
+    "human_h04": {
+      "sealed_native_ticks": 2056,
+      "sealed_elapsed_seconds": 102.780739256,
+      "directional_movement_episodes": 26,
+      "directional_input_ticks": 468,
+      "input_stop_transitions": 26,
+      "meaningful_camera_turn_episodes": 82,
+      "saved_horizontal_distance_metres": 27.9,
+      "confirmed_placements": 71,
+      "confirmed_block_removals": 0,
+      "confirmed_failed_actions": 0,
+      "unsupported_or_uncertain_conversions": 45,
+      "temporary_scaffold_placements": 0
+    },
+    "replay_r33": {
+      "saved_gameplay_ticks": 9156,
+      "elapsed_seconds": 457.253838652,
+      "saved_horizontal_distance_metres": 26.53,
+      "executed_operations": 572,
+      "movement_operations": 431,
+      "placement_operations": 71,
+      "explicit_stop_directives": 20,
+      "failed_actions": 0
+    },
+    "support_dependencies": {
+      "placements_on_original_floor": 15,
+      "placements_on_prior_structure": 56,
+      "roof_blocks_on_prior_structure": 25,
+      "temporary_scaffolds": 0
+    },
+    "granularity_warning": "Human native ticks and replay BCL/runtime operations are not equivalent control units; operation count is not an efficiency ranking."
+  },
+  "automated_regression": {
+    "decision": "GO",
+    "python_tests": 543,
+    "gradle_check": "PASS",
+    "harness_regression_tests": 3,
+    "mutations": {
+      "play2code_exporter": "34/34 killed",
+      "skills": "183/183 killed",
+      "bcl": "48/48 killed"
+    }
+  },
+  "h05_handoff": {
+    "status": "PENDING_OWNER_MANUAL_BUILD",
+    "replay": "NOT_RUN",
+    "human_generalization": "PENDING",
+    "fresh_canonical_fixture_prepared": true,
+    "endpoint_disabled": true,
+    "f9_f10_preflight": "PASS using a separate empty recording that is forbidden as H05 evidence",
+    "minecraft_left_open_for_owner": true,
+    "owner_controls": "F9 starts a new recording; F10 stops it; F8 remains the emergency stop"
+  },
+  "qualification_boundaries": {
+    "replay_functionality": "GO via R33",
+    "replay_repeatability": "GO via Q03",
+    "relative_portability": "GO via P03 across three equivalent isolated Superflat homes",
+    "human_generalization": "PENDING",
+    "not_established": [
+      "Arbitrary structures or human strategies",
+      "Unequal terrain, dimensions, slabs, fluids or caves",
+      "Hostile unattended Survival",
+      "Broad modpack portability",
+      "Strict native movement-performance parity"
+    ]
+  },
+  "privacy": "Raw timelines, exact captured homes, player identity, actor tokens, worlds, journals, credentials, certificates and private keys remain outside this public-safe evidence file.",
+  "published_or_uploaded": false
+}

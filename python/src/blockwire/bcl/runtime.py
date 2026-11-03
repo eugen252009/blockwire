@@ -53,7 +53,7 @@ class BatchDriver:
     def failed(self,entry):
         op=self.program.operations[self.index];mode=self.contexts[self.index].error_mode
         self.results.append({'index':self.index,'command':op.namespace+':'+op.command,'status':entry['status'],'reason':entry['reason'],
-                             'evidence':{k:v for k,v in entry.get('details',{}).items() if k in {'expected_face','actual_target','support','eye_position','face_rule','missing','current_cell','known_reachable_count','known_placement_poses','constraint','attempts','position'}}})
+                             'evidence':{k:v for k,v in entry.get('details',{}).items() if k in {'expected_face','actual_target','support','eye_position','face_rule','missing','current_cell','known_reachable_count','known_placement_poses','constraint','attempts','position','sample','event','horizontal_speed','on_ground'}}})
         self.index+=1;self.issued=None;self._save_progress()
         return mode=='continue'
     def _resolved_coordinates(self,coordinate,observation,op):
@@ -71,10 +71,31 @@ class BatchDriver:
         axes={'point_x':0,'point_y':1,'point_z':2}
         for name,kind in command.coordinate_parameters:
             if name not in values or values[name] is None:continue
-            if kind=='voxel':
+            if kind in {'voxel','point'}:
                 value=values[name]
-                if not isinstance(value,list) or len(value)!=3:self.error_at('INVALID_ARGUMENT','Voxel coordinate must contain three integers.',op)
-                values[name]=[value[i]+coordinate.voxel_origin[i] for i in range(3)]
+                if not isinstance(value,list) or len(value)!=3:
+                    self.error_at('INVALID_ARGUMENT',('Voxel' if kind=='voxel' else 'Point')+' coordinate must contain three values.',op)
+                origin=coordinate.voxel_origin if kind=='voxel' else coordinate.home
+                values[name]=[value[i]+origin[i] for i in range(3)]
+            elif kind=='point_samples':
+                value=values[name]
+                if not isinstance(value,list) or any(not isinstance(row,list) or len(row)!=6 for row in value):
+                    self.error_at('INVALID_ARGUMENT','Recorded point samples must contain six-value rows.',op)
+                values[name]=[[row[i]+coordinate.home[i] for i in range(3)]+row[3:] for row in value]
+            elif kind=='recorded_sequence':
+                value=values[name]
+                if not isinstance(value,list):self.error_at('INVALID_ARGUMENT','Recorded sequence must contain event rows.',op)
+                transformed=[]
+                for row in value:
+                    if not isinstance(row,list) or not row:self.error_at('INVALID_ARGUMENT','Recorded sequence event is invalid.',op)
+                    if row[0]==0 and len(row)==7:
+                        transformed.append([0,*[row[i+1]+coordinate.home[i] for i in range(3)],*row[4:]])
+                    elif row[0]==1 and len(row)==12:
+                        transformed.append([1,row[1],*[row[i+2]+coordinate.voxel_origin[i] for i in range(3)],row[5],
+                                            *[row[i+6]+coordinate.home[i] for i in range(3)],
+                                            *[row[i+9]+coordinate.home[i] for i in range(3)]])
+                    else:self.error_at('INVALID_ARGUMENT','Recorded sequence event is invalid.',op)
+                values[name]=transformed
             else:values[name]+=coordinate.home[axes[kind]]
     def decide(self,context):
         op=self.program.operations[min(self.index,len(self.program.operations)-1)]
@@ -98,7 +119,7 @@ class BatchDriver:
                 else:
                     self.results[-1]['position']=context['observation'].get('position')
                     details=context['history'][-1].get('details',{})
-                    self.results[-1]['evidence']={k:details[k] for k in ('block','position','item','target') if k in details}
+                    self.results[-1]['evidence']={k:details[k] for k in ('block','position','item','target','placements') if k in details}
                 self._save_progress()
         if self.index==len(self.program.operations):return {'kind':'finish'}
         op=self.program.operations[self.index];command=self.registry.resolve(op.namespace,op.opcode)

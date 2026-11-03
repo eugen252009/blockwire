@@ -1,9 +1,9 @@
 """Clean supported inventory transition only; no blanket GUI dismissal."""
-from types import SimpleNamespace
+import threading
 import unittest
 from blockwire import Player,CallableBackend
 from blockwire.skills.crafting import ensure_gameplay
-from blockwire.skills.core import SkillStop
+from blockwire.skills.core import SkillStop,SkillContext
 from test_crafting import CraftNative
 
 
@@ -17,7 +17,7 @@ class GameplayUIContracts(unittest.TestCase):
             value=native.call(op,**params)
             if op=='observe':value['screen']='Crafting' if native.open else None
             return value
-        return SimpleNamespace(player=Player(CallableBackend(call)),check=lambda:None,pause=lambda _:None)
+        return SkillContext(Player(CallableBackend(call)),threading.Event(),30.,lambda _:None,lambda:0.,lambda _:None)
     def test_UI01_clean_supported_inventory_closed_with_actor_fence(self):
         n=CraftNative(width=3);ensure_gameplay(self.context(n))
         self.assertFalse(n.open)

@@ -39,6 +39,7 @@ class InventorySession:
             raise SkillStop('blocked', 'actor_session_changed')
         if not s.get('alive') or s.get('health', 0) < self.health:
             raise SkillStop('blocked', 'damage_or_death_observed')
+        self.context.renew_retained_sneak(s)
         return s
 
     def read(self):

@@ -7,9 +7,9 @@ Server-to-client event opcodes are NOT executable client commands. See [normativ
 
 ## M0 — movement.walk
 
-Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak.
+Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak; A optionally tightens observed arrival. H/P/B carry matching local-human view and direction evidence for bounded grounded checkpoint pulses.
 
-- Signature: `M0 X Y Z F`
+- Signature: `M0 X Y Z F A H P B`
 - Category/direction: skill / client_to_server
 - Available: true
 - Existing skill: `walk_to`
@@ -28,6 +28,80 @@ Navigate using existing walk_to; auto Y requires an observed reachable target ce
   Schema: `{"maximum": 29999984, "minimum": -29999984, "type": "number"}`
 - `F` → `mode`: enum; static default `"normal"`.
   Schema: `{"enum": ["normal", "fast", "sneak"], "type": "string"}`
+- `A` → `arrival_radius`: number; static default `0.3`.
+  Schema: `{"maximum": 0.3, "minimum": 0.08, "type": "number"}`
+- `H` → `recorded_yaw`: json; static default `null`.
+  Schema: `{"anyOf": [{"maximum": 180, "minimum": -180, "type": "number"}, {"type": "null"}]}`
+- `P` → `recorded_pitch`: json; static default `null`.
+  Schema: `{"anyOf": [{"maximum": 90, "minimum": -90, "type": "number"}, {"type": "null"}]}`
+- `B` → `recorded_direction`: json; static default `null`.
+  Schema: `{"anyOf": [{"enum": ["forward", "back", "left", "right", "forward_left", "forward_right", "back_left", "back_right", "hold"], "type": "string"}, {"type": "null"}]}`
+
+## M3 — movement.recorded_path
+
+Replay one explicit sealed grounded crouch segment; T rows are [x,y,z,yaw,pitch,direction_code].
+
+- Signature: `M3 T A`
+- Category/direction: skill / client_to_server
+- Available: true
+- Existing skill: `replay_recorded_path`
+- Permissions: movement
+- Preconditions: authorized actor/session, fresh native observations, skill preconditions
+- Return: verified SkillResult / fresh observation
+- Errors: UNKNOWN_COMMAND, UNKNOWN_NAMESPACE, UNKNOWN_PARAMETER, INVALID_ARGUMENT, INVALID_ENUM_VALUE, MISSING_REQUIRED_ARGUMENT, DUPLICATE_ARGUMENT, INVALID_STRING, PROGRAM_LIMIT, EMPTY_PROGRAM, PERMISSION_DENIED, UNSUPPORTED_CAPABILITY, UNREACHABLE_TARGET, EXECUTION_TIMEOUT, EXECUTION_CANCELLED, POSTCONDITION_FAILED, ACTOR_MISMATCH, INTERRUPTED_SESSION, COORDINATE_HOME_UNAVAILABLE, COORDINATE_CONTEXT_MISMATCH, INVALID_COORDINATE_HOME, UNSUPPORTED_VERSION, DIRECTION_DENIED, REQUEST_CONFLICT, STALE_REQUEST, INVALID_REQUEST_ID
+
+- Relative coordinates: samples (point_samples)
+
+- `T` → `samples`: json; required default `null`.
+  Schema: `{"items": {"items": {"anyOf": [{"type": "integer"}, {"type": "number"}]}, "type": "array"}, "maxItems": 32, "minItems": 2, "type": "array"}`
+- `A` → `arrival_radius`: number; static default `0.3`.
+  Schema: `{"maximum": 0.3, "minimum": 0.08, "type": "number"}`
+
+## M4 — movement.recorded_sequence
+
+Replay one explicit sealed continuous crouch sequence; E interleaves exact movement samples and exact one-use placements.
+
+- Signature: `M4 E A`
+- Category/direction: skill / client_to_server
+- Available: true
+- Existing skill: `replay_recorded_sequence`
+- Permissions: movement
+- Preconditions: authorized actor/session, fresh native observations, skill preconditions
+- Return: verified SkillResult / fresh observation
+- Errors: UNKNOWN_COMMAND, UNKNOWN_NAMESPACE, UNKNOWN_PARAMETER, INVALID_ARGUMENT, INVALID_ENUM_VALUE, MISSING_REQUIRED_ARGUMENT, DUPLICATE_ARGUMENT, INVALID_STRING, PROGRAM_LIMIT, EMPTY_PROGRAM, PERMISSION_DENIED, UNSUPPORTED_CAPABILITY, UNREACHABLE_TARGET, EXECUTION_TIMEOUT, EXECUTION_CANCELLED, POSTCONDITION_FAILED, ACTOR_MISMATCH, INTERRUPTED_SESSION, COORDINATE_HOME_UNAVAILABLE, COORDINATE_CONTEXT_MISMATCH, INVALID_COORDINATE_HOME, UNSUPPORTED_VERSION, DIRECTION_DENIED, REQUEST_CONFLICT, STALE_REQUEST, INVALID_REQUEST_ID
+
+- Relative coordinates: events (recorded_sequence)
+
+- `E` → `events`: json; required default `null`.
+  Schema: `{"items": {"items": {"anyOf": [{"type": "integer"}, {"type": "number"}, {"type": "string"}]}, "type": "array"}, "maxItems": 40, "minItems": 3, "type": "array"}`
+- `A` → `arrival_radius`: number; static default `0.3`.
+  Schema: `{"maximum": 0.3, "minimum": 0.08, "type": "number"}`
+
+## M5 — movement.recorded_drop
+
+Replay one sealed bounded native step-off with exact view/direction and require the first recorded grounded landing.
+
+- Signature: `M5 Q L H P B`
+- Category/direction: skill / client_to_server
+- Available: true
+- Existing skill: `replay_recorded_drop`
+- Permissions: movement
+- Preconditions: authorized actor/session, fresh native observations, skill preconditions
+- Return: verified SkillResult / fresh observation
+- Errors: UNKNOWN_COMMAND, UNKNOWN_NAMESPACE, UNKNOWN_PARAMETER, INVALID_ARGUMENT, INVALID_ENUM_VALUE, MISSING_REQUIRED_ARGUMENT, DUPLICATE_ARGUMENT, INVALID_STRING, PROGRAM_LIMIT, EMPTY_PROGRAM, PERMISSION_DENIED, UNSUPPORTED_CAPABILITY, UNREACHABLE_TARGET, EXECUTION_TIMEOUT, EXECUTION_CANCELLED, POSTCONDITION_FAILED, ACTOR_MISMATCH, INTERRUPTED_SESSION, COORDINATE_HOME_UNAVAILABLE, COORDINATE_CONTEXT_MISMATCH, INVALID_COORDINATE_HOME, UNSUPPORTED_VERSION, DIRECTION_DENIED, REQUEST_CONFLICT, STALE_REQUEST, INVALID_REQUEST_ID
+
+- Relative coordinates: edge (point), landing (point)
+
+- `Q` → `edge`: json; required default `null`.
+  Schema: `{"items": {"anyOf": [{"type": "integer"}, {"type": "number"}]}, "maxItems": 3, "minItems": 3, "type": "array"}`
+- `L` → `landing`: json; required default `null`.
+  Schema: `{"items": {"anyOf": [{"type": "integer"}, {"type": "number"}]}, "maxItems": 3, "minItems": 3, "type": "array"}`
+- `H` → `yaw`: number; required default `null`.
+  Schema: `{"maximum": 180, "minimum": -180, "type": "number"}`
+- `P` → `pitch`: number; required default `null`.
+  Schema: `{"maximum": 90, "minimum": -90, "type": "number"}`
+- `B` → `direction`: enum; required default `null`.
+  Schema: `{"enum": ["forward", "back", "left", "right"], "type": "string"}`
 
 ## M1 — movement.approach
 
@@ -201,7 +275,7 @@ Eat an explicitly supported existing food while stationary, empty offhand and cl
 
 Place an equipped supported block against a selected currently observed full-cube support face within 3 blocks. Verify block and inventory consumption. No hidden coordinate lookup.
 
-- Signature: `I3 B P F A C`
+- Signature: `I3 B P F A Q R K J C`
 - Category/direction: skill / client_to_server
 - Available: true
 - Existing skill: `place_block`
@@ -210,7 +284,7 @@ Place an equipped supported block against a selected currently observed full-cub
 - Return: verified SkillResult / fresh observation
 - Errors: UNKNOWN_COMMAND, UNKNOWN_NAMESPACE, UNKNOWN_PARAMETER, INVALID_ARGUMENT, INVALID_ENUM_VALUE, MISSING_REQUIRED_ARGUMENT, DUPLICATE_ARGUMENT, INVALID_STRING, PROGRAM_LIMIT, EMPTY_PROGRAM, PERMISSION_DENIED, UNSUPPORTED_CAPABILITY, UNREACHABLE_TARGET, EXECUTION_TIMEOUT, EXECUTION_CANCELLED, POSTCONDITION_FAILED, ACTOR_MISMATCH, INTERRUPTED_SESSION, COORDINATE_HOME_UNAVAILABLE, COORDINATE_CONTEXT_MISMATCH, INVALID_COORDINATE_HOME, UNSUPPORTED_VERSION, DIRECTION_DENIED, REQUEST_CONFLICT, STALE_REQUEST, INVALID_REQUEST_ID
 
-- Relative coordinates: support (voxel)
+- Relative coordinates: support (voxel), recorded_pose (point), recorded_aim (point)
 
 - `B` → `block`: enum; static default `"minecraft:crafting_table"`.
   Schema: `{"enum": ["minecraft:crafting_table", "minecraft:cobblestone", "minecraft:dirt", "minecraft:oak_planks", "minecraft:spruce_planks", "minecraft:birch_planks", "minecraft:jungle_planks", "minecraft:acacia_planks", "minecraft:dark_oak_planks", "minecraft:mangrove_planks", "minecraft:cherry_planks", "minecraft:pale_oak_planks"], "type": "string"}`
@@ -219,6 +293,14 @@ Place an equipped supported block against a selected currently observed full-cub
 - `F` → `face`: enum; static default `"up"`.
   Schema: `{"enum": ["up", "down", "north", "south", "east", "west"], "type": "string"}`
 - `A` → `auto_position`: boolean; static default `false`.
+  Schema: `{"type": "boolean"}`
+- `Q` → `recorded_pose`: json; static default `null`.
+  Schema: `{"anyOf": [{"items": {"anyOf": [{"type": "integer"}, {"type": "number"}]}, "maxItems": 3, "minItems": 3, "type": "array"}, {"type": "null"}]}`
+- `R` → `recorded_aim`: json; static default `null`.
+  Schema: `{"anyOf": [{"items": {"anyOf": [{"type": "integer"}, {"type": "number"}]}, "maxItems": 3, "minItems": 3, "type": "array"}, {"type": "null"}]}`
+- `K` → `recorded_sneak`: boolean; static default `false`.
+  Schema: `{"type": "boolean"}`
+- `J` → `jump_place`: boolean; static default `false`.
   Schema: `{"type": "boolean"}`
 - `C` → `clear_plants`: boolean; static default `true`.
   Schema: `{"type": "boolean"}`

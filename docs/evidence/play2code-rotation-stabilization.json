@@ -1,0 +1,239 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-02T15:01:39Z",
+  "scope": "Root-cause analysis and immutable native requalification of the Play2Code ROT180 recorded-path failure without changing BCL/1 or the coordinate transformation",
+  "historical_baseline": {
+    "ROT180-A": "NO_GO retained",
+    "ROT180-B": "GO retained",
+    "previous_rotation_functionality": "GO",
+    "previous_strict_rotation_repeatability": "NO_GO, 5/6",
+    "H04": "GO",
+    "H05": "PENDING_OWNER_MANUAL_BUILD",
+    "human_generalization": "PENDING",
+    "historical_results_overwritten": false
+  },
+  "root_cause": {
+    "decision": "CONFIRMED",
+    "component": "Recorded-path sample completion in python/src/blockwire/skills/walking.py",
+    "finding": "The penultimate M4 movement sample carried the final recorded directional tick but was accepted solely because its own target was inside the unchanged 0.3-block radius. The immediately following sealed hold sample was 0.301871765790311 blocks away and cannot emit directional input. With no residual movement, ROT180-A therefore stopped as recorded_path_sample_not_reached.",
+    "evidence": {
+      "ROT180_A_and_B_batch_15_BCL_byte_identical": true,
+      "fresh_start_snapshot_identical": true,
+      "pre_M4_position_delta_blocks": 0.000023712520902017686,
+      "ROT180_A_distance_to_penultimate_directional_sample": 0.27832893746670107,
+      "ROT180_A_distance_to_terminal_hold_sample": 0.301871765790311,
+      "ROT180_B_distance_to_terminal_hold_sample": 0.26007462367657636,
+      "rotation_geometry_mismatch_observed": false,
+      "collision_observed_in_exact_suffix_reproduction": false,
+      "historical_internal_tick_trace_available": false
+    },
+    "qualification_boundary": "The terminal sample-completion defect is causally reproduced. Historical per-tick telemetry was not retained, so the exact earlier native tick at which ROT180-A lost approximately one movement increment cannot be reconstructed."
+  },
+  "isolated_reproduction": {
+    "classification": "PRIVATE_DIAGNOSTIC_FIXTURE_NOT_A_BUILD_QUALIFICATION",
+    "fixture_source": "A copy of the retained ROT180-A ended save; historical evidence was not modified.",
+    "administrative_setup": "Completed and sealed before each measured run.",
+    "complete_M4_before_fix": "5/5 succeeded under controlled initial conditions, confirming that the original intermittent trigger was not deterministic from the nominal M4 start alone.",
+    "exact_terminal_suffix_before_fix": "0/3; every run reproduced recorded_path_sample_not_reached at exactly 0.301871765790311 blocks with zero directional pulses.",
+    "exact_terminal_suffix_after_fix": "3/3 succeeded; every run used exactly one already-recorded right+sneak pulse.",
+    "complete_M4_after_fix": "5/5 succeeded with both embedded placements independently observed.",
+    "automatic_action_retries": 0
+  },
+  "correction": {
+    "summary": "Before accepting a directional sample immediately followed by a hold sample, both sealed targets must be inside the existing arrival radius. Otherwise the runtime may issue only the current sample's already-recorded one-tick direction under the existing three-pulse bound.",
+    "arrival_radius_changed": false,
+    "automatic_action_retry_added": false,
+    "new_direction_or_alternate_path_added": false,
+    "BCL_semantics_changed": false,
+    "coordinate_transform_changed": false,
+    "native_motion_controller_changed": false,
+    "actor_fences_input_leases_F8_and_cancellation_preserved": true,
+    "source_files_changed": [
+      "python/src/blockwire/skills/walking.py",
+      "python/tests/test_skills.py",
+      "tests/run_skill_mutations.py"
+    ],
+    "source_sha256": {
+      "python/src/blockwire/skills/walking.py": "d77810b65409f70c996426bfae093c16fc69197125131ae57257c88e8df70076",
+      "python/tests/test_skills.py": "fee27ad07e9e83df5080c69ea786ce1668905efdb444fcd829f380b421c48417",
+      "tests/run_skill_mutations.py": "03ac70f1828414c797a8a5668c596111ce11dd08f458b3b885b19c6bab558bc5"
+    }
+  },
+  "source_freeze": {
+    "cohort": "QROT02",
+    "freeze_identity": "bc9edcafb291517ba80a115774cafe9d27149fee5f4ed21f3361f82b3785373b",
+    "working_source_identity": "663594efae7c3d1fe115962e84e7f527e5c438ec8b036c1c49d9bdbc67c55828",
+    "source_manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "root_cause_evidence_identity": "c5d72bc80c0287e9d8f080ccf8d3511a96371df6afc8e72560b3d217705cfc88",
+    "source_changes_between_native_runs": false,
+    "BCL_bytes_changed_for_stabilization": false
+  },
+  "pre_measurement_control_record": {
+    "event": "The first ROT180-C launcher invocation stopped with a host FileNotFoundError because the private preparations output directory did not yet exist.",
+    "phase": "Before preparation, client launch, BCL submission or gameplay effects",
+    "gameplay_attempt": false,
+    "resolution": "The missing private output directory was created; the frozen source remained byte-identical and the same run identity then began its only gameplay attempt.",
+    "retained": true
+  },
+  "automated_regression": {
+    "decision": "GO",
+    "python_tests": "555/555",
+    "gradle_check": "PASS",
+    "mutations": {
+      "play2code": "47/47 killed",
+      "skills": "184/184 killed",
+      "BCL": "48/48 killed"
+    },
+    "TLS_interop": "PASS, 10/10",
+    "identity_0_degree_byte_identical_to_H04_v16": true,
+    "X01_translation_BCL_byte_identical": true,
+    "X03_reflection_artifacts_byte_identical": true,
+    "X02_status": "NO_GO retained"
+  },
+  "native_runs": {
+    "ID-C": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 455.73827424200135,
+      "closed_snapshot_identity": "0eae4dfb7ad866b7dd5fe0cd9283ca4bfa63364186711bf8229f55e69b1d4137"
+    },
+    "ROT90-C": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 459.86081102199387,
+      "closed_snapshot_identity": "6fcca4ffd40d9af44a63270ac26e3b3d9ba549e91a21a79af4abeb9e756870d0"
+    },
+    "ROT90-D": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 456.8872847889943,
+      "closed_snapshot_identity": "e5a0ec76784413d240fa0cd26e0e722eece491b84490c13d97078ce622f884a2"
+    },
+    "ROT180-C": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 457.66528051500063,
+      "closed_snapshot_identity": "9c59554356f6b108033233a9eb1e0aaa1b4a795843f3fb13af3fd4ebd918e245"
+    },
+    "ROT180-D": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 456.2990613370057,
+      "closed_snapshot_identity": "d49f17ab4f23c79076c2c811aaf96c700ecf2e2682afb5c6818ec8bc1250a46f"
+    },
+    "ROT180-E": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 459.9737773579982,
+      "closed_snapshot_identity": "2457d5460f87e84ba98b256c2efec03f66302d62b4fed4aa1dea635e267213f3"
+    },
+    "ROT270-C": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 453.85207510599867,
+      "closed_snapshot_identity": "806f4a7f03303577e62ebf96d36eda6fd389071e2ad1135ef8376b1980676bb7"
+    },
+    "ROT270-D": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 456.63205509999534,
+      "closed_snapshot_identity": "a4d168fd00d5ef28e94114eeb0335c93075166d92779010f6105a45181da9d49"
+    },
+    "X01-S1": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 459.9307605280046,
+      "closed_snapshot_identity": "1eebc656a7dec20f375ad4565d5ac753799b4ec50d5da2ca6242f708296ed840"
+    },
+    "X03-S1": {
+      "status": "GO",
+      "batches": "20/20",
+      "operations": 572,
+      "placements": 71,
+      "verified_blocks": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 460.5617402709977,
+      "closed_snapshot_identity": "e3229c3e7f59237ebf64fdaab60e606205b5a2d5c0580e41b66eb4fea132f2bf"
+    }
+  },
+  "repeatability": {
+    "ROT90": "GO, 2/2",
+    "ROT180": "GO, 3/3",
+    "ROT270": "GO, 2/2",
+    "all_quarter_turn_runs": "GO, 7/7",
+    "all_planned_native_regression_runs": "GO, 10/10",
+    "claim_boundary": "This demonstrates strict repeatability for the frozen QROT02 cohort and equivalent isolated Superflat fixture, not universal reliability in arbitrary worlds."
+  },
+  "independent_acceptance": {
+    "each_success": "Exact 71-block structure, zero missing/incorrect/unexpected cells, complete roof, clear entrance, accessible interior and safe player",
+    "native_read_only_verification": true,
+    "post_exit_closed_save_verification": true,
+    "persistent_relative_home": "Exactly one first-batch S1 relative; continuation batches did not re-home",
+    "manual_or_administrative_intervention_after_run_start": false
+  },
+  "decisions": {
+    "ROT180_root_cause": "CONFIRMED",
+    "ROT180_functionality": "GO",
+    "ROT180_repeatability": "GO",
+    "full_rotation_regression": "GO",
+    "strict_rotation_repeatability": "GO",
+    "identity_and_existing_transformations": "GO",
+    "human_generalization": "PENDING",
+    "H05": "PENDING_OWNER_MANUAL_BUILD"
+  },
+  "limitations": [
+    "ROT180-A remains an immutable NO_GO and is not relabelled.",
+    "Arbitrary-angle rotation is not implemented.",
+    "Direction-sensitive block-state rotation remains unqualified; the benchmark uses cobblestone.",
+    "The result qualifies the frozen H04 strategy on equivalent isolated Superflat snapshots, not arbitrary structures, terrain or another human strategy."
+  ],
+  "private_cohort_evidence_identity": "38b223bac5230622a564dca1d8fddc75ee69e1b35150dfaaa204495c5d87e154",
+  "privacy": "Raw timelines, exact private player observations, player identity, actor sessions, worlds, journals, credentials, certificates and private keys remain outside this public-safe evidence file.",
+  "published_or_uploaded": false
+}

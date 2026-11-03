@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "scope": "Grounding correction and scoped reuse follow-up; full replay remains NO_GO and default activation remains off",
+  "sha256": {
+    "README.md": "4cf9e3075960eb7209f5ad81ec3cdc451acccd892e80ab4c621447b5e3a9b4c3",
+    "CHANGELOG.md": "86f57ca0c4ed125293c4dda367d503c582e4758b8dfe05a96ad47549bc0dd539",
+    "docs/architecture.md": "e8554ea4496c5584dbe5674aea7d0e96c729a52401782705ca1ab2071417bfa7",
+    "docs/motion.md": "473ad8ee076759d1f10f5f39ffbc5d8cb86869b84593e9803ae22ed7d55555c5",
+    "docs/skills.md": "426ceaeab7f078c4c39e6ac56dc5653b14d866d679e67ef1e96da7a127bb6416",
+    "docs/stateful-input-execution.md": "0ea5902b1aa327ca3836f19182c25af9598d4a0f2bd0e21096932cec701e519a",
+    "docs/evidence/stateful-input-performance.json": "30b0b65715159742a12f7443f490f728de294825d1a2b44d3dc54e7538af17db",
+    "docs/evidence/stateful-input-grounding.json": "3a8f69f55cb184f26d8095bb289a8de707f680d2d3cea577891733d9e0fa8e27",
+    "python/src/blockwire/agent.py": "9ab104314e2805bcac463251f5a2123e607c60886e65db5e6599ca049ce5195a",
+    "python/src/blockwire/skills/core.py": "c7ccc2ebcff9f9de40e9d328578806be3413cacb163f5b906c389717f7253db1",
+    "python/src/blockwire/skills/crafting.py": "530ce5a5642305588619f3ecee7c620358e1c155b72f75aec929b6249fdd92c6",
+    "python/src/blockwire/skills/item_actions.py": "f516650ee0d5e27fc3ad9e1b8701a698cf2adc801b812c6cc9bc08ea72602890",
+    "python/src/blockwire/skills/motion.py": "a71bdeb5c70c1053aee59eb46bd4d314eaf929c2bfb0b956fea311c9c2db5951",
+    "python/src/blockwire/skills/walking.py": "a1612aeb8dad3ea3d5794b18f9deb6adb426587e2a8064816348150f63732fd5",
+    "python/src/blockwire/skills/viewing.py": "2de432a4de6cef9136d5ced7ea82718fd6e1d43629cf36a8e1734ed45e2070e6",
+    "python/tests/test_execution_reuse.py": "dd190f818508422817afa6d4792ba994ebf234ca101674378d91fd245dee9d10",
+    "python/tests/test_continuous_motion.py": "382d7c7bd3e1ca9325b6a63b6714217f1a05933b2693dc29cb43ac2f48d2898e",
+    "python/tests/test_gameplay_ui.py": "fc56b959f9e6dd2ba98812cfb4a5279b03d2de23e4369342dbb31696b066f800",
+    "tests/run_skill_mutations.py": "e524876490f271c5f94345f9503bf97b622e25be3dd7c8d404e686ac66ae3f6f"
+  },
+  "identity": "dbf10a08d6b26d9b76b4d6ddfdc5df9e6f76483203467fb61f8e46c13ab07cf8"
+}

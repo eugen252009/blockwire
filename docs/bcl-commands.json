@@ -6,10 +6,10 @@
       "opcode": "M0",
       "command": "movement.walk",
       "language": "BCL/1",
-      "description": "Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak.",
+      "description": "Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak; A optionally tightens observed arrival. H/P/B carry matching local-human view and direction evidence for bounded grounded checkpoint pulses.",
       "category": "skill",
       "direction": "client_to_server",
-      "signature": "M0 X Y Z F",
+      "signature": "M0 X Y Z F A H P B",
       "parameters": [
         {
           "key": "X",
@@ -69,6 +69,88 @@
             ],
             "type": "string"
           }
+        },
+        {
+          "key": "A",
+          "name": "arrival_radius",
+          "type": "number",
+          "default_kind": "static",
+          "default": 0.3,
+          "enum": [],
+          "schema": {
+            "maximum": 0.3,
+            "minimum": 0.08,
+            "type": "number"
+          }
+        },
+        {
+          "key": "H",
+          "name": "recorded_yaw",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "maximum": 180,
+                "minimum": -180,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "P",
+          "name": "recorded_pitch",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "maximum": 90,
+                "minimum": -90,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "B",
+          "name": "recorded_direction",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "enum": [
+                  "forward",
+                  "back",
+                  "left",
+                  "right",
+                  "forward_left",
+                  "forward_right",
+                  "back_left",
+                  "back_right",
+                  "hold"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
         }
       ],
       "coordinate_parameters": [
@@ -86,6 +168,356 @@
         }
       ],
       "skill": "walk_to",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "M3",
+      "command": "movement.recorded_path",
+      "language": "BCL/1",
+      "description": "Replay one explicit sealed grounded crouch segment; T rows are [x,y,z,yaw,pitch,direction_code].",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M3 T A",
+      "parameters": [
+        {
+          "key": "T",
+          "name": "samples",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "maxItems": 32,
+            "minItems": 2,
+            "type": "array"
+          }
+        },
+        {
+          "key": "A",
+          "name": "arrival_radius",
+          "type": "number",
+          "default_kind": "static",
+          "default": 0.3,
+          "enum": [],
+          "schema": {
+            "maximum": 0.3,
+            "minimum": 0.08,
+            "type": "number"
+          }
+        }
+      ],
+      "coordinate_parameters": [
+        {
+          "parameter": "samples",
+          "kind": "point_samples"
+        }
+      ],
+      "skill": "replay_recorded_path",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "M4",
+      "command": "movement.recorded_sequence",
+      "language": "BCL/1",
+      "description": "Replay one explicit sealed continuous crouch sequence; E interleaves exact movement samples and exact one-use placements.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M4 E A",
+      "parameters": [
+        {
+          "key": "E",
+          "name": "events",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "integer"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "type": "array"
+            },
+            "maxItems": 40,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        {
+          "key": "A",
+          "name": "arrival_radius",
+          "type": "number",
+          "default_kind": "static",
+          "default": 0.3,
+          "enum": [],
+          "schema": {
+            "maximum": 0.3,
+            "minimum": 0.08,
+            "type": "number"
+          }
+        }
+      ],
+      "coordinate_parameters": [
+        {
+          "parameter": "events",
+          "kind": "recorded_sequence"
+        }
+      ],
+      "skill": "replay_recorded_sequence",
+      "available": true,
+      "permissions": [
+        "movement"
+      ],
+      "preconditions": [
+        "authorized actor/session",
+        "fresh native observations",
+        "skill preconditions"
+      ],
+      "return_type": "verified SkillResult / fresh observation",
+      "errors": [
+        "UNKNOWN_COMMAND",
+        "UNKNOWN_NAMESPACE",
+        "UNKNOWN_PARAMETER",
+        "INVALID_ARGUMENT",
+        "INVALID_ENUM_VALUE",
+        "MISSING_REQUIRED_ARGUMENT",
+        "DUPLICATE_ARGUMENT",
+        "INVALID_STRING",
+        "PROGRAM_LIMIT",
+        "EMPTY_PROGRAM",
+        "PERMISSION_DENIED",
+        "UNSUPPORTED_CAPABILITY",
+        "UNREACHABLE_TARGET",
+        "EXECUTION_TIMEOUT",
+        "EXECUTION_CANCELLED",
+        "POSTCONDITION_FAILED",
+        "ACTOR_MISMATCH",
+        "INTERRUPTED_SESSION",
+        "COORDINATE_HOME_UNAVAILABLE",
+        "COORDINATE_CONTEXT_MISMATCH",
+        "INVALID_COORDINATE_HOME",
+        "UNSUPPORTED_VERSION",
+        "DIRECTION_DENIED",
+        "REQUEST_CONFLICT",
+        "STALE_REQUEST",
+        "INVALID_REQUEST_ID"
+      ]
+    },
+    {
+      "namespace": "core",
+      "opcode": "M5",
+      "command": "movement.recorded_drop",
+      "language": "BCL/1",
+      "description": "Replay one sealed bounded native step-off with exact view/direction and require the first recorded grounded landing.",
+      "category": "skill",
+      "direction": "client_to_server",
+      "signature": "M5 Q L H P B",
+      "parameters": [
+        {
+          "key": "Q",
+          "name": "edge",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        {
+          "key": "L",
+          "name": "landing",
+          "type": "json",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            },
+            "maxItems": 3,
+            "minItems": 3,
+            "type": "array"
+          }
+        },
+        {
+          "key": "H",
+          "name": "yaw",
+          "type": "number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maximum": 180,
+            "minimum": -180,
+            "type": "number"
+          }
+        },
+        {
+          "key": "P",
+          "name": "pitch",
+          "type": "number",
+          "default_kind": "required",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "maximum": 90,
+            "minimum": -90,
+            "type": "number"
+          }
+        },
+        {
+          "key": "B",
+          "name": "direction",
+          "type": "enum",
+          "default_kind": "required",
+          "default": null,
+          "enum": [
+            "forward",
+            "back",
+            "left",
+            "right"
+          ],
+          "schema": {
+            "enum": [
+              "forward",
+              "back",
+              "left",
+              "right"
+            ],
+            "type": "string"
+          }
+        }
+      ],
+      "coordinate_parameters": [
+        {
+          "parameter": "edge",
+          "kind": "point"
+        },
+        {
+          "parameter": "landing",
+          "kind": "point"
+        }
+      ],
+      "skill": "replay_recorded_drop",
       "available": true,
       "permissions": [
         "movement"
@@ -897,7 +1329,7 @@
       "description": "Place an equipped supported block against a selected currently observed full-cube support face within 3 blocks. Verify block and inventory consumption. No hidden coordinate lookup.",
       "category": "skill",
       "direction": "client_to_server",
-      "signature": "I3 B P F A C",
+      "signature": "I3 B P F A Q R K J C",
       "parameters": [
         {
           "key": "B",
@@ -998,6 +1430,88 @@
           }
         },
         {
+          "key": "Q",
+          "name": "recorded_pose",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "R",
+          "name": "recorded_aim",
+          "type": "json",
+          "default_kind": "static",
+          "default": null,
+          "enum": [],
+          "schema": {
+            "anyOf": [
+              {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "maxItems": 3,
+                "minItems": 3,
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        {
+          "key": "K",
+          "name": "recorded_sneak",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
+          "key": "J",
+          "name": "jump_place",
+          "type": "boolean",
+          "default_kind": "static",
+          "default": false,
+          "enum": [],
+          "schema": {
+            "type": "boolean"
+          }
+        },
+        {
           "key": "C",
           "name": "clear_plants",
           "type": "boolean",
@@ -1013,6 +1527,14 @@
         {
           "parameter": "support",
           "kind": "voxel"
+        },
+        {
+          "parameter": "recorded_pose",
+          "kind": "point"
+        },
+        {
+          "parameter": "recorded_aim",
+          "kind": "point"
         }
       ],
       "skill": "place_block",

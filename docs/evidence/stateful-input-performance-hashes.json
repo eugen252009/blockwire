@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "scope": "Rejected C01 performance experiment; default-disabled implementation and public-safe evidence",
+  "sha256": {
+    "README.md": "0496eb8aab94c527bdd05e2241dcd58e27ae02d9873bfa0ac17e5cd50f193d5a",
+    "CHANGELOG.md": "dbe4386ec5b741c6cd5b461643b0aa4500774ff39c5903a0d021232f4a9b891d",
+    "docs/stateful-input-execution.md": "f50090e55acbd5d302b534193b35a8eca9d691bdd453a9d0de0d8d5439bbf894",
+    "docs/evidence/stateful-input-performance.json": "844846d53948b4cc85663ef846ea7024e06cfccd82d753e926e19379e765bb49",
+    "python/src/blockwire/agent.py": "96177b9d2d7a5c97addf8906f49f9d9bfee027b085b87cef2337dcab1a98e9d6",
+    "python/tests/test_bcl.py": "a1c3f992533a9a0fa5fb559504449ba37178ed8d70ad6557603b7633ca6a25f2",
+    "tests/run_bcl_mutations.py": "79a527dc47df67e3e6c5051ee2d4624bffecacdc01155ae10ec6892a583463fc"
+  },
+  "identity": "43aa7876dd04c2ab649d4db9f20c60bda532dfd1b263f12905c309afd265b2c9",
+  "historical_scope_note": "The original hash map and identity above remain the C01/D01 point-in-time record; later source and documentation states have a separate manifest.",
+  "grounding_followup": {
+    "record": "docs/evidence/stateful-input-grounding.json",
+    "record_sha256": "3a8f69f55cb184f26d8095bb289a8de707f680d2d3cea577891733d9e0fa8e27",
+    "hash_manifest": "docs/evidence/stateful-input-grounding-hashes.json",
+    "hash_manifest_sha256": "ea5f5c2ea2cfffdd97fec11bbc571f01beaf1ed0951e17702064339d4cd00dfb",
+    "hash_identity": "dbf10a08d6b26d9b76b4d6ddfdc5df9e6f76483203467fb61f8e46c13ab07cf8"
+  }
+}

@@ -127,6 +127,45 @@ class ContinuousMotionContracts(unittest.TestCase):
         player.transform=lambda state:state
         self.assertIsNone(self.update(motor,context));self.assertEqual(len(player.drive_trace),count+1)
 
+    def test_CM18_recorded_sneak_edge_pose_uses_only_supported_single_tick_pulses(self):
+        from test_skills import FlatPlayer
+        player,motor=FlatPlayer(),FlatMotion();player.position=[3.015,64.,.52];player.cells={(3,64,0)};player.yaw=90.
+        context=self.context(player);state=player.navigation();scene=player.observe()
+        result=motor.pulse(context,state,(2.7004,64.,.52),'sneak',view=(scene['yaw'],scene['pitch']),
+                           continuous=True,precision_sneak=False,arrival_radius=.3)
+        directional=[c for c in player.calls if c[0]=='drive' and any(b in c[1] for b in ('forward','back','left','right'))]
+        self.assertIsNone(result);self.assertEqual(len(directional),1)
+        self.assertEqual(player.calls[0],('drive',['sneak'],8))
+        self.assertEqual(directional[0][2],8)
+        self.assertEqual(directional[0][3],{'forward':1,'sneak':8})
+        self.assertEqual(player.calls[-1],('drive',['sneak'],8))
+        self.assertEqual(motor.mode,'edge_precision');self.assertFalse(motor.holding)
+        self.assertTrue(motor.sneak_stance)
+        self.assertFalse(any(c[0]=='stop' for c in player.calls))
+        motor.halt(context)
+        self.assertFalse(motor.sneak_stance);self.assertEqual(player.calls[-1],('stop',))
+
+        for movement,target in [('walk',(2.7004,64.,.52)),('sneak',(2.7,64.,.52))]:
+            with self.subTest(movement=movement,target=target):
+                player,motor=FlatPlayer(),FlatMotion();player.position=[3.015,64.,.52];player.cells={(3,64,0)};player.yaw=90.
+                state=player.navigation();scene=player.observe()
+                result=motor.pulse(self.context(player),state,target,movement,view=(scene['yaw'],scene['pitch']),
+                                   continuous=True,precision_sneak=False,arrival_radius=.3)
+                self.assertIsNotNone(result);self.assertEqual(result.reason,'no_known_safe_route')
+                self.assertFalse(any(c[0]=='drive' for c in player.calls))
+
+    def test_CM19_edge_stance_is_released_on_actor_loss_before_another_pulse(self):
+        from test_skills import FlatPlayer
+        player,motor=FlatPlayer(),FlatMotion();player.position=[3.015,64.,.52];player.cells={(3,64,0)};player.yaw=90.
+        context=self.context(player)
+        motor.pulse(context,player.navigation(),(2.7004,64.,.52),'sneak',view=(90.,0.),continuous=True)
+        self.assertTrue(motor.sneak_stance);self.assertFalse(motor.holding)
+        player.session='replacement';state=player.navigation();before=len(player.calls)
+        result=motor.pulse(context,state,(2.7004,64.,.52),'sneak',view=(90.,0.),continuous=True)
+        self.assertEqual(result.reason,'actor_session_changed')
+        self.assertEqual(player.calls[before:],[('stop',)])
+        self.assertFalse(motor.sneak_stance)
+
     def test_CM05_uncertain_route_readiness_and_replacement_stop_before_renewal(self):
         for invalid in ["route", "ready", "session"]:
             with self.subTest(invalid=invalid):

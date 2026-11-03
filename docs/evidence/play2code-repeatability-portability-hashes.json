@@ -1,0 +1,13 @@
+{
+  "identity": "fa2c71775789f19e4bae07d9e6e41b96fde872abcc667e0e44f05c0e4a91abc0",
+  "schema_version": 1,
+  "sha256": {
+    "CHANGELOG.md": "199828fc7610ea38b86695124c1356109da82e38507abb705531b405ae56a567",
+    "README.md": "cdc7ed194499464ad9f012efbfc48994070c26c7dbca335664eb1f8293ec2233",
+    "docs/bcl.md": "1daaab9151ed5d39a5b809095a2267e2fb339b9b7aa0a5c02b2e612af918cbc2",
+    "docs/evidence/play2code-repeatability-portability.json": "99fd1e765d1a36db0183257050821ba32eefff206e849da527d938e87c2d648a",
+    "docs/play2code.md": "8eb57bb76dad1707ecda999089cd2a8e41839f66a830e6dc333def8c034d963e",
+    "docs/skills.md": "7b39399009b569573bbd3069154285dec281c925fdfa4d74bd3a6d1a33a70d0e",
+    "docs/superflat-building.md": "ae792bfc26aaa4688382f1ec39d38e1cce78859b7ca83206395d0596e10bbd7d"
+  }
+}

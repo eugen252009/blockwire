@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scope": "Public-safe QROT02 ROT180 stabilization source, regression and documentation hashes",
+  "private_cohort_evidence_identity": "38b223bac5230622a564dca1d8fddc75ee69e1b35150dfaaa204495c5d87e154",
+  "source_freeze_identity": "bc9edcafb291517ba80a115774cafe9d27149fee5f4ed21f3361f82b3785373b",
+  "root_cause_evidence_identity": "c5d72bc80c0287e9d8f080ccf8d3511a96371df6afc8e72560b3d217705cfc88",
+  "sha256": {
+    "CHANGELOG.md": "e2229e63aff010f80eb7eca6b9c223877bae138844c46fd679071c5cc45510e6",
+    "README.md": "ec7cc9f6b7c7ed61de2a51df61c1360f999e5fe663f7db952897a0792273bd54",
+    "docs/architecture.md": "dcc45c5fd44c8f11198c0117043a382402610c3e8369b3452e311633eab88b67",
+    "docs/development-history.md": "6a07332d6acde4919f0ad3ff7439c27209356ac1aac62bf417486327a83cc717",
+    "docs/evidence/play2code-coordinate-rotation.json": "e4a5c0e03916661a1bbf55e3053a60404b8827973cb6cfce8cf429ab4e871f94",
+    "docs/evidence/play2code-rotation-stabilization.json": "d95e89fefd93efe9889dfc0c71eacde21485acebb65ab6d8c42f9374b1d92a1c",
+    "docs/motion.md": "da053726793139231525eb80c6b3bbc5a35ff34001f4b5a21173679ffc77dd87",
+    "docs/play2code.md": "2b4b657dd293cdcdb4a0fb127995555d298aa461dd95f124bf4d338c64310b78",
+    "docs/skills.md": "c2574a216fee138e74ac0ecbdd3859d5fb7dd609d36ca8ed9ecd6911924756ec",
+    "docs/superflat-building.md": "f42b934f5318081975f52651f61f2468687a9f5782b4dc7935e93f2bbc1abcba",
+    "python/README.md": "b1e80a533df34dcb01e353deaa2fd4ad2aba8ede109027d613f555a3358b6c9f",
+    "python/src/blockwire/skills/walking.py": "d77810b65409f70c996426bfae093c16fc69197125131ae57257c88e8df70076",
+    "python/tests/test_skills.py": "fee27ad07e9e83df5080c69ea786ce1668905efdb444fcd829f380b421c48417",
+    "tests/run_skill_mutations.py": "03ac70f1828414c797a8a5668c596111ce11dd08f458b3b885b19c6bab558bc5"
+  },
+  "identity": "eb97869f6719ab295ac5626f6c26c068c0ea9e521224ae8d110354193ce5dad7"
+}

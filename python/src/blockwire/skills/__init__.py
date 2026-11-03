@@ -1,7 +1,7 @@
 """Public extension API for trusted, descriptive player skills."""
 from .core import (SkillContext, SkillDefinition, SkillManager, SkillParameters, SkillRegistry,
                    SkillResult, SkillStop, load_selected_plugins, run_skill)
-from .walking import WALK_TO, WalkTo
+from .walking import WALK_TO, RECORDED_DROP, RECORDED_PATH, RECORDED_SEQUENCE, WalkTo
 from .autopilot import AUTOPILOT, Autopilot
 from .approaching import APPROACH, Approach
 from .fighting import FIGHT, Fight, Reactions
@@ -20,6 +20,9 @@ from .viewing import AIM_AT
 def default_registry(*, plugins: bool = False) -> SkillRegistry:
     registry = SkillRegistry()
     registry.register(WALK_TO)
+    registry.register(RECORDED_PATH)
+    registry.register(RECORDED_SEQUENCE)
+    registry.register(RECORDED_DROP)
     registry.register(AUTOPILOT)
     registry.register(APPROACH)
     registry.register(FIGHT)

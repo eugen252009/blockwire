@@ -12,10 +12,12 @@ class AimAt(SkillParameters):
 def aim_at(context,goal):
     context.check();s=context.player.observe();session=s.get('actor_session')
     if not s.get('alive') or not s.get('in_world'):raise SkillStop('blocked','live_player_required')
+    context.renew_retained_sneak(s)
     while True:
         context.check();s=context.player.observe();context.check()
         if s.get('actor_session')!=session:raise SkillStop('blocked','actor_session_changed')
         if not s.get('alive'):raise SkillStop('blocked','player_dead')
+        context.renew_retained_sneak(s)
         dx,dy,dz=[v-p for v,p in zip((goal.x,goal.y,goal.z),s['eye_position'])]
         wanted=(math.degrees(math.atan2(-dx,dz)),-math.degrees(math.atan2(dy,math.hypot(dx,dz))))
         yaw_error=abs((wanted[0]-s['yaw']+180)%360-180)

@@ -24,7 +24,7 @@ from .ownership import claim_control, release_control
 from .recipes import RECIPES, item_counts
 from .mechanics import describe_mechanics
 from .skills import default_registry
-from .skills.core import _execute
+from .skills.core import _execute,ExecutionOptions
 
 SAFE_SKILLS = frozenset({'walk_to', 'gather_wood', 'estimate_distance', 'craft_item', 'equip_item',
                           'interact_with_block', 'place_block', 'place_at', 'gather_block', 'consume_item', 'search_blocks', 'dig_step'})
@@ -154,10 +154,17 @@ class AgentRuntime:
     implicit actor rebind. Bounded repeats are a safety policy, not a planner.
     """
     def __init__(self, player, decider: Decider, store: SessionStore, goal: str, *, registry=None,
-                 allowed_skills=None, allow_rebind=False, completion_check=None, expected_actor_session=None, failure_handler=None, **limits):
+                 allowed_skills=None, allow_rebind=False, completion_check=None, expected_actor_session=None, failure_handler=None,
+                 reuse_verified_observation=False, execution_options=None, **limits):
         if not isinstance(goal, str) or not 1 <= len(goal) <= 2048: raise ValueError('Bounded operator goal required')
         if expected_actor_session is not None and (not isinstance(expected_actor_session,str) or not 1<=len(expected_actor_session)<=128):
             raise ValueError('Explicit bounded actor session required')
+        if type(reuse_verified_observation) is not bool:
+            raise ValueError('Explicit verified-observation reuse policy required')
+        self.reuse_verified_observation = reuse_verified_observation
+        if execution_options is not None and not isinstance(execution_options,ExecutionOptions):
+            raise ValueError('Typed trusted-host execution options required')
+        self.execution_options = execution_options
         self.expected_actor_session=expected_actor_session
         self.player, self.decider, self.store, self.goal = player, decider, store, goal
         self.registry = registry or default_registry()
@@ -308,10 +315,15 @@ class AgentRuntime:
             self.state.update(goal=self.goal, pending=None, last_actor_session=self.session, observation=observation)
             repeats = self.state.setdefault('failed_actions', {})
             facade = self._bound_player()
+            verified_observation = None
             for step in range(self.limits.max_decisions):
                 self._check()
                 self._publish(step=step, phase='observing')
-                observation, _ = self._observe()
+                # Deterministic execution may reuse its own last post-action
+                # snapshot for dispatch only. Every action still acquires fresh
+                # actor/resource observations immediately before its effects.
+                observation = verified_observation if verified_observation is not None else self._observe()[0]
+                verified_observation = None
                 old = self.state.get('observation', {})
                 for field in ('health', 'hunger', 'dimension', 'inventory'):
                     if old.get(field) != observation.get(field):
@@ -393,8 +405,9 @@ class AgentRuntime:
                         self.state['pending'] = {'skill': decision.skill, 'parameters': parameters}
                         self.store.save(self.state)  # Durable BEFORE effects; never auto-replayed.
                         self._publish(phase='acting', active=self.state['pending'])
+                        execution_policy={} if self.execution_options is None else {'execution_options':self.execution_options}
                         performed = _execute(definition, validated, facade, self.cancel_event,
-                                             lambda progress: self._publish(progress=progress), time.monotonic, time.sleep)
+                                             lambda progress: self._publish(progress=progress), time.monotonic, time.sleep,**execution_policy)
                         outcome = performed.model_dump(mode='json')
                         if definition.controls_player and performed.cleanup != 'released': raise RuntimeError('cleanup_not_confirmed')
                 self._publish(phase='verifying')
@@ -419,6 +432,8 @@ class AgentRuntime:
                     failures += 1;repeats[fingerprint] = repeats.get(fingerprint, 0)+1
                     if len(repeats) > 64: repeats.pop(next(iter(repeats)))
                 self.store.save(self.state)
+                if self.reuse_verified_observation and outcome['status'] == 'succeeded':
+                    verified_observation = fresh
                 if outcome['reason'] in FATAL: raise RuntimeError(outcome['reason'])
                 if outcome['status']!='succeeded' and self.failure_handler is not None:
                     handled=self.failure_handler(entry)

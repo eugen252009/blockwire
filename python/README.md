@@ -39,7 +39,17 @@ behavior when timing is omitted; `duration_ms=1..5000` plus optional
 Scheduling is not completion; observe terminal orientation. Use the matching rebuilt mod for the new
 observation/settings features; the SDK is installed separately. Development builds also provide
 `blockwire-play2code` to validate/export a sealed passive local-human recording into raw evidence and
-ordinary compiling BCL/1 batches; it never starts recording remotely or executes replay. Read
+ordinary compiling BCL/1 batches; default coordinates are absolute and explicit
+`--coordinate-mode relative` uses one persistent first-batch S1 home. Explicit
+`--translate X Y Z`, optional horizontal `--mirror-axis`/`--mirror-coordinate`,
+and exact `--rotation 90|180|270 --rotation-anchor X Z` derive separate
+typed-coordinate programs without changing the raw capture, action order or
+one-home BCL semantics. Positive turns follow Minecraft yaw; arbitrary angles are
+rejected. Derived programs are not new human recordings. Evidence-bound M4 replay
+keeps its existing radius and pulse bound; a directional sample immediately before
+a hold sample is skipped only when both sealed targets are already reached. This
+adds no automatic action retry or synthesized path. Play2Code never starts recording
+remotely or executes replay. Read
 `docs/play2code.md`, `docs/skills.md` and `docs/extensions.md` in the project for limits and contracts.
 
 Development SDK 0.2.0a6 provides `Player.fight(reactions={"zombies":"fight", "creeper":"evade"})`

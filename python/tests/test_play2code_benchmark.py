@@ -20,6 +20,8 @@ class Play2CodeBenchmarkContracts(unittest.TestCase):
         self.assertEqual(value['fixture']['snapshot_identity'], TOOL.FIXTURE_IDENTITY)
         self.assertNotIn('recording', value)
         self.assertNotIn('generated_program', value)
+        self.assertTrue(any('--coordinate-mode relative' in step for step in value['required_execution']))
+        self.assertTrue(any('disabled before launch' in step for step in value['required_execution']))
 
     def test_P2B02_prepare_writes_only_private_pending_metadata(self):
         with tempfile.TemporaryDirectory() as directory:

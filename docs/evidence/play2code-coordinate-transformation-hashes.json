@@ -1,0 +1,16 @@
+{
+  "identity": "2c7d4a67ee3730d2b641ad539bc17c3ce154c3efd834ad37490ce3f6d5da6a42",
+  "schema_version": 1,
+  "sha256": {
+    "CHANGELOG.md": "5f23298bef56497408100bcf38d4afddc17ea59de54dc1d5b2574218465f998e",
+    "README.md": "a9241f178459dadcf40d8e504262508d75b2bdfd0adf08421392f6265bdd5818",
+    "docs/bcl.md": "5aad5820de4f2dadfa5704b2f44b51466059bb6ebb818dda0d227b84efe8674e",
+    "docs/evidence/play2code-coordinate-transformation.json": "f9067e0fe3575215524454dbc0845040dc1fe3f17ce442c6a1c2f77625f2c88b",
+    "docs/play2code.md": "02adb30a3c3224f76df54cd7d7b75aa7c29e68604eab2aee6d609246944ffd88",
+    "docs/superflat-building.md": "5e81f1a648b64f883f7c1c6e17ac565306790777816c4e4bd636211eed1b7419",
+    "python/README.md": "6c07052a9ff78f72aaf045186f3d5036461803093130486e66ac2bb0e65d7e24",
+    "python/src/blockwire/play2code.py": "5826f3fcde910f574c0085574d699c687b94db557fc719dfcf24e219af7e3f1d",
+    "python/tests/test_play2code.py": "828fd3407b4c3790a1337eb91c8996c2b97dd478c4b0fa822f560c4c394c82c5",
+    "tests/run_play2code_mutations.py": "2125b637d1ec47dff46712bda7db34fce53add44f019c8103c9754b30eb04f47"
+  }
+}

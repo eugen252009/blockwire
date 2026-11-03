@@ -1,0 +1,1064 @@
+{
+  "ablation_limitations": [
+    "One measured five-block trial per final ablation mode, not statistical or full-replay repeatability.",
+    "Camera-only reduced alignment overhead but did not reduce required look RPCs (20). Sneak/combined reduced look RPCs to 12 by preserving eye height.",
+    "These measurements are comparable to their own hidden-display reference, not the old GPU-rendered 464.23-second replay baseline.",
+    "No physical F8 key injection was performed; existing F8 implementation/contracts remain unchanged. Native cancellation and actor invalidation were exercised."
+  ],
+  "automated_regression": {
+    "gradle_check": "PASS",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 194,
+        "total": 194
+      }
+    },
+    "python": "568/568 PASS in final serial full suite",
+    "tls_interop": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "commit_push_upload_release_deployment": false,
+  "correction": {
+    "BCL_or_recorded_movement_changed": false,
+    "alternate_construction_path_generated": false,
+    "automatic_action_retry_added": false,
+    "cleanup": "Ordinary owner cleanup releases inputs; cached stance intent and inventory adapters are invalidated when SkillContext closes",
+    "direction_lease": "Unchanged one native tick at a local edge pose",
+    "location": "FlatMotion validated local edge-pose path and walk_to settlement",
+    "position_grounding_support_tolerances_relaxed": false,
+    "sneak_lease": "Separately renewed for at most eight native ticks inside the same authorized skill"
+  },
+  "decisions": {
+    "H05": "PENDING_OWNER_MANUAL_BUILD",
+    "camera_reuse": "GO_ISOLATED_NO_OP_ALIGNMENT_WAIT",
+    "continuous_sneak_walk": "GO_ONE_ISOLATED_NATIVE_EDGE_WALK",
+    "full_replay_functionality": "NO_GO",
+    "full_replay_repeatability": "NOT_RUN",
+    "full_transformation_regression": "NO_GO",
+    "held_input_cancel_and_actor_invalidation": "GO_SCOPED_NATIVE_AND_UNIT",
+    "human_generalization": "PENDING",
+    "local_grounding_correction": "GO_NATIVE_COMPONENT_ONLY",
+    "original_grounding_root_cause": "CONFIRMED",
+    "placement_adapter_reuse": "GO_ISOLATED_WITH_FRESH_INVENTORY",
+    "production_activation": "NO_GO",
+    "sneak_reuse": "GO_WITHIN_ONE_OWNED_SKILL_CONTEXT"
+  },
+  "full_replay_boundary": {
+    "corrected_full_replay_speedup": "NOT_ESTABLISHED",
+    "functional_gate": "NO_GO",
+    "nine_case_final_cohort": "NOT_RUN_BLOCKED_BY_PILOTS",
+    "note": "A correctly accepted M0 arrival radius is not proof that the next placement is reachable from that exact position. Both all-options-off and reuse-enabled controls were rejected by unchanged placement safety checks.",
+    "three_identity_repeatability_cohort": "NOT_RUN_BLOCKED_BY_PILOTS"
+  },
+  "full_replay_pilots": {
+    "GC2-90": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "completed_batches": 2,
+      "elapsed_seconds": 47.82436038200001,
+      "ended_snapshot_identity": "999392a2b169ecd85a13b38d21075c17e82c302831096bd7f58ab8c20d2e1669",
+      "executed_operations": 53,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 2,
+        "reasons": [
+          "recorded_partial_pose_not_safely_reached"
+        ]
+      },
+      "guard_analysis": {
+        "current_min_contact_with_selected_support": 0.2584063673642971,
+        "current_to_recorded_pose_distance": 0.270438459065013,
+        "existing_recorded_proxy_bound": 0.35,
+        "interpretation": "Current coarse arrival does not satisfy every placement constraint; the recorded target fails the unchanged robust preposition contact bound. No bound was relaxed and no alternate recorded path was generated.",
+        "modeled_crouched_eye_to_aim_distance": 1.3938552616827757,
+        "modeled_face_plane_clearance": 0.041593632635702704,
+        "recorded_crouch_reach_bound": 4.5,
+        "recorded_target_min_contact_with_selected_support": 0.0004182984499996323,
+        "required_face_plane_clearance": 0.05,
+        "required_robust_target_contact": 0.08
+      },
+      "missing_blocks": 68,
+      "objective_verified": false,
+      "port_8765_closed": true,
+      "run_id": "GC2-90",
+      "scenario": "ROT90",
+      "source_freeze_identity": "84242541193a7f65e9bb96880611ae9d803aad4336a08c5589506b750873e596",
+      "status": "NO_GO",
+      "verified_blocks": 3,
+      "verified_placement_events": 3
+    },
+    "GP-90": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "completed_batches": 13,
+      "elapsed_seconds": 280.57680674600124,
+      "ended_snapshot_identity": "6464c4388cf356d11b7c710babf4da8da61fdc4e89ede54453ee16d0ec0f6653",
+      "executed_operations": 367,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 13,
+        "reasons": [
+          "recorded_partial_pose_not_safely_reached"
+        ]
+      },
+      "guard_analysis": {
+        "current_min_contact_with_selected_support": 0.2690085101099018,
+        "current_to_recorded_pose_distance": 0.26494092755524257,
+        "existing_recorded_proxy_bound": 0.35,
+        "interpretation": "Current coarse arrival does not satisfy every placement constraint; the recorded target fails the unchanged robust preposition contact bound. No bound was relaxed and no alternate recorded path was generated.",
+        "modeled_crouched_eye_to_aim_distance": 4.543924935073293,
+        "modeled_face_plane_clearance": 4.270000000000003,
+        "recorded_crouch_reach_bound": 4.5,
+        "recorded_target_min_contact_with_selected_support": 0.007928532069999994,
+        "required_face_plane_clearance": 0.05,
+        "required_robust_target_contact": 0.08
+      },
+      "missing_blocks": 30,
+      "objective_verified": false,
+      "port_8765_closed": true,
+      "run_id": "GP-90",
+      "scenario": "ROT90",
+      "source_freeze_identity": "b9e61862b0c660a263c6aad2e69f3986b199a50eb74dcda40209b053c33dc8c7",
+      "status": "NO_GO",
+      "verified_blocks": 41,
+      "verified_placement_events": 41
+    },
+    "GP2-90": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "completed_batches": 2,
+      "elapsed_seconds": 49.627999105000015,
+      "ended_snapshot_identity": "48c145cea9b469e92ceded6a0762e816cabf76577896898c99b3fcae0c1433c8",
+      "executed_operations": 53,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 2,
+        "reasons": [
+          "recorded_partial_pose_not_safely_reached"
+        ]
+      },
+      "guard_analysis": {
+        "current_min_contact_with_selected_support": 0.27154467285189376,
+        "current_to_recorded_pose_distance": 0.2832447178166577,
+        "existing_recorded_proxy_bound": 0.35,
+        "interpretation": "Current coarse arrival does not satisfy every placement constraint; the recorded target fails the unchanged robust preposition contact bound. No bound was relaxed and no alternate recorded path was generated.",
+        "modeled_crouched_eye_to_aim_distance": 1.393659956027339,
+        "modeled_face_plane_clearance": 0.028455327148106058,
+        "recorded_crouch_reach_bound": 4.5,
+        "recorded_target_min_contact_with_selected_support": 0.0004182984499996323,
+        "required_face_plane_clearance": 0.05,
+        "required_robust_target_contact": 0.08
+      },
+      "missing_blocks": 68,
+      "objective_verified": false,
+      "port_8765_closed": true,
+      "run_id": "GP2-90",
+      "scenario": "ROT90",
+      "source_freeze_identity": "615b16d26524682b29d599c9ca59e95b81d3e5546044d7eefc1cd640ccb13a47",
+      "status": "NO_GO",
+      "verified_blocks": 3,
+      "verified_placement_events": 3
+    },
+    "GP2-ID": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "completed_batches": 2,
+      "elapsed_seconds": 45.457777276,
+      "ended_snapshot_identity": "2d477f349af36fdd9b87597252a3907c990ef0fcfb5fd519e36843e8c3ad5c63",
+      "executed_operations": 53,
+      "expected_batches": 20,
+      "failed_actions": 1,
+      "failure": {
+        "batch": 2,
+        "reasons": [
+          "recorded_partial_pose_not_safely_reached"
+        ]
+      },
+      "guard_analysis": {
+        "current_min_contact_with_selected_support": 0.2560272318068382,
+        "current_to_recorded_pose_distance": 0.26735997225934793,
+        "existing_recorded_proxy_bound": 0.35,
+        "interpretation": "Current coarse arrival does not satisfy every placement constraint; the recorded target fails the unchanged robust preposition contact bound. No bound was relaxed and no alternate recorded path was generated.",
+        "modeled_crouched_eye_to_aim_distance": 1.3935014063772024,
+        "modeled_face_plane_clearance": 0.04397276819316165,
+        "recorded_crouch_reach_bound": 4.5,
+        "recorded_target_min_contact_with_selected_support": 0.00041829844799989857,
+        "required_face_plane_clearance": 0.05,
+        "required_robust_target_contact": 0.08
+      },
+      "missing_blocks": 68,
+      "objective_verified": false,
+      "port_8765_closed": true,
+      "run_id": "GP2-ID",
+      "scenario": "ID",
+      "source_freeze_identity": "615b16d26524682b29d599c9ca59e95b81d3e5546044d7eefc1cd640ccb13a47",
+      "status": "NO_GO",
+      "verified_blocks": 3,
+      "verified_placement_events": 3
+    }
+  },
+  "historical_C01": "NO_GO, 6/9 retained; original 11.23 percent identity speedup remains historical only",
+  "historical_verdicts_overwritten": false,
+  "independent_options": {
+    "camera_reuse": "Skip only the redundant completion wait after the native orientation is already observed within the existing tolerance; still re-observe the exact support hit.",
+    "cross_task_lease_transfer": false,
+    "defaults": "All options and dispatch observation reuse remain disabled in ordinary BCL execution.",
+    "new_BCL_command_or_setting": false,
+    "placement_reuse": "Reuse InventorySession adapter only within the same context; every placement still reads fresh actor-fenced inventory and validates current support, one use and one-item consumption.",
+    "sneak_reuse": "Renew an already-required crouch after fresh actor/health observations only within one active skill context; ordinary non-sneak movement/placement releases it."
+  },
+  "native_component_runs": {
+    "FIX-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": false,
+      "native_ticks": 53,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "block_placed",
+        "status": "succeeded"
+      },
+      "placement_observed_closed_save": true,
+      "port_closed": true,
+      "run_id": "FIX-01",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    },
+    "FIX-02": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": false,
+      "native_ticks": 53,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "block_placed",
+        "status": "succeeded"
+      },
+      "placement_observed_closed_save": true,
+      "port_closed": true,
+      "run_id": "FIX-02",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    },
+    "FIX-04": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": false,
+      "native_ticks": 53,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "block_placed",
+        "status": "succeeded"
+      },
+      "placement_observed_closed_save": true,
+      "port_closed": true,
+      "run_id": "FIX-04",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    },
+    "HIDDEN-EDGE-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": false,
+      "native_ticks": 59,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "arrived",
+        "status": "succeeded"
+      },
+      "placement_observed_closed_save": false,
+      "port_closed": true,
+      "run_id": "HIDDEN-EDGE-01",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "sneak_activations": 2,
+      "sneak_releases": 2,
+      "trace_dropped": 0,
+      "world_geometry_unchanged": true
+    },
+    "HIDDEN-FIX-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": false,
+      "native_ticks": 53,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "block_placed",
+        "status": "succeeded"
+      },
+      "placement_observed_closed_save": true,
+      "port_closed": true,
+      "run_id": "HIDDEN-FIX-01",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "sneak_activations": 2,
+      "sneak_releases": 2,
+      "trace_dropped": 0,
+      "world_geometry_unchanged": false
+    },
+    "HIDDEN-OLD-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": true,
+      "native_ticks": 26,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "current_cell_center_obstructed",
+        "status": "blocked"
+      },
+      "placement_observed_closed_save": false,
+      "port_closed": true,
+      "run_id": "HIDDEN-OLD-01",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "sneak_activations": 3,
+      "sneak_releases": 3,
+      "trace_dropped": 0,
+      "world_geometry_unchanged": true
+    },
+    "OLD-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": true,
+      "native_ticks": 26,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "current_cell_center_obstructed",
+        "status": "blocked"
+      },
+      "placement_observed_closed_save": false,
+      "port_closed": true,
+      "run_id": "OLD-01",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    },
+    "OLD-03": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": true,
+      "native_ticks": 26,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "current_cell_center_obstructed",
+        "status": "blocked"
+      },
+      "placement_observed_closed_save": false,
+      "port_closed": true,
+      "run_id": "OLD-03",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    },
+    "OLD-04": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "health_minimum": 20.0,
+      "jump_ticks": 0,
+      "lost_ground": true,
+      "native_ticks": 26,
+      "outcome": {
+        "cleanup": "released",
+        "reason": "current_cell_center_obstructed",
+        "status": "blocked"
+      },
+      "placement_observed_closed_save": false,
+      "port_closed": true,
+      "run_id": "OLD-04",
+      "scope": "Focused diagnostic, not full building acceptance",
+      "trace_dropped": 0
+    }
+  },
+  "original_regression": {
+    "corrected_motor_first_direction": {
+      "first_direction_tick": 18,
+      "horizontal_speed": 0.01605240406205602,
+      "next_tick_direction_active": false,
+      "next_tick_grounded": true,
+      "next_tick_sneak_active": true
+    },
+    "corrected_motor_focused_successes": "4/4, spanning retained visible-display trials and one hidden-display control",
+    "finding": "At a validated local edge pose, the one-tick native direction lease also ended Sneak. Residual native horizontal velocity continued after key-up and slid the player off the support; Jump was never active. Preparing crouch before movement and leasing it independently removes that loss of contact in the focused fixture.",
+    "historical_sampling_limit": "C01 periodic traces did not retain every final failing tick. The original API observations show actual loss of ground; the reset native component reproducer captures the complete 26-tick failure.",
+    "old_motor_measured_ground_losses": "4/4, spanning retained visible-display trials and one hidden-display control",
+    "old_native_first_airborne_tick": 25,
+    "original_motor_first_direction": {
+      "first_direction_tick": 17,
+      "horizontal_speed": 0.05350800920096793,
+      "next_tick_direction_active": false,
+      "next_tick_grounded": true,
+      "next_tick_sneak_active": false
+    },
+    "root_cause": "CONFIRMED_BY_NATIVE_COMPONENT_AB",
+    "strict_full_replay_repeatability_not_implied": true
+  },
+  "other_hidden_native_scenarios": {
+    "H3-ACTOR-ALL-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 2.237774743,
+      "expected_placements": 0,
+      "final_inputs_released": true,
+      "grounded_all": false,
+      "invalidation": {
+        "actor_changed": true,
+        "old_actor_rejected": "actor_session_changed"
+      },
+      "jump_ticks": 0,
+      "look_requests": 0,
+      "mode": "combined",
+      "native_ticks": 17,
+      "new_human_recording": false,
+      "operation_outcomes": [],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 0,
+      "placements": 0,
+      "port_closed": true,
+      "run_id": "H3-ACTOR-ALL-01",
+      "scenario": "actor",
+      "sneak_activations": 0,
+      "sneak_releases": 0,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 0
+    },
+    "H3-CANCEL-ALL-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 0.127069734,
+      "expected_placements": 0,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 0,
+      "mode": "combined",
+      "native_sneak_observed_before_cancel": true,
+      "native_ticks": 7,
+      "new_human_recording": false,
+      "operation_outcomes": [],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 0,
+      "placements": 0,
+      "port_closed": true,
+      "run_id": "H3-CANCEL-ALL-01",
+      "scenario": "cancel",
+      "sneak_activations": 1,
+      "sneak_releases": 1,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 0
+    },
+    "H3-INT-ALL-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 1.309877039,
+      "expected_placements": 1,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 4,
+      "mode": "combined",
+      "native_ticks": 30,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 1,
+      "placements": 1,
+      "port_closed": true,
+      "run_id": "H3-INT-ALL-01",
+      "scenario": "interactive",
+      "sneak_activations": 1,
+      "sneak_releases": 1,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 1
+    },
+    "H3-MIX-ALL-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 7.266776295,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 20,
+      "mode": "combined",
+      "native_ticks": 150,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "arrived",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "arrived",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-MIX-ALL-01",
+      "scenario": "mixed",
+      "sneak_activations": 2,
+      "sneak_releases": 2,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5
+    },
+    "H3-V-ALL-01": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 3.112987404,
+      "expected_placements": 3,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 8,
+      "mode": "combined",
+      "native_ticks": 66,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 3,
+      "placements": 3,
+      "port_closed": true,
+      "run_id": "H3-V-ALL-01",
+      "scenario": "vertical",
+      "sneak_activations": 1,
+      "sneak_releases": 1,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 3
+    }
+  },
+  "overall_decision": "NO_GO",
+  "privacy": "Raw scenes, actor/player identity, precise private observations, saves, journals, credentials, certificates and keys remain private under ignored build/.",
+  "retained_prequalification_failures": {
+    "H-ALL-01": "Client-start failure retained.",
+    "H-BASE-01": "Four placements then an occluded fifth face; fixture-design failure retained.",
+    "H-BASE-02_H-CAMERA-01_H-SNEAK-01_H-PLACE-01": "One placement then unobserved next support; retained. Later explicit native aiming exposed each supplied support before placement.",
+    "H2_runs": "Earlier visible-display and pre-renewal observations retained, not pooled with final hidden H3 ablations.",
+    "OLD-02_and_FIX-03": "Client-start timeouts before measurement; directories preserved, not counted as measured native successes.",
+    "earlier_automated_failures": "Fixture API compatibility and one mutation inconclusive result were corrected without weakening assertions. Earlier terminal-correlation flake remains in its original log; final serial full suite passed.",
+    "hidden_smoke_01": "Native private title menu succeeded; private close-helper defects were corrected and cleanup recovery retained. Fresh smoke-02 passed without loading a world."
+  },
+  "same_hidden_display_ablations": {
+    "baseline": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 5.819946708,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 20,
+      "mode": "baseline",
+      "native_ticks": 121,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": false,
+        "placement_reuse": false,
+        "sneak_reuse": false
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-baseline-01",
+      "scenario": "horizontal",
+      "sneak_activations": 5,
+      "sneak_releases": 5,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5,
+      "wall_reduction_percent_vs_same_display_baseline": 0.0
+    },
+    "camera": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 5.452046543,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 20,
+      "mode": "camera",
+      "native_ticks": 114,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": false,
+        "sneak_reuse": false
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-camera-01",
+      "scenario": "horizontal",
+      "sneak_activations": 5,
+      "sneak_releases": 5,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5,
+      "wall_reduction_percent_vs_same_display_baseline": 6.321366559839636
+    },
+    "combined": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 5.066165037,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 12,
+      "mode": "combined",
+      "native_ticks": 106,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": true,
+        "placement_reuse": true,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-combined-01",
+      "scenario": "horizontal",
+      "sneak_activations": 1,
+      "sneak_releases": 1,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5,
+      "wall_reduction_percent_vs_same_display_baseline": 12.951693697879819
+    },
+    "placement": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 5.695359832,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 20,
+      "mode": "placement",
+      "native_ticks": 119,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": false,
+        "placement_reuse": true,
+        "sneak_reuse": false
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-placement-01",
+      "scenario": "horizontal",
+      "sneak_activations": 5,
+      "sneak_releases": 5,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5,
+      "wall_reduction_percent_vs_same_display_baseline": 2.140687574144695
+    },
+    "sneak": {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_correct": true,
+      "elapsed_seconds": 5.552786409,
+      "expected_placements": 5,
+      "final_inputs_released": true,
+      "grounded_all": true,
+      "jump_ticks": 0,
+      "look_requests": 12,
+      "mode": "sneak",
+      "native_ticks": 115,
+      "new_human_recording": false,
+      "operation_outcomes": [
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "view_observed",
+          "status": "succeeded"
+        },
+        {
+          "reason": "block_placed",
+          "status": "succeeded"
+        }
+      ],
+      "options": {
+        "camera_reuse": false,
+        "placement_reuse": false,
+        "sneak_reuse": true
+      },
+      "placement_item_consumption": 5,
+      "placements": 5,
+      "port_closed": true,
+      "run_id": "H3-sneak-01",
+      "scenario": "horizontal",
+      "sneak_activations": 1,
+      "sneak_releases": 1,
+      "status": "GO",
+      "trace_dropped": 0,
+      "use_attempts": 5,
+      "wall_reduction_percent_vs_same_display_baseline": 4.590425177480839
+    }
+  },
+  "schema_version": 1,
+  "scope": "Grounding investigation and independently controlled within-skill execution reuse; full replay qualification remains NO_GO",
+  "source_freezes": {
+    "CONTROL2": "84242541193a7f65e9bb96880611ae9d803aad4336a08c5589506b750873e596",
+    "PILOT": "b9e61862b0c660a263c6aad2e69f3986b199a50eb74dcda40209b053c33dc8c7",
+    "PILOT2": "615b16d26524682b29d599c9ca59e95b81d3e5546044d7eefc1cd640ccb13a47"
+  },
+  "source_sha256": {
+    "python/src/blockwire/agent.py": "9ab104314e2805bcac463251f5a2123e607c60886e65db5e6599ca049ce5195a",
+    "python/src/blockwire/skills/core.py": "c7ccc2ebcff9f9de40e9d328578806be3413cacb163f5b906c389717f7253db1",
+    "python/src/blockwire/skills/crafting.py": "530ce5a5642305588619f3ecee7c620358e1c155b72f75aec929b6249fdd92c6",
+    "python/src/blockwire/skills/item_actions.py": "f516650ee0d5e27fc3ad9e1b8701a698cf2adc801b812c6cc9bc08ea72602890",
+    "python/src/blockwire/skills/motion.py": "a71bdeb5c70c1053aee59eb46bd4d314eaf929c2bfb0b956fea311c9c2db5951",
+    "python/src/blockwire/skills/viewing.py": "2de432a4de6cef9136d5ced7ea82718fd6e1d43629cf36a8e1734ed45e2070e6",
+    "python/src/blockwire/skills/walking.py": "a1612aeb8dad3ea3d5794b18f9deb6adb426587e2a8064816348150f63732fd5"
+  },
+  "standard_BCL_optimization_enabled": false
+}

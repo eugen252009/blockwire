@@ -1,0 +1,26 @@
+{
+  "identity": "720c24110c2db45fc9e17e8a415d199e360447c0512e73b4a9bb6abc69d958b0",
+  "schema_version": 1,
+  "scope": "Immutable QROT01 point-in-time hash map; later evidence is linked separately rather than rewriting this identity.",
+  "sha256": {
+    "CHANGELOG.md": "622af4671bbaa2cd34eeccd3b6222cf6722d271e57a34d299df22bc162435d09",
+    "README.md": "319236542ccb7b496d98f483fec14529b1ea5ba6c3d958ae6fb7284cefe0c078",
+    "docs/architecture.md": "600a3885c4e4f132bd7b0279ef4067f25d46b6793319a039bb8f58f4727448de",
+    "docs/bcl.md": "d97f8e5866effb5cdc17dd4da203d28c5b988eb6f0fa390c75985287e2593025",
+    "docs/evidence/play2code-coordinate-rotation.json": "d2ec26403249df65e16a5b710244b085e3a857296f09c45935ae0225587d2f97",
+    "docs/play2code.md": "9dc073bb2563dae5a0e532e14d9fcf34edbb28e6efd03e5cc875ef1258f1a317",
+    "docs/superflat-building.md": "ce994360a9922d07eea5c0805a1380e396cb1be08f20dda05d8fd5e431d10f1e",
+    "python/README.md": "3cc0ccc7c70ffa96c2cd81c03c3be3c73159548044177e5f526990affc5379b2",
+    "python/src/blockwire/play2code.py": "5617b1d5b472e83540850e242cc8c343a6d0ab5569eb46be08b20faf19fd8d1d",
+    "python/tests/test_play2code.py": "b700ec6339aa2f0afc9ead1c4c5ae304e644a4e6837f82a0cccf6ec454251553",
+    "tests/run_play2code_mutations.py": "a75c47434a25aedc61c20abfcade60dffe48ac108153bb9c2a99f8c2f6a02a7e"
+  },
+  "subsequent_stabilization": {
+    "record": "docs/evidence/play2code-rotation-stabilization.json",
+    "record_sha256": "d95e89fefd93efe9889dfc0c71eacde21485acebb65ab6d8c42f9374b1d92a1c",
+    "hash_manifest": "docs/evidence/play2code-rotation-stabilization-hashes.json",
+    "hash_manifest_sha256": "aab3c47a8afed0bd1a2d6275ed31f24bd5e48fbef031cd1796cc4d9dcb4da9db",
+    "hash_manifest_identity": "eb97869f6719ab295ac5626f6c26c068c0ea9e521224ae8d110354193ce5dad7",
+    "current_coordinate_rotation_record_sha256": "e4a5c0e03916661a1bbf55e3053a60404b8827973cb6cfce8cf429ab4e871f94"
+  }
+}

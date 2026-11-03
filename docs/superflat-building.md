@@ -181,7 +181,7 @@ quarantined cleanup or insufficient storage cannot be bypassed to restore a worl
 Transport/API credentials, raw journals, saves and model audits stay under ignored
 `build/superflat-benchmark/`, never in a bundle or public evidence.
 
-## Separate Play2Code human baseline — PENDING
+## Separate Play2Code qualification — H04/R33/Q03/P03 and coordinate transforms GO
 
 The passive [Play2Code](play2code.md) benchmark is a new, separate comparison arm;
 it does not change or relabel Test A, Test B, B12 capability, or B12–B14
@@ -191,13 +191,46 @@ ordinary local keyboard/mouse input while the control endpoint is disabled.
 Test-A source, model-generated BCL, commands, teleportation, creative/admin rescue,
 a hidden generator, or hand-authored recording artifacts are forbidden substitutes.
 
-`tools/play2code_benchmark.py prepare --run-id H01` writes only private pending
-metadata. It does not restore/load a world, start the recorder, build, export,
-replay or verify anything. Current status is **PENDING_OWNER_MANUAL_BUILD**; no
-human baseline, replay run or independent acceptance result exists yet. When the
-owner performs it, generated source must remain unchanged for replay in a fresh
-restored snapshot, and compile success must remain separate from native/closed-save
-objective acceptance.
+H01–H03 remain immutable calibration failures. H04 is the first strict owner-manual
+GO: 71/71 exact blocks with independent closed-save and native access/safety checks.
+Its sealed evidence exported one persistent-home relative program. R01–R32 remain
+immutable replay failures; R33 is the first strict generated replay GO, with the
+frozen unedited source completing 20/20 batches, 71/71 placement postconditions,
+zero automatic retries and exact independent closed-client save verification.
+Compile success remained separate from both operation and objective acceptance.
+R34 is a retained pre-effect harness NO-GO. Q02 measured only 1/3 after two
+identical M4 post-pulse timing failures. A bounded observation-only correction then
+produced 3/3 strict Q03 successes (R38–R40). P03 reused the exact source freeze and
+byte-identical v16 BCL at two additional relative homes; all three origins built
+71/71 exact translated blocks with zero retries.
+
+A later offline derivation preserved H04's action order and one-home relative
+strategy while transforming typed movement, mutations, yaw, faces, hit points and
+recorded controls. X01 qualified the exact H01 translation. The first reflected
+program X02 remains NO-GO after its unchanged `right` control diverged in M4; a new
+frozen export exchanged lateral controls and X03 independently verified the exact
+H02 reflection at 71/71 with zero retries. These derived programs do not relabel
+H01/H02 as successful human runs or establish a different human strategy.
+
+The same frozen H04 strategy was then quarter-turned around its explicit local
+origin. ROT90-A, ROT180-B and ROT270-A each passed 20/20, 71/71, zero retries and
+independent closed-save verification. ROT180-A remains NO-GO after an M4 sample
+miss just outside the unchanged arrival radius. The QROT01 two-run cohort therefore
+established rotation functionality but not strict repeatability: 90° 2/2, 180°
+1/2 and 270° 2/2.
+
+Subsequent evidence confirmed that M4 could accept the penultimate directional
+sample against only its own target and skip its sealed pulse even while the next
+hold target remained outside the radius. The corrected gate requires both targets
+before skipping that pulse and adds no tolerance, action retry or alternate path.
+Frozen QROT02 then passed ROT180 3/3, all quarter turns 7/7, and identity plus
+X01/X03 regressions 10/10 overall. Each native run completed 20/20, 71/71 with zero
+failed actions/retries and exact post-exit verification. Strict rotation
+repeatability is GO for QROT02; ROT180-A and the QROT01 5/6 result remain immutable.
+No arbitrary-angle or direction-sensitive block-state claim is made. H05 is
+prepared for a genuinely different owner-manual sequence but remains pending and
+has no replay. These verdicts do not change Test A, Test B or their retained
+repeatability history.
 
 `--resume-from ... --start-frame ...` is explicit deterministic DEBUG continuation,
 not a fresh run or automatic retry. Fault-only runs use `--fault truncate`,

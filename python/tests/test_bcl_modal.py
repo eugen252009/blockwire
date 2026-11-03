@@ -214,9 +214,17 @@ E0 player.position'''
         cases=[
             ('M0 X1 Y2',{'x':11.75,'y':66.,'z':80.}),
             ('M1 P[1,2,3]',{'position':[11,66,0]}),
+            ('M3 T=[[0.1,1,0.2,40,0,3],[0,1,0.3,35,0,8]]',
+             {'samples':[[10.85,65.,-2.05,40,0,3],[10.75,65.,-1.95,35,0,8]]}),
+            ('M4 E="[[0,0.1,1,0.2,40,0,3],[1,\\"minecraft:cobblestone\\",1,2,3,0,0.25,1,0.25,0.5,1,0.5],[0,0,1,0.3,35,0,8]]"',
+             {'events':[[0,10.85,65.,-2.05,40,0,3],
+                        [1,'minecraft:cobblestone',11,66,0,0,11.,65.,-2.,11.25,65.,-1.75],
+                        [0,10.75,65.,-1.95,35,0,8]]}),
+            ('M5 Q[0.1,3,0.2] L[-0.2,0,-0.1] H45 P10 Bforward',
+             {'edge':[10.85,67.,-2.05],'landing':[10.55,64.,-2.35]}),
             ('C2 Bminecraft:stone P[1,2,3]',{'position':[11,66,0]}),
             ('C3 P[1,2,3]',{'position':[11,66,0]}),
-            ('I3 P[1,2,3]',{'support':[11,66,0]}),
+            ('I3 P[1,2,3] Q[0.25,1.5,-0.5] R[0.5,1,0.5]',{'support':[11,66,0],'recorded_pose':[11.,65.5,-2.75],'recorded_aim':[11.25,65.,-1.75]}),
             ('I4 P[1,2,3]',{'position':[11,66,0]}),
             ('V1 P[1,2,3]',{'position':[11,66,0]}),
             ('V2 1 2 3',{'x':11.75,'y':66.,'z':.75}),
@@ -227,11 +235,11 @@ E0 player.position'''
                 d.runtime=SimpleNamespace(state={},store=SimpleNamespace(save=lambda _:None),_publish=lambda **_:None)
                 decision=d.decide({'observation':{'position':[50.,70.,80.],'dimension':'minecraft:overworld'},'completed_actions':{},'history':[]})
                 for key,value in expected.items():self.assertEqual(decision['parameters'][key],value)
-        p,_=s.prepare('V2 1 2 3',10);d=BatchDriver(p.program,self.r,p.contexts,p.coordinates,resolve_home=s.resolve_home)
+        p,_=s.prepare('V2 1 2 3',20);d=BatchDriver(p.program,self.r,p.contexts,p.coordinates,resolve_home=s.resolve_home)
         d.runtime=SimpleNamespace(state={},store=SimpleNamespace(save=lambda _:None),_publish=lambda **_:None)
         with self.assertRaises(BCLError) as error:d.decide({'observation':{'position':[0.,64.,0.],'dimension':'minecraft:the_nether'},'completed_actions':{},'history':[]})
         self.assertEqual(error.exception.diagnostic.code,'COORDINATE_CONTEXT_MISMATCH')
-        s.prepare('S1 absolute',11);p,_=s.prepare('V2 1 2 3',12)
+        s.prepare('S1 absolute',21);p,_=s.prepare('V2 1 2 3',22)
         d=BatchDriver(p.program,self.r,p.contexts,p.coordinates);d.runtime=SimpleNamespace(state={},store=SimpleNamespace(save=lambda _:None),_publish=lambda **_:None)
         absolute=d.decide({'observation':{'position':[50.,70.,80.],'dimension':'minecraft:overworld'},'completed_actions':{},'history':[]})
         self.assertEqual((absolute['parameters']['x'],absolute['parameters']['y'],absolute['parameters']['z']),(1.,2.,3.))

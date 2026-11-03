@@ -71,7 +71,10 @@ class ParserContracts(unittest.TestCase):
         p=compile_bcl('labels:S0 "agent.display_name" "Builder One\\n\\\"Two\\\""',self.r)
         values=arguments(p.operations[0],self.r.resolve('labels','S0'))
         self.assertEqual(values['value'],'Builder One\n"Two"')
-        for s in ['M1 P[1,64,3] Etrue','M1 P="[1, 64, 3]" E=false','C0 minecraft:oak_planks 16','C0 I=minecraft:oak_planks N16']:
+        for s in ['M1 P[1,64,3] Etrue','M1 P="[1, 64, 3]" E=false','C0 minecraft:oak_planks 16','C0 I=minecraft:oak_planks N16',
+                  'M0 X0 Y64 Z0 Fsneak H0 P0 B="right"','M3 T=[[0,64,0,0,0,8],[0,64,0.1,0,0,3]]',
+                  'M4 E="[[0,0,64,0,0,0,8],[1,\\"minecraft:cobblestone\\",0,63,0,0,0,64,0,0.5,64,0.5],[0,0,64,0.1,0,0,3]]"',
+                  'M5 Q[0,64,0] L[0,61,0] H45 P10 Bforward']:
             self.assertTrue(compile_report(s,self.r)['ok'],s)
         for s in ['M1 E1','M1 ETrue','C0 minecraft:oak_planks 1.5','C0 minecraft:oak_planks true','M1 P[1,2]']:
             self.assertFalse(compile_report(s,self.r)['ok'],s)
@@ -109,6 +112,61 @@ class RuntimeContracts(unittest.TestCase):
         self.assertIn('NOT the external',r['verification_scope'])
         self.assertEqual(sum(q['op']=='action' for q in self.native.calls),2)
         self.assertEqual(r['cleanup'],'released');self.assertFalse(r['rollback_performed'])
+    def test_BR13_verified_snapshot_reuse_only_reduces_dispatch_observations(self):
+        optimized = self.runner('test:I0\ntest:I0\ntest:I0')
+        self.assertFalse(optimized.runtime.reuse_verified_observation)
+        optimized.runtime.reuse_verified_observation = True  # Trusted-host experiment, not the BCL default.
+        result = optimized.run()
+        self.assertEqual(result['status'], 'succeeded', result)
+        optimized_reads = sum(q['op']=='observe' for q in self.native.calls)
+        self.assertEqual(sum(q['op']=='action' for q in self.native.calls), 3)
+        self.assertEqual(len(result['operations']), 3)
+        native = Native()
+        reference = BCLRunner('test:I0\ntest:I0\ntest:I0', self.r, Player(CallableBackend(native.call)),
+                              Path(self.tmp.name)/'reference.sqlite', self.identity, 'actor-a')
+        reference.runtime.reuse_verified_observation = False
+        baseline = reference.run()
+        self.assertEqual(baseline['status'], 'succeeded', baseline)
+        self.assertEqual(sum(q['op']=='action' for q in native.calls), 3)
+        self.assertEqual(sum(q['op']=='observe' for q in native.calls)-optimized_reads, 6)
+        self.assertEqual([(op['status'],op['reason']) for op in result['operations']],
+                         [(op['status'],op['reason']) for op in baseline['operations']])
+        self.assertEqual(result['cleanup'], 'released')
+
+    def test_BR14_reused_dispatch_snapshot_never_authorizes_replacement_actor(self):
+        runner = self.runner('test:I0\ntest:I0')
+        runner.runtime.reuse_verified_observation = True
+        decide = runner.driver.decide
+        def replaced(context):
+            result = decide(context)
+            if runner.driver.index == 1:
+                self.native.actor = 'actor-b'
+            return result
+        runner.driver.decide = replaced
+        from unittest.mock import patch
+        from blockwire.skills.core import _execute
+        with patch('blockwire.agent._execute', wraps=_execute) as execute:
+            result = runner.run()
+        self.assertEqual(execute.call_count, 1, 'Replacement must stop before entering another skill')
+        self.assertNotEqual(result['status'], 'succeeded')
+        self.assertEqual(sum(q['op']=='action' for q in self.native.calls), 1)
+        self.assertIn('actor_session_changed', result['reason'])
+
+    def test_BR15_reused_dispatch_snapshot_cancellation_precedes_next_effect(self):
+        runner = self.runner('test:I0\ntest:I0')
+        runner.runtime.reuse_verified_observation = True
+        decide = runner.driver.decide
+        def cancelled(context):
+            result = decide(context)
+            if runner.driver.index == 1:
+                runner.cancel()
+            return result
+        runner.driver.decide = cancelled
+        result = runner.run()
+        self.assertEqual(result['status'], 'cancelled')
+        self.assertEqual(sum(q['op']=='action' for q in self.native.calls), 1)
+        self.assertEqual(result['cleanup'], 'released')
+
     def test_BR02_late_compile_error_has_no_observation_effect_or_state_file(self):
         with self.assertRaises(BCLError):self.runner('test:I0\nM0 Q1')
         self.assertEqual(self.native.calls,[]);self.assertFalse((Path(self.tmp.name)/'session.sqlite').exists())
@@ -164,6 +222,19 @@ class RuntimeContracts(unittest.TestCase):
         self.assertEqual(d.index,0)
         context.update(completed_actions={'effect':1},history=[{'status':'succeeded','reason':'verified'}])
         self.assertEqual(d.decide(context)['kind'],'act');self.assertEqual(d.index,1)
+
+    def test_BR12_composite_verified_placement_count_is_retained_as_typed_evidence(self):
+        from types import SimpleNamespace
+        from blockwire.bcl.runtime import BatchDriver
+        source='M4 E="[[0,0,64,0,0,0,8],[1,\\"minecraft:cobblestone\\",0,63,0,0,0,64,0,0.5,64,0.5],[0,0,64,0.1,0,0,8]]"'
+        program=compile_bcl(source,self.r);driver=BatchDriver(program,self.r)
+        driver.runtime=SimpleNamespace(state={},store=SimpleNamespace(save=lambda _:None),_publish=lambda **_:None)
+        context={'completed_actions':{},'history':[],'observation':{'position':[0.,64.,0.],'dimension':'minecraft:overworld'}}
+        self.assertEqual(driver.decide(context)['kind'],'act')
+        context.update(completed_actions={'replay_recorded_sequence':1},
+                       history=[{'status':'succeeded','reason':'recorded_path_reached','details':{'placements':1}}])
+        self.assertEqual(driver.decide(context)['kind'],'finish')
+        self.assertEqual(driver.results[0]['evidence']['placements'],1)
 
     def test_BR09_auto_height_uses_only_safe_connected_cells_not_highest_surface(self):
         nav={'profile':'stepped_full_blocks_v1','ready':True,'current_cell':[0,64,0],'current_center_access':True,

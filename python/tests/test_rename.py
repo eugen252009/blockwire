@@ -58,9 +58,9 @@ class RenameContracts(unittest.TestCase):
         with patch("blockwire.skills.core.entry_points", side_effect=installed):
             registry = default_registry()
             load_selected_plugins(registry, "")
-            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at"])
+            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "replay_recorded_path", "replay_recorded_sequence", "replay_recorded_drop", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at"])
             load_selected_plugins(registry, "legacy_fixture")
-            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at", "legacy_fixture"])
+            self.assertEqual([d["name"] for d in registry.describe()], ["walk_to", "replay_recorded_path", "replay_recorded_sequence", "replay_recorded_drop", "autopilot", "approach", "fight", "gather_wood", "estimate_distance", "craft_item", "equip_item", "interact_with_block", "place_block", "place_at", "gather_block", "remove_block", "consume_item", "search_blocks", "dig_step", "aim_at", "legacy_fixture"])
 
 
 if __name__ == "__main__":

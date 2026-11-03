@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from collections import OrderedDict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from importlib.metadata import entry_points
 import os
 import re
@@ -37,6 +37,22 @@ class SkillStop(Exception):
         self.status, self.reason = status, reason
 
 
+@dataclass(frozen=True)
+class ExecutionOptions:
+    """Trusted-host diagnostic policy, never a BCL command or skill parameter.
+
+    Reuse is confined to one SkillContext. It grants no ownership or lease
+    transfer and cannot extend an action beyond ordinary final cleanup.
+    """
+    camera_reuse: bool = False
+    sneak_reuse: bool = False
+    placement_reuse: bool = False
+
+    def __post_init__(self):
+        if any(type(value) is not bool for value in (self.camera_reuse,self.sneak_reuse,self.placement_reuse)):
+            raise ValueError('Execution reuse options require explicit booleans')
+
+
 @dataclass
 class SkillContext:
     player: Player
@@ -45,12 +61,44 @@ class SkillContext:
     publish: Callable[[dict[str, Any]], None]
     clock: Callable[[], float] = time.monotonic
     sleeper: Callable[[float], None] = time.sleep
+    execution_options: ExecutionOptions = field(default_factory=ExecutionOptions)
+    placement_session: Any = field(default=None, repr=False)
+    retained_sneak_session: str | None = field(default=None, repr=False)
+    active: bool = field(default=True, repr=False)
 
     def check(self) -> None:
+        if not self.active:
+            raise SkillStop('blocked','execution_context_closed')
         if self.cancellation.is_set():
             raise SkillStop("cancelled", "cancel_requested")
         if self.clock() >= self.deadline:
             raise SkillStop("timed_out", "deadline_exceeded")
+
+    def retain_sneak(self, session: str) -> None:
+        """Record authorized stance intent, not a new owner or an active-key proof."""
+        self.check()
+        if not self.execution_options.sneak_reuse:return
+        if not isinstance(session,str) or not session:
+            raise SkillStop('blocked','actor_session_required')
+        if self.retained_sneak_session not in (None,session):
+            raise SkillStop('blocked','actor_session_changed')
+        self.retained_sneak_session=session
+
+    def renew_retained_sneak(self, scene: dict) -> None:
+        """Renew only after a fresh guarded observation in this same live context."""
+        self.check()
+        if self.retained_sneak_session is None:return
+        if scene.get('actor_session')!=self.retained_sneak_session:
+            raise SkillStop('blocked','actor_session_changed')
+        if not scene.get('in_world') or not scene.get('alive'):
+            raise SkillStop('blocked','live_player_required')
+        self.player.drive(['sneak'],8,wait=False,actor_session=self.retained_sneak_session)
+
+    def release_retained_sneak(self) -> None:
+        self.check()
+        if self.retained_sneak_session is not None:
+            self.player.stop()
+            self.retained_sneak_session=None
 
     def pause(self, seconds: float) -> None:
         # Small waits keep cooperative cancellation responsive without another game action.
@@ -110,8 +158,11 @@ def load_selected_plugins(registry: SkillRegistry, selection: str | None = None)
         matches[0].load()(registry)
 
 
-def _execute(definition, parameters, player, cancellation, publish, clock, sleeper) -> SkillResult:
-    context = SkillContext(player, cancellation, clock() + parameters.timeout_seconds, publish, clock, sleeper)
+def _execute(definition, parameters, player, cancellation, publish, clock, sleeper, *, execution_options=None) -> SkillResult:
+    if execution_options is not None and not isinstance(execution_options,ExecutionOptions):
+        raise ValueError('Typed trusted-host execution options required')
+    context = SkillContext(player, cancellation, clock() + parameters.timeout_seconds, publish, clock, sleeper,
+                           execution_options or ExecutionOptions())
     result = None
     try:
         context.check()
@@ -132,6 +183,11 @@ def _execute(definition, parameters, player, cancellation, publish, clock, sleep
                              text="Skill failed; no action is automatically retried.",
                              details={"error_type": type(error).__name__})
     finally:
+        # Cached adapters and stance intent never escape the owning skill. Native
+        # cleanup remains unconditional and uses the existing player/owner lease.
+        context.active=False
+        context.retained_sneak_session=None
+        context.placement_session=None
         if definition.controls_player:
             try:
                 player.stop()
@@ -148,14 +204,16 @@ def _execute(definition, parameters, player, cancellation, publish, clock, sleep
 
 def run_skill(registry: SkillRegistry, player: Player, name: str, parameters: dict[str, Any], *,
               cancel_event: threading.Event | None = None, publish: Callable | None = None,
-              clock=time.monotonic, sleeper=time.sleep) -> SkillResult:
+              clock=time.monotonic, sleeper=time.sleep, execution_options=None) -> SkillResult:
+    if execution_options is not None and not isinstance(execution_options,ExecutionOptions):
+        raise ValueError('Typed trusted-host execution options required')
     # Validation precedes cleanup or any game action.
     definition, validated = registry.prepare(name, parameters)
     cancellation = cancel_event or threading.Event()
     lease = claim_control(player, cancellation.set) if definition.controls_player else None
     try:
         return _execute(definition, validated, player, cancellation,
-                        publish or (lambda _: None), clock, sleeper)
+                        publish or (lambda _: None), clock, sleeper,execution_options=execution_options)
     finally:
         if lease is not None:
             release_control(player, lease)

@@ -70,7 +70,7 @@ class CommandRegistry:
         if any(p.default_kind not in {'required','static','runtime'} for p in command.parameters):raise ValueError('Invalid default kind')
         coordinate_names=[name for name,_ in command.coordinate_parameters]
         if (len(coordinate_names)!=len(set(coordinate_names)) or any(name not in names for name in coordinate_names)
-                or any(kind not in {'point_x','point_y','point_z','voxel'} for _,kind in command.coordinate_parameters)):
+                or any(kind not in {'point_x','point_y','point_z','point','voxel','point_samples','recorded_sequence'} for _,kind in command.coordinate_parameters)):
             raise ValueError('Invalid coordinate parameter metadata')
         if command.available and command.category=='skill' and command.skill not in {'observe_environment','inspect_inventory','list_recipes'}:
             if command.skill not in self.skills._definitions:raise ValueError('No existing skill for command')
@@ -145,7 +145,16 @@ def default_commands(skills=None):
     # M0 shares all numeric limits with WalkTo; only defaults and spelling are BCL-specific.
     ps=[skill_parameter(s,'walk_to',n,k,runtime=v) for n,k,v in [('x','X','current_x'),('y','Y','reachable_height'),('z','Z','current_z')]]
     ps.append(Parameter('F','mode','enum',TypeAdapter(Literal['normal','fast','sneak']),'static','normal',('normal','fast','sneak')))
-    r._insert(Command('core','M0','movement.walk','Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak.',tuple(ps),'walk_to',frozenset({'movement'}),coordinate_parameters=(('x','point_x'),('y','point_y'),('z','point_z'))))
+    ps.append(skill_parameter(s,'walk_to','arrival_radius','A'))
+    ps.extend(skill_parameter(s,'walk_to',name,key) for name,key in
+              [('recorded_yaw','H'),('recorded_pitch','P'),('recorded_direction','B')])
+    r._insert(Command('core','M0','movement.walk','Navigate using existing walk_to; auto Y requires an observed reachable target cell. F=normal/fast/sneak; A optionally tightens observed arrival. H/P/B carry matching local-human view and direction evidence for bounded grounded checkpoint pulses.',tuple(ps),'walk_to',frozenset({'movement'}),coordinate_parameters=(('x','point_x'),('y','point_y'),('z','point_z'))))
+    add('M3','movement.recorded_path','replay_recorded_path',[('samples','T'),('arrival_radius','A')],'movement',
+        'Replay one explicit sealed grounded crouch segment; T rows are [x,y,z,yaw,pitch,direction_code].',coordinates=(('samples','point_samples'),))
+    add('M4','movement.recorded_sequence','replay_recorded_sequence',[('events','E'),('arrival_radius','A')],'movement',
+        'Replay one explicit sealed continuous crouch sequence; E interleaves exact movement samples and exact one-use placements.',coordinates=(('events','recorded_sequence'),))
+    add('M5','movement.recorded_drop','replay_recorded_drop',[('edge','Q'),('landing','L'),('yaw','H'),('pitch','P'),('direction','B')],'movement',
+        'Replay one sealed bounded native step-off with exact view/direction and require the first recorded grounded landing.',coordinates=(('edge','point'),('landing','point')))
     add('M1','movement.approach','approach',[('target','T'),('position','P'),('terrain','E')],'movement',coordinates=(('position','voxel'),))
     add('M2','movement.dig_step','dig_step',[('direction','D'),('steps','N')],'mining')
     add('C0','crafting.item','craft_item',[('item','I'),('batches','N')],'crafting','Craft recipe batches (NOT desired output count); existing recipe and native station contracts apply.')
@@ -155,7 +164,7 @@ def default_commands(skills=None):
     r._insert(Command('core','I0','inventory.inspect','Fresh observed inventory; does not open a GUI.',(), 'inspect_inventory',frozenset({'observe'})))
     add('I1','inventory.equip','equip_item',[('item','I')],'inventory')
     add('I2','inventory.consume','consume_item',[],'inventory')
-    add('I3','inventory.place','place_block',[('block','B'),('support','P'),('face','F'),('auto_position','A'),('clear_plants','C')],'inventory',coordinates=(('support','voxel'),))
+    add('I3','inventory.place','place_block',[('block','B'),('support','P'),('face','F'),('auto_position','A'),('recorded_pose','Q'),('recorded_aim','R'),('recorded_sneak','K'),('jump_place','J'),('clear_plants','C')],'inventory',coordinates=(('support','voxel'),('recorded_pose','point'),('recorded_aim','point')))
     add('I4','inventory.place_at','place_at',[('block','B'),('position','P'),('clear_plants','C')],'inventory',coordinates=(('position','voxel'),))
     r._insert(Command('core','V0','view.observe','Fresh bounded client observation, no hidden world queries.',(),'observe_environment',frozenset({'observe'})))
     add('V1','view.interact','interact_with_block',[('target','T'),('position','P'),('terrain','E')],'inventory',coordinates=(('position','voxel'),))

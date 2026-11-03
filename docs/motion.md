@@ -93,6 +93,38 @@ Progress fields such as `control_mode` and `owned_input_lease` describe controll
 intent, not an observed gameplay outcome. `steps` counts feedback updates rather
 than blocks or completed key pulses.
 
+### Validated local edge-pose crouch lifetime
+
+A supported local edge pose uses the existing bounded Sneak motor, not a new
+route or collision model. Crouch must already be active during preparation and
+must not expire with its one-tick directional pulse: native residual velocity can
+otherwise slide the player off the support after key-up. Python now uses the
+existing per-button lease contract to keep crouch bounded to eight ticks while
+retaining a one-tick direction, then keeps crouch during observed settlement.
+Actor loss, deadline, cancellation and ordinary skill cleanup still release input.
+The support/contact, arrival-radius and velocity thresholds are unchanged.
+
+This correction passed the focused native edge-placement reproduction. It does
+not establish full replay success: current pilots also expose a separate mismatch
+between coarse M0 arrivals and the next placement's robust pose requirements.
+See [stateful-input-execution.md](stateful-input-execution.md) for the independent
+component and full-replay verdicts.
+
+### Sealed Play2Code recorded paths
+
+Play2Code M3/M4/M5 replay is a separate evidence-bound adapter, not ordinary route
+planning. It can submit only sealed one-tick direction samples, with at most three
+pulses per sample and only bounded passive native-coast observations afterward.
+For M4, a directional sample immediately followed by a hold sample is considered
+already complete only when both recorded targets are inside the unchanged arrival
+radius. Otherwise the adapter may apply only that directional sample's recorded
+pulse. This prevents a reachable penultimate target from stranding an unreachable
+hold target that cannot emit movement. It adds no retry, tolerance, synthesized
+control or alternate path; actor, deadline, cancellation, lease and cleanup fences
+precede every action and remain active in the loop. The confirmed ROT180 case and
+QROT02 qualification are documented in
+[play2code.md](play2code.md#rot180-stabilization--root-cause-confirmed-qrot02-repeatability-go).
+
 ## Native telemetry
 
 `MotionTrace` is a bounded 4,096-sample end-of-client-tick ring. The optional,

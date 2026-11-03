@@ -6,6 +6,8 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=Path(os.environ.get('BLOCKWIRE_VERIFICATION_DIR',ROOT/'build/bcl-verification'))/'mutations'
 OUT.mkdir(parents=True,exist_ok=True)
 MUTATIONS=[
+ ('verified_dispatch_reuse','agent.py',"if self.reuse_verified_observation and outcome['status'] == 'succeeded':","if False:",'test_bcl.RuntimeContracts.test_BR13_verified_snapshot_reuse_only_reduces_dispatch_observations'),
+ ('reused_snapshot_requires_fresh_preaction','agent.py','current, _ = self._observe()  # Never act on stale model-time resources/health.','current = observation  # MUTATION: stale dispatch state must not authorize an action.','test_bcl.RuntimeContracts.test_BR14_reused_dispatch_snapshot_never_authorizes_replacement_actor'),
  ('terminal_source_bound','bcl/cli.py','if len(source) > 16384:','if False:','test_bcl_cli.FileContracts.test_utf8_bom_multiline_and_bounds'),
  ('terminal_frame_bound','bcl/cli.py',"if len(json.dumps(frame, allow_nan=False).encode('utf-8')) > 32768:",'if False:','test_bcl_cli.FileContracts.test_utf8_bom_multiline_and_bounds'),
  ('terminal_wait_async','bcl/cli.py',"if result.get('status') == 'accepted':\n        result = await client.wait(result['task_id'])", "if False:\n        result = await client.wait(result['task_id'])",'test_bcl_cli.TerminalContracts.test_file_waits_for_async_terminal_and_failure_exit'),
@@ -21,7 +23,10 @@ MUTATIONS=[
  ('unsubscribe','bcl/modal.py',"elif op.opcode=='E1':subs.discard(event)","elif op.opcode=='E1':pass",'test_bcl_modal.ModalContracts.test_BS05_sessions_and_subscriptions_are_isolated_and_pending_work_not_replayed'),
  ('explicit_relative_rehomes','bcl/modal.py',"if value=='relative':\n                                home_id=self._allocate_home(staged,request_id)","if value=='relative' and current!='relative':\n                                home_id=self._allocate_home(staged,request_id)",'test_bcl_modal.ModalContracts.test_BS06_relative_home_is_stable_then_explicit_assignment_rehomes_from_actual_position'),
  ('relative_point_home','bcl/runtime.py','else:values[name]+=coordinate.home[axes[kind]]',"else:values[name]+=observation['position'][axes[kind]]",'test_bcl_modal.ModalContracts.test_BS06_relative_home_is_stable_then_explicit_assignment_rehomes_from_actual_position'),
- ('relative_voxel_home','bcl/runtime.py','values[name]=[value[i]+coordinate.voxel_origin[i] for i in range(3)]','values[name]=value','test_bcl_modal.ModalContracts.test_BS12_relative_transform_covers_point_and_voxel_parameters_but_not_omitted_axes'),
+ ('relative_voxel_home','bcl/runtime.py',"origin=coordinate.voxel_origin if kind=='voxel' else coordinate.home","origin=coordinate.home",'test_bcl_modal.ModalContracts.test_BS12_relative_transform_covers_point_and_voxel_parameters_but_not_omitted_axes'),
+ ('relative_vector_point_home','bcl/runtime.py',"origin=coordinate.voxel_origin if kind=='voxel' else coordinate.home","origin=coordinate.voxel_origin",'test_bcl_modal.ModalContracts.test_BS12_relative_transform_covers_point_and_voxel_parameters_but_not_omitted_axes'),
+ ('relative_recorded_path_points','bcl/runtime.py',"elif kind=='point_samples':","elif False:",'test_bcl_modal.ModalContracts.test_BS12_relative_transform_covers_point_and_voxel_parameters_but_not_omitted_axes'),
+ ('relative_recorded_sequence_points','bcl/runtime.py',"elif kind=='recorded_sequence':","elif False:",'test_bcl_modal.ModalContracts.test_BS12_relative_transform_covers_point_and_voxel_parameters_but_not_omitted_axes'),
  ('home_execution_barrier','bcl/runtime.py',"return {'kind':'wait','wait_seconds':.1}","return {'kind':'finish'}",'test_bcl_modal.ModalContracts.test_BS06_relative_home_is_stable_then_explicit_assignment_rehomes_from_actual_position'),
  ('home_commit_before_publish','bcl/modal.py','self.store.save(staged)  # The home is durable before any following coordinate-bearing operation.\n        self.state=staged;return context','self.state=staged\n        self.store.save(staged)\n        return context','test_bcl_modal.ModalContracts.test_BS15_failed_home_commit_never_publishes_a_new_coordinate_origin'),
  ('failed_home_rollback','bcl/modal.py',"if state['modal']['coordinate_mode']=='relative' and any(r['home_id']==current for r in changed):","if False:",'test_bcl_modal.ModalExecutionContracts.test_BS14_cancelled_queued_homing_rolls_back_to_the_previous_coordinate_context'),
@@ -37,6 +42,7 @@ MUTATIONS=[
  ('incoming_events','bcl/compiler.py',"if command.category=='event_out':",'if False:','test_bcl_websocket.WebSocketContracts.test_BW01_single_multiline_settings_and_direction'),
  ('duplicate_assignment','bcl/compiler.py','if param.name in assigned:','if False:','test_bcl.ParserContracts.test_BC03_structured_errors_and_source_locations'),
  ('boolean_lexeme','bcl/compiler.py',"if token.quoted or value not in {'true','false'}:",'if False:','test_bcl.ParserContracts.test_BC07_strings_boolean_integer_positions_and_escaping'),
+ ('quoted_json_scalar','bcl/compiler.py',"parsed=(strict_json('{\"v\":'+value+'}')['v'] if not token.quoted or value[:1] in '[{' else value)","parsed=strict_json('{\"v\":'+value+'}')['v']",'test_bcl.ParserContracts.test_BC07_strings_boolean_integer_positions_and_escaping'),
  ('enum_adapter','bcl/compiler.py','parsed=param.adapter.validate_python(parsed,strict=True)','parsed=parsed','test_bcl.ParserContracts.test_BC03_structured_errors_and_source_locations'),
  ('permissions','bcl/compiler.py','if not command.permissions<=frozenset(permissions):','if False:','test_bcl.ParserContracts.test_BC05_permissions_checked_for_entire_program'),
  ('version','bcl/compiler.py','if version!=VERSION:','if False:','test_bcl.ParserContracts.test_BC04_bounds_whitespace_comments_and_versions'),
@@ -47,6 +53,7 @@ MUTATIONS=[
  ('actor_binding','agent.py',"if self.expected_actor_session is not None and scene.get('actor_session')!=self.expected_actor_session:",'if False:','test_bcl.RuntimeContracts.test_BR04_expected_actor_and_player_identity_are_checked_before_foreign_cleanup'),
  ('full_prevalidation','bcl/runtime.py','compiled=compile_bcl(source,registry,permissions=permissions)','compiled=compile_bcl(source.splitlines()[0],registry,permissions=permissions)','test_bcl.RuntimeContracts.test_BR02_late_compile_error_has_no_observation_effect_or_state_file'),
  ('verified_ack','bcl/runtime.py',"if context['completed_actions'].get(skill,0)>baseline:","if context['completed_actions'].get(skill,0)>=baseline:",'test_bcl.RuntimeContracts.test_BR10_discarded_stale_decision_is_not_acknowledged_as_executed'),
+ ('composite_placement_evidence','bcl/runtime.py',"('block','position','item','target','placements')","('block','position','item','target')",'test_bcl.RuntimeContracts.test_BR12_composite_verified_placement_count_is_retained_as_typed_evidence'),
  ('height_hazards','bcl/runtime.py',"if not c['hazards']",'if True','test_bcl.RuntimeContracts.test_BR09_auto_height_uses_only_safe_connected_cells_not_highest_surface'),
  ('height_unknown','bcl/runtime.py',"if not candidates:raise ValueError('Target height is unobserved or unreachable')","if not candidates:return 64.",'test_bcl.RuntimeContracts.test_BR09_auto_height_uses_only_safe_connected_cells_not_highest_surface'),
 ]

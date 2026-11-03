@@ -1,4 +1,5 @@
 """Placement outcome contracts on fake snapshots, not native collision tests."""
+import math
 import unittest
 from blockwire import CallableBackend, Player
 from blockwire.skills import default_registry, run_skill
@@ -129,7 +130,11 @@ class PlacementContracts(unittest.TestCase):
         class AutoWorld(World):
             moved=False;bad_nav=False;no_edge=False;position_override=None
             def call(self,op,**q):
-                if op=='navigation':return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':'0'*32 if self.bad_nav else self.session,'current_cell':[2,64,2] if self.moved else [0,64,0],'current_center_access':True,
+                if op=='navigation':
+                    point=(self.position_override or [2.5,64.,2.5]) if self.moved else [.5,64.,.5]
+                    return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':'0'*32 if self.bad_nav else self.session,
+                    'position':point,'health':20.,'on_fire':False,'on_ground':True,
+                    'current_cell':[2,64,2] if self.moved else [0,64,0],'current_center_access':True,
                     'cells':[{'position':[0,64,0],'hazards':[]},{'position':[2,64,2],'hazards':[]}],'edges':[] if self.no_edge else [[0,1]]}
                 v=super().call(op,**q)
                 if op=='observe':
@@ -149,6 +154,14 @@ class PlacementContracts(unittest.TestCase):
             result=run_skill(default_registry(),p,'place_block',{'support':[2,64,0],'face':'south','auto_position':True},sleeper=lambda _:None)
         self.assertEqual(result.status,'succeeded',result);self.assertEqual(result.details['position'],[2,64,1]);self.assertEqual(n.uses,1)
         self.assertTrue(move.called)
+        grounded=AutoWorld(True,True);p=Player(CallableBackend(lambda q:grounded.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        def transient_grounded(*args,**kwargs):
+            self.assertEqual(args[1].arrival_radius,.08)
+            grounded.moved=True
+            return SkillResult(status='blocked',reason='not_grounded',text='fixture transient')
+        with patch('blockwire.skills.walking.walk_to',side_effect=transient_grounded) as move:
+            result=run_skill(default_registry(),p,'place_block',{'support':[2,64,0],'face':'south','auto_position':True,'recorded_pose':[2.5,64.,2.5]},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);move.assert_called_once();self.assertEqual(grounded.uses,1)
         valid=AutoWorld(True,True);valid.moved=True;p=Player(CallableBackend(lambda q:valid.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
         with patch('blockwire.skills.walking.walk_to') as move:
             result=run_skill(default_registry(),p,'place_block',{'support':[2,64,0],'face':'south','auto_position':True},sleeper=lambda _:None)
@@ -178,6 +191,238 @@ class PlacementContracts(unittest.TestCase):
         disconnected=AutoWorld(True,True);disconnected.no_edge=True;p=Player(CallableBackend(lambda q:disconnected.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
         result=run_skill(default_registry(),p,'place_block',{'support':[2,64,0],'face':'south','auto_position':True},sleeper=lambda _:None)
         self.assertEqual(result.reason,'no_known_placement_pose');self.assertEqual(result.details['known_placement_poses'],[[2.5,64,2.5]]);self.assertEqual(disconnected.uses,0)
+
+        class PartialWorld(World):
+            recovered=True;position=[2.8,64.,.5]
+            def call(self,op,**q):
+                if op=='navigation':
+                    return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':self.session,
+                            'position':self.position[:],'health':20.,'on_fire':False,'on_ground':True,
+                            'current_cell':[3,64,0],'current_center_access':True,
+                            'source_recovered_from_partial_support':self.recovered,
+                            'cells':[{'position':[3,64,0],'hazards':[]}],'edges':[]}
+                value=super().call(op,**q)
+                if op=='observe':
+                    value.update(position=self.position[:],eye_position=[self.position[0],self.position[1]+1.62,self.position[2]])
+                    value['target'].update(position=[3,63,0],face='west');value['sight_target']['position']=[3,63,0]
+                    value['visible_blocks']['runs']=[[0,3,-1,0,1]]+([[1,2,-1,0,1]] if self.used else [])
+                return value
+        partial=PartialWorld(True,True);p=Player(CallableBackend(lambda q:partial.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        with patch('blockwire.skills.walking.walk_to') as move:
+            result=run_skill(default_registry(),p,'place_block',{'support':[3,63,0],'face':'west','auto_position':True,'recorded_pose':[2.8,64.,.5]},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);move.assert_not_called();self.assertEqual(partial.uses,1)
+        inward=PartialWorld(True,True);inward.position=[2.82,64.,.5];p=Player(CallableBackend(lambda q:inward.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        with patch('blockwire.skills.walking.walk_to') as move:
+            result=run_skill(default_registry(),p,'place_block',{'support':[3,63,0],'face':'west','auto_position':True,'recorded_pose':[2.7,64.,.5]},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);move.assert_not_called();self.assertEqual(inward.uses,1)
+
+        partial=PartialWorld(True,True);partial.recovered=False;p=Player(CallableBackend(lambda q:partial.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'support':[3,63,0],'face':'west','auto_position':True,'recorded_pose':[2.7,64.,.5]},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'recorded_partial_pose_not_safely_reached');self.assertEqual(partial.uses,0)
+        outside=PartialWorld(True,True);outside.position=[3.4,64.,.5];p=Player(CallableBackend(lambda q:outside.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        with patch('blockwire.skills.walking.walk_to') as move:
+            result=run_skill(default_registry(),p,'place_block',{'support':[3,63,0],'face':'west','auto_position':True,'recorded_pose':[2.7,64.,.5]},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'recorded_partial_pose_not_safely_reached');move.assert_not_called();self.assertEqual(outside.uses,0)
+
+    def test_PL09_explicit_jump_place_uses_one_fenced_jump_and_lands_on_verified_block(self):
+        class JumpWorld(World):
+            def __init__(self, visible=True, consumed=True, rises=True, lands=True):
+                super().__init__(visible, consumed);self.items={0:('minecraft:cobblestone',3)}
+                self.position=[.5,64.,.5];self.airborne=False;self.rises=rises;self.lands=lands;self.drives=0
+            def call(self,op,**q):
+                if op=='drive':
+                    assert q['actor_session']==self.session and q['buttons']==['jump'] and 1<=q['ticks']<=8
+                    self.drives+=1
+                    if self.rises:self.airborne=True;self.position=[.5,65.15,.5]
+                    return {'text':'submitted'}
+                if op=='action':
+                    assert q['actor_session']==self.session and q['name']=='use'
+                    self.uses+=1
+                    if self.visible:self.used=True
+                    if self.consumed:self.items[0]=('minecraft:cobblestone',2)
+                    if self.lands:self.airborne=False;self.position=[.5,65.,.5]
+                    return {'text':'submitted'}
+                value=super().call(op,**q)
+                if op=='observe':
+                    value.update(position=self.position[:],eye_position=[self.position[0],self.position[1]+1.62,self.position[2]],
+                        on_ground=not self.airborne,yaw=self.yaw,pitch=self.pitch,
+                        target={'id':'minecraft:grass_block','position':[0,63,0],'face':'up','kind':'block'},
+                        sight_target={'id':'minecraft:grass_block','position':[0,63,0]},
+                        visible_blocks={'encoding':'palette_x_runs_v1','origin':[0,64,0],
+                            'palette':['minecraft:grass_block','minecraft:cobblestone'],
+                            'runs':[[0,0,-1,0,1]]+([[1,0,0,0,1]] if self.used and self.visible else [])})
+                return value
+        n=JumpWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'up','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);self.assertEqual(result.reason,'block_placed')
+        self.assertTrue(result.details['jump_place']);self.assertEqual(n.drives,1);self.assertEqual(n.uses,1)
+        self.assertEqual(n.position,[.5,65.,.5])
+
+        n=JumpWorld(visible=False,consumed=True);p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'up','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'placement_not_observed');self.assertEqual(n.drives,1);self.assertEqual(n.uses,1)
+
+        n=JumpWorld(visible=True,consumed=False);p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'up','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'placement_not_observed');self.assertEqual(n.drives,1);self.assertEqual(n.uses,1)
+
+        n=JumpWorld(lands=False);p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'up','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'jump_place_landing_not_observed');self.assertEqual(n.uses,1)
+
+        n=JumpWorld(rises=False);p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'up','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'jump_height_not_observed');self.assertEqual(n.drives,1);self.assertEqual(n.uses,0)
+
+        n=JumpWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'block':'minecraft:cobblestone','support':[0,63,0],
+            'face':'south','auto_position':True,'jump_place':True,'clear_plants':False},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'jump_place_requires_up_face_and_auto_position');self.assertEqual(n.drives,0);self.assertEqual(n.uses,0)
+
+    def test_PL11_occluded_support_allows_only_robust_recorded_edge_preposition(self):
+        from unittest.mock import patch
+        from blockwire.skills import SkillResult
+        class OccludedWorld(World):
+            def __init__(self):
+                super().__init__(True,True);self.position=[1.72,64.,.5];self.moved=False;self.crouched=False
+            def call(self,op,**q):
+                if op=='navigation':
+                    return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':self.session,
+                            'position':self.position[:],'health':20.,'on_fire':False,'on_ground':True,
+                            'current_cell':[1,64,0],'current_center_access':True,
+                            'source_recovered_from_partial_support':self.moved,
+                            'cells':[{'position':[1,64,0],'hazards':[]}],'edges':[]}
+                if op=='drive':
+                    assert q['actor_session']==self.session and q['buttons']==['sneak']
+                    self.crouched=True;return {'text':'submitted'}
+                if op=='stop':self.crouched=False
+                value=super().call(op,**q)
+                if op=='observe':
+                    eye=[self.position[0],self.position[1]+(1.27 if self.crouched else 1.62),self.position[2]]
+                    value.update(position=self.position[:],eye_position=eye,on_ground=True)
+                    if self.moved:
+                        value['target']={'id':'minecraft:grass_block','position':[2,60,0],'face':'up','kind':'block'}
+                        value['sight_target']={'id':'minecraft:grass_block','position':[2,60,0]}
+                    else:
+                        value['target']={'id':'minecraft:cobblestone','position':[1,63,0],'face':'up','kind':'block'}
+                        value['sight_target']={'id':'minecraft:cobblestone','position':[1,63,0]}
+                    runs=[[0,1,-1,0,1]]+([[1,2,-4,0,1]] if self.moved else [])
+                    if self.used:runs.append([2,2,-3,0,1])
+                    value['visible_blocks']={'encoding':'palette_x_runs_v1','origin':[0,64,0],
+                        'palette':['minecraft:cobblestone','minecraft:grass_block','minecraft:crafting_table'], 'runs':runs}
+                return value
+        n=OccludedWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        def move(*args,**kwargs):
+            self.assertEqual((args[1].x,args[1].y,args[1].z),(2.01,64.,.5));self.assertEqual(args[1].arrival_radius,.08)
+            n.position=[1.95,64.,.5];n.moved=True
+            return SkillResult(status='succeeded',reason='fixture_arrived',text='fixture')
+        with patch('blockwire.skills.walking.walk_to',side_effect=move) as movement:
+            result=run_skill(default_registry(),p,'place_block',{'support':[2,60,0],'face':'up','auto_position':True,
+                'recorded_pose':[2.01,64.,.5],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);movement.assert_called_once();self.assertEqual(n.uses,1)
+
+        n=OccludedWorld();n.position=[1.74,64.,.5];p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        with patch('blockwire.skills.walking.walk_to') as movement:
+            result=run_skill(default_registry(),p,'place_block',{'support':[2,60,0],'face':'up','auto_position':True,
+                'recorded_pose':[2.23,64.,.5],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.reason,'support_not_observed');movement.assert_not_called();self.assertEqual(n.uses,0)
+
+    def test_PL12_exact_face_occlusion_repositions_once_before_any_use(self):
+        from unittest.mock import patch
+        from blockwire.skills import SkillResult
+        class FaceWorld(World):
+            def __init__(self):
+                super().__init__(True,True);self.position=[.5,64.,1.25];self.moved=False;self.crouched=False
+            def call(self,op,**q):
+                if op=='navigation':
+                    return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':self.session,
+                            'position':self.position[:],'health':20.,'on_fire':False,'on_ground':True,
+                            'current_cell':[0,64,1],'current_center_access':True,
+                            'source_recovered_from_partial_support':False,
+                            'cells':[{'position':[0,64,1],'hazards':[]}],'edges':[]}
+                if op=='drive':self.crouched=True;return {'text':'submitted'}
+                if op=='stop':self.crouched=False
+                value=super().call(op,**q)
+                if op=='observe':
+                    value.update(position=self.position[:],eye_position=[self.position[0],self.position[1]+(1.27 if self.crouched else 1.62),self.position[2]],on_ground=True)
+                    target=({'id':'minecraft:grass_block','position':[0,60,0],'face':'up','kind':'block'} if self.moved
+                            else {'id':'minecraft:cobblestone','position':[0,62,1],'face':'up','kind':'block'})
+                    value['target']=target;value['sight_target']={'id':target['id'],'position':target['position']}
+                    value['visible_blocks']={'encoding':'palette_x_runs_v1','origin':[0,64,0],
+                        'palette':['minecraft:grass_block','minecraft:cobblestone','minecraft:crafting_table'],
+                        'runs':[[0,0,-4,0,1],[1,0,-2,1,1]]+([[2,0,-3,0,1]] if self.used else [])}
+                return value
+        n=FaceWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        def move(*args,**kwargs):
+            self.assertEqual((args[1].x,args[1].z),(.5,1.01));n.position=[.5,64.,1.01];n.moved=True
+            return SkillResult(status='succeeded',reason='fixture_arrived',text='fixture')
+        with patch('blockwire.skills.walking.walk_to',side_effect=move) as movement:
+            result=run_skill(default_registry(),p,'place_block',{'support':[0,60,0],'face':'up','auto_position':True,
+                'recorded_pose':[.5,64.,1.01],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);movement.assert_called_once();self.assertEqual(n.uses,1)
+
+    def test_PL10_recorded_crouch_uses_actor_fenced_lease_and_observed_long_reach(self):
+        class CrouchWorld(World):
+            def __init__(self):super().__init__(True,True);self.crouched=False;self.drives=0;self.position=[.5,64.,.5];self.last_was_drive=False;self.crouched_at_use=False;self.post_use_drives=0;self.stops=0
+            def call(self,op,**q):
+                if op=='drive':
+                    assert q['actor_session']==self.session and q['buttons']==['sneak'] and 1<=q['ticks']<=8
+                    self.crouched=True;self.drives+=1;self.last_was_drive=True;self.post_use_drives+=int(self.used);return {'text':'submitted'}
+                if op=='stop':
+                    self.crouched=False;self.last_was_drive=False;self.stops+=1
+                if op=='observe':self.last_was_drive=False
+                if op=='action':self.crouched_at_use=self.last_was_drive
+                if op=='navigation':
+                    return {'profile':'stepped_full_blocks_v1','ready':True,'actor_session':self.session,
+                            'position':self.position[:],'health':20.,'on_fire':False,'on_ground':True,
+                            'current_cell':[math.floor(self.position[0]),64,math.floor(self.position[2])],'current_center_access':True,
+                            'source_recovered_from_partial_support':False,
+                            'cells':[{'position':[0,64,0],'hazards':[]}],'edges':[]}
+                value=super().call(op,**q)
+                if op=='observe':
+                    eye=[self.position[0],self.position[1]+(1.27 if self.crouched else 1.62),self.position[2]]
+                    value.update(position=self.position[:],eye_position=eye,on_ground=True,
+                        target={'id':'minecraft:grass_block','position':[0,60,0],'face':'up','kind':'block'},
+                        sight_target={'id':'minecraft:grass_block','position':[0,60,0]},
+                        visible_blocks={'encoding':'palette_x_runs_v1','origin':[0,64,0],
+                            'palette':['minecraft:grass_block','minecraft:crafting_table'],
+                            'runs':[[0,0,-4,0,1]]+([[1,0,-3,0,1]] if self.used else [])})
+                return value
+        n=CrouchWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'support':[0,60,0],'face':'up','auto_position':True,
+            'recorded_pose':[.5,64.,.5],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);self.assertEqual(n.uses,1);self.assertGreaterEqual(n.drives,2);self.assertTrue(n.crouched_at_use)
+        self.assertFalse(n.crouched);self.assertEqual(result.cleanup,'released')
+
+        import threading
+        from blockwire.skills.core import SkillContext
+        from blockwire.skills.item_actions import PlaceBlock,place_block
+        n=CrouchWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        context=SkillContext(p,threading.Event(),100.,lambda _:None,lambda:0.,lambda _:None)
+        preserved=place_block(context,PlaceBlock(support=[0,60,0],face='up',auto_position=True,
+            recorded_pose=[.5,64.,.5],recorded_sneak=True),expected_session=n.session,preserve_recorded_sneak=True)
+        self.assertEqual(preserved.status,'succeeded');self.assertTrue(n.crouched);self.assertGreaterEqual(n.post_use_drives,3);self.assertEqual(n.stops,0)
+        p.stop();self.assertFalse(n.crouched)
+
+        n=CrouchWorld();n.position=[.05,64.,.5];p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'support':[0,60,0],'face':'up','auto_position':True,
+            'recorded_pose':[-.234,64.,.5],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);self.assertEqual(n.uses,1)
+
+        n=CrouchWorld();n.position=[.765,64.,.841];p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'support':[0,60,0],'face':'up','auto_position':True,
+            'recorded_pose':[.690,64.,1.089],'recorded_sneak':True},sleeper=lambda _:None)
+        self.assertEqual(result.status,'succeeded',result);self.assertEqual(n.uses,1)
+
+        n=CrouchWorld();p=Player(CallableBackend(lambda q:n.call(q['op'],**{k:v for k,v in q.items() if k!='op'})))
+        result=run_skill(default_registry(),p,'place_block',{'support':[0,60,0],'face':'up','auto_position':True,
+            'recorded_pose':[.5,64.,.5]},sleeper=lambda _:None)
+        self.assertEqual(result.status,'blocked');self.assertEqual(n.uses,0);self.assertEqual(n.drives,0)
 
     def test_PL01_one_use_requires_observed_block_and_item_consumption(self):
         for visible,consumed in [(False,False),(True,False),(False,True),(True,True)]:

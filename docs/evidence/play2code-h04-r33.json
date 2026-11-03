@@ -1,0 +1,142 @@
+{
+  "schema_version": 2,
+  "recorded_utc": "2026-11-02T07:03:00Z",
+  "scope": "Passive local Play2Code capture, strict H04 owner-manual benchmark, sealed reconstruction export, one isolated generated replay, and independent closed-save verification",
+  "assessment": {
+    "native_capture_and_export": "GO within the isolated Minecraft 26.3 test client",
+    "manual_superflat_house": "GO via H04",
+    "generated_bcl_replay": "GO via R33 on the canonical fixture",
+    "broad_portability": "NOT ESTABLISHED"
+  },
+  "architecture": {
+    "recorder": "Local F9/F10 passive observer; owns no key, camera, hotbar, packet or world mutation",
+    "remote_exclusion": "Recording requires the authenticated control endpoint to be disabled; endpoint activation invalidates capture",
+    "exporter": "Offline validation and mapping through default_commands() and compile_bcl()",
+    "execution_stack": "Authenticated BCL/runtime/registered skills/native Minecraft actions; no second planner or hidden controller",
+    "independent_truth": "Operation postconditions plus native inspection and closed-save voxel verification",
+    "new_protocol_rpc": false,
+    "new_mcp_tool": false,
+    "narrow_replay_skills": [
+      "replay_recorded_path",
+      "replay_recorded_sequence",
+      "replay_recorded_drop"
+    ],
+    "narrow_bcl_opcodes": [
+      "M3",
+      "M4",
+      "M5"
+    ],
+    "automatic_replay": false,
+    "automatic_action_retries": 0
+  },
+  "historical_native_graphical_smoke": {
+    "status": "PASS",
+    "minecraft": "26.3",
+    "native_tick_samples": 515,
+    "confirmed_placements": 1,
+    "confirmed_breaks": 1,
+    "raw_timeline_unchanged_by_export": true,
+    "generated_payload_operations": 17,
+    "all_batches_compiled": true,
+    "endpoint_disabled_during_capture": true,
+    "remote_controller_interference": false,
+    "claim_boundary": "Capture/export smoke only; not the H04 house or R33 replay verdict"
+  },
+  "manual_benchmark": {
+    "run_id": "H04",
+    "status": "GO",
+    "prior_runs": "H01-H03 remain immutable calibration failures",
+    "sealed_events": 2214,
+    "native_ticks": 2056,
+    "confirmed_unique_placements": 71,
+    "required_blocks": 71,
+    "closed_save_verified_blocks": 71,
+    "missing_blocks": 0,
+    "unexpected_blocks": 0,
+    "manual_duration_seconds": 101.947,
+    "sealed_duration_seconds": 102.781447078,
+    "endpoint_disabled": true,
+    "ordinary_owner_input": true,
+    "re_recording_required": false
+  },
+  "generated_replay": {
+    "run_id": "R33",
+    "status": "GO",
+    "prior_runs": "R01-R32 remain immutable NO-GO attempts",
+    "source_unedited": true,
+    "coordinate_mode": "relative",
+    "persistent_home_assignments": 1,
+    "manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "batches": 20,
+    "payload_operations": 571,
+    "compiled_operations": 612,
+    "executed_result_operations": 572,
+    "opcode_counts": {
+      "M0": 429,
+      "M4": 1,
+      "M5": 1,
+      "I1": 2,
+      "V2": 69,
+      "I3": 69
+    },
+    "verified_placement_events": 71,
+    "failed_actions": 0,
+    "automatic_action_retries": 0,
+    "elapsed_seconds": 457.253838652,
+    "native_read_only_checks": "PASS",
+    "closed_client_save": {
+      "verified_blocks": 71,
+      "missing_blocks": 0,
+      "unexpected_or_unknown_cells": 0,
+      "objective_verified": true
+    }
+  },
+  "verification": {
+    "gradle_check": "PASS",
+    "python_tests": {
+      "total": 542,
+      "status": "PASS"
+    },
+    "mutations": {
+      "play2code_exporter": {
+        "total": 34,
+        "killed": 34
+      },
+      "skills": {
+        "total": 182,
+        "killed": 182
+      },
+      "bcl": {
+        "total": 48,
+        "killed": 48
+      }
+    },
+    "canonical_fixture_identity": "d61d166e4431e7693907cc0590f1808e2d8f12d62befe3b0a5a64c22b70696a7",
+    "installed_mod_jar_sha256": "3cc10f3d72436cbca1e1490551df00817e1c860cc8ba1c6ef80a94328ea77ec5",
+    "client_closed": true,
+    "endpoint_port_closed": true,
+    "blockwire_restored_disabled": true,
+    "published_or_uploaded": false
+  },
+  "qualification_boundary": {
+    "qualified": "One sealed H04 reconstruction on one fresh canonical Minecraft 26.3 fixture",
+    "not_qualified": [
+      "Arbitrary structures or terrain",
+      "Broad dimensions, slabs, fluids, caves or modpacks",
+      "Hostile unattended Survival",
+      "Nether or End progression",
+      "Strict native movement-performance parity",
+      "Strict Test-B repeatability beyond its retained historical result"
+    ]
+  },
+  "privacy": "Raw timelines, recording identity, UUIDs, actor tokens, precise observations, saves, journals, credentials, certificates and private keys remain private and outside this evidence file and distributable bundles.",
+  "retained_verdicts": {
+    "h04_manual": "GO",
+    "r33_generated_replay": "GO",
+    "r01_r32": "NO-GO and immutable",
+    "test_a": "GO",
+    "test_b_capability": "GO via B12",
+    "test_b_b12_b14_repeatability": "NO-GO / not established",
+    "strict_native_movement_performance_parity": "NO-GO"
+  }
+}

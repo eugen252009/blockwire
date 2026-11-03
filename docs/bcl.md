@@ -245,14 +245,38 @@ resettable setting.
 ## Play2Code source below BCL execution
 
 [Play2Code](play2code.md) can translate a sealed local-human timeline into ordered
-ordinary BCL/1 batches. It adds no opcode, runtime branch, skill or controller.
-The exporter derives admissibility from this registry/compiler: grounded movement
-checkpoints map to M0, required held items to I1, stably observed main-hand
-placements to I4 with `C=false`, and stably observed breaks-to-air to exact C3.
+BCL/1 batches. It adds no recorder RPC, second controller or planner. The exporter
+derives admissibility from this registry/compiler: ordinary grounded movement maps
+to M0; narrowly matched sealed movement maps to M3/M4/M5; required held items map
+to I1; stably observed main-hand placements map to exact V2/I3 (or the same
+verified action inside M4); and stably observed breaks-to-air map to exact C3.
 Unsupported/uncertain actions remain explicit records rather than guessed commands.
-Every batch compiles before publication, uses absolute mode and retains source order
-without path smoothing or action optimization. Export never executes the source;
-compile success is not replay or external-objective verification.
+Every batch compiles before publication and retains source order without path
+smoothing or action optimization. Default export uses self-contained absolute mode;
+explicit portable export uses one `S1 relative` in the first batch and requires all
+continuation batches to run in the same persisted session without reset/re-homing.
+Export never executes the source; compile success is not replay or
+external-objective verification. H04/R33 establish manual capture and replay
+functionality; Q03/P03 separately establish 3/3 repeatability and exact translation
+across three equivalent relative homes, each with native and closed-save checks.
+
+An explicitly requested Play2Code export may also derive a separate offline program
+by translating typed coordinates, optionally reflecting one horizontal block
+lattice axis, and applying an exact 0°/90°/180°/270° turn around an explicit anchor
+voxel/block centre. It transforms points/voxels, yaw, placement faces, exact
+recorded hit positions and player-local recorded direction labels while preserving
+opcode/action order. Composition is mirror, then quarter turn, then translation.
+Pure rotation retains player-local direction labels because yaw rotates with the
+path; reflection exchanges lateral labels. The original capture and source remain
+unchanged. This does not add a BCL coordinate mode: the derived source still uses
+ordinary BCL/1 and exactly one first-batch `S1 relative` home.
+
+X01 qualified the retained H01 translation; X02 remains a mirror NO-GO and X03
+qualified its corrected reflection. ROT90-A, ROT180-B and ROT270-A each qualified
+one exact rotated replay. ROT180-A remains a sample-miss NO-GO, so rotation
+functionality is GO while strict repeatability remains NO-GO at 5/6. BCL itself
+still understands only concrete typed coordinates; no rotation/building opcode or
+runtime transform was added. These derived replays are not human generalization.
 
 ## Persistent projects above BCL
 

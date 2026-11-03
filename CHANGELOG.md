@@ -2,6 +2,25 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Profiled unchanged H04 execution and tested trusted-host opt-in reuse of the last
+  verified post-action observation for deterministic dispatch only; fresh pre-effect
+  checks and ordinary input cleanup remain mandatory. Experimental C01 identity
+  replays passed 4/4 and averaged 11.2% less wall time, but 90-degree, 270-degree and
+  reflection regressions failed with `not_grounded` (6/9 full cohort). The experiment
+  is **NO-GO**, defaults off and is not enabled by BCLRunner. Native motion/input
+  changes from a failing draft were removed. Stateful-input optimization remains
+  incomplete; see `docs/stateful-input-execution.md`. Historical verdicts remain.
+- Native component A/B testing confirmed a real edge fall after a one-tick
+  direction lease also released Sneak. Validated local edge poses now prepare
+  crouch and lease it independently while retaining one-tick direction and normal
+  cleanup. Add default-off trusted-host camera/Sneak/placement-adapter reuse within
+  one active skill context, with fresh actor/inventory checks and context-close
+  invalidation. Scoped native wall, walking, interaction and lifecycle tests passed.
+  Full replay pilots still fail unchanged partial-pose placement guards; no safety
+  tolerance or recorded path was changed. The final 9-case cohort was not started,
+  and standard optimization remains off. Evidence is recorded separately in
+  `docs/evidence/stateful-input-grounding.json`; production activation remains NO-GO.
+
 - BCL/1 `S1 relative` now performs ordered execution-time homing and persists one
   session coordinate origin across requests/reconnects. Repeated explicit relative
   assignments re-home; movement does not. Absolute/toggle/query behavior, typed
@@ -30,10 +49,43 @@
   client-observed placement/break correlation. No input ownership or protocol RPC.
 - Explicit offline export retains raw JSONL, unsupported conversions, absolute and
   relative coordinate contracts, unoptimized compiling BCL/1 batches and hashes.
-  Replay is never automatic or implied by compilation. A private isolated native
-  movement/placement/break capture-and-export smoke passed; generated BCL replay
-  remains NOT RUN. The manual 71-block human benchmark is prepared but remains
-  PENDING until the owner performs it.
+  Default BCL stays absolute; opt-in portable export emits exactly one first-batch
+  `S1 relative` and same-session continuation batches with origin consistency checks.
+  Replay is never automatic or implied by compilation. H04 is the first strict
+  owner-manual 71-block GO. Evidence-only M3/M4/M5 adapters preserve continuous
+  crouch placements, per-button one-tick movement leases and one bounded native
+  step-off/landing. R33 is the first strict generated replay GO: 20/20 frozen
+  unedited batches, 71/71 placement postconditions, zero retries and exact
+  independent closed-client save verification. R34 retained a pre-effect harness
+  failure and Q02 retained 1/3 repeatability after M4 sampled native motion too
+  early. M4 now observes bounded residual motion after its final permitted pulse,
+  without extra direction or action retry. Frozen Q03 passed R38–R40 at 3/3; P03
+  passed the same byte-identical BCL at two additional relative homes with exact
+  71-block translations. Explicit offline coordinate derivation now supports strict
+  integer translation and one horizontal lattice reflection across typed movement,
+  mutation, yaw, face, hit-point and recorded-control fields without changing
+  action order or persistent `S1 relative` homing. X01 qualified the retained H01
+  translation. X02 remains an immutable mirror NO-GO after reflected yaw retained
+  `right`; a new frozen export exchanges lateral controls and X03 passed 20/20,
+  71/71, zero retries and independent closed-save verification against H02. Derived
+  exports are not new human recordings. Exact 0°/90°/180°/270° quarter turns now
+  use an explicit anchor voxel, block-centre point anchor, positive Minecraft-yaw
+  convention and exact axis swaps/sign changes. Identity remains byte-identical to
+  H04/v16; X01 BCL and X03 artifacts remain unchanged. ROT90-A, ROT180-B and
+  ROT270-A each passed 20/20, 71/71 and independent post-exit save verification.
+  ROT180-A remains NO-GO at M4 sample 22, so the original QROT01 point-in-time
+  cohort remains 5/6. Follow-up analysis confirmed that a directional M4 sample
+  immediately before a hold sample could be accepted against only its own target,
+  skipping its sealed one-tick pulse even when the hold target remained outside the
+  unchanged radius. The corrected completion gate requires both targets before
+  skipping that pulse; it adds no tolerance, action retry, direction or alternate
+  path. Exact-suffix isolation changed from 0/3 to 3/3, with one recorded pulse per
+  success. New frozen QROT02 native qualification passed ROT180 3/3, all quarter
+  turns 7/7, and identity plus X01/X03 regressions 10/10 overall, each at 20/20,
+  71/71, zero failed actions/retries and exact post-exit verification. Strict
+  rotation repeatability is GO for QROT02 while ROT180-A and QROT01 remain immutable.
+  Arbitrary angles and direction-sensitive block-state rotation remain unsupported.
+  H05 remains owner-manual/NOT RUN. Earlier attempts remain immutable.
 - Standalone trusted Python `setup`/`loop` controllers, normal asyncio TaskGroups,
   bounded subscribed events, read-only state snapshots and managed cancellation.
 - Concurrent `walk_to` + conservative native `eat`; one input mixer, per-task

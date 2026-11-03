@@ -151,7 +151,7 @@ cross-request home persistence, explicit re-homing, restart/dedup recovery and t
 tested Python/TLS/file-CLI/REPL interfaces all passing. This qualifies only the
 coordinate adapters and fixture path exercised there; broader gameplay remains separate.
 
-### Play2Code — record human play as conservative BCL (development)
+### Play2Code — passive capture and qualified sealed reconstruction
 
 With the control endpoint disabled, press **F9** to start a passive local recording
 and **F10** to stop after a bounded world-mutation confirmation window. The recorder
@@ -159,12 +159,50 @@ observes native movement/input, hotbar changes, block-use/mining intents and sta
 client-observed placement/break outcomes; it never drives the player. Export with
 `blockwire-play2code export <minecraft>/recordings/<id>` to retain the raw JSONL,
 explicit unsupported conversions, unoptimized compiling BCL/1 batches and a hashed
-manifest. Generated BCL is **not replay qualification**. There is no recorder RPC,
-new opcode, controller or planner. A small isolated native movement/placement/break
-capture-and-export smoke passed, but generated-BCL replay remains **NOT RUN**. The
-owner-only 71-block human-house benchmark is prepared but remains **PENDING**; no
-Test-A/model output is accepted as a human baseline. See
-[Play2Code architecture, format and benchmark protocol](docs/play2code.md).
+manifest. Default export is absolute; explicit `--coordinate-mode relative` emits
+one persistent `S1 relative` home followed by same-session continuation batches.
+Generated BCL is **not automatically replay qualification**. There is no recorder
+RPC, second controller or planner. Narrow M3/M4/M5 adapters are emitted only from
+matching sealed movement, placement and landing evidence. H04 is the first strict
+owner-manual 71-block house GO. R33 is the first strict generated replay GO: one
+frozen unedited relative export, 20/20 batches, 71/71 operation-evidenced
+placements, zero retries, and exact independent closed-client save verification.
+R34 retained a pre-effect harness failure; the unchanged Q02 cohort then measured
+1/3 before a bounded post-pulse native-observation fix. Frozen Q03 replayed 3/3
+successfully as R38–R40. P03 used the same source and byte-identical BCL at two
+additional relative homes; all three origins independently verified 71/71 with
+exact voxel translation and zero retries. A separate offline derivation then kept
+the frozen H04 action order and one-home `S1 relative` strategy while transforming
+typed movement, mutation, yaw, face, hit-point and recorded-control fields. X01
+qualified the retained H01 translation; the first mirror X02 remains NO-GO after
+failing its unchanged lateral control, and corrected X03 qualified the retained H02
+reflection at 71/71 with zero retries. Exact quarter turns around an explicit
+local-origin voxel now cover 90°, 180° and 270° without changing BCL semantics.
+ROT90-A, ROT180-B and ROT270-A each independently passed 20/20, 71/71 and closed-save
+verification. ROT180-A remains an immutable M4 sample-miss NO-GO; the original
+QROT01 point-in-time cohort therefore remains 5/6. Subsequent evidence confirmed a
+recorded-path terminal-sample defect: a directional sample could be accepted before
+its immediately following hold target was reachable, leaving that hold unable to
+correct position. The bounded correction uses only the already-recorded one-tick
+pulse, with the same radius, pulse bound and zero action retries. Frozen QROT02 then
+passed ROT180 3/3, all quarter turns 7/7, and identity/translation/reflection
+regressions 10/10 overall with exact closed-save verification. Strict rotation
+repeatability is therefore GO for QROT02 without relabelling ROT180-A or QROT01.
+These are derived replays, not new human recordings. H01–H03 and every failed replay
+retain their actual verdicts. H05 remains `PENDING_OWNER_MANUAL_BUILD`;
+generalization is not yet established. See
+[Play2Code architecture, format and benchmark protocol](docs/play2code.md) and the
+[stabilization evidence](docs/evidence/play2code-rotation-stabilization.json).
+
+A subsequent [executor-performance experiment](docs/stateful-input-execution.md)
+measured 11.2% faster unchanged identity replays, but failed three transformation
+regressions. Its overall verdict is **NO-GO** and it is not enabled by BCL execution.
+The requested stateful-input optimization remains incomplete; historical QROT02
+results are not replaced by this rejected candidate. A later native component A/B
+test confirmed and corrected the local Sneak-release edge fall. Scoped reuse tests
+passed, but new full-replay pilots stopped at unchanged placement-pose safety
+checks, so full qualification and standard activation remain **NO-GO**. See the
+[grounding follow-up](docs/evidence/stateful-input-grounding.json).
 
 ### Strategic LLM agent (development prototype)
 

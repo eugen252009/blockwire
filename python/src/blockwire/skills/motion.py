@@ -15,8 +15,8 @@ ROTATION_TOLERANCE = .25
 MOVING_SPEED = .01
 
 
-def _blocked(reason):
-    return SkillResult(status="blocked", reason=reason, text="Motion stopped: " + reason.replace("_", " "))
+def _blocked(reason,**details):
+    return SkillResult(status="blocked", reason=reason, text="Motion stopped: " + reason.replace("_", " "),details=details)
 
 
 def _yaw_delta(target, current):
@@ -87,6 +87,24 @@ def _broad_steering_support(state,source,direction):
                for base in (source,forward) for sign in (-1,1))
 
 
+def _supported_sneak_edge_pose(state, target, avoid_damage):
+    """Allow one tiny native sneak pulse while the target body still overlaps the current support."""
+    if state.get('on_ground', True) is not True:
+        return False
+    position = state['position'];cell = tuple(state['current_cell'])
+    if abs(position[1] - target[1]) > .2 or math.hypot(position[0] - target[0], position[2] - target[2]) > .45:
+        return False
+    support = next((row for row in state.get('cells', ()) if tuple(row.get('position', ())) == cell), None)
+    if support is None or (avoid_damage and support.get('hazards')):
+        return False
+    if abs(target[0] - cell[0] - .5) > .8 or abs(target[2] - cell[2] - .5) > .8:
+        return False
+    half = .3
+    overlap_x = max(0., min(target[0] + half, cell[0] + 1.) - max(target[0] - half, cell[0]))
+    overlap_z = max(0., min(target[2] + half, cell[2] + 1.) - max(target[2] - half, cell[2]))
+    return min(overlap_x, overlap_z) >= .0001 and max(overlap_x, overlap_z) >= .25
+
+
 def _edge_kind(state, source, destination):
     """Read one native edge annotation; old fixtures retain conservative inference."""
     positions=[tuple(c["position"]) for c in state["cells"]]
@@ -118,19 +136,25 @@ class FlatMotion:
         self._sample_position = None
         self._sample_time = None
         self._peak_step = 0.
+        self.sneak_stance = False  # Owned only by this motor's enclosing skill.
 
-    def halt(self, context):
+    def halt(self, context, *, preserve_sneak=False):
         context.check()
-        context.player.stop()
+        if preserve_sneak and self._session is not None:
+            context.player.drive(['sneak'], LEASE_TICKS, wait=False, actor_session=self._session)
+            self.sneak_stance = True
+        else:
+            context.player.stop()
+            self.sneak_stance = False
         self.holding = False
         self._buttons, self._direction = (), None
         self.mode, self.lease_ticks = "stopped", 0
 
-    def _fail(self, context, reason):
-        if self.holding:
+    def _fail(self, context, reason, **details):
+        if self.holding or self.sneak_stance:
             self.halt(context)
         self._gap_runup = None
-        return _blocked(reason)
+        return _blocked(reason,**details)
 
 
     def step(self, context, state, destination, view, avoid_damage):
@@ -272,7 +296,11 @@ class FlatMotion:
                 return self.gap(context,state,destination,view,movement,avoid_damage,takeoff=takeoff)
             active_target=(behind[0]+.5,float(behind[1]),behind[2]+.5)
         path=route(state,active_target,avoid_damage)
-        if path is None:return self._fail(context,"no_known_safe_route")
+        edge_pose = path is None and movement == 'sneak' and _supported_sneak_edge_pose(state, active_target, avoid_damage)
+        if path is None:
+            if not edge_pose:return self._fail(context,"no_known_safe_route",position=position,target=list(active_target),
+                                                current_cell=list(cell),observed_cells=len(state.get('cells',())))
+            path=[cell]
         next_cell=path[1] if len(path)>1 else None
         kind=_edge_kind(state,cell,next_cell) if next_cell else None
         if next_cell and kind is None:return self._fail(context,"unsupported_route_edge")
@@ -296,7 +324,7 @@ class FlatMotion:
             return self.step(context,state,next_cell,view,avoid_damage)
 
         target_cell=(math.floor(active_target[0]),round(active_target[1]),math.floor(active_target[2]))
-        final_waypoint=cell==target_cell
+        final_waypoint=edge_pose or cell==target_cell
         centering=bool(state.get("source_recovered_from_partial_support")) or (kind in {"step","gap_jump"} and center_distance>.16)
         if final_waypoint:waypoint=(active_target[0],active_target[2])
         elif centering:waypoint=center
@@ -304,6 +332,13 @@ class FlatMotion:
             self.departed,self.pending=cell,next_cell;waypoint=(next_cell[0]+.5,next_cell[2]+.5)
         else:waypoint=(active_target[0],active_target[2])
 
+        # A locally supported edge pose needs crouch during preparation as well
+        # as during the directional tick. Native residual velocity survives a
+        # key-up; releasing crouch with a one-tick direction can slide off support.
+        # This retains no key beyond the enclosing skill's ordinary cleanup.
+        if edge_pose and not self.holding:
+            context.check();context.player.drive(['sneak'],LEASE_TICKS,wait=False,actor_session=self._session)
+            self.sneak_stance=True
         direction=None;ahead=_straight_ahead(path,position) if continuous and view is not None and not centering else None
         if ahead:
             point,direction=ahead;waypoint=(point[0],point[2])
@@ -320,7 +355,7 @@ class FlatMotion:
             if self.holding:self.halt(context)
             self.mode="braking";context.pause(UPDATE_SECONDS);return None
 
-        rolling=bool(continuous and view is not None and distance>radius+.08 and
+        rolling=bool(not edge_pose and continuous and view is not None and distance>radius+.08 and
                      (final_waypoint or centering or kind in {"flat","diagonal"} or ahead))
         motion_yaw=math.degrees(math.atan2(-dx,dz));camera_yaw=motion_yaw
         heading_error=abs(_yaw_delta(camera_yaw,view[0])) if view is not None else 0.
@@ -374,11 +409,17 @@ class FlatMotion:
         per_tick_bound=max(lease_bound,native_speed,self._peak_step)
         lease=max(1,min(LEASE_TICKS,math.floor(room/per_tick_bound))) if room>0 else 1
         ticks=lease if rolling else 1 if distance<.4 else min(max_ticks,2)
-        context.check();context.player.drive(buttons,ticks,wait=False,actor_session=self._session)
+        context.check()
+        if edge_pose:
+            leases={button:ticks for button in buttons};leases['sneak']=LEASE_TICKS
+            context.player.drive(buttons,LEASE_TICKS,wait=False,actor_session=self._session,button_ticks=leases)
+            self.sneak_stance=True
+        else:
+            context.player.drive(buttons,ticks,wait=False,actor_session=self._session)
         self.holding=True;self._buttons,self._direction=tuple(buttons),direction if rolling else None
         self.mode,self.lease_ticks=("rolling" if rolling else "precision"),ticks
         if rolling:
             context.pause(UPDATE_SECONDS)
         else:
-            context.pause(ticks*.05+.06);self.halt(context);self.mode="precision"
+            context.pause(ticks*.05+.06);self.halt(context,preserve_sneak=edge_pose);self.mode="edge_precision" if edge_pose else "precision"
         return None

@@ -1,0 +1,187 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-02T12:23:45Z",
+  "scope": "Exact 0/90/180/270-degree offline Play2Code quarter-turn derivation and isolated native Minecraft qualification of the frozen H04/v16 construction sequence",
+  "source": {
+    "human_recording": "H04",
+    "human_recording_verdict": "GO",
+    "generated_replay_functionality": "R33 GO",
+    "source_manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "source_bcl_identity": "7bc1fc61f1d73aee4025acc0f24a68cd3b5b92b49e9f64ff21deeeda56aad3c4",
+    "rotation_prompt_sha256": "39642ee6f1647d1acc8c6222edab22e98ccd5407133c50832794c4808d394dd0",
+    "source_freeze_identity": "5142f456a7847283f123adf57de49287e09d9f889f3d4e43061dd4cd7bcf535b",
+    "working_source_identity": "0ad2ea126517034a7b85bb269cb3b7c59b2982d040fcabd5b88cff613f7d7961",
+    "batches": 20,
+    "payload_operations": 571,
+    "compiled_operations": 612,
+    "original_capture_or_program_modified": false
+  },
+  "semantics": {
+    "supported_degrees": [0, 90, 180, 270],
+    "positive_direction": "Positive rotation follows positive Minecraft yaw: clockwise on a north-up map viewed from above.",
+    "voxel_anchor": [0, 0],
+    "continuous_anchor": [0.5, 0.5],
+    "rotation_anchor_meaning": "The explicit anchor is the local construction-origin voxel; continuous feet, pose, view-target and hit points rotate about that voxel's centre.",
+    "voxel_formulas": {
+      "90": "(dx,dz) -> (-dz,dx)",
+      "180": "(dx,dz) -> (-dx,-dz)",
+      "270": "(dx,dz) -> (dz,-dx)"
+    },
+    "operation_order": "mirror, then quarter-turn rotation, then integer translation",
+    "yaw": "Pure rotation adds the selected quarter turn and normalizes to [-180,180). Pitch is unchanged.",
+    "faces": "Horizontal support-face vectors rotate exactly; up and down remain unchanged.",
+    "recorded_directions": "Pure rotation retains player-local forward/back/left/right labels because yaw rotates with the path. Reflection still exchanges lateral labels.",
+    "s1": "The recorded point and voxel homes are not transformed. The generated sequence retains exactly one first-batch S1 relative and no continuation re-homing.",
+    "floating_point_policy": "Quarter turns use exact coordinate swaps and sign changes rather than trigonometric coordinate rotation."
+  },
+  "transformed_fields": [
+    "M0 movement points, recorded yaw and recorded direction",
+    "M3 recorded path points and yaw",
+    "M4 movement points, support voxels, faces, poses, hit positions and yaw",
+    "M5 edge and landing points plus yaw",
+    "V2 view points",
+    "I3 support voxels, placement faces, recorded pose and recorded aim",
+    "C3 removal voxels"
+  ],
+  "generated_exports": {
+    "ROT90": {
+      "target": "T04-ROT90",
+      "manifest_sha256": "262559035a33038c7efd496526bc13861a67537fc0651ed035a71e6cceb66751"
+    },
+    "ROT180": {
+      "target": "T05-ROT180",
+      "manifest_sha256": "bbe4d9d2fbb223e1a2407ca69a11b73d5bd15c8c06515cac1c91b77069547012"
+    },
+    "ROT270": {
+      "target": "T06-ROT270",
+      "manifest_sha256": "4512c4f2e2a0af7238b4dd7a4505ecfb540fe3bdb319c1122b3ce0580a2f84c4"
+    }
+  },
+  "offline_qualification": {
+    "decision": "GO",
+    "independent_reference_formulas": true,
+    "identity_export_byte_identical_to_h04_v16": true,
+    "identity_manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "raw_recording_byte_identical": true,
+    "action_and_opcode_order_identical": true,
+    "batch_and_operation_counts_identical": true,
+    "single_persistent_relative_home": true,
+    "placements_per_rotation": 71,
+    "placement_dependencies": {
+      "original_floor": 15,
+      "prior_structure": 56,
+      "invalid": 0
+    },
+    "entrance_and_roof_geometry_exact": true,
+    "unrotated_only_blocks_left_behind": 0,
+    "translation_x01_bcl_regression": "PASS",
+    "reflection_x03_artifact_regression": "PASS",
+    "x02_historical_status": "NO_GO retained"
+  },
+  "native_functionality": {
+    "decision": "GO",
+    "criterion": "At least one fresh, immutable, independently verified strict GO exists for each required orientation.",
+    "first_strict_go": {
+      "ROT90": {
+        "run": "ROT90-A",
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "verified_blocks": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 457.30144585499875,
+        "closed_snapshot_identity": "0fea42c65cfcdfe488c26e4fdea6deb450398d699e498a596566e3f4548e5bc7"
+      },
+      "ROT180": {
+        "run": "ROT180-B",
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "verified_blocks": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 461.15885366699877,
+        "closed_snapshot_identity": "a4b1dbd28eb679a5de33e8107ef9a58c97d4c5739a27580ec7651d4e16f68f4c"
+      },
+      "ROT270": {
+        "run": "ROT270-A",
+        "batches": "20/20",
+        "executed_operations": 572,
+        "verified_placements": 71,
+        "verified_blocks": 71,
+        "failed_actions": 0,
+        "automatic_action_retries": 0,
+        "elapsed_seconds": 457.06967124600123,
+        "closed_snapshot_identity": "f3e6ea2979d3160c940a91031df3839e90738f82f9f4fce9c1fa15e90801d6ac"
+      }
+    },
+    "acceptance": "Each selected GO has exact 71-block geometry, zero missing/incorrect/unexpected cells, a clear rotated entrance, complete roof, accessible interior, safe player, native read-only verification and matching post-exit closed-save verification."
+  },
+  "retained_failure": {
+    "run": "ROT180-A",
+    "status": "NO_GO",
+    "completed_batches": "15/20",
+    "executed_operations": 432,
+    "verified_placement_events": 55,
+    "verified_blocks": 57,
+    "missing_blocks": 14,
+    "failed_actions": 1,
+    "automatic_action_retries": 0,
+    "reason": "M4 recorded_path_sample_not_reached at sample 22; the final observed distance was just outside the unchanged 0.3 radius.",
+    "classification": "The independently calculated coordinates, yaw, faces and support dependencies matched. No tolerance or retry was added. Fresh ROT180-B passed the unchanged frozen program.",
+    "closed_snapshot_identity": "adc85fcc3d89757c0defd90e893d48f49d2982d2bb3edcd74830cf76902e0abf"
+  },
+  "repeatability": {
+    "decision": "NO_GO",
+    "all_planned_cohort": "NO_GO",
+    "overall_strict_successes": 5,
+    "attempts": 6,
+    "per_orientation": {
+      "ROT90": "2/2",
+      "ROT180": "1/2",
+      "ROT270": "2/2"
+    },
+    "note": "Functionality and repeatability remain separate. ROT180-A is not discarded or relabelled."
+  },
+  "automated_regression": {
+    "decision": "GO",
+    "python_tests": 551,
+    "gradle_check": "PASS",
+    "mutations": {
+      "play2code_exporter": "47/47 killed",
+      "skills": "183/183 killed",
+      "bcl": "48/48 killed"
+    },
+    "tls_interop": "PASS, 10/10 checks including TLS 1.2/1.3, pinned certificate and hostname verification, API-key enforcement and plaintext rejection"
+  },
+  "decisions": {
+    "rotation_transformation": "GO",
+    "identity_regression": "GO",
+    "native_rotation_functionality": "GO",
+    "translation_and_reflection_regression": "GO",
+    "strict_repeatability": "NO_GO",
+    "human_generalization": "PENDING",
+    "h05": "PENDING_OWNER_MANUAL_BUILD"
+  },
+  "limitations": [
+    "Arbitrary-angle rotation is not implemented.",
+    "Direction-sensitive Minecraft block-state rotation is not qualified; the benchmark uses cobblestone.",
+    "The result qualifies the frozen H04 construction strategy on the isolated equivalent Superflat fixture, not arbitrary structures or terrain.",
+    "Derived exports are not new human recordings and do not replace any H01-H05 or R/X historical verdict."
+  ],
+  "subsequent_stabilization": {
+    "record": "docs/evidence/play2code-rotation-stabilization.json",
+    "historical_scope_preserved": "All fields above remain the immutable QROT01 point-in-time result; ROT180-A remains NO_GO.",
+    "root_cause": "CONFIRMED",
+    "new_source_freeze": "bc9edcafb291517ba80a115774cafe9d27149fee5f4ed21f3361f82b3785373b",
+    "new_ROT180_repeatability": "GO, 3/3",
+    "new_quarter_turn_repeatability": "GO, 7/7",
+    "new_full_native_regression": "GO, 10/10 including identity, X01 and X03",
+    "human_generalization": "PENDING",
+    "H05": "PENDING_OWNER_MANUAL_BUILD"
+  },
+  "private_final_evidence_identity": "09adbd9f3f1b5cacee2f6b6230c8e950aa43ff7bdda0124b87ec8bb327560db7",
+  "privacy": "Raw timelines, absolute captured homes, player identity, actor tokens, worlds, journals, credentials, certificates and private keys remain outside this public-safe evidence file.",
+  "published_or_uploaded": false
+}

@@ -167,7 +167,23 @@ and camera timing, airborne motion, unsupported blocks and uncertain interaction
 stay explicit unsupported conversions. Generated source is not executed by the
 exporter and compilation is not replay qualification. No protocol/MCP/skill/opcode
 or second controller is added; replay uses the same guarded runtime and requires a
-fresh actor plus independent objective verification.
+fresh actor plus independent objective verification. Explicit translation,
+reflection and exact quarter-turn derivation happens only in this offline exporter;
+it emits concrete ordinary BCL coordinates and never adds a runtime rotation mode.
+Recorded M3/M4/M5 paths remain sealed-evidence adapters rather than a second
+planner. In particular, an M4 directional sample immediately followed by a hold
+sample can be skipped only when both recorded targets are inside the unchanged
+arrival radius; otherwise only the already-recorded bounded pulse is available.
+No tolerance, retry, synthesized direction or alternate route is introduced.
+
+The experimental `ExecutionOptions` policy belongs to the trusted Python host,
+not BCL or Minecraft's wire protocol. It can reuse preparation state only inside
+one active `SkillContext`; adapter reuse still obtains fresh inventory and actor
+observations, and retained crouch is renewed only after a guarded live observation.
+Context closure invalidates both caches before the ordinary cleanup path releases
+inputs. It grants no new owner and performs no cross-task lease transfer. All
+reuse options remain default-off; current full-replay pilots failed placement-pose
+guards, so isolated component successes do not authorize standard activation.
 
 ## Standalone controller boundary
 

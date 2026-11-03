@@ -863,3 +863,48 @@ M0/V2/I4/C3 coordinate path. M1/C2/I3/V1, broader terrain/gameplay, Test-B
 repeatability, Play2Code replay and owner-only H01 remain separate gates. The
 client and launcher exited after a TitleScreen save/quit; no commit, push, tag,
 upload, release or deployment was performed.
+
+---
+
+## 17. Play2Code H04 replay, coordinate derivation and ROT180 stabilization
+
+H01–H03 remain immutable manual calibration failures. H04 became the first strict
+owner-manual Play2Code GO: the passive F9/F10 recording contained sufficient sealed
+support, pose, input, stack and landing evidence to reconstruct the exact 71-block
+house without a second controller or hidden generator. R33 was the first strict
+replay GO. The later Q03 cohort passed 3/3 and P03 passed the same persistent-home
+relative program at three exact origins. All earlier replay failures remain part of
+the record.
+
+Offline derivation then transformed typed coordinates without changing BCL/1
+semantics. X01 qualified integer translation. X02 remains an immutable reflection
+NO-GO because its recorded lateral control was not exchanged; corrected X03 passed.
+Exact quarter turns around an explicit voxel anchor passed at least once for 90°,
+180° and 270°. The first prospectively frozen rotation cohort, QROT01, retained
+ROT180-A as an M4 sample-22 NO-GO and therefore finished at 5/6 strict successes,
+even though rotation functionality was GO.
+
+Follow-up analysis compared ROT180-A with ROT180-B, bounded the difference before
+M4 to approximately 0.000023713 blocks and confirmed a terminal recorded-path
+completion defect. The penultimate sample carried the final sealed directional
+pulse but was considered complete against only its own target. The following hold
+target was 0.301872 blocks away, just outside the unchanged 0.3 radius, and could
+not issue movement. An exact private suffix fixture reproduced the old behavior
+3/3 and the corrected behavior 3/3. The correction requires both adjacent targets
+before skipping the existing one-tick pulse; it does not enlarge tolerance, add an
+action retry, invent a direction or choose another path.
+
+Before new gameplay, 555 Python tests, Gradle, 47/47 Play2Code mutations, 184/184
+skill mutations, 48/48 BCL mutations and ten TLS interoperability checks passed.
+Frozen QROT02 then completed ROT180 3/3, ROT90 2/2 and ROT270 2/2. Identity, X01
+translation and X03 reflection also passed, producing 10/10 planned native runs.
+Every run completed 20/20 batches, 572 runtime operations, 71/71 placement
+postconditions, zero failed actions and zero automatic retries, with independent
+native and post-exit closed-save verification. Strict rotation repeatability is GO
+for QROT02. ROT180-A and QROT01's 5/6 point-in-time result remain immutable.
+
+H05 still requires a genuinely different owner-manual construction and remains
+`PENDING_OWNER_MANUAL_BUILD`; human generalization remains `PENDING`. Arbitrary
+angles, direction-sensitive block states, arbitrary structures and unequal terrain
+remain outside the qualified scope. No commit, push, tag, upload, release or
+deployment was performed.

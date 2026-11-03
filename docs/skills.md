@@ -138,9 +138,27 @@ real-client concurrency acceptance is NOT RUN.
 
 [Play2Code](play2code.md) passively records local human input and exports source for
 existing BCL skill adapters. It is not registered in `SkillRegistry`, never claims
-actor ownership and cannot be started remotely. Replaying exported M0/I1/I4/C3
-still invokes these same skill contracts, actor fences, cancellation checks and
-observed postconditions; the recording itself grants no authority or success claim.
+actor ownership and cannot be started remotely. Replaying exported M0/M3/M4/M5,
+I1, V2/I3 and C3 still invokes registered guarded skill contracts, actor fences,
+cancellation checks and observed postconditions; the recording itself grants no
+authority or success claim. The recorded replay adapters are narrow execution
+primitives selected only by the exporter, not a second planner. M4 permits at most
+three recorded one-tick directional pulses per sample; after the final pulse it may
+observe native residual motion for four cancellable 50 ms intervals, without
+adding direction or retrying an action, before deciding the recorded checkpoint.
+When a directional sample is immediately followed by a sealed hold sample, it may
+skip that direction only if both targets are already inside the unchanged arrival
+radius. A hold sample never synthesizes movement to repair an earlier skip.
+
+Trusted-host `ExecutionOptions` can independently test camera completion-wait,
+Sneak and placement-adapter reuse inside one active skill context. They are not
+skill-schema fields or BCL settings and default off. Fresh actor/inventory/support
+checks remain mandatory; closing the context clears cached adapters and stance
+intent before ordinary input cleanup. No cross-task lease transfer is supported.
+Native component evidence confirms that a validated local edge pose needs crouch
+through preparation and residual-motion settlement, independently of its one-tick
+direction lease. The [grounding follow-up](stateful-input-execution.md) has scoped
+successes but retains an overall NO-GO for full replay and standard activation.
 
 ## BCL/1 adapter and additive movement mode
 

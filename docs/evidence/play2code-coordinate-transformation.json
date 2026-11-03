@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "recorded_utc": "2026-11-02T09:42:20Z",
+  "scope": "Offline typed-coordinate derivation of the frozen H04/v16 Play2Code program against retained exact H01 translation and H02 reflection references",
+  "source": {
+    "human_recording": "H04",
+    "human_recording_verdict": "GO",
+    "generated_replay_functionality": "R33 GO",
+    "export_manifest_sha256": "34dfe48a25983950fe57c0bd01f0bfd48aed2415e6a0fd634a3c6aad0053833d",
+    "bcl_source_identity": "7bc1fc61f1d73aee4025acc0f24a68cd3b5b92b49e9f64ff21deeeda56aad3c4",
+    "batches": 20,
+    "payload_operations": 571,
+    "action_order_rewritten": false,
+    "original_capture_or_program_modified": false
+  },
+  "implementation": {
+    "classification": "DERIVED_COORDINATE_TRANSFORM_NOT_NEW_HUMAN_RECORDING",
+    "translation": "One strict integer XYZ translation is applied after any reflection.",
+    "voxel_reflection": "For selected horizontal axis and integer lattice coordinate C: v' = 2*C - v.",
+    "point_reflection": "Continuous feet, pose, target and hit points reflect about the matching block-centre plane C + 0.5.",
+    "yaw": "Yaw is reflected with the horizontal view vector; pitch is retained.",
+    "faces": "East/west or north/south support faces are exchanged for the selected reflection axis.",
+    "recorded_controls": "Mirroring exchanges left/right, forward-left/forward-right and back-left/back-right while retaining forward/back/hold.",
+    "typed_operations": [
+      "M0 movement point, recorded yaw and direction",
+      "M3 recorded path points, yaw and direction codes",
+      "M4 recorded movement/placement points, yaw, direction codes, support voxels, faces, poses and hit points",
+      "M5 edge/landing points, yaw and direction",
+      "V2 view points",
+      "I3 support voxels, faces, recorded pose and recorded aim",
+      "C3 removal voxels"
+    ],
+    "s1_semantics": "The recorded point and voxel homes remain unchanged. Exactly one first-batch S1 relative is retained; continuation batches do not re-home.",
+    "path_smoothing": false,
+    "action_optimization": false,
+    "new_opcode_or_runtime": false
+  },
+  "offline_qualification": {
+    "decision": "GO",
+    "checks": {
+      "raw_recording_byte_identical": true,
+      "identity_export_byte_identical_to_frozen_v16": true,
+      "action_and_opcode_order_identical": true,
+      "operation_counts_identical": true,
+      "single_persistent_relative_home": true,
+      "placements_exact": 71,
+      "floor_supported_placements": 15,
+      "prior_structure_supported_placements": 56,
+      "invalid_dependencies": 0,
+      "entrance_and_roof_geometry_exact": true,
+      "historical_reference_geometry_exact": true
+    }
+  },
+  "translation": {
+    "decision": "GO",
+    "historical_reference": "H01",
+    "historical_verdict_retained": "NO_GO position mismatch",
+    "transform": {
+      "translation": [-2, 0, -4],
+      "mirror": null
+    },
+    "derived_manifest_sha256": "8ce9ddb9a94d11681d09861f9a260ee0877a496bb2f1fcc8db193146c7b80efc",
+    "current_export_bcl_byte_identical_to_qualified_x01": true,
+    "run": "X01",
+    "source_freeze_identity": "6acd6775d91f4e16952cbd6499744164c48e58c48fcdd94254f5c444272cd826",
+    "batches": "20/20",
+    "executed_operations": 572,
+    "verified_placements": 71,
+    "failed_actions": 0,
+    "automatic_action_retries": 0,
+    "elapsed_seconds": 452.2217238500016,
+    "closed_client_objective_verified": true,
+    "closed_snapshot_identity": "516033b35973016676186f1c3f1bf1e0f07f93dc990cb0add7c02e0863e1eb10"
+  },
+  "mirroring": {
+    "decision": "GO",
+    "historical_reference": "H02",
+    "historical_verdict_retained": "NO_GO mirrored orientation",
+    "transform": {
+      "translation": [0, 0, 0],
+      "mirror_axis": "z",
+      "mirror_voxel_coordinate": 0,
+      "mirror_continuous_plane": 0.5
+    },
+    "retained_first_attempt": {
+      "run": "X02",
+      "status": "NO_GO",
+      "derived_manifest_sha256": "ebdb75b2b1d492a89d9567f9a2d5462ac25abe9c7f888661a7914e0cf5038d18",
+      "batches_completed": "15/20",
+      "executed_operations": 432,
+      "verified_placements": 55,
+      "failed_actions": 1,
+      "automatic_action_retries": 0,
+      "reason": "M4 recorded_path_diverged at sample 5 because reflected yaw retained recorded right rather than exchanging it for left.",
+      "closed_snapshot_identity": "ae83ab0ce519ccb51c4c07d921115493b47ce349d106723262337aab57b0e9a3"
+    },
+    "corrected_run": {
+      "run": "X03",
+      "status": "GO",
+      "derived_manifest_sha256": "a0578d5bbb123dbf9330a1f1fb72d7073ee7a4fa393a77a8069fdfba4e0464ad",
+      "source_freeze_identity": "b3f044fce8c24037734f085a815dc818e2c8e0f55dcd52260e8844d9f05ef4f3",
+      "batches": "20/20",
+      "executed_operations": 572,
+      "verified_placements": 71,
+      "failed_actions": 0,
+      "automatic_action_retries": 0,
+      "elapsed_seconds": 457.86053504200027,
+      "closed_client_objective_verified": true,
+      "closed_snapshot_identity": "08c2bb162ca618c987cb5469c3bc1aa2835c0d04fee9a32b0a67992e51fde7f8"
+    }
+  },
+  "automated_regression": {
+    "decision": "GO",
+    "python_tests": 547,
+    "gradle_check": "PASS",
+    "mutations": {
+      "play2code_exporter": "40/40 killed",
+      "skills": "183/183 killed",
+      "bcl": "48/48 killed"
+    }
+  },
+  "decisions": {
+    "offline_coordinate_transformation": "GO",
+    "translation_native_replay": "GO",
+    "mirroring_native_replay": "GO via X03; X02 remains NO_GO",
+    "human_generalization": "PENDING",
+    "h05": "PENDING_OWNER_MANUAL_BUILD"
+  },
+  "boundaries": [
+    "The derived exports are not new human recordings and do not replace H01, H02 or H04 verdicts.",
+    "The qualification covers the frozen H04 construction strategy and two exact retained Superflat reference geometries only.",
+    "It does not establish arbitrary structures, unequal terrain, other dimensions, broad modpack portability or a different human strategy.",
+    "Independent native and closed-save verification, not compilation or action receipts, establishes each replay objective."
+  ],
+  "private_evidence_identity": "8e9b1474a21140b72464d450b7fac75135b8d3eac6e2c59442a9a077c90456a2",
+  "privacy": "Raw timelines, absolute captured homes, player identity, actor tokens, worlds, journals, credentials, certificates and private keys remain outside this public-safe evidence file.",
+  "published_or_uploaded": false
+}

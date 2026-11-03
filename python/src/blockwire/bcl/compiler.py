@@ -146,8 +146,8 @@ def compile_bcl(source,registry,*,permissions=DEFAULT_PERMISSIONS,version=VERSIO
                     parsed=value=='true'
                 elif param.kind=='json':
                     from ..llm import strict_json
-                    # strict_json is object-only; other JSON values still need duplicate/nonfinite rejection.
-                    parsed=strict_json('{"v":'+value+'}')['v']
+                    # The scanner removes delimiters from one quoted scalar; structured JSON retains them.
+                    parsed=(strict_json('{"v":'+value+'}')['v'] if not token.quoted or value[:1] in '[{' else value)
                 else:parsed=value
                 if param.kind=='resource' and parsed is not None and not re.fullmatch(r'[a-z0-9_.-]+:[a-z0-9_./-]+',parsed):raise ValueError()
                 parsed=param.adapter.validate_python(parsed,strict=True)
