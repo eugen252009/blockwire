@@ -9,6 +9,17 @@ collision, jumping, falling and damage.
 There is no neural movement model, teleport, velocity setter, parallel MCP
 steering stream, benchmark-only controller or Python collision simulator.
 
+## Operation-scoped pose handoff
+
+[Pose handoff](pose-handoff.md) is a trusted in-skill request, not a BCL setting
+or a globally stricter M0 destination. Ordinary navigation retains its qualified
+pulse/lease behavior. Explicit fine Sneak positioning observes native crouch
+before direction and retains bounded authorized stance through directional
+release; cleanup still releases it. An interaction may add a strict boolean
+arrival predicate after the existing radius and native settling observations.
+This does not add a second controller or transfer task/key ownership. I3's fresh
+geometry and exact native placement postconditions remain authoritative.
+
 ## Observed route model
 
 The native client exposes bounded local geometry rather than arbitrary world

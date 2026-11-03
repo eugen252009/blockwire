@@ -4,6 +4,12 @@ Play2Code records ordinary local Minecraft play and exports a raw event timeline
 plus conservative BCL/1 source batches. It is a **recorder and translator**, not a
 controller, macro player, optimizer, planner, or new BCL runtime.
 
+The [M0/I3 pose-handoff recovery](pose-handoff.md) restores the existing H04
+standard replay without changing its recording, BCL or transformations. Frozen
+S05 passes 9/9 (four identities plus the established spatial variants); native
+movement regression passes 211/211. Reuse remains default-off and unqualified for
+activation. Historical failed cohorts and H05's owner-manual pending status remain.
+
 ## Authority boundary
 
 ```

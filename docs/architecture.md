@@ -21,6 +21,16 @@ combat/control implementations. A custom Python backend may address an entity or
 scripted actor **only when its provider supplies a legitimate native integration**.
 There is no implicit operator elevation, fake player or server agent in v0.1.
 
+## Movement-to-interaction handoff
+
+[Operation-scoped pose readiness](pose-handoff.md) stays inside the existing
+Python worker/motor: accepted M0 position, native settling and exact interaction
+readiness are distinct conditions. Trusted child positioning may request stance
+and an additional arrival predicate; neither is a BCL opcode or a second input
+owner. I3 can refine one already authorized local pose, never replay M0 or change
+the supplied recording. Existing actor/transport fences and ordinary cleanup
+remain mandatory. All stateful reuse defaults remain off.
+
 ## Enforcement boundaries
 
 - **Transport:** Minecraft's existing Netty libraries, no shaded WebSocket server

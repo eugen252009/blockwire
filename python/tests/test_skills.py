@@ -22,6 +22,7 @@ class FlatPlayer:
         self.trace = []
         self.samples = 0
         self.speed = 1.
+        self.sneaking = False
         self.yaw, self.pitch = -90., 0.
         self.rotation = None
         self.rotation_requests=[]
@@ -50,6 +51,8 @@ class FlatPlayer:
         state = dict(profile="flat_full_blocks_v1", ready=True, actor_session=self.session,
                      position=self.position[:], current_cell=list(current), health=self.health,
                      alive=True, on_fire=False, nearby_hostiles=[], current_center_access=True,
+                     on_ground=True,horizontal_speed=0.,sneaking=self.sneaking,
+                     eye_position=[self.position[0],self.position[1]+(1.27 if self.sneaking else 1.62),self.position[2]],
                      cells=[{"position": list(p), "hazards": ["known_hazard"] if p in self.hazards else []} for p in nodes],
                      edges=edges)
         return self.transform(state)
@@ -71,6 +74,7 @@ class FlatPlayer:
     def drive(self, buttons, ticks, *, wait, actor_session, button_ticks=None):
         assert actor_session == self.session
         assert ticks <= 8 and not wait
+        self.sneaking='sneak' in buttons
         self.calls.append(("drive", buttons, ticks, button_ticks) if button_ticks is not None else ("drive", buttons, ticks))
         speed = .065 if "sneak" in buttons else .215
         forward=int("forward" in buttons)-int("back" in buttons)
@@ -86,7 +90,7 @@ class FlatPlayer:
             if cell not in self.cells:break
             self.position = candidate
 
-    def stop(self):self._update_rotation();self.rotation=None;self.calls.append(("stop",))
+    def stop(self):self._update_rotation();self.rotation=None;self.sneaking=False;self.calls.append(("stop",))
 
 
 class SkillContracts(unittest.TestCase):

@@ -1,6 +1,15 @@
 # H04 baseline recovery and partial-pose investigation
 
-## Verdict
+## Current follow-up: operation-scoped pose handoff
+
+The [pose-handoff recovery](pose-handoff.md) refines the actual I3 contract without
+changing M0 radii, BCL or safety bounds. Invariant-preserving P06 full identity is
+independently verified GO. The separate frozen S05 cohort passes 9/9 with 4/4
+identities; shared native movement regression passes 211/211. Reuse remains off.
+The investigation below is the preserved earlier point-in-time NO-GO, not a claim
+that its rejected prototypes were later accepted.
+
+## Historical verdict before pose-handoff correction
 
 **Historical baseline reconstructed: GO. Partial-pose cause: CONFIRMED for the
 measured fixtures. Current standard replay recovery: NO-GO.** No corrective

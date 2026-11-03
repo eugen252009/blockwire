@@ -138,6 +138,41 @@ def _safe_partial_recorded_pose(nav, scene, point):
     return min(overlap_x,overlap_z)>=.08 and max(overlap_x,overlap_z)>=.25
 
 
+def _recorded_proxy_preposition(context, nav, scene, point, cells, usable, clearance):
+    """One authorized local pose, inside Q's EXISTING admissible proxy region.
+
+    Search is bounded and stays on one authoritative full-cube source. It does
+    not change Q, add a BCL action, reroute a recording, or authorize a use.
+    The walking arrival additionally verifies the actual interaction region.
+    """
+    context.check();current=scene['position'];cell=tuple(nav.get('current_cell',()))
+    position_cell=(math.floor(current[0]),round(current[1]),math.floor(current[2]))
+    if (not nav.get('ready') or nav.get('on_ground') is not True or scene.get('on_ground') is not True
+            or float(nav.get('horizontal_speed',math.inf))>.004 or cell not in cells
+            or not nav.get('current_center_access')
+            or not (position_cell==cell or nav.get('source_recovered_from_partial_support') is True)
+            or abs(current[1]-point[1])>1e-6 or math.dist(current,point)>.35
+            or math.dist(current,nav.get('position',[math.inf]*3))>.005
+            or not _safe_partial_recorded_pose(nav,scene,current)):
+        return None
+    def contact(p,i):return max(0.,min(p[i]+.3,cell[i]+1.)-max(p[i]-.3,cell[i]))
+    best=None;score=(-math.inf,-math.inf,-math.inf)
+    for dx in range(-14,15):
+        context.check()
+        for dz in range(-14,15):
+            candidate=(point[0]+dx*.025,point[1],point[2]+dz*.025)
+            if (math.dist(candidate,point)>.35 or math.dist(current,candidate)>.35
+                    or not _safe_partial_recorded_pose(nav,scene,candidate) or not usable(candidate)
+                    or not any(min(contact(current,i),contact(candidate,i))>=.25 for i in (0,2))):continue
+            # Maximize the minimum existing geometric margin rather than aim
+            # exactly at a boundary. These are candidate scores, NOT tolerances.
+            ox,oz=contact(candidate,0),contact(candidate,2)
+            margin=min(ox-.08,oz-.08,max(ox,oz)-.25,.35-math.dist(candidate,point),clearance(candidate))
+            quality=(round(margin,12),round(-math.dist(current,candidate),12),round(-math.dist(candidate,point),12))
+            if quality>score:best,score=candidate,quality
+    return best
+
+
 def _jump_place(context, goal, ui, scene, support, destination, aim):
     if goal.face != 'up' or not goal.auto_position:
         return blocked('jump_place_requires_up_face_and_auto_position')
@@ -151,7 +186,7 @@ def _jump_place(context, goal, ui, scene, support, destination, aim):
     if (not scene.get('on_ground') or abs(float(scene['position'][1]) - ty) > .08
             or math.hypot(float(scene['position'][0]) - point[0], float(scene['position'][2]) - point[2]) > .15):
         result = walk_to(context, WalkTo(x=point[0], y=point[1], z=point[2], terrain=True, arrival_radius=.15),
-                         expected_session=ui.session)
+                         expected_session=ui.session,pose_handoff=True)
         if result.status != 'succeeded':
             return result
         scene = ui.guard()
@@ -269,7 +304,7 @@ def place_block(context, goal, *, expected_session=None, preserve_recorded_sneak
         if _safe_partial_recorded_pose(nav,scene,goal.recorded_pose):
             qx,qy,qz=goal.recorded_pose
             result=walk_to(context,WalkTo(x=qx,y=qy,z=qz,terrain=True,arrival_radius=.08,
-                                          sneak=True,movement='sneak'),expected_session=ui.session)
+                                          sneak=True,movement='sneak'),expected_session=ui.session,pose_handoff=True)
             if result.status!='succeeded':return result
             if goal.recorded_sneak:
                 context.check();context.player.drive(['sneak'],8,wait=False,actor_session=ui.session);context.pause(.05)
@@ -355,7 +390,14 @@ def place_block(context, goal, *, expected_session=None, preserve_recorded_sneak
                  for dx in (-.12,0.,.12) for dz in (-.12,0.,.12)
                  if usable_point((cell[0]+.5+dx,cell[1],cell[2]+.5+dz),margin=.55,
                                  reach=4.35 if goal.recorded_sneak else 2.8)]
-        if not choices and not current_valid and not recorded_target_valid:
+        proxy_point=None
+        if (goal.recorded_sneak and recorded_point is not None and recorded_cell not in cells
+                and not current_valid and not recorded_target_valid):
+            def clearance(p):
+                eye=(p[0],p[1]+1.27,p[2])
+                return min(sum((eye[i]-aim[i])*offset[i] for i in range(3))-.05,4.5-math.dist(eye,aim))
+            proxy_point=_recorded_proxy_preposition(context,nav,scene,recorded_point,cells,usable_point,clearance)
+        if not choices and not current_valid and not recorded_target_valid and proxy_point is None:
             if recorded_point is not None and recorded_cell not in cells:
                 return blocked('recorded_partial_pose_not_safely_reached',recorded_pose=goal.recorded_pose,
                                position=scene.get('position'),current_cell=nav.get('current_cell'))
@@ -367,19 +409,31 @@ def place_block(context, goal, *, expected_session=None, preserve_recorded_sneak
                 constraint='These native standing poses satisfy face plane/reach/body clearance, but no safe current-graph route reaches them. Occlusion is not proven; the external agent chooses access, route or design changes.')
         if not current_valid:
             if recorded_point is not None:
-                if not recorded_target_valid:
+                if not recorded_target_valid and proxy_point is None:
                     return blocked('recorded_partial_pose_not_safely_reached',recorded_pose=goal.recorded_pose,
                                    position=scene.get('position'),current_cell=nav.get('current_cell'))
-                point=recorded_point;arrival_radius=.08;movement={'sneak':True,'movement':'sneak'}
+                point=proxy_point if proxy_point is not None else recorded_point
+                arrival_radius=.08;movement={'sneak':True,'movement':'sneak'}
             else:
                 point=min(choices,key=lambda p:(abs(p[0]-(math.floor(p[0])+.5))+abs(p[2]-(math.floor(p[2])+.5)),
                                                 math.dist(scene['position'],p)))
                 arrival_radius=.15;movement={}
+            def proxy_admissible(fresh):
+                context.check();fresh_cells=_reachable(fresh,True);cell=tuple(fresh.get('current_cell',()))
+                observed=fresh['position'];position_cell=(math.floor(observed[0]),round(observed[1]),math.floor(observed[2]))
+                return bool(fresh.get('ready') and fresh.get('on_ground') is True
+                    and cell in fresh_cells
+                    and fresh.get('current_center_access')
+                    and (position_cell==cell or fresh.get('source_recovered_from_partial_support') is True)
+                    and abs(observed[1]-recorded_point[1])<=.1 and math.dist(observed,recorded_point)<=.35
+                    and (recorded_cell==cell or recorded_cell not in fresh_cells)
+                    and _safe_partial_recorded_pose(fresh,{'position':observed},observed) and usable_point(observed))
+            positioning={'arrival_check':proxy_admissible} if proxy_point is not None else {}
             baseline_health=scene.get('health')
             result=walk_to(context,WalkTo(x=point[0],y=point[1],z=point[2],terrain=True,
-                                          arrival_radius=arrival_radius,**movement),expected_session=ui.session)
+                                          arrival_radius=arrival_radius,**movement),expected_session=ui.session,pose_handoff=True,**positioning)
             if result.status!='succeeded':
-                if recorded_point is None or result.reason!='not_grounded':return result
+                if proxy_point is not None or recorded_point is None or result.reason!='not_grounded':return result
                 settled=False
                 for _ in range(10):
                     context.check();context.pause(.05);fresh=context.player.navigation(terrain=True);context.check()
@@ -391,7 +445,12 @@ def place_block(context, goal, *, expected_session=None, preserve_recorded_sneak
                     if abs(float(fresh.get('position',[0.,math.inf,0.])[1])-recorded_point[1])>.25:break
                 if not settled:return result
             else:scene=ui.guard()
-            if recorded_point is not None and math.dist(scene['position'],recorded_point)>.1:
+            if proxy_point is not None:
+                context.check();fresh=context.player.navigation(terrain=True);context.check()
+                if fresh.get('actor_session')!=ui.session:return blocked('actor_session_changed')
+                if not proxy_admissible(fresh) or float(fresh.get('horizontal_speed',math.inf))>.004:
+                    return blocked('recorded_partial_pose_not_safely_reached',position=scene.get('position'))
+            elif recorded_point is not None and math.dist(scene['position'],recorded_point)>.1:
                 return blocked('recorded_placement_pose_not_reached',recorded_pose=goal.recorded_pose,position=scene.get('position'))
     modeled_eye=[scene['position'][0],scene['position'][1]+(1.27 if goal.recorded_sneak else 1.62),scene['position'][2]]
     if math.dist(modeled_eye, aim) > (4.5 if goal.recorded_sneak else 3.):
@@ -431,7 +490,7 @@ def place_block(context, goal, *, expected_session=None, preserve_recorded_sneak
             from .walking import walk_to,WalkTo
             qx,qy,qz=goal.recorded_pose
             result=walk_to(context,WalkTo(x=qx,y=qy,z=qz,terrain=True,arrival_radius=.08,
-                                          sneak=True,movement='sneak'),expected_session=ui.session)
+                                          sneak=True,movement='sneak'),expected_session=ui.session,pose_handoff=True)
             if result.status!='succeeded':return result
             if goal.recorded_sneak:
                 context.player.drive(['sneak'],8,wait=False,actor_session=ui.session);stance_owned=True;context.pause(.05)

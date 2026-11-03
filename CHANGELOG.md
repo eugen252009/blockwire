@@ -2,6 +2,15 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Add operation-scoped M0/I3 pose handoff: native observed precision Sneak,
+  bounded authorized local I3 prepositioning inside existing constraints, and
+  interaction arrival checks after ordinary settling. No tolerance, recorded BCL,
+  input owner or retry semantics change. Edge Sneak protection is retained at every
+  walking radius. P06 standard H04 identity is 71/71 GO; frozen S05 passes 9/9,
+  including 4/4 identities, and native movement regression passes 211/211.
+  Preserve every failed candidate and infrastructure attempt. Stateful reuse
+  remains disabled; see `docs/pose-handoff.md`.
+
 - Reconstructed all 101 QROT02 frozen files and reproduced complete hidden-display
   ROT90 replay. The current nonoptimized arm still fails at 41 blocks. Two native
   suffix fixtures and motor-only diagnostic reversions confirm the shared lease/

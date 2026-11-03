@@ -36,6 +36,7 @@ class ApproachPlayer(FlatPlayer):
         self.events = []
         self.held = ()
         self.lease_until = 0.
+        self.button_deadlines = {}
         self._lease_session = self.session
         self._physics_time = self.now
         self.rpc_latency = 0.
@@ -45,13 +46,15 @@ class ApproachPlayer(FlatPlayer):
         while self._physics_time < self.now-1e-10:
             if self._lease_session != self.session or self.health <= 0:
                 self.held = ()
+            self.held=tuple(key for key in self.held if self._physics_time<self.button_deadlines.get(key,self.lease_until)-1e-10)
             if not self.held or self._physics_time >= self.lease_until-1e-10:
                 if self.held:
                     self.events.append({"kind": "expiry", "time": self.lease_until})
                 self.held = ()
                 self._physics_time = self.now
                 break
-            end = min(self.now, self.lease_until, self._physics_time+.05)
+            end = min(self.now, self.lease_until, self._physics_time+.05,
+                      min(self.button_deadlines.get(key,self.lease_until) for key in self.held))
             self._update_rotation(end)
             forward = int("forward" in self.held)-int("back" in self.held)
             right = int("right" in self.held)-int("left" in self.held)
@@ -86,12 +89,14 @@ class ApproachPlayer(FlatPlayer):
         self._event("stop")
         self.calls.append(("stop",))
         self.held = ();self.rotation=None
+        self.button_deadlines={}
         self.lease_until = self.now
 
     def navigation(self):
         self._event("navigation")
         state = super().navigation()
-        state["eye_position"] = [self.position[0], self.position[1]+1.62, self.position[2]]
+        state['sneaking']='sneak' in self.held
+        state["eye_position"] = [self.position[0], self.position[1]+(1.27 if state['sneaking'] else 1.62), self.position[2]]
         return state
 
     def look(self, yaw, pitch, *, actor_session, duration_ms=None, rotation_profile=None):
@@ -101,7 +106,7 @@ class ApproachPlayer(FlatPlayer):
         self.view_trace.append((yaw, pitch));self.rotation_request_trace.append(
             {'yaw':yaw,'pitch':pitch,'duration_ms':duration_ms,'rotation_profile':rotation_profile,'time':self.now})
 
-    def drive(self, buttons, ticks, *, wait, actor_session):
+    def drive(self, buttons, ticks, *, wait, actor_session, button_ticks=None):
         assert actor_session == self.session
         assert 1 <= ticks <= 100 and not wait  # Native API bound; controller policy has separate assertions.
         self._event("drive")
@@ -109,6 +114,7 @@ class ApproachPlayer(FlatPlayer):
         self.drive_trace.append({"buttons": buttons[:], "ticks": ticks, "position": self.position[:],
                                  "yaw": self.yaw, "pitch": self.pitch, "time": self.now, "previously_held": self.held})
         self.held = tuple(buttons)
+        self.button_deadlines={key:self.now+(button_ticks.get(key,ticks) if button_ticks is not None else ticks)*.05 for key in buttons}
         self.lease_until = self.now+ticks*.05
         self._lease_session = actor_session
         self.on_drive()

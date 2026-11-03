@@ -105,6 +105,13 @@ def _supported_sneak_edge_pose(state, target, avoid_damage):
     return min(overlap_x, overlap_z) >= .0001 and max(overlap_x, overlap_z) >= .25
 
 
+def _observed_sneak_pose(state):
+    """Native stance proof, not an input receipt or a placement postcondition."""
+    position,eye=state.get('position',()),state.get('eye_position',())
+    return (state.get('on_ground') is True and state.get('sneaking') is True
+            and len(position)==3 and len(eye)==3 and 0.<eye[1]-position[1]<=1.27+1e-5)
+
+
 def _edge_kind(state, source, destination):
     """Read one native edge annotation; old fixtures retain conservative inference."""
     positions=[tuple(c["position"]) for c in state["cells"]]
@@ -137,6 +144,7 @@ class FlatMotion:
         self._sample_time = None
         self._peak_step = 0.
         self.sneak_stance = False  # Owned only by this motor's enclosing skill.
+        self._pose_waits = 0
 
     def halt(self, context, *, preserve_sneak=False):
         context.check()
@@ -272,8 +280,11 @@ class FlatMotion:
         return self._fail(context,"gap_jump_not_completed")
 
     def pulse(self, context, state, target, movement, retreat_from=(), *, avoid_damage=True, max_ticks=1,
-              view=None, continuous=False, precision_sneak=True, arrival_radius=.3):
+              view=None, continuous=False, precision_sneak=True, arrival_radius=.3, preserve_edge_sneak=True,
+              pose_handoff=False):
         self.turning=False;context.check()
+        if type(preserve_edge_sneak) is not bool or type(pose_handoff) is not bool:
+            raise ValueError('Explicit stance policy required')
         if state.get("profile") not in {"flat_full_blocks_v1","stepped_full_blocks_v1"} or not state.get("ready"):
             return self._fail(context,"navigation_not_ready")
         if self._session is None:self._session=state["actor_session"]
@@ -297,6 +308,7 @@ class FlatMotion:
             active_target=(behind[0]+.5,float(behind[1]),behind[2]+.5)
         path=route(state,active_target,avoid_damage)
         edge_pose = path is None and movement == 'sneak' and _supported_sneak_edge_pose(state, active_target, avoid_damage)
+        edge_stance = (edge_pose and preserve_edge_sneak) or (pose_handoff and movement=='sneak')
         if path is None:
             if not edge_pose:return self._fail(context,"no_known_safe_route",position=position,target=list(active_target),
                                                 current_cell=list(cell),observed_cells=len(state.get('cells',())))
@@ -332,11 +344,18 @@ class FlatMotion:
             self.departed,self.pending=cell,next_cell;waypoint=(next_cell[0]+.5,next_cell[2]+.5)
         else:waypoint=(active_target[0],active_target[2])
 
-        # A locally supported edge pose needs crouch during preparation as well
-        # as during the directional tick. Native residual velocity survives a
-        # key-up; releasing crouch with a one-tick direction can slide off support.
-        # This retains no key beyond the enclosing skill's ordinary cleanup.
-        if edge_pose and not self.holding:
+        # Precision Sneak needs its actual native stance on full support too:
+        # otherwise every key-up can restart a standing-speed tick and oscillate
+        # around a small target. Observe preparation; never treat drive as proof.
+        if pose_handoff and movement=='sneak' and not _observed_sneak_pose(state):
+            self.halt(context,preserve_sneak=True)
+            self._pose_waits+=1
+            if self._pose_waits>=8:return self._fail(context,'pose_stance_not_observed')
+            self.mode='pose_preparation';self.turning=True
+            context.pause(UPDATE_SECONDS)
+            return None  # Reobserve actor, geometry, position and stance before direction.
+        self._pose_waits=0
+        if edge_stance and not self.holding:
             context.check();context.player.drive(['sneak'],LEASE_TICKS,wait=False,actor_session=self._session)
             self.sneak_stance=True
         direction=None;ahead=_straight_ahead(path,position) if continuous and view is not None and not centering else None
@@ -352,7 +371,7 @@ class FlatMotion:
         native_speed=max(0.,float(state.get("horizontal_speed",0.)))
         braking_distance=radius+max(.03,native_speed*2.2)
         if native_speed>MOVING_SPEED and distance<=braking_distance:
-            if self.holding:self.halt(context)
+            if self.holding:self.halt(context,preserve_sneak=edge_stance)
             self.mode="braking";context.pause(UPDATE_SECONDS);return None
 
         rolling=bool(not edge_pose and continuous and view is not None and distance>radius+.08 and
@@ -364,7 +383,7 @@ class FlatMotion:
         steering_yaw=view[0] if view is not None else camera_yaw
         if view is not None:
             if (heading_error>ROTATION_TOLERANCE or abs(view[1])>ROTATION_TOLERANCE) and not can_steer_while_moving:
-                if self.holding:self.halt(context)
+                if self.holding:self.halt(context,preserve_sneak=edge_stance)
                 self.turning=rotate_view_timed(context,view,(camera_yaw,0.),self._session);self.mode="turning";return None
             if heading_error>ROTATION_TOLERANCE or abs(view[1])>ROTATION_TOLERANCE:
                 self.turning=rotate_view_timed(context,view,(camera_yaw,0.),self._session)
@@ -395,7 +414,7 @@ class FlatMotion:
         _,directions=travel_inputs(motion_yaw,steering_yaw,distance);buttons=list(directions)
         if movement=="sneak" or (precision_sneak and distance<.35):buttons.append("sneak")
         elif movement=="run":buttons.append("sprint")
-        if self.holding and not rolling:self.halt(context)
+        if self.holding and not rolling:self.halt(context,preserve_sneak=edge_stance)
 
         if waypoint!=self._waypoint:
             self._waypoint,self._best_distance,self._no_progress=waypoint,distance,0
@@ -410,7 +429,7 @@ class FlatMotion:
         lease=max(1,min(LEASE_TICKS,math.floor(room/per_tick_bound))) if room>0 else 1
         ticks=lease if rolling else 1 if distance<.4 else min(max_ticks,2)
         context.check()
-        if edge_pose:
+        if edge_stance:
             leases={button:ticks for button in buttons};leases['sneak']=LEASE_TICKS
             context.player.drive(buttons,LEASE_TICKS,wait=False,actor_session=self._session,button_ticks=leases)
             self.sneak_stance=True
@@ -421,5 +440,5 @@ class FlatMotion:
         if rolling:
             context.pause(UPDATE_SECONDS)
         else:
-            context.pause(ticks*.05+.06);self.halt(context,preserve_sneak=edge_pose);self.mode="edge_precision" if edge_pose else "precision"
+            context.pause(ticks*.05+.06);self.halt(context,preserve_sneak=edge_stance);self.mode="edge_precision" if edge_pose else "precision"
         return None

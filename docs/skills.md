@@ -12,7 +12,13 @@ what to build. Placement adapters retain a precise centred valid current pose or
 request a settled, slightly inset standing pose with a 0.15-block radius; this
 prevents a coarse-but-valid walking arrival from leaving the exact support face
 occluded.
-ordinary walking keeps its 0.3-block default and does not implicitly crouch.
+Ordinary walking keeps its 0.3-block default and does not implicitly crouch.
+The [pose-handoff contract](pose-handoff.md) lets an authorized in-skill
+positioning request require observed native stance/settling and its own additional
+interaction region. Recorded I3 may make one local positioning call inside the
+existing Q-proxy region, only with fresh authoritative support and `auto_position`
+authority. No recorded target, contact/face/reach bound, BCL action or retry is
+added. A placement still needs its exact observed block and one consumed item.
 `gather_block(position=..., count=1)` / `C2 ... P` filters ONE already exposed
 native target; it does not query hidden coordinates. Terrain harvesting may make
 one pickup approach only into fresh safe reachable same-height geometry; success

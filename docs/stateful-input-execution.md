@@ -1,6 +1,14 @@
 # Stateful input execution: experiments and grounding follow-up
 
-## Latest: baseline reconstructed; partial-pose recovery remains NO-GO
+## Latest: operation-scoped pose recovery; optimization remains disabled
+
+The [pose-handoff follow-up](pose-handoff.md) separates accepted movement,
+observed native settling and concrete I3 readiness. Its invariant-preserving P06 standard
+identity replay passes 71/71 with all reuse disabled. Independent edge Sneak
+protection remains active at every walking radius. Frozen S05 passes 9/9, including 4/4 identities; native movement passes 211/211.
+These are standard-path gates, not qualification of camera/Sneak/placement reuse or erase the failures retained below.
+
+## Previous: baseline reconstructed; partial-pose recovery remained NO-GO
 
 The [baseline-recovery investigation](replay-baseline-recovery.md) recovered all
 101 QROT02 frozen files byte-for-byte. Its hidden-display historical reference

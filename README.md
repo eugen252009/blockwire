@@ -13,6 +13,10 @@ A consolidated narrative of the implementation phases, retained failures,
 rotation migration and final qualification is available in the
 [development and change history](docs/development-history.md).
 
+The [M0/I3 pose-handoff follow-up](docs/pose-handoff.md) restores standard H04 replay:
+frozen 9/9 cases, 4/4 independent identities and 211/211 native movement regressions
+PASS. Stateful optimization remains disabled and is not requalified. Historical failures are retained.
+
 ## Ways to use Blockwire
 
 ### 1. Python: precise, scripted actors

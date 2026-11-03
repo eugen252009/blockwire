@@ -1,4 +1,10 @@
 {
+  "pose_handoff_followup": {
+    "record": "docs/evidence/pose-handoff.json",
+    "hash_manifest": "docs/evidence/pose-handoff-hashes.json",
+    "historical_verdict_measurements_and_hash_maps_unchanged": true,
+    "scope": "Separate invariant-preserving M0/I3 qualification; consult the new record for current outcomes, not these historical decisions"
+  },
   "automated_regression": {
     "gradle_check": "PASS",
     "mutations": {

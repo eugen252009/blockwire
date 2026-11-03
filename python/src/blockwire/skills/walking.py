@@ -79,7 +79,13 @@ def route(mesh: dict, target: tuple[float, float, float], avoid_damage: bool):
     return [positions[index] for index in reversed(path)]
 
 
-def walk_to(context: SkillContext, goal: WalkTo, *, expected_session=None) -> SkillResult:
+def walk_to(context: SkillContext, goal: WalkTo, *, expected_session=None, pose_handoff=False, arrival_check=None) -> SkillResult:
+    # Every edge keeps the confirmed independent Sneak fall protection. Only
+    # fine/interaction positioning additionally requests observed full-support
+    # stance preparation; no next-action lookahead, owner transfer or stricter
+    # global arrival is introduced.
+    if type(pose_handoff) is not bool:raise ValueError('Explicit pose-handoff policy required')
+    if arrival_check is not None and not callable(arrival_check):raise ValueError('Trusted arrival predicate must be callable')
     from .crafting import ensure_gameplay
     if not (goal.sneak or goal.movement=='sneak'):context.release_retained_sneak()
     ensure_gameplay(context)
@@ -125,7 +131,8 @@ def walk_to(context: SkillContext, goal: WalkTo, *, expected_session=None) -> Sk
                 return blocked("known_danger_nearby", state)
         position = state["position"]
         distance = math.hypot(position[0] - goal.x, position[2] - goal.z)
-        if distance <= goal.arrival_radius and abs(position[1]-goal.y) <= .2:
+        arrived=distance <= goal.arrival_radius and abs(position[1]-goal.y) <= .2
+        if arrived:
             if motion.holding:
                 motion.halt(context,preserve_sneak=motion.sneak_stance)
                 context.pause(.2)
@@ -141,9 +148,16 @@ def walk_to(context: SkillContext, goal: WalkTo, *, expected_session=None) -> Sk
                 arrival_sample = position[:]
                 context.pause(.2)
                 continue
-            return SkillResult(status="succeeded", reason="arrived", text="Reached the requested walking radius.",
-                details={"position": position, "target": target, "distance": distance, "steps": steps,
-                         "effective_sneak": effective_sneak, "avoid_damage_is_best_effort": True})
+            # POSITION_REACHED precedes native settling; only then evaluate an
+            # interaction's additional region. A moving boundary sample must
+            # not provoke another directional pulse instead of settling.
+            if arrival_check is not None:
+                context.check();arrived=arrival_check(state);context.check()
+                if type(arrived) is not bool:raise ValueError('Arrival predicate must return a strict boolean')
+            if arrived:
+                return SkillResult(status="succeeded", reason="arrived", text="Reached the requested walking radius.",
+                    details={"position": position, "target": target, "distance": distance, "steps": steps,
+                             "effective_sneak": effective_sneak, "avoid_damage_is_best_effort": True})
         arrival_sample = None
         if previous_position is not None and math.dist(position, previous_position) < .015:
             stationary += 1
@@ -186,7 +200,9 @@ def walk_to(context: SkillContext, goal: WalkTo, *, expected_session=None) -> Sk
         result = motion.pulse(context, state, target, "sneak" if effective_sneak else goal.movement,
                               avoid_damage=goal.avoid_damage, max_ticks=3,
                               view=(scene["yaw"], scene["pitch"]), continuous=True, precision_sneak=False,
-                              arrival_radius=goal.arrival_radius)
+                              arrival_radius=goal.arrival_radius,
+                              preserve_edge_sneak=True,
+                              pose_handoff=pose_handoff or goal.arrival_radius<.3)
         if result is not None:
             return result
         if motion.turning:
