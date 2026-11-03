@@ -184,6 +184,10 @@ Context closure invalidates both caches before the ordinary cleanup path release
 inputs. It grants no new owner and performs no cross-task lease transfer. All
 reuse options remain default-off; current full-replay pilots failed placement-pose
 guards, so isolated component successes do not authorize standard activation.
+The [baseline-recovery comparison](replay-baseline-recovery.md) reconstructed the
+historical runtime byte-for-byte and confirmed a shared-motor contribution to
+these failures. An M0 arrival remains distinct from the next I3's admissible pose;
+no failed corrective prototype or new arrival-predicate API is part of production.
 
 ## Standalone controller boundary
 

@@ -1,4 +1,10 @@
 {
+  "replay_baseline_recovery_followup": {
+    "record": "docs/evidence/replay-baseline-recovery.json",
+    "hash_manifest": "docs/evidence/replay-baseline-recovery-hashes.json",
+    "historical_verdict_and_measurements_unchanged": true,
+    "scope": "Separate frozen source comparison and causal diagnostics; no corrective prototype promoted"
+  },
   "ablation_limitations": [
     "One measured five-block trial per final ablation mode, not statistical or full-replay repeatability.",
     "Camera-only reduced alignment overhead but did not reduce required look RPCs (20). Sneak/combined reduced look RPCs to 12 by preserving eye height.",

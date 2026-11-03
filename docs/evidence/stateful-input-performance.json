@@ -1,4 +1,10 @@
 {
+  "replay_baseline_recovery_followup": {
+    "record": "docs/evidence/replay-baseline-recovery.json",
+    "hash_manifest": "docs/evidence/replay-baseline-recovery-hashes.json",
+    "historical_verdict_and_measurements_unchanged": true,
+    "scope": "Separate frozen source comparison and causal diagnostics; no corrective prototype promoted"
+  },
   "H05": "PENDING_OWNER_MANUAL_BUILD",
   "architecture": "Same BCL/1 bytes, ordered operations, native movement, per-skill cleanup, actor fences and authenticated TLS; no new opcode, input owner or cross-task lease transfer",
   "automated_regression": {

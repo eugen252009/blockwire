@@ -1,5 +1,6 @@
 {
   "schema_version": 1,
+  "replay_baseline_recovery_followup": "docs/evidence/replay-baseline-recovery-hashes.json",
   "scope": "Rejected C01 performance experiment; default-disabled implementation and public-safe evidence",
   "sha256": {
     "README.md": "0496eb8aab94c527bdd05e2241dcd58e27ae02d9873bfa0ac17e5cd50f193d5a",

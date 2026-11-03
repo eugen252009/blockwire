@@ -202,7 +202,11 @@ results are not replaced by this rejected candidate. A later native component A/
 test confirmed and corrected the local Sneak-release edge fall. Scoped reuse tests
 passed, but new full-replay pilots stopped at unchanged placement-pose safety
 checks, so full qualification and standard activation remain **NO-GO**. See the
-[grounding follow-up](docs/evidence/stateful-input-grounding.json).
+[grounding follow-up](docs/evidence/stateful-input-grounding.json). The subsequent
+[baseline-recovery investigation](docs/replay-baseline-recovery.md) reconstructed
+all 101 QROT02 frozen files and reproduced its full replay GO. Controlled native
+suffix tests confirmed the current shared-motor contribution to partial-pose
+failures, but neither tested correction was repeatable; no prototype was promoted.
 
 ### Strategic LLM agent (development prototype)
 

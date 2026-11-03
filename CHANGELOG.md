@@ -2,6 +2,14 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Reconstructed all 101 QROT02 frozen files and reproduced complete hidden-display
+  ROT90 replay. The current nonoptimized arm still fails at 41 blocks. Two native
+  suffix fixtures and motor-only diagnostic reversions confirm the shared lease/
+  settlement contribution; two corrective prototypes remain unqualified and are
+  not promoted. Add fail-closed pose-boundary tests and three mutations without
+  changing production runtime, tolerances or recorded BCL. Recovery and downstream
+  optimization remain NO-GO/NOT RUN; see `docs/replay-baseline-recovery.md`.
+
 - Profiled unchanged H04 execution and tested trusted-host opt-in reuse of the last
   verified post-action observation for deterministic dispatch only; fresh pre-effect
   checks and ordinary input cleanup remain mandatory. Experimental C01 identity

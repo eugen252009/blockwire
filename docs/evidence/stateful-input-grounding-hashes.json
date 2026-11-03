@@ -1,5 +1,7 @@
 {
   "schema_version": 1,
+  "historical_scope_note": "The sha256 map and identity remain the original point-in-time grounding record, recoverable at commit 47a52ae. Follow-up pointers/documentation have separate current hashes; no historical hash is replaced.",
+  "replay_baseline_recovery_followup": "docs/evidence/replay-baseline-recovery-hashes.json",
   "scope": "Grounding correction and scoped reuse follow-up; full replay remains NO_GO and default activation remains off",
   "sha256": {
     "README.md": "4cf9e3075960eb7209f5ad81ec3cdc451acccd892e80ab4c621447b5e3a9b4c3",

@@ -1,6 +1,19 @@
 # Stateful input execution: experiments and grounding follow-up
 
-## Latest follow-up: local grounding cause confirmed, full qualification NO-GO
+## Latest: baseline reconstructed; partial-pose recovery remains NO-GO
+
+The [baseline-recovery investigation](replay-baseline-recovery.md) recovered all
+101 QROT02 frozen files byte-for-byte. Its hidden-display historical reference
+passed full ROT90 replay; the current all-options-off arm failed in batch 13 at
+41 blocks. Two reduced native fixtures confirmed the shared motor's causal
+contribution: current motion succeeded 0/2 in each, while the recovered implementation
+and a motor-only diagnostic reversion each passed 2/2. Two prospective corrections
+were not repeatable at the late boundary (2/3 and 1/3); neither was promoted.
+Production runtime files and all safety bounds remain unchanged. New guard tests
+and evidence do not establish replay recovery. Downstream optimization and final
+qualification cohorts remain gated NOT RUN. Historical results below are retained.
+
+## Earlier grounding follow-up: local cause confirmed, full qualification NO-GO
 
 The native component A/B test confirmed a real edge fall: a one-tick direction
 lease also released Sneak while native residual velocity remained. The corrected

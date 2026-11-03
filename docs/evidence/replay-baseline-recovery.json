@@ -1,0 +1,703 @@
+{
+  "automated_regression": {
+    "gradle_check": "PASS",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 197,
+        "total": 197
+      }
+    },
+    "new_boundary_tests_are_fail_closed_guards_not_replay_acceptance": true,
+    "private_prototype_tests_excluded_from_production_total": true,
+    "python": {
+      "passed": 572,
+      "total": 572
+    },
+    "tls_interoperability": {
+      "passed": 10,
+      "total": 10
+    }
+  },
+  "contract": {
+    "alternative_recorded_route_generated": false,
+    "automatic_action_retries": 0,
+    "bounds_relaxed": false,
+    "crouched_reach": 4.5,
+    "current_proxy_radius": 0.35,
+    "existing_positioning_radius": 0.08,
+    "face_clearance_strictly_greater_than": 0.05,
+    "m0_arrival_is_not_placement_outcome": true,
+    "original_recording_program_samples_and_order_unchanged": true,
+    "robust_partial_min_contact": 0.08,
+    "robust_partial_one_axis_contact": 0.25
+  },
+  "corrections": {
+    "first_prototype": {
+      "decision": "NO_GO",
+      "early": {
+        "attempts": 3,
+        "verified": 3
+      },
+      "late": {
+        "attempts": 3,
+        "verified": 2
+      }
+    },
+    "internal_arrival_predicate_api_in_production": false,
+    "promoted": false,
+    "remaining_limitation": "Native coast can cross the narrow admissible support/reach interval; tested refinements are not repeatable. No universal impossibility is claimed.",
+    "second_prototype": {
+      "decision": "NO_GO",
+      "early": {
+        "attempts": 3,
+        "verified": 3
+      },
+      "late": {
+        "attempts": 3,
+        "verified": 1
+      }
+    }
+  },
+  "current_comparison": {
+    "all_reuse_explicitly_disabled": true,
+    "canonical_snapshot_and_bcl_unchanged": true,
+    "git_head": "47a52aec495462d497272e0a51923a02689d5f82",
+    "installed_native_jar_unchanged": true,
+    "matched_typed_action_parameter_prefix": 366,
+    "production_python_files": 51,
+    "production_runtime_unchanged_after_comparison": true
+  },
+  "decisions": {
+    "camera_reuse": "NOT_REQUALIFIED",
+    "current_baseline_repeatability": "NOT_ESTABLISHED",
+    "final_identity_repeatability": "NOT_RUN_RECOVERY_GATE_FAILED",
+    "final_transformation_nine_case": "NOT_RUN_RECOVERY_GATE_FAILED",
+    "known_good_baseline_reconstruction": "GO",
+    "new_grounding_regression_qualification": "NOT_RUN_RECOVERY_GATE_FAILED",
+    "optimized_full_replay_performance": "NOT_ESTABLISHED",
+    "partial_pose_root_cause": "CONFIRMED_FOR_MEASURED_FIXTURES",
+    "placement_reuse": "NOT_REQUALIFIED",
+    "production_activation": "NO_GO_DEFAULT_OFF",
+    "sneak_reuse": "NOT_REQUALIFIED",
+    "standard_replay_recovery": "NO_GO"
+  },
+  "display": {
+    "authenticated": true,
+    "display": ":99",
+    "hidden": true,
+    "historical_visible_gpu_timings_pooled": false,
+    "rendering": "Mesa llvmpipe",
+    "stopped_after_tests": true,
+    "visible_fallback": false
+  },
+  "evidence": {
+    "historical_hash_maps_and_identities_preserved": true,
+    "private_aggregate_identity": "3d5bb7359ce45c9e04cb5f283a8797678df781147baff8a8ecd5e02b1634510f",
+    "private_artifacts": 4912,
+    "private_saves_observations_timelines_credentials_and_journals_excluded": true
+  },
+  "focused_native_cohorts": [
+    {
+      "case": "early_face",
+      "cohort": "PRE",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.720985157000541,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "SA-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "A"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.778006498999275,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "SA-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "A"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 4.00196244899962,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": true,
+          "run_id": "SB-01",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "recorded_partial_pose_not_safely_reached",
+          "use_submissions": 0,
+          "variant": "B"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 3.9907321339996997,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": true,
+          "run_id": "SB-02",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "recorded_partial_pose_not_safely_reached",
+          "use_submissions": 0,
+          "variant": "B"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.801927763000094,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "SC-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "C"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.761341313998855,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "SC-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "C"
+        }
+      ],
+      "source_freeze_identity": "b78bfd1fbe282feff0e93900a1a0a63501f07f0b7ca1f02b5ab4e3ee9cfe58c2",
+      "source_identities": {
+        "A": "663594efae7c3d1fe115962e84e7f527e5c438ec8b036c1c49d9bdbc67c55828",
+        "B": "5c06ba18c9290d0aa6c553eb56bec87d6fbc713606f90657199cc6c4dc3eb4fa",
+        "C": "172ff78f270e1bae60c2e8bd8647206eda858d2df76fa718533aa373f5b55f71"
+      }
+    },
+    {
+      "case": "early_face",
+      "cohort": "E01",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 6.117008237999471,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E01-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 6.296076452999841,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E01-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 6.073010346999581,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E01-03",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        }
+      ],
+      "source_freeze_identity": "46cced0cc2fada62ad60ba3f7330808424a1e2467bbff794948aeb4a9db96703",
+      "source_identities": {
+        "D": "8acd9911023efc3589f4b9eb77aa5b9a5d06c4adba49ad839deebdecb5cf8583"
+      }
+    },
+    {
+      "case": "early_face",
+      "cohort": "E02",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 5.998309321001216,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E02-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 5.967930093000177,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E02-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 6.058065999999599,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 6,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "E02-03",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        }
+      ],
+      "source_freeze_identity": "a642dea0738071c76a790442e509bbb7f4abea1c0c941a98cf5f3aad46f6a6f4",
+      "source_identities": {
+        "D": "8ec1c2ebb611c1b93d00dddaf05fcda68d91fd2f672937f4b5cb19ad9f648bff"
+      }
+    },
+    {
+      "case": "late_reach",
+      "cohort": "PRE",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.243104956000025,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "LA-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "A"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.238266217998898,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "LA-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "A"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 3.3346021249999467,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": true,
+          "run_id": "LB-01",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "recorded_partial_pose_not_safely_reached",
+          "use_submissions": 0,
+          "variant": "B"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 3.3025796490001085,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": true,
+          "run_id": "LB-02",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "recorded_partial_pose_not_safely_reached",
+          "use_submissions": 0,
+          "variant": "B"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.239374876000511,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "LC-01",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "C"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 4.375862163999045,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "LC-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "C"
+        }
+      ],
+      "source_freeze_identity": "1516b14f571b7c1f5af38bda83990c0c5e8530ccc57acefbcc57dc52a80c3c85",
+      "source_identities": {
+        "A": "663594efae7c3d1fe115962e84e7f527e5c438ec8b036c1c49d9bdbc67c55828",
+        "B": "5c06ba18c9290d0aa6c553eb56bec87d6fbc713606f90657199cc6c4dc3eb4fa",
+        "C": "172ff78f270e1bae60c2e8bd8647206eda858d2df76fa718533aa373f5b55f71"
+      }
+    },
+    {
+      "case": "late_reach",
+      "cohort": "L01",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 4.524929709999924,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L01-01",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "recorded_placement_pose_not_reached",
+          "use_submissions": 0,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 5.589065885000309,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L01-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 5.586025347000032,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L01-03",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        }
+      ],
+      "source_freeze_identity": "16bd792fc49bd2f30a029459b77385248cef35d4e8e3aefe6c6603ca9fc8e4c2",
+      "source_identities": {
+        "D": "8acd9911023efc3589f4b9eb77aa5b9a5d06c4adba49ad839deebdecb5cf8583"
+      }
+    },
+    {
+      "case": "late_reach",
+      "cohort": "L02",
+      "runs": [
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 10.16968741600067,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L02-01",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "stuck",
+          "use_submissions": 0,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 1,
+          "elapsed_seconds": 5.593190845000208,
+          "exact_destination_closed_save_verified": true,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L02-02",
+          "suffix_goal_verified": true,
+          "terminal_action_reason": "block_placed",
+          "use_submissions": 1,
+          "variant": "D"
+        },
+        {
+          "automatic_action_retries": 0,
+          "consumed": 0,
+          "elapsed_seconds": 10.145066548999239,
+          "exact_destination_closed_save_verified": false,
+          "executed_actions": 5,
+          "final_remote_inputs_released": true,
+          "jump_ticks": 0,
+          "lost_ground": false,
+          "reproduced_partial_pose_failure": false,
+          "run_id": "L02-03",
+          "suffix_goal_verified": false,
+          "terminal_action_reason": "stuck",
+          "use_submissions": 0,
+          "variant": "D"
+        }
+      ],
+      "source_freeze_identity": "73041bcfdbc934bb1e88ac403beb05eaaa160508223a201eaf15e60ab3ef2ad3",
+      "source_identities": {
+        "D": "8ec1c2ebb611c1b93d00dddaf05fcda68d91fd2f672937f4b5cb19ad9f648bff"
+      }
+    }
+  ],
+  "full_native_attempts": [
+    {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "cohort": "AB01-A",
+      "completed_batches": 20,
+      "completed_batches_field_counts_submitted_failed_batch": false,
+      "elapsed_seconds": 466.24872506000065,
+      "executed_operations": 572,
+      "failed_actions": 0,
+      "failure_batch": null,
+      "failure_layer": null,
+      "failure_reasons": [],
+      "port_8765_closed": true,
+      "run_id": "RA-90-01",
+      "scenario": "ROT90",
+      "source_freeze_identity": "7927a88f4632e8ed5dc7f657e0a00898caa10dd47206bbbcd91436dd9cb77e8a",
+      "source_is_reconstructed_baseline": true,
+      "status": "GO",
+      "terminal_transport_outcome": null,
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "cohort": "AB01-B",
+      "completed_batches": 0,
+      "completed_batches_field_counts_submitted_failed_batch": false,
+      "elapsed_seconds": 0.7060615350001171,
+      "executed_operations": 0,
+      "failed_actions": 0,
+      "failure_batch": null,
+      "failure_layer": "host_or_transport",
+      "failure_reasons": [],
+      "port_8765_closed": true,
+      "run_id": "RB-90-01",
+      "scenario": "ROT90",
+      "source_freeze_identity": "e041ca628b609e04f6275b95a2749e6599d3d91dd88bd0ab80f99cb1a25bd16d",
+      "source_is_reconstructed_baseline": false,
+      "status": "NO_GO",
+      "terminal_transport_outcome": "UNKNOWN_NO_RETRY",
+      "verified_blocks": 0,
+      "verified_placement_events": 0
+    },
+    {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "cohort": "AB02-A",
+      "completed_batches": 20,
+      "completed_batches_field_counts_submitted_failed_batch": false,
+      "elapsed_seconds": 468.4074383240004,
+      "executed_operations": 572,
+      "failed_actions": 0,
+      "failure_batch": null,
+      "failure_layer": null,
+      "failure_reasons": [],
+      "port_8765_closed": true,
+      "run_id": "RA-90-02",
+      "scenario": "ROT90",
+      "source_freeze_identity": "149af5548c0ded31750f77257d359eeb7505502d0882c79b8c3c42a24b332b69",
+      "source_is_reconstructed_baseline": true,
+      "status": "GO",
+      "terminal_transport_outcome": null,
+      "verified_blocks": 71,
+      "verified_placement_events": 71
+    },
+    {
+      "automatic_action_retries": 0,
+      "client_closed": true,
+      "closed_save_matches": true,
+      "cohort": "AB02-B",
+      "completed_batches": 13,
+      "completed_batches_field_counts_submitted_failed_batch": true,
+      "elapsed_seconds": 305.12785754200013,
+      "executed_operations": 367,
+      "failed_actions": 1,
+      "failure_batch": 13,
+      "failure_layer": "execution",
+      "failure_reasons": [
+        "recorded_partial_pose_not_safely_reached"
+      ],
+      "port_8765_closed": true,
+      "run_id": "RB-90-02",
+      "scenario": "ROT90",
+      "source_freeze_identity": "ea552e25f2cc30e26273f39af5bc780ee5cccb7e169053e15e669d5552669927",
+      "source_is_reconstructed_baseline": false,
+      "status": "NO_GO",
+      "terminal_transport_outcome": null,
+      "verified_blocks": 41,
+      "verified_placement_events": 41
+    }
+  ],
+  "historical_source_freeze_identity": "bc9edcafb291517ba80a115774cafe9d27149fee5f4ed21f3361f82b3785373b",
+  "historical_verdicts_unchanged": true,
+  "publication": {
+    "commit": false,
+    "push": false,
+    "upload_release_deployment": false
+  },
+  "reconstruction": {
+    "all_frozen_files_byte_identical": true,
+    "decision": "GO",
+    "freeze_is_git_commit": false,
+    "frozen_files_expected": 101,
+    "frozen_files_recovered": 101,
+    "git_base": "9f25948030b85d26863195337878d1d514430cb4",
+    "historical_patch_verified": true,
+    "limitation": "Selected frozen source/resources/tests/harnesses were recovered exactly; entire historical host/dependency/rendering state was not reconstructed.",
+    "production_worktree_overwritten": false,
+    "source_map_identity": "663594efae7c3d1fe115962e84e7f527e5c438ec8b036c1c49d9bdbc67c55828"
+  },
+  "root_cause": {
+    "causal_intervention": "Revert only motion/walking in an isolated copy of current source: both fixtures restore 2/2 verified outcomes; current source fails 2/2 in each.",
+    "decision": "CONFIRMED",
+    "failed_pose_condition": "Early fixture lacks strict face clearance; late fixture exceeds crouched reach. The nominal recorded partial target lacks robust support contact.",
+    "first_source_attributable_divergence": "Current motor prepares Sneak and independently leases it beyond the one-tick direction; recovered/diagnostic-reverted motor couples release.",
+    "full_replay_first_observed_difference_not_claimed_uniquely_causal": true,
+    "last_equivalent_state": "Same sealed prefix geometry, settled grounded starting position, yaw/pitch and unchanged typed suffix parameters; fresh actor bound per run.",
+    "scope": "Two measured reduced native fixtures, not every historical tick-level trigger",
+    "subsequent_behavior": "Native coast and settled endpoints differ; unchanged M0 radii can accept an endpoint that is not an admissible next I3 pose.",
+    "terminal_hold_correction_preserved": true
+  },
+  "safety": {
+    "actor_fences_native_physics_tls_ownership_leases_and_cancellation_preserved": true,
+    "all_clients_closed": true,
+    "default_optimization_enabled": false,
+    "endpoints_disabled_ports_closed": true,
+    "failed_worlds_and_journals_preserved": true,
+    "no_transport_reconnect_or_action_resume": true,
+    "physical_f8_injection": "NOT_RUN_IMPLEMENTATION_UNCHANGED"
+  },
+  "schema_version": 1,
+  "scope": "H04 known-good reconstruction and native partial-pose causal diagnosis; correction remains unqualified",
+  "tls_expiry_handling": {
+    "bcl_actions_submitted": 0,
+    "cohorts_not_pooled": true,
+    "failed_attempt": "RB-90-01",
+    "failed_attempt_not_resumed": true,
+    "historical_identity_overwritten": false,
+    "hostname_certificate_and_api_key_checks_preserved": true,
+    "new_explicitly_pinned_gateway_identity_for_both_AB02_arms": true
+  }
+}

@@ -11,6 +11,18 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = Path(os.environ.get("BLOCKWIRE_VERIFICATION_DIR", ROOT / "build/skills-verification")) / "skill-mutations"
 OUT.mkdir(parents=True, exist_ok=True)
 mutations = [
+    ('recovery_face_clearance_not_relaxed','item_actions.py',
+     'facing=sum((eye[i]-aim[i])*offset[i] for i in range(3))>.05',
+     'facing=sum((eye[i]-aim[i])*offset[i] for i in range(3))>0.',
+     'test_BR01_coarse_arrival_does_not_authorize_an_unsafe_placement'),
+    ('recovery_crouch_reach_not_relaxed','item_actions.py',
+     'reach=reach if reach is not None else (4.5 if goal.recorded_sneak else 2.95)',
+     'reach=reach if reach is not None else (4.6 if goal.recorded_sneak else 2.95)',
+     'test_BR03_face_and_reach_bounds_are_not_rounded_up_to_recover_replay'),
+    ('recovery_partial_source_authority','item_actions.py',
+     "position_authorized=(math.dist(scene['position'],current_center)<=.08\n                             or nav.get('source_recovered_from_partial_support') is True\n                             or (recorded_point is not None and recorded_proxy\n                                 and (position_cell==current_cell or nav.get('source_recovered_from_partial_support') is True)))",
+     'position_authorized=True',
+     'test_BR04_a_partial_proxy_still_requires_native_source_authority_and_actor_fencing'),
     ('edge_stance_cleanup_on_actor_loss','motion.py','if self.holding or self.sneak_stance:','if self.holding:','test_CM19_edge_stance_is_released_on_actor_loss_before_another_pulse'),
     ('edge_independent_sneak_lease','motion.py',"leases={button:ticks for button in buttons};leases['sneak']=LEASE_TICKS","leases={button:ticks for button in buttons};leases['sneak']=ticks",'test_CM18_recorded_sneak_edge_pose_uses_only_supported_single_tick_pulses'),
     ('edge_sneak_before_preparation','motion.py','if edge_pose and not self.holding:','if False:','test_CM18_recorded_sneak_edge_pose_uses_only_supported_single_tick_pulses'),
