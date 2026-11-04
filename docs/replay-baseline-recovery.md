@@ -1,5 +1,10 @@
 # H04 baseline recovery and partial-pose investigation
 
+The subsequent [stateful requalification](stateful-requalification.md) verifies the
+completed recovery evidence and records its local source checkpoint, fresh baseline
+and scoped performance ablations. Native optimization qualification is blocked by
+launcher/display isolation, not a relabelled recovery failure; reuse stays off.
+
 ## Current follow-up: operation-scoped pose handoff
 
 The [pose-handoff recovery](pose-handoff.md) refines the actual I3 contract without

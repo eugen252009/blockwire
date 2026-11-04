@@ -178,6 +178,32 @@ class TerminalContracts(unittest.IsolatedAsyncioTestCase):
         await self.terminal(client, ['I0', ':quit'])
         self.assertTrue(finished.is_set())
 
+    async def test_explicit_quit_cancels_inflight_request_without_draining_or_replay(self):
+        client = Client()
+        started, cancelled = asyncio.Event(), asyncio.Event()
+        async def send(source):
+            client.sources.append(source)
+            started.set()
+            try:
+                await asyncio.Event().wait()
+            finally:
+                cancelled.set()
+        client.send = send
+        reads = 0
+        async def read_line(prompt):
+            nonlocal reads
+            reads += 1
+            if reads == 1:
+                return 'I0'
+            await started.wait()  # Synchronize on actual submission, never a sleep.
+            return ':quit'
+        output = []
+        self.assertEqual(await asyncio.wait_for(repl(client, read_line, output.append), 1), 1)
+        self.assertTrue(cancelled.is_set())
+        self.assertEqual(client.sources, ['I0'])
+        self.assertEqual(reads, 2)
+        self.assertEqual(output, [])  # No fabricated completed response.
+
     async def test_load_never_executes_without_end(self):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / 'recorded.bcl'

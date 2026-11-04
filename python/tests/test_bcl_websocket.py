@@ -61,10 +61,12 @@ class WebSocketContracts(unittest.IsolatedAsyncioTestCase):
 
     async def test_terminal_repl_modal_invalid_bcl_and_request_correlation(self):
         from blockwire.bcl.cli import repl
-        lines = iter(['S2 sneak', 'S2 ?', 'INVALID', 'S2 ?', ':quit'])
+        # Correlation requires draining submitted requests. Explicit :quit is
+        # intentionally immediate cancellation, NOT an implicit response barrier.
+        # EOF exercises the documented drain contract without scheduling sleeps.
+        lines = iter(['S2 sneak', 'S2 ?', 'INVALID', 'S2 ?'])
         output = []
         async def read_line(prompt):
-            await asyncio.sleep(.03)
             try:
                 return next(lines)
             except StopIteration:

@@ -1,6 +1,27 @@
 # Stateful input execution: experiments and grounding follow-up
 
-## Latest: operation-scoped pose recovery; optimization remains disabled
+## Latest: resumed native qualification; activation remains off
+
+The [resumed investigation](stateful-requalification-resume.md) passes M03 13/13,
+native edge walks 4/4, six complete comparison replays and four frozen-source
+identity repetitions. The spatial continuation has five complete GOs and one
+terminal reflection UNKNOWN_NO_RETRY; no 9/9 is claimed. The observed pair timing
+lies inside control variability, so full-program performance remains unqualified.
+REPL test synchronization is corrected without protocol changes; final QA passes
+603 tests in three serial runs, Gradle, 209/50/47 mutations and TLS 10/10.
+Production execution/defaults remain unchanged and off; historical evidence stays.
+
+## Previous: recovered-source performance requalification is blocked
+
+The [new requalification](stateful-requalification.md) preserves committed recovery
+and a reconstructable local checkpoint. A fresh standard replay passed in 498.939 s;
+three-trial native horizontal ablations showed scoped camera/Sneak benefits, not a
+qualified full replay speedup. Actor-loading diagnostics and a foreign-display
+launcher IPC collision stopped the micro gates. Placement reuse has no reliable
+measured benefit. No optimized full replay/cohort or default activation followed;
+all historical results remain intact.
+
+## Prior: operation-scoped pose recovery; optimization remains disabled
 
 The [pose-handoff follow-up](pose-handoff.md) separates accepted movement,
 observed native settling and concrete I3 readiness. Its invariant-preserving P06 standard

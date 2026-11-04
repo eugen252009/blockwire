@@ -2,6 +2,20 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Resume isolated native stateful qualification with actual child-display proof:
+  micro 13/13, edge 4/4, full comparison 6/6 and identity repetition 4/4 GO.
+  Preserve incomplete spatial cohorts, setup failure and terminal reflection
+  UNKNOWN_NO_RETRY. No stable full-program speedup or 9/9 qualification; defaults
+  remain off. Correct REPL correlation-test EOF/quit synchronization without runtime
+  changes; final Python 603/603 in three runs, Gradle, mutations and TLS PASS.
+  See `docs/stateful-requalification-resume.md`; no commit or release.
+
+- Freeze the committed replay-recovery baseline locally and measure fresh native
+  execution/component reuse without changing the runtime default. Preserve actor
+  diagnostic and launcher IPC/display failures; full optimized qualification is
+  blocked, not GO. Add read-only benchmark process/display guards and five tests.
+  See `docs/stateful-requalification.md`; no optimized default activation.
+
 - Add operation-scoped M0/I3 pose handoff: native observed precision Sneak,
   bounded authorized local I3 prepositioning inside existing constraints, and
   interaction arrival checks after ordinary settling. No tolerance, recorded BCL,

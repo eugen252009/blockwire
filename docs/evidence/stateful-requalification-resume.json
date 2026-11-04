@@ -1,0 +1,584 @@
+{
+  "commit_or_push_or_release": false,
+  "default_activation": "NO_GO_OFF",
+  "edge": {
+    "cohort": "E03",
+    "results": [
+      {
+        "geometry_unchanged": true,
+        "jump_ticks": 0,
+        "lost_ground": false,
+        "run_id": "ST-EDGE-BASE-01",
+        "status": "GO"
+      },
+      {
+        "geometry_unchanged": true,
+        "jump_ticks": 0,
+        "lost_ground": false,
+        "run_id": "ST-EDGE-PAIR-01",
+        "status": "GO"
+      },
+      {
+        "geometry_unchanged": true,
+        "jump_ticks": 0,
+        "lost_ground": false,
+        "run_id": "ST-EDGE-PAIR-02",
+        "status": "GO"
+      },
+      {
+        "geometry_unchanged": true,
+        "jump_ticks": 0,
+        "lost_ground": false,
+        "run_id": "ST-EDGE-PAIR-03",
+        "status": "GO"
+      }
+    ]
+  },
+  "environment": {
+    "actual_child_display_proofs": 34,
+    "display": ":99",
+    "foreign_launcher_initially_absent": true,
+    "foreign_processes_terminated": false,
+    "requested_display_alone_not_accepted": true
+  },
+  "full_comparison": {
+    "ablations": {
+      "ST-CAMERA-01": {
+        "observed_reduction_vs_control_mean_percent": 4.732795457401262,
+        "seconds": 495.08647146000294
+      },
+      "ST-PAIR-01": {
+        "observed_reduction_vs_control_mean_percent": 1.1877016304666976,
+        "seconds": 513.5096843819993
+      },
+      "ST-SNEAK-01": {
+        "observed_reduction_vs_control_mean_percent": -0.6650893187302387,
+        "seconds": 523.1383046170013
+      }
+    },
+    "cohort": "A02",
+    "control_mean_seconds": 519.6819554400014,
+    "control_seconds": [
+      506.1547829070041,
+      525.8596811570023,
+      527.0314022559978
+    ],
+    "performance_verdict": "INCONCLUSIVE_NO_GO",
+    "prior_baseline_seconds": 498.938962608001,
+    "prior_baseline_used_as_matched_control": false,
+    "reason": "Single optimized arm per mode, pair inside control range; no stable full-program speedup proved. Do not extrapolate microbenchmarks or pool cohorts.",
+    "results": [
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 506.1547829070041,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-BASE-01",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 525.8596811570023,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-BASE-02",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 527.0314022559978,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-BASE-03",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 495.08647146000294,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-CAMERA-01",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 513.5096843819993,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-PAIR-01",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 523.1383046170013,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-SNEAK-01",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      }
+    ]
+  },
+  "limitations": [
+    "No 9/9 optimized cohort",
+    "No repeatable full-program performance GO",
+    "Placement adapter benefit not established; excluded",
+    "Arbitrary terrain/modpacks/angles and H05 owner build unqualified",
+    "Unknown reflected replay never reconnected/replayed"
+  ],
+  "micro": {
+    "actor_loading_phase_rule": "Loading frames have no native inputs or position change; authorized and post-ready frames must be grounded",
+    "cohort": "M03",
+    "horizontal_means": {
+      "baseline": 5.816630764,
+      "camera_sneak": 5.304222361
+    },
+    "horizontal_seconds": {
+      "baseline": [
+        5.742282393,
+        5.907599393,
+        5.800010506
+      ],
+      "camera_sneak": [
+        5.198015154,
+        5.228907861,
+        5.485744068
+      ]
+    },
+    "observed_pair_reduction_percent": 8.809367893375198,
+    "placement_reuse": false,
+    "previous_actor_no_go_retained": true,
+    "results": [
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.742282393,
+        "final_inputs_released": true,
+        "mode": "baseline",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-baseline-01",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.907599393,
+        "final_inputs_released": true,
+        "mode": "baseline",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-baseline-02",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.800010506,
+        "final_inputs_released": true,
+        "mode": "baseline",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-baseline-03",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.198015154,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-camera_sneak-01",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.228907861,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-camera_sneak-02",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 5.485744068,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-H-camera_sneak-03",
+        "scenario": "horizontal",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 2.344877963,
+        "final_inputs_released": true,
+        "mode": "baseline",
+        "placement_item_consumption": 0,
+        "placements": 0,
+        "run_id": "ST-actor-baseline-01",
+        "scenario": "actor",
+        "status": "GO",
+        "use_attempts": 0
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 2.407973287,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 0,
+        "placements": 0,
+        "run_id": "ST-actor-camera_sneak-01",
+        "scenario": "actor",
+        "status": "GO",
+        "use_attempts": 0
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 0.145608838,
+        "final_inputs_released": true,
+        "mode": "baseline",
+        "placement_item_consumption": 0,
+        "placements": 0,
+        "run_id": "ST-cancel-baseline-01",
+        "scenario": "cancel",
+        "status": "GO",
+        "use_attempts": 0
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 0.132947896,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 0,
+        "placements": 0,
+        "run_id": "ST-cancel-camera_sneak-01",
+        "scenario": "cancel",
+        "status": "GO",
+        "use_attempts": 0
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 2.879638967,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 1,
+        "placements": 1,
+        "run_id": "ST-interactive-camera_sneak-01",
+        "scenario": "interactive",
+        "status": "GO",
+        "use_attempts": 1
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 7.831425634,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 5,
+        "placements": 5,
+        "run_id": "ST-mixed-camera_sneak-01",
+        "scenario": "mixed",
+        "status": "GO",
+        "use_attempts": 5
+      },
+      {
+        "authorized_control_and_postready_grounded": true,
+        "closed_save_correct": true,
+        "elapsed_seconds": 7.470896338,
+        "final_inputs_released": true,
+        "mode": "camera_sneak",
+        "placement_item_consumption": 3,
+        "placements": 3,
+        "run_id": "ST-vertical-camera_sneak-01",
+        "scenario": "vertical",
+        "status": "GO",
+        "use_attempts": 3
+      }
+    ]
+  },
+  "production_runtime_changed": false,
+  "qa": {
+    "earlier_preflight_script_failures_retained": true,
+    "exit_codes": {
+      "bcl": 0,
+      "closed-preflight": 0,
+      "display-stop": 0,
+      "focused": 0,
+      "gradle": 0,
+      "play2code": 0,
+      "python": 0,
+      "python-confirmation": 0,
+      "python-confirmation2": 0,
+      "skills": 0,
+      "tls": 0
+    },
+    "focused_terminal": "35/35 PASS",
+    "gradle": "PASS",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 209,
+        "total": 209
+      }
+    },
+    "physical_f8_injection": "NOT_RUN",
+    "python": "603/603 PASS in three final serial full-suite runs",
+    "tls": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "recovery_commit": "1d5fcbeeca847a86b1716dbf6968762d6fce3ec1",
+  "repeatability": {
+    "cohort": "S02",
+    "cohort_verdict": "STOPPED_INCOMPLETE_NOT_9_OF_9",
+    "identity_results": [
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 521.5960166320001,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-ID01",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 510.7372743300002,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-ID02",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 513.3033285330021,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-ID03",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 516.1876886509999,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "ST-ID04",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      }
+    ],
+    "identity_verdict": "4/4 GO under one source/config freeze",
+    "premeasurement_failure": {
+      "old_id_relaunched": false,
+      "reason": "Expected TitleScreen not ready before world load; exact screen/cause not established",
+      "replay_started": false,
+      "run_id": "ST-90"
+    }
+  },
+  "repl": {
+    "before": "isolated PASS; full suite 601/602 FAIL",
+    "change": "Use EOF to drain all four requests with original correlation/modal/error assertions unchanged; no scheduling sleep. Add event-synchronized quit-cancels-inflight-without-replay test.",
+    "root_cause": "Test expected all four responses after immediate-cancel :quit; fixed timing assumption, not protocol",
+    "runtime_or_timeout_or_assertion_weakening": false
+  },
+  "safety": {
+    "default_flags": {
+      "camera_reuse": false,
+      "placement_reuse": false,
+      "reuse_verified_observation": false,
+      "sneak_reuse": false
+    },
+    "final_owned_client_closed": true,
+    "final_owned_config_enabled": false,
+    "final_test_ports_closed": true,
+    "hidden_display_stopped": true,
+    "movement_211_case_requalification": "Previous unchanged-source HM04 211/211 retained, not rerun or claimed optimized acceptance",
+    "native_edge_and_lifecycle": "E03 4/4 and M03 actor/cancel gates PASS",
+    "tls_actor_fences_input_leases_ownership_postconditions_and_bounds": "UNCHANGED"
+  },
+  "schema": "blockwire.stateful-requalification.resume.v1",
+  "source_freezes": {
+    "A02": "14260a70ccb9ea6e1ad6a584163818698d6e8efa9b4d89586bef3ebe5197162f",
+    "E03": "03beb654412ba5a801407b1253ca4f1ac8534ec7b1e491fbc0ce4cc5a2cfe0f6",
+    "M03": "6c35282f087593f87b377c6ac571571a5f8617be5b511cde4b218f46521d9da1",
+    "S02": "c24ce8d3a9941d6b47d52df4dca8532610251cc02bd866536d6ba0f46d14e499",
+    "S03": "e9b8fb607ba301d80dcd867c42d2d0835d6c45c5cff7e81f0968e8a8cff21594"
+  },
+  "spatial": {
+    "cohort": "S03",
+    "no_pooling_with_S02_or_historical_cohorts": true,
+    "results": [
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 569.708389708001,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "SU-180",
+        "scenario": "ROT180",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 563.7716961800033,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "SU-270",
+        "scenario": "ROT270",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 511.5782558239953,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "SU-90",
+        "scenario": "ROT90",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 575.9509574020049,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "SU-ID",
+        "scenario": "ID",
+        "status": "GO",
+        "verified_blocks": 71
+      },
+      {
+        "automatic_action_retries": 0,
+        "closed_save_matches": true,
+        "completed_batches": 20,
+        "elapsed_seconds": 546.6617352890025,
+        "executed_operations": 572,
+        "failed_actions": 0,
+        "native_read_only_verified": true,
+        "run_id": "SU-X01",
+        "scenario": "X01",
+        "status": "GO",
+        "verified_blocks": 71
+      }
+    ],
+    "secondary_harness_error": "closed_verify attempted absent ended-world snapshot after terminal transport failure; retained traceback is not a second gameplay attempt",
+    "unknown": {
+      "automatic_retry": false,
+      "cause": "Transport lost; initiating host/display shutdown cause not established",
+      "closed_save_acceptance": false,
+      "completed_batches": 7,
+      "executed_operations": 210,
+      "independent_final_world_verification": false,
+      "interrupted_closed_world_preserved": true,
+      "outcome": "UNKNOWN_NO_RETRY",
+      "run_id": "SU-X03",
+      "scenario": "X03",
+      "verified_placement_events": 24
+    },
+    "verdict": "INCOMPLETE_NOT_9_OF_9"
+  },
+  "working_native_source_identity": "ec11126c8cc7ef01a9f349ea87ae9d5731f03dfc85716dbda9c8a8f5392517c7"
+}

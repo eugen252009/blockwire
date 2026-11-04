@@ -1,4 +1,10 @@
 {
+  "recovered_source_requalification_followup": {
+    "record": "docs/evidence/stateful-requalification.json",
+    "hash_manifest": "docs/evidence/stateful-requalification-hashes.json",
+    "historical_verdict_measurements_and_hashes_unchanged": true,
+    "scope": "Separate committed-source checkpoint and fresh measurements; optimized full qualification blocked, default off"
+  },
   "replay_baseline_recovery_followup": {
     "record": "docs/evidence/replay-baseline-recovery.json",
     "hash_manifest": "docs/evidence/replay-baseline-recovery-hashes.json",
