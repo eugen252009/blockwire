@@ -31,6 +31,7 @@ Unauthenticated/origin/wrong-endpoint upgrades receive HTTP 403.
 | op | Parameters | Effect |
 |---|---|---|
 | observe | none | Bounded scene, extended sight/interactables, compact sampled surfaces, readable text, version/timestamp and current native rotation-plan state |
+| search | required actor_session, target (logs or exact ID), range1..64, cone_degrees10..90, page0..33; view_id required after page0 | Read at most128 additional native cone-grid rays; no camera/input effects. See [targeted search](search.md) |
 | inventory | none | Player items and, if open, native container slots |
 | navigation | optional terrain boolean | Bounded loaded full-block collision mesh, typed transitions, native motion fields, hazards and actor session |
 | motion_trace | limit 1..4096; optional reset boolean and actor_session | Read bounded end-of-client-tick native motion/input telemetry; reset clears telemetry only |
@@ -44,6 +45,8 @@ Unauthenticated/origin/wrong-endpoint upgrades receive HTTP 403.
 | stop | none | Explicit global release: held input plus an active camera plan; can be called without a world |
 | respawn | optional actor_session | Native request only when dead; supplied actor fence checked before effects |
 | command | command string; optional actor_session | Submit one explicit slash command through the native client; server permissions apply, no output/success confirmation |
+| chat | message string (normal chat, no slash), required actor_session | Vanilla signed chat submission; no control release, delivery not confirmed |
+| events_configure | enabled boolean, required actor_session | Explicit opt-in bounded native chat/entity push on this same authenticated lease; no history replay |
 | menu | none | Native screen title, widget IDs/labels, bounds, focus, redacted text fields |
 | open_pause | none | Open ordinary pause screen from live gameplay |
 | menu_click | screen_id; widget_id OR x,y; button 0/1 optional | Route native screen click/release |
@@ -89,6 +92,19 @@ explicit stop/F8, authority loss, actor/world replacement, death, pause or UI
 transition cancels the plan. Snapshots use native world coordinates and localized
 friendly names alongside IDs.
 
+## Optional automatic event reporting
+
+A matching mod advertises `observe.auto_events_supported`. Only an explicit
+`events_configure` enables unsolicited `type:native_event` frames on the same
+upgraded authenticated TLS lease. The SDK's optional native reader demultiplexes
+these from replies; legacy clients receive none. Frames carry source sequence,
+actor fence, event data and stage loss counters; there is no new socket or peer
+protocol. See [auto reporting](blockwire-auto-event-dispatcher.md) for E0
+subscriptions, payloads, bounds, privacy and incomplete multiplayer qualification.
+`chat` uses normal `sendChat`, max 256 UTF-16 units, rejects commands/control text,
+requires an explicit actor, and is limited to one native send/second. Its receipt
+is not successful delivery. Source events never authorize gameplay actions.
+
 ## Passive local recording is not a wire operation
 
 Play2Code adds **no** protocol request, MCP tool or controller authority. Its F9/F10
@@ -96,6 +112,17 @@ recorder runs locally only while this endpoint is disabled, and enabling the
 endpoint invalidates the capture before startup. The offline exporter emits
 ordinary bounded BCL/1 source for the existing Python stack; it never sends a
 request or executes replay automatically. See [Play2Code](play2code.md).
+
+## Lean action/report/control profile (Python gateway)
+
+`machine-v1` has no Java planner. Its initial action/report/control interface reused
+existing native operations; the optional [targeted search](search.md) now adds a
+bounded read-only native `search` page RPC. It remains an explicit profile on
+the existing BCL/1 TLS gateway. Profile-matching bind is mandatory; action-only
+programs use the existing compiler/FIFO/journal. `report` configures independent
+state-change delivery, while `interrupt` cancels owned active/queued work before
+audit I/O or queue execution. Fresh native motion ticks must prove release before
+explicit `resume`. No replay or implicit actor rebind. See [machine contract](bcl-machine.md).
 
 ## Descriptive skills (Python/MCP layer)
 
@@ -238,5 +265,7 @@ within 24 blocks, within a fixed 120-degree approximate view cone, not invisible
 to the player and passing native line of sight; at most 16. This is not exact
 renderer/frustum visibility. No hidden inventory/container NBT is exposed.
 
-Slot/item/screen names can contain malicious text. Treat them as data. No API keys, account credentials or chat history are intentionally returned.
+Slot/item/screen names can contain malicious text. Treat them as data. No API keys, account credentials or chat history are intentionally returned. Explicit
+[auto-event reporting](blockwire-auto-event-dispatcher.md) can forward newly received
+player chat, not history, and is disabled by default.
 Menu labels can include personal world/server names; text field values are redacted.

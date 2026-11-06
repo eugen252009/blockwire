@@ -112,7 +112,31 @@ No MCP, model or embedded interpreter is needed. See
 [the executable example](examples/controller.py). **New concurrency gameplay
 acceptance is NOT RUN**; do not run unattended. Existing alpha.3 bundles stay frozen.
 
-### BCL/1 — compact commands, modal sessions and events (development)
+### Lean action stream — new LLM path (development)
+
+[Construction mechanics](docs/machine-construction.md) add explicit retained-key
+input phases, asserted slot programs, recipe reporting and model-owned blueprint
+notes. There is no built-in forestry/crafting/house progression. A
+[visible real-model attempt](docs/machine-construction-visible-test.md) completed
+**NO-GO**: movement/camera calls worked, but no wood, crafting or house was achieved.
+
+The [machine-v1 profile](docs/bcl-machine.md) separates a small native-action FIFO,
+independent change reporting, and out-of-band interrupt/release/resume. No BCL
+observation opcodes, automatic resource-search routes or crafting planner are
+available in this profile. Separate [search(target="logs")](docs/search.md) adds
+bounded, denser native sight tests without camera/movement; `look_around` remains
+coarse. LLMs choose exploration using typed tools, not hidden planners.
+
+Use `python -m blockwire.bcl.gateway --profile machine-v1 …` with
+`python -m blockwire.machine_mcp …` or `python -m blockwire.machine_agent …`.
+The latter receives event-stream context and explicit bounded perception results,
+and can interrupt an active composition. Explicit TLS trust/identity/model authorization is required.
+The [hidden real-model search fixture](docs/search-hidden-test.md) has a scoped
+pass; general Survival autonomy remains unqualified. Existing `blockwire-agent`,
+`blockwire-mcp` and the legacy BCL profile remain compatibility interfaces;
+no existing MCP configuration or running client is silently migrated.
+
+### BCL/1 — compact commands, modal sessions and events (legacy-compatible development)
 
 ```bcl
 S0 async
@@ -214,6 +238,11 @@ failures, but neither tested correction was repeatable; no prototype was promote
 
 ### Strategic LLM agent (development prototype)
 
+[Typed tool calling](docs/llm-tool-calling.md) exposes each skill as a named MCP
+`skill_*` tool with its full schema. The standalone HTTP agent defaults to native
+function calls (`--model-interface tools`); legacy JSON remains explicit. Models
+need not generate BCL. Graphical Survival qualification of this path is NOT RUN.
+
 `blockwire-agent` / `python -m blockwire.agent_cli` adds an explicitly selected LLM
 above the existing skills: observe → typed decision → bounded native skill →
 verification → replan. Private per-agent SQLite memory, ownership, cancellation,
@@ -240,6 +269,13 @@ inventory confirmation. After an initial unsupported-route stop and a separately
 authorized damaging native descent, a live follow-up collected one log. General
 terrain navigation and autonomous recovery remain unimplemented. See
 [wood harvesting](docs/gather-wood.md) and [campaign limits](docs/end-portal.md).
+
+### Look around the crosshair (read-only)
+
+`look_around()` reports sampled blocks and distances within a 30° cone and a
+10×10-block horizontal window around the observed forward hit. Available through
+Python, CLI and both MCP profiles; machine MCP explicitly uses cached events.
+No camera movement or hidden world lookup. [Limits and usage](docs/look-around.md).
 
 ### Estimate visible distance (read-only, no X-ray)
 

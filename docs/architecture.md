@@ -78,6 +78,20 @@ startup saves validate the selected authority and atomically replace only its
 startup flag, without touching TLS/token material or current endpoint state.
 See [configuration](configuration.md#optional-mod-menu-screen).
 
+## Lean machine boundary
+
+The opt-in [machine-v1 profile](bcl-machine.md) reuses the BCL compiler, journals,
+FIFO, native ownership and TLS transport but exposes only small input primitives.
+Reporting and interrupt/resume are separate control-plane tasks, not queued BCL
+observation/action instructions. The event-fed machine agent and MCP facade offer
+strict typed primitives/compositions, with no high-level goal/search/crafting
+planner. Separate [search](search.md) perception obtains additional bounded native
+rays outside the FIFO; Python pages/validates observations without choosing camera
+turns, routes or resources to harvest. `look_around` remains a coarse cached view.
+Native physics and internal safety/postcondition reads remain mandatory.
+Legacy goal skills below remain available only through the legacy interfaces;
+they are not implicitly added to machine-v1. No historical replay is migrated.
+
 ## Goal/skill boundary
 
 `SkillRegistry` describes strict schemas; trusted, explicitly enabled provider

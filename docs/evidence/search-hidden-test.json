@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "scope": "search-hidden-001",
+  "status": "SCOPED_PASS",
+  "description": "Additional targeted sight, occlusion and range in a declared synthetic graphical fixture; NOT natural forestry",
+  "route": "gpt-6-luna native tool calling -> real MCP stdio -> machine-v1 TLS -> native Minecraft",
+  "provider_calls": 6,
+  "provider_retries": 0,
+  "display": {
+    "hidden": true,
+    "authenticated": true,
+    "host_parent_unmapped": true,
+    "actual_child_verified_before_native_connection": true,
+    "software_renderer": true,
+    "fps_cap": 15
+  },
+  "bounds": {
+    "test_seconds": 480,
+    "outer_seconds": 900,
+    "model_calls": 6,
+    "camera_actions": 1,
+    "look_around": 1,
+    "search": 3,
+    "native_pages": 102
+  },
+  "fixture": {
+    "fresh_world": true,
+    "loopback_only": true,
+    "offline_identity": true,
+    "peaceful_survival": true,
+    "pre_player_setup_declared": true,
+    "post_join_setup": false,
+    "player_items_granted": false,
+    "exposed_oak_log": true,
+    "stone_occluded_birch_log": true
+  },
+  "results": {
+    "status": "SCOPED_PASS",
+    "model_calls": 6,
+    "native_pages": 102,
+    "rays": 9627,
+    "scans": [
+      {
+        "target": "logs",
+        "range": 32,
+        "reason": "targets_observed",
+        "matches": 1,
+        "distances_blocks": [
+          19.558020686842788
+        ],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 5297,
+        "independent_ray_and_closed_save_audit": "PASS"
+      },
+      {
+        "target": "minecraft:birch_log",
+        "range": 32,
+        "reason": "target_not_seen",
+        "matches": 0,
+        "distances_blocks": [],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4700,
+        "independent_ray_and_closed_save_audit": "PASS"
+      },
+      {
+        "target": "logs",
+        "range": 8,
+        "reason": "target_not_seen",
+        "matches": 0,
+        "distances_blocks": [],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4600,
+        "independent_ray_and_closed_save_audit": "PASS"
+      }
+    ],
+    "coarse_missed_exposed_log": true,
+    "missing_crosshair_anchor": true,
+    "initial_final_and_saved_position_unchanged": true,
+    "inventory_empty": true,
+    "health": 20,
+    "all_owned_processes_ports_display_closed": true,
+    "host_cleanup": "released",
+    "unknown": false,
+    "declared_pre_player_fixture": true,
+    "model_summary_not_used_as_evidence": true,
+    "graphical_machine_mcp": "PASS",
+    "ordinary_mcp_graphical": "NOT_RUN",
+    "harvesting": "NOT_RUN",
+    "natural_survival_search": "NOT_RUN",
+    "replay_viewer": "NOT_RUN"
+  },
+  "source_sha256": {
+    "python/src/blockwire/skills/search.py": "0bba34b096b3f4c5d90a801246c687c3f2420582a919ebb1b97031062abe4284",
+    "python/src/blockwire/skills/looking.py": "db256b2ab056f5c5b82afb54c0c6c63968177926c4bd2c028731295f5ac77f25",
+    "python/src/blockwire/client.py": "d79c087378532fe8269079880c7b0adfad39bd26134fc28fa1a3d7393f3301fd",
+    "python/src/blockwire/bcl/client.py": "8b6f37526606105c9a850e37ca693d1d16dcf1f38a3b31513cee4efdd4ebc797",
+    "python/src/blockwire/bcl/gateway.py": "08b9f9c6c55cf3a43a0924030edcfed4008fba92852a5f003d57afeedcfb557b",
+    "python/src/blockwire/bcl/search.py": "1fab8d338363e18ced2b9859a587e46a4dd56a86a655b888d5fb687ad4c5f5df",
+    "python/src/blockwire/machine_mcp.py": "3aaf40ecdb68f27827798f05eb741dafb33f7722630f4ddfd1036139936e5456",
+    "python/src/blockwire/mcp_skill_tools.py": "45a0be29c9a4fc8f05a630fb2d900f01d5f2e4d437106d39dbe5a708b789932a",
+    "src/main/java/dev/blockwire/SearchView.java": "dad3d1a3130b01627b626aa2745b6c89e13bc87d73e6887349ee6807b99e6523",
+    "src/main/java/dev/blockwire/Blockwire.java": "a5756db920e8416dfe5674ddeabc3cfca88c6ce0dfd429cdf50867b5a85c6427",
+    "src/main/java/dev/blockwire/VisibilityView.java": "695a68ff49c1c8b457f2d477dbb2c5cab2af2c18e482da4e6c97ee69285e2557"
+  },
+  "native_jar_sha256": "145b90ba89307b40d5f9f6feb5fad541596721d6156dd509752a2cc4d88cf7c6",
+  "private_evidence_sha256": {
+    "build/search/hidden-001/source-freeze-private.json": "3fa944c4a59587f1709cccf241a5374fa7fe3aebf10246cfab787187e5a6c014",
+    "build/search/hidden-001/native-source-freeze-private.json": "f59b35ebaa2e013c3bc66520ea2d4c25174423d15bfa40961c8ad63c0014cb7a",
+    "build/search/hidden-001/host-source-freeze-private.json": "5c5b2258d77bc38d6b2519182aa41e3cb5fc0eb89b87e21fb205969abd996a3d",
+    "build/search/hidden-001/independent-audit-private.json": "68ac62293df6aab89a222aa6d4466cefd6644ee1c61005d643626ee9e9436c2f",
+    "build/search/hidden-001/ended-private.json": "156ee247e193502d9c7f70640fe82fa722699725f4444cbde64405d00e8b5743",
+    "build/search/hidden-001/agent-result-private.json": "646a989ef94f00098c1629ce26a49573176c25e28412c914fffe4dd652d55acc",
+    "build/search/audit_hidden.py": "9fb0e7a3f5a191bce24cb430b8d758b2d9e8a93133e37709d0e6c2763ec00c99"
+  },
+  "limits": [
+    "Model prose is not acceptance evidence",
+    "Synthetic fixture; no natural log origin proof",
+    "Geometric rays, not pixel-complete sight",
+    "Search pages are not an atomic snapshot",
+    "Ordinary MCP graphical search NOT RUN",
+    "Live search interruption NOT RUN",
+    "Harvesting/crafting/building and 64-log objective not qualified",
+    "No general performance or financial/token ceiling"
+  ],
+  "audit_note": "Initial audit-only north-face assumption corrected to independently derived intersection face; failure retained, no production/run change or replay",
+  "preservation": "All owned resources closed; historical failures/evidence remain unchanged; no scope resumption"
+}

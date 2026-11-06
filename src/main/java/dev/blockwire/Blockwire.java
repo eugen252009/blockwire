@@ -28,6 +28,8 @@ public final class Blockwire implements ClientModInitializer {
     private final MenuBridge menus=new MenuBridge();
     private final NavigationView navigation=new NavigationView();
     private final MotionTrace motionTrace=new MotionTrace();
+    private final AutoEvents autoEvents=new AutoEvents();
+    private long lastChatSend;
     private final RotationController rotation=new RotationController();
     private final InputLeases inputLeases=new InputLeases();
     private long deadline, generation;
@@ -48,10 +50,13 @@ public final class Blockwire implements ClientModInitializer {
         play2CodeStart=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.blockwire.play2code.start",InputConstants.Type.KEYBOARD,InputConstants.KEY_F9,category));
         play2CodeStop=KeyMappingHelper.registerKeyMapping(new KeyMapping("key.blockwire.play2code.stop",InputConstants.Type.KEYBOARD,InputConstants.KEY_F10,category));
         play2Code=new Play2CodeRecorder(FabricLoader.getInstance().getGameDir().resolve("recordings"),this::message);
+        net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents.CHAT.register(
+            (text,message,sender,parameters,received)->autoEvents.chat(mc,text,message,sender));
         ClientTickEvents.START_CLIENT_TICK.register(client->tick());
         ClientTickEvents.END_CLIENT_TICK.register(client->{
             String session=navigation.actorSession(client);var currentKeys=keys();
             motionTrace.sample(client,session,held,currentKeys,rotation);
+            autoEvents.tick(client);
             play2Code.sample(client,session,held,currentKeys,server!=null);
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client->{play2Code.abort("client_stopping");stop();});
@@ -119,7 +124,7 @@ public final class Blockwire implements ClientModInitializer {
         try {
             long epoch=++generation;
             server=new BridgeServer(config.serverIp(),config.port(),config.apiKey(),tls.context(),mc,this::dispatch,
-                ()->{if(generation==epoch)release();});
+                ()->{if(generation==epoch){autoEvents.disable();release();}});
             if(!java.net.InetAddress.getByName(config.serverIp()).isLoopbackAddress())
                 LOG.warn("Blockwire is exposed beyond loopback. TLS is active; retain firewall and trusted-client restrictions.");
             message("Enabled TLS on "+config.serverIp()+":"+config.port()+" (F8 stops).");
@@ -152,7 +157,7 @@ public final class Blockwire implements ClientModInitializer {
     private void release() {
         rotation.cancel(mc,"controls_released");releaseInputs();
     }
-    private void stop() {++generation;release();if(server!=null){server.close();server=null;}}
+    private void stop() {++generation;autoEvents.disable();release();if(server!=null){server.close();server=null;}}
     public static boolean holdingAttack() {
         return instance!=null && instance.server!=null && instance.held.contains("attack") &&
             instance.server.connected() && instance.mc.gui.screen()==null && !instance.mc.isPaused() &&
@@ -182,7 +187,12 @@ public final class Blockwire implements ClientModInitializer {
         switch(op) {
             case "observe" -> {
                 Protocol.fields(q);var scene=Observations.scene(mc);String session=navigation.actorSession(mc);
-                scene.addProperty("actor_session",session);scene.add("rotation",rotation.snapshot(mc,session));return scene;
+                scene.addProperty("actor_session",session);scene.addProperty("auto_events_supported",true);scene.addProperty("search_supported",true);scene.add("rotation",rotation.snapshot(mc,session));return scene;
+            }
+            case "search" -> {
+                var request=SearchView.request(q);guardedActor(q);playerRequired();
+                if(!mc.player.isAlive())throw new IllegalStateException("player_dead");
+                return SearchView.snapshot(mc,navigation.actorSession(mc),request);
             }
             case "navigation" -> {Protocol.fields(q,"terrain");return navigation.snapshot(mc,Protocol.bool(q,"terrain",false));}
             case "motion_trace" -> {
@@ -191,6 +201,20 @@ public final class Blockwire implements ClientModInitializer {
                 int limit=MotionTrace.requestLimit(q);boolean reset=Protocol.bool(q,"reset",false);
                 if(reset)motionTrace.reset(mc);
                 return motionTrace.snapshot(mc,navigation.actorSession(mc),limit);
+            }
+            case "events_configure" -> {
+                Protocol.fields(q,"enabled","actor_session");Protocol.string(q,"actor_session");guardedActor(q);playerRequired();
+                if(Protocol.bool(q,"enabled",false))autoEvents.enable(mc,navigation.actorSession(mc),event->server!=null && server.publish(event));
+                else autoEvents.disable();
+                return autoEvents.status();
+            }
+            case "chat" -> {
+                String text=Protocol.chat(q);guardedActor(q);playing();
+                long now=System.nanoTime();
+                if(now-lastChatSend<1_000_000_000L)throw new IllegalStateException("chat_rate_limited");
+                lastChatSend=now;mc.player.connection.sendChat(text);
+                var receipt=Protocol.ok("Normal Minecraft chat submitted; delivery is NOT confirmed. Do not blindly retry.");
+                receipt.addProperty("submitted",true);return receipt;
             }
             case "inventory" -> {Protocol.fields(q);playerRequired();return inventorySnapshot();}
             case "menu" -> {Protocol.fields(q);return menus.snapshot(mc);}

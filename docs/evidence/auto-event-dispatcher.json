@@ -1,0 +1,474 @@
+{
+  "artifacts": [
+    {
+      "attempt": 1,
+      "replays": [
+        {
+          "bytes": 1671480,
+          "integrity": true,
+          "native_playback": "NOT_RUN",
+          "packets": 23980,
+          "path": "build/auto-event-dispatcher/attempt-001/replay/2026_11_04_21_08_41.mcpr",
+          "sha256": "4340f20ba1e1a56f75c058b2efedbb3043a1b5d1d38ad1d59f6139c073b5404c"
+        },
+        {
+          "bytes": 231480,
+          "integrity": true,
+          "native_playback": "NOT_RUN",
+          "packets": 23492,
+          "path": "build/auto-event-dispatcher/attempt-001/replay/2026_11_04_21_10_04.mcpr",
+          "sha256": "bac536dcbe60245c17e7a32428e1315f0ea67c1de777143d1de47e18a710c7ee"
+        }
+      ],
+      "worlds": [
+        {
+          "health": 20.0,
+          "identity": "b8e64861572a1a189e63006395dc4505178728551e73ce88c4ff0a9c20c20ecc",
+          "name": "New World",
+          "saved_position": [
+            121.5,
+            70.0,
+            -34.5
+          ]
+        },
+        {
+          "health": 20.0,
+          "identity": "b63d5ca4a2d0931fbc610e57afdb5b3437d437dbdbafd244e90756639211cdd7",
+          "name": "Blockwire Auto Events Fixture",
+          "saved_position": [
+            0.27100461017916044,
+            -60.0,
+            -6.391750372786966
+          ]
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "replays": [
+        {
+          "bytes": 85978,
+          "integrity": true,
+          "native_playback": "NOT_RUN",
+          "packets": 4081,
+          "path": "build/auto-event-dispatcher/attempt-002/replay/2026_11_04_21_16_49.mcpr",
+          "sha256": "21e8d9fdd4284908b6b1cb6250611e222607e14e41bdd115a11d6eae14b2cfb3"
+        }
+      ],
+      "worlds": [
+        {
+          "health": 20.0,
+          "identity": "4be2bc6fc0cec83772b2f52e72c826177f399c7bbcb5545dbb2f70a8b924b739",
+          "name": "Blockwire Auto Events Fixture",
+          "saved_position": [
+            0.5653184318862107,
+            -60.0,
+            -6.3237563293185985
+          ]
+        }
+      ]
+    },
+    {
+      "attempt": 3,
+      "replays": [
+        {
+          "bytes": 75417,
+          "integrity": true,
+          "native_playback": "NOT_RUN",
+          "packets": 1197,
+          "path": "build/auto-event-dispatcher/attempt-003/replay/2026_11_04_21_22_38.mcpr",
+          "sha256": "d70e698a1bcfbcf18820c8180e2e28e93f454f31c4f3a037eb31a99390972b1e"
+        }
+      ],
+      "worlds": [
+        {
+          "health": 20.0,
+          "identity": "a5c6cd7bf47c97ccb15dffdb71eed8ed1d0afc5094009432f2d723fecb07135b",
+          "name": "Blockwire Auto Events Fixture",
+          "saved_position": [
+            0.5747169501582389,
+            -60.0,
+            -6.593712471960929
+          ]
+        }
+      ]
+    },
+    {
+      "attempt": 4,
+      "replays": [
+        {
+          "bytes": 75308,
+          "integrity": true,
+          "native_playback": "NOT_RUN",
+          "packets": 1161,
+          "path": "build/auto-event-dispatcher/attempt-004/replay/2026_11_04_21_45_47.mcpr",
+          "sha256": "13a594eb76faeeff8d7d209dd42fd6903fb30034f9a2549fff5ceaf9a609246f"
+        }
+      ],
+      "worlds": [
+        {
+          "health": 20.0,
+          "identity": "f643d626f3a00b8694276ac2d7c27d2d23a16c545e76a390f88b4ec67f566a19",
+          "name": "Blockwire Auto Events Fixture",
+          "saved_position": [
+            0.2569875917922137,
+            -60.0,
+            -6.380026216098399
+          ]
+        }
+      ]
+    }
+  ],
+  "baseline_revision": "a9a7405",
+  "bounds": {
+    "auto_observation_queue_threshold": 48,
+    "event_context_model_bytes_max": 16384,
+    "event_context_model_rows": 8,
+    "event_context_retained": 16,
+    "gateway_queue": 64,
+    "native_chat_callbacks_per_second": 10,
+    "native_chat_utf16_max": 2048,
+    "native_entity_period_client_ticks": 5,
+    "native_entity_result_max": 16,
+    "native_entity_scan_max": 256,
+    "native_pending_writes_max": 32,
+    "native_push_frame_bytes_max": 16384,
+    "observable_radius_max": 24,
+    "outgoing_chat_utf16_max": 256,
+    "outgoing_native_chat_interval_seconds_min": 1,
+    "python_native_events_queue": 64,
+    "reserved_lifecycle_response_slots": 16,
+    "session_observation_events_per_second_max": 20,
+    "tracked_entities_per_session_max": 32,
+    "view_cone_approx_degrees": 120
+  },
+  "cleanup": {
+    "first_three_instances": {
+      "all_new_control_configs_disabled": true,
+      "all_new_java_closed": true,
+      "display_closed": true,
+      "owned_idle_launchers_closed": [],
+      "ports_closed": [
+        15601,
+        16601
+      ],
+      "timestamp": 1793824674.6714046,
+      "unrelated_processes_signalled_or_pinned": false
+    },
+    "fourth_final_instance": {
+      "all_new_control_configs_disabled": true,
+      "all_new_java_closed": true,
+      "display_closed": true,
+      "owned_idle_launchers_closed": [],
+      "ports_closed": [
+        15601,
+        16601
+      ],
+      "timestamp": 1793825230.3378987,
+      "unrelated_processes_signalled_or_pinned": false
+    }
+  },
+  "delivery": {
+    "disconnect_replay": false,
+    "duplicates": "Signed callback signature bounded set and source sequence; equal text alone is not a duplicate",
+    "event_authority": "Server-originated observations only; clients cannot emit/forge events",
+    "event_driven_chat": "Native arrival callback wakes collector; no LLM poll or chat polling interval",
+    "leave": "No longer observable, with labeled last observation; not asserted death/despawn",
+    "lifecycle_priority": "Low-priority native reports cannot occupy last sixteen gateway queue slots",
+    "loss_metrics": "Per-stage cumulative counters; overlap possible, not summable unique losses",
+    "model_consumption": "Bounded context at next normal decision; no per-event inference or forced BCL interruption",
+    "new_actor": "Explicit new activation/binding, no automatic reconnect/replay",
+    "ordering": "Native callback sequence and same-connection FIFO; no global ordering claim",
+    "private_world_isolation": "Native actor fence at capture/receive and bound BCL session at dispatch",
+    "truncated_source_omission": "Unknown, no fabricated leave"
+  },
+  "environment": {
+    "cpu_allocation": {
+      "inference_cpus": [
+        7,
+        15
+      ],
+      "minecraft_cpus": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "os_spare_cpus": [
+        0,
+        8
+      ],
+      "physical_cores": [
+        [
+          0,
+          0,
+          [
+            0,
+            8
+          ]
+        ],
+        [
+          0,
+          1,
+          [
+            1,
+            9
+          ]
+        ],
+        [
+          0,
+          2,
+          [
+            2,
+            10
+          ]
+        ],
+        [
+          0,
+          3,
+          [
+            3,
+            11
+          ]
+        ],
+        [
+          0,
+          4,
+          [
+            4,
+            12
+          ]
+        ],
+        [
+          0,
+          5,
+          [
+            5,
+            13
+          ]
+        ],
+        [
+          0,
+          6,
+          [
+            6,
+            14
+          ]
+        ],
+        [
+          0,
+          7,
+          [
+            7,
+            15
+          ]
+        ]
+      ]
+    },
+    "display": "Actual-child-proven authenticated hidden :99",
+    "fixture": "New isolated admin-authorized Superflat / Normal / Creative fixture, not previous Survival worlds",
+    "licensed_profile_count": 1,
+    "minecraft": "26.3",
+    "no_extra_model_inference_calls": true,
+    "old_campaigns_modified": false,
+    "scoped_launcher_environment": "FLATPAK_GL_DRIVERS=default; no global driver/service change",
+    "source": "Fabric ClientReceiveMessageEvents.CHAT and bounded client-loaded entity observations",
+    "two_player_auth_workaround": false
+  },
+  "implementation": {
+    "actor_fences_input_leases_tls_f8_preserved": true,
+    "automatic_execution_of_event_text": false,
+    "chat_send_apis": [
+      "Player.chat(message, actor_session=...)",
+      "MCP send_chat",
+      "CLI chat --actor-session"
+    ],
+    "chat_send_receipt": "Submission only; actual echo required for observed delivery; normal vanilla signing/permissions, no control release",
+    "existing_bcl_event_stream": true,
+    "movement_physics_crafting_damage_implementation_changed": false,
+    "native_transport": "Additive opt-in unsolicited frames on SAME upgraded authenticated TLS lease; no extra socket, key bypass or peer protocol",
+    "new_bcl_subscription_opcode": false,
+    "new_broker_or_cross_world_relay": false,
+    "provider_opt_in": "BCLGateway(native_events=native_bridge) or gateway --auto-events; absent from default_commands without provider",
+    "registered_events": {
+      "entity.hostile.enter": "E111",
+      "entity.hostile.leave": "E112",
+      "player.chat": "E108",
+      "player.nearby.enter": "E109",
+      "player.nearby.leave": "E110",
+      "reporting.metrics": "E113"
+    }
+  },
+  "limitations": [
+    "No genuine two-client multiplayer or real remote-player proximity acceptance: only one usable authenticated profile",
+    "System/game/disguised chat not captured; fully filtered messages excluded; text is delivered Component plaintext, not hidden signed content",
+    "No invented public/private channel, mentions metadata or hidden sender distance",
+    "Entity observation is the existing limited client/FOV/LOS scope and native Monster taxonomy, not every potential threat",
+    "Per-session filters are trusted host policy configuration; existing E0 syntax is unchanged",
+    "No durable delivery/automatic recovery across disconnects; ordinary context summary is lossy and does not replace lifecycle/task handling",
+    "No general prompt-injection immunity guarantee; received text carries no action authority",
+    "Existing distribution ZIPs not rebuilt"
+  ],
+  "native_evidence": {
+    "actual_concurrent_task_active_at_delivery": true,
+    "actual_native_events_in_agent_context": true,
+    "bcl_program_verified": true,
+    "bcl_status": "completed",
+    "chat_capture_to_gateway_single_sample_ms": 1.416259765625,
+    "chat_unsubscribe_verified": true,
+    "chat_was_signed": true,
+    "different_native_player_observer": false,
+    "hostile_payloads_redacted": {
+      "enter": {
+        "actor_session": "<bound-native-actor>",
+        "category": "hostile",
+        "distance": 5.0,
+        "entity_id": 8,
+        "entity_type": "minecraft:zombie",
+        "observed_at_ms": 1793825151710,
+        "position": [
+          0.5,
+          -60.0,
+          5.5
+        ],
+        "untrusted_observation": true,
+        "uuid": "<fixture-entity>"
+      },
+      "leave": {
+        "actor_session": "<bound-native-actor>",
+        "entity_id": 8,
+        "entity_type": "minecraft:zombie",
+        "last_observation": {
+          "category": "hostile",
+          "distance": 5.0,
+          "entity_id": 8,
+          "entity_type": "minecraft:zombie",
+          "position": [
+            0.5,
+            -60.0,
+            5.5
+          ],
+          "uuid": "<fixture-entity>"
+        },
+        "observed_at_ms": 1793825153710,
+        "reason": "no_longer_observed",
+        "untrusted_observation": true,
+        "uuid": "<fixture-entity>"
+      },
+      "reenter": {
+        "actor_session": "<bound-native-actor>",
+        "category": "hostile",
+        "distance": 5.0,
+        "entity_id": 8,
+        "entity_type": "minecraft:zombie",
+        "observed_at_ms": 1793825154210,
+        "position": [
+          0.5,
+          -60.0,
+          5.5
+        ],
+        "untrusted_observation": true,
+        "uuid": "<fixture-entity>"
+      }
+    },
+    "hostile_quiet_interval_seconds": 1.2,
+    "latency_scope": "One local observation, not a latency SLA or multiplayer performance claim",
+    "metrics": {
+      "bridge_dropped": 0,
+      "gateway_dropped": 0,
+      "native_dropped": 0,
+      "rate_limited": 0,
+      "received": 35,
+      "snapshot_coalesced": 15,
+      "tracking_evicted": 0,
+      "transport_dropped": 0
+    },
+    "model_triggered_by_event_collection": false,
+    "raw_private_files": [
+      "build/auto-event-dispatcher/attempt-004/native-check-private.json",
+      "build/auto-event-dispatcher/attempt-004/native-concurrency2-private.json",
+      "build/auto-event-dispatcher/attempt-004/native-events-private.jsonl",
+      "build/auto-event-dispatcher/attempt-004/concurrency2-events-private.jsonl",
+      "build/auto-event-dispatcher/attempt-004/prospective-runtime-source-private.json"
+    ],
+    "redacted_actual_chat_payload": {
+      "actor_session": "<bound-native-actor>",
+      "channel": "player_chat",
+      "message": "<<local-player>> Hello from native auto-event fixture",
+      "received_at_ms": 1793825151276,
+      "sender_name": "<redacted>",
+      "sender_uuid": "<redacted>",
+      "signed": true,
+      "untrusted_observation": true
+    },
+    "saved_later_native_scene_health": 20.0,
+    "small_radius_observer_excluded": true
+  },
+  "native_jar_sha256": "8a35f54593712e6be7cca4204a2c0ddc9476ffda099d4d49dabd72d7c25fa0d4",
+  "no_commit_push_upload_release_deploy": true,
+  "qualification": {
+    "event_to_agent_context": "PASS_AVAILABLE_IN_BOUNDED_CONTEXT_NO_AUTOMATIC_MODEL_CALL",
+    "full_211_native_movement_requalification": "NOT_RUN",
+    "general_multiplayer_release_gate": "NOT_QUALIFIED",
+    "implementation": "IMPLEMENTED_OPT_IN",
+    "native_chat_during_bcl_execution": "PASS_M0_ACTIVE_AT_DELIVERY_AND_POSTCONDITION_VERIFIED",
+    "native_event_flood_disconnect_injection": "NOT_RUN; real TLS simulated producer tests PASS",
+    "native_hostile_visibility_transitions": "PASS_CONTROLLED_NORMAL_DIFFICULTY_ZOMBIE",
+    "native_subscription_and_radius": "PASS_SAME_ACTOR_OBSERVER_RADIUS_AND_CHAT_UNSUBSCRIBE",
+    "new_replay_playback": "NOT_RUN",
+    "physical_f8_injection": "NOT_RUN",
+    "real_remote_player_enter_leave": "NOT_RUN_SAME_BLOCKER; simulated/TLS adapters tested",
+    "real_two_player_multiplayer": "NOT_RUN_BLOCKED_ONE_AUTHENTICATED_PROFILE",
+    "single_authenticated_native_chat": "PASS_SIGNED_SELF_ECHO_CLIENT_AND_INTEGRATED_SERVER",
+    "unit_and_real_tls": "PASS"
+  },
+  "regression": {
+    "gradle": "PASS_ALL_CONTRACTS",
+    "mutations": {
+      "auto_events": {
+        "killed": 12,
+        "total": 12
+      },
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "gateway": {
+        "killed": 14,
+        "total": 14
+      },
+      "native": {
+        "killed": 54,
+        "total": 54
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 209,
+        "total": 209
+      }
+    },
+    "python": "633/633 PASS",
+    "source_movement_controller_changed": false,
+    "tls_interop": "10/10 PASS"
+  },
+  "retained_diagnostics": [
+    "Initial fixture UI shortcut created a separate new default world; preserved and a distinct configured fixture created",
+    "Pilot native movement correctly blocked known_danger_nearby with zombie present; separate threat-free case passed without weakened policy",
+    "Initial auto-event tests exposed inherited fixture baseline mismatch and schema validation hidden by coalescing; original failures retained, source validation moved before coalescing and new fixture baselines tested explicitly",
+    "Initial gateway/native mutation runs had duplicate anchors; intended guard anchors narrowed, no assertion weakened, originals retained",
+    "Initial cleanup inspection hit permission denied on unrelated process; corrected to leave inaccessible unrelated processes alone",
+    "Bounded-memory review added 32-entry per-session tracking cap for repeated truncated snapshots; unknown evictions do not fabricate leave events. Stress test and two new mutations pass; final source requalified on fresh native fixture 004"
+  ],
+  "schema": "blockwire.auto-event-dispatcher.v1"
+}

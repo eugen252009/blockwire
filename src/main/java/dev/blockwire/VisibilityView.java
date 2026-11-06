@@ -28,7 +28,7 @@ public final class VisibilityView {
         boolean candidatesTruncated();
     }
 
-    private static final class LoadedSource implements Source {
+    static final class LoadedSource implements Source {
         private final ClientLevel level;
         private final Map<Long,LevelChunk> chunks=new HashMap<>();
         private final int cx,cz;

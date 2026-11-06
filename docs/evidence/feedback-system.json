@@ -1,0 +1,79 @@
+{
+  "schema": "blockwire-feedback-evidence/v1",
+  "captured_unix": 1793861136.5482419,
+  "scope": "Feature/input-admission implementation and early native/model integration window; NOT a completed long-run verdict",
+  "architecture": "Trusted Python host through existing MCP/BCL authenticated TLS lease; no native movement/physics/transport rewrite",
+  "opt_in": true,
+  "feedback_authority": "Data only; pending operator review; no capability/code/install/budget grant",
+  "source_files": 82,
+  "source_map_sha256": "4c9f7f1cb1b978ef8a924d54edd1439c48be1db51a21d6ac3be2e1138d5d2ac6",
+  "native_jar_sha256": "8a35f54593712e6be7cca4204a2c0ddc9476ffda099d4d49dabd72d7c25fa0d4",
+  "checks": {
+    "python_tests": 661,
+    "python": "PASS",
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "tls": "PASS",
+    "isolated_mutations": {
+      "feedback": 16,
+      "gateway": 14,
+      "bcl": 50,
+      "auto": 12
+    },
+    "mutation_total": 92,
+    "all_mutations": "KILLED"
+  },
+  "native_early_window": [
+    {
+      "agent": 1,
+      "native_feedback_probe": "PASS",
+      "over_frame_policy_probe": "PASS",
+      "model_generated_requests_observed": 1,
+      "request_body_hashes": [
+        "5f5ca3f7dd68d5b9d2e6c548b4e28526fbc684082f5aba4976cc30ff26ec5cf5"
+      ],
+      "review_statuses": [
+        "pending_review"
+      ],
+      "audit_records_at_snapshot": 33,
+      "database_snapshot_sha256": "564ca73983f84451319413a222c0f1e4d8498b299d46df8a887a0a93ab43513d"
+    },
+    {
+      "agent": 2,
+      "native_feedback_probe": "PASS",
+      "over_frame_policy_probe": "PASS",
+      "model_generated_requests_observed": 1,
+      "request_body_hashes": [
+        "386afd090b5c1ccd6f0566d30a029724922b51dce11f38813706d112bb21c5ef"
+      ],
+      "review_statuses": [
+        "pending_review"
+      ],
+      "audit_records_at_snapshot": 29,
+      "database_snapshot_sha256": "3aa9c114bea4036c767721da12b863a3efd97991f1e99129df927effbf6ec40b"
+    }
+  ],
+  "long_trial": {
+    "state_at_capture": "running",
+    "started_unix": 1793860441.654137,
+    "hard_gameplay_deadline_unix": 1793867641.654137,
+    "maximum_gameplay_seconds": 7200,
+    "instances": 2,
+    "common_server": "isolated loopback-only offline-mode vanilla; fresh normal-generation Peaceful Survival",
+    "separate_model_contexts": true,
+    "max_decisions_per_agent": 120,
+    "max_operations_per_agent": 1000,
+    "max_operations_per_frame": 12,
+    "failure_limits": {
+      "total": 8,
+      "consecutive": 4,
+      "identical_failed_frames": 2
+    },
+    "goal_verified": false,
+    "note": "Upper bound only; individual failure/finish/resource/transport stops may end earlier. No uninterrupted 2h/overnight/long-term Survival claim."
+  },
+  "privacy": "Private databases, identities, model inputs, recordings and worlds remain ignored, 0700/0600. Public evidence omits request text and credentials.",
+  "historical_multiplayer_followup": "docs/blockwire-multiplayer-qualification.md",
+  "private_run": "build/feedback-system/trial-R01",
+  "commit_push_release": "NOT PERFORMED"
+}

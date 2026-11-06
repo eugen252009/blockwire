@@ -21,7 +21,9 @@ public final class BridgeServer implements AutoCloseable {
     private static final org.slf4j.Logger LOG=org.slf4j.LoggerFactory.getLogger("blockwire");
     private final EventLoopGroup accept = new NioEventLoopGroup(1), workers = new NioEventLoopGroup(1);
     private final AtomicReference<Channel> owner = new AtomicReference<>();
-    private final AtomicInteger pending = new AtomicInteger(), peers = new AtomicInteger();
+    private final AtomicReference<Channel> eventOwner = new AtomicReference<>();
+    private final AtomicLong eventDropped = new AtomicLong();
+    private final AtomicInteger pending = new AtomicInteger(), peers = new AtomicInteger(), eventWrites = new AtomicInteger();
     private final Executor game;
     private final Function<JsonObject,JsonObject> dispatch;
     private final Runnable release;
@@ -63,6 +65,23 @@ public final class BridgeServer implements AutoCloseable {
     }
     public boolean connected() { Channel c=owner.get(); return c!=null && c.isActive(); }
 
+    /** Optional observation frames on the SAME authenticated lease; never wait on the game thread. */
+    public boolean publish(JsonObject event) {
+        Channel c=owner.get();
+        if(closed || c==null || eventOwner.get()!=c || !c.isActive() || !c.isWritable()){eventDropped.incrementAndGet();return false;}
+        var envelope=event.deepCopy();envelope.addProperty("transport_dropped_total",eventDropped.get());
+        String body=envelope.toString();
+        if(body.getBytes(StandardCharsets.UTF_8).length>16384){eventDropped.incrementAndGet();return false;}
+        if(eventWrites.incrementAndGet()>32){eventWrites.decrementAndGet();eventDropped.incrementAndGet();return false;}
+        try {
+            c.eventLoop().execute(()->{
+                if(closed || owner.get()!=c || eventOwner.get()!=c || !c.isActive() || !c.isWritable()){eventWrites.decrementAndGet();eventDropped.incrementAndGet();return;}
+                c.writeAndFlush(new TextWebSocketFrame(body)).addListener(f->{eventWrites.decrementAndGet();if(!f.isSuccess())eventDropped.incrementAndGet();});
+            });
+            return true;
+        } catch(java.util.concurrent.RejectedExecutionException stopped) {eventWrites.decrementAndGet();eventDropped.incrementAndGet();return false;}
+    }
+
     private final class Handler extends SimpleChannelInboundHandler<Object> {
         private WebSocketServerHandshaker handshaker;
         protected void channelRead0(ChannelHandlerContext ctx,Object msg) {
@@ -77,7 +96,10 @@ public final class BridgeServer implements AutoCloseable {
                 handshaker=new WebSocketServerHandshakerFactory("wss://"+authority()+"/v1",null,false,8192).newHandshaker(req);
                 if (handshaker==null) { reject(ctx,HttpResponseStatus.BAD_REQUEST); return; }
                 if (!owner.compareAndSet(null,ctx.channel())) { reject(ctx,HttpResponseStatus.CONFLICT); return; }
-                handshaker.handshake(ctx.channel(),req).addListener(f->{ if(!f.isSuccess())ctx.close(); });
+                handshaker.handshake(ctx.channel(),req).addListener(f->{
+                    if(f.isSuccess() && owner.get()==ctx.channel())eventOwner.set(ctx.channel());
+                    else ctx.close();
+                });
             } else if (msg instanceof PingWebSocketFrame ping) {
                 ctx.writeAndFlush(new PongWebSocketFrame(ping.content().retain()));
             } else if (msg instanceof CloseWebSocketFrame) {
@@ -120,12 +142,12 @@ public final class BridgeServer implements AutoCloseable {
         }
         public void channelInactive(ChannelHandlerContext ctx) {
             // Keep the lease occupied until its inputs are released on the game thread.
-            game.execute(()->{if(owner.compareAndSet(ctx.channel(),null))release.run();});
+            game.execute(()->{if(owner.compareAndSet(ctx.channel(),null)){eventOwner.compareAndSet(ctx.channel(),null);release.run();}});
         }
         public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) { ctx.close(); }
     }
     public void close() {
-        closed=true;
+        closed=true;eventOwner.set(null);
         if(listener!=null)listener.close();
         Channel c=owner.get();if(c!=null)c.close();
         accept.shutdownGracefully();workers.shutdownGracefully();

@@ -276,8 +276,11 @@ class AgentRuntime:
             if self.transport_lost: raise BridgeError('transport_error_no_reconnect')
             if op != 'stop': self._check()
             if op not in {'observe', 'inventory', 'navigation', 'combat', 'menu', 'look', 'drive', 'action',
-                          'hotbar', 'open_inventory', 'close_screen', 'click_slot', 'stop'}:
+                          'hotbar', 'open_inventory', 'close_screen', 'click_slot', 'stop', 'motion_trace'}:
                 raise BridgeError('agent_operation_not_allowed')
+            if op == 'motion_trace' and (request.get('reset',False) or type(request.get('limit'))is not int or not 1<=request['limit']<=8
+                    or request.get('actor_session')!=self.session):
+                raise BridgeError('agent_motion_trace_guard')
             if op == 'drive' and (type(request.get('ticks')) is not int or not 1 <= request['ticks'] <= 8):
                 raise RuntimeError('agent_input_lease_limit')
             if op in {'look', 'drive', 'action', 'hotbar', 'open_inventory', 'close_screen', 'click_slot'}:
@@ -288,7 +291,7 @@ class AgentRuntime:
                 if classify(exc) in {FaultKind.TRANSPORT,FaultKind.INVARIANT}:
                     self.transport_lost = True
                 raise
-            if op in {'observe', 'navigation', 'inventory'} and value.get('actor_session') != self.session:
+            if op in {'observe', 'navigation', 'inventory', 'motion_trace'} and value.get('actor_session') != self.session:
                 raise BridgeError('actor_session_changed')
             return value
         return Player(CallableBackend(dispatch))

@@ -1,0 +1,447 @@
+{
+  "schema": "blockwire-native-multiplayer-qualification/v1",
+  "cohort": "MP04",
+  "captured_unix": 1793890840.1542463,
+  "scope": "Single fresh runtime/configuration cohort; independent scoped gates, no pooled historical success",
+  "minecraft_client": "26.3",
+  "minecraft_server": "official vanilla 26.3",
+  "native_jar_sha256": "8a35f54593712e6be7cca4204a2c0ddc9476ffda099d4d49dabd72d7c25fa0d4",
+  "source_revision": "a9a7405 + uncommitted frozen runtime; production implementation unchanged in this follow-up",
+  "runtime_source_files": 83,
+  "server": {
+    "online_mode": false,
+    "enforce_secure_profile": false,
+    "whitelist": true,
+    "max_players": 2,
+    "actual_bind": "[::ffff:127.0.0.1]:50982",
+    "actual_listener_pid_cwd_uid_start_verified": true,
+    "rcon_and_query": false,
+    "network_isolation": "loopback only, no firewall changes/tunnel/forwarding"
+  },
+  "players": {
+    "names": [
+      "Blockwire_A",
+      "Blockwire_B"
+    ],
+    "method": "Prism Launcher 11.1.1 documented --offline NAME; distinct actual native UUIDs/JVMs/game directories/bridge credentials/actors/sessions; no account/token editing/copy",
+    "separate_inventory_observed": true,
+    "signature_metadata": "Native offline chat signed=false, never fabricated signed provenance"
+  },
+  "fixture": {
+    "kind": "Disposable Survival/Peaceful superflat TEST world",
+    "trusted_admin_preparation": "Explicit console teleports establish positions/radius threshold; give/clear one dirt verifies independent inventories. Not autonomous Survival or a progression blueprint.",
+    "effective_native_ui": "Both clients observed Custom / render8 / simulation5 / 30FPS / reduced-fps only minimized",
+    "recording_start": "Stable ready TitleScreen/recovery barrier before native UI server join; no direct --server startup race"
+  },
+  "gates": {
+    "two_player_connection": {
+      "status": "GO",
+      "cases": [
+        "connection_inventory_actor_isolation"
+      ]
+    },
+    "chat_A_to_B": {
+      "status": "GO",
+      "cases": [
+        "chat_A_to_B"
+      ]
+    },
+    "chat_B_to_A": {
+      "status": "GO",
+      "cases": [
+        "chat_B_to_A"
+      ]
+    },
+    "player_proximity_both_directions": {
+      "status": "GO",
+      "cases": [
+        "proximity_B_moves",
+        "proximity_A_moves",
+        "native_radius_boundary",
+        "far_observation_scope"
+      ]
+    },
+    "chat_during_active_movement_both_directions": {
+      "status": "GO",
+      "cases": [
+        "chat_while_A_walks",
+        "chat_while_B_walks"
+      ]
+    },
+    "proximity_during_active_movement_both_directions": {
+      "status": "GO",
+      "cases": [
+        "proximity_B_moves",
+        "proximity_A_moves"
+      ]
+    },
+    "actor_session_task_isolation": {
+      "status": "GO",
+      "cases": [
+        "connection_inventory_actor_isolation",
+        "foreign_task_isolation"
+      ]
+    },
+    "subscriptions_filters_rebind_no_replay": {
+      "status": "GO",
+      "cases": [
+        "different_subscription_sets",
+        "subscription_controls",
+        "bcl_disconnect_no_replay",
+        "validated_filter_changes"
+      ]
+    },
+    "native_player_disconnect_rejoin": {
+      "status": "GO",
+      "cases": [
+        "native_disconnect_reconnect"
+      ]
+    },
+    "ordered_native_bursts_no_duplicates": {
+      "status": "GO",
+      "cases": [
+        "native_ordered_burst"
+      ]
+    },
+    "automatic_report_backpressure": {
+      "status": "GO",
+      "cases": [
+        "native_backpressure_preserves_responses"
+      ]
+    },
+    "independent_llm_communication": {
+      "status": "GO",
+      "cases": [
+        "actual_independent_llm_communication"
+      ]
+    },
+    "recording_integrity": {
+      "status": "GO",
+      "finalized": 3,
+      "crc_and_full_framing": 3
+    },
+    "representative_native_viewer": {
+      "status": "GO_SCOPED",
+      "recording": "2026_11_05_15_45_58.mcpr",
+      "scope": "Representative A recording only; no complete visual chat/interaction audit or all-replay playback claim"
+    },
+    "normal_cleanup": {
+      "status": "GO",
+      "server_exit": 0,
+      "owned_ports_and_processes_closed": true
+    },
+    "hard_native_socket_queue_overflow": {
+      "status": "NOT_RUN",
+      "reason": "No hard overflow or safety-limit changes forced; actual native automatic-report priority reserve/drop accounting tested"
+    },
+    "exact_chunk_unload_instrumentation": {
+      "status": "NOT_RUN",
+      "reason": "Far player excluded from client observable entities; exact loaded-entity/chunk lifecycle not separately instrumented"
+    },
+    "two_online_authenticated_profiles": {
+      "status": "NOT_QUALIFIED",
+      "reason": "Supported local offline test profiles only; no external-server auth bypass"
+    },
+    "physical_F8": {
+      "status": "NOT_RUN",
+      "reason": "Existing kill switch unchanged; no physical emergency-stop acceptance claimed"
+    },
+    "long_term_survival_or_soak": {
+      "status": "NOT_RUN",
+      "reason": "Controlled event fixture and small communication sample, not Survival development"
+    }
+  },
+  "cases": [
+    {
+      "name": "connection_inventory_actor_isolation",
+      "status": "GO",
+      "seconds": 1.8365674018859863
+    },
+    {
+      "name": "chat_A_to_B",
+      "status": "GO",
+      "seconds": 0.4490540027618408
+    },
+    {
+      "name": "chat_B_to_A",
+      "status": "GO",
+      "seconds": 0.46077656745910645
+    },
+    {
+      "name": "proximity_B_moves",
+      "status": "GO",
+      "seconds": 12.807420492172241
+    },
+    {
+      "name": "proximity_A_moves",
+      "status": "GO",
+      "seconds": 13.636115789413452
+    },
+    {
+      "name": "chat_while_A_walks",
+      "status": "GO",
+      "seconds": 5.785867691040039
+    },
+    {
+      "name": "chat_while_B_walks",
+      "status": "GO",
+      "seconds": 6.355402946472168
+    },
+    {
+      "name": "different_subscription_sets",
+      "status": "GO",
+      "seconds": 13.14911437034607
+    },
+    {
+      "name": "foreign_task_isolation",
+      "status": "GO",
+      "seconds": 7.244072914123535
+    },
+    {
+      "name": "subscription_controls",
+      "status": "GO",
+      "seconds": 1.5922188758850098
+    },
+    {
+      "name": "bcl_disconnect_no_replay",
+      "status": "GO",
+      "seconds": 2.2068867683410645
+    },
+    {
+      "name": "validated_filter_changes",
+      "status": "GO",
+      "seconds": 4.870750188827515
+    },
+    {
+      "name": "native_radius_boundary",
+      "status": "GO",
+      "seconds": 3.2831320762634277
+    },
+    {
+      "name": "native_ordered_burst",
+      "status": "GO",
+      "seconds": 3.2128520011901855
+    },
+    {
+      "name": "far_observation_scope",
+      "status": "GO",
+      "seconds": 2.318418264389038
+    },
+    {
+      "name": "native_disconnect_reconnect",
+      "status": "GO",
+      "seconds": 5.071198225021362
+    },
+    {
+      "name": "actual_independent_llm_communication",
+      "status": "GO",
+      "seconds": 22.749208688735962
+    },
+    {
+      "name": "native_backpressure_preserves_responses",
+      "status": "GO",
+      "seconds": 1.9277825355529785
+    }
+  ],
+  "case_count": 18,
+  "cases_go": 18,
+  "native_test_span_seconds": 108.9622540473938,
+  "movement_concurrency": {
+    "A": true,
+    "B": true,
+    "proximity_A_moving": true,
+    "proximity_B_moving": true,
+    "walk_postconditions": "All relevant M0 tasks completed with program_verified=true"
+  },
+  "backpressure": {
+    "automatic_reports_dropped_counted": 1,
+    "consumer_hold_seconds": 1.9207340470020426,
+    "native_or_socket_hard_overflow": "Not forced; automatic-report priority-reserve backpressure only",
+    "original_outgoing_64_reserve16_not_changed": true,
+    "original_send_deadline_not_changed": true,
+    "read_only_BCL_responses_preserved": 52,
+    "real_native_source": "ordinary B chat while A outgoing consumer held"
+  },
+  "models": [
+    {
+      "player": "Blockwire_B",
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol",
+      "roundtrip_seconds": 6.330411736002134,
+      "affinity": [
+        7,
+        15
+      ],
+      "decision_kind": "chat"
+    },
+    {
+      "player": "Blockwire_A",
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol",
+      "roundtrip_seconds": 7.94383770100103,
+      "affinity": [
+        7,
+        15
+      ],
+      "decision_kind": "chat"
+    },
+    {
+      "player": "Blockwire_A",
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol",
+      "roundtrip_seconds": 6.83023881099507,
+      "affinity": [
+        7,
+        15
+      ],
+      "decision_kind": "wait"
+    }
+  ],
+  "model_sample": {
+    "requests": 3,
+    "A_decisions": 2,
+    "B_decisions": 1,
+    "received_reply_in_A_next_context": true,
+    "no_canned_answer": true,
+    "no_peer_broker_or_shared_model_memory": true,
+    "all_received_chat_untrusted": true,
+    "normal_next_decision_not_event_triggered_inference": true
+  },
+  "resource": {
+    "samples": 108,
+    "violations": [],
+    "affinity_escape": false,
+    "minecraft_pool_cpu_mean_percent": 25.720527916360332,
+    "minecraft_pool_cpu_peak_1s_percent": 72.75503116610204,
+    "min_mem_available_gib": 47.09305953979492,
+    "owned_mc_peak_rss_gib": 7.204593658447266,
+    "rpc": {
+      "chat": {
+        "n": 21,
+        "p50_ms": 16.03241600241745,
+        "p95_ms": 33.113641999079846,
+        "p99_ms": 34.05029600253329
+      },
+      "drive": {
+        "n": 132,
+        "p50_ms": 30.94586900260765,
+        "p95_ms": 64.09854399680626,
+        "p99_ms": 64.83551600103965
+      },
+      "events_configure": {
+        "n": 6,
+        "p50_ms": 30.27147799730301,
+        "p95_ms": 30.708020000020042,
+        "p99_ms": 30.708020000020042
+      },
+      "inventory": {
+        "n": 422,
+        "p50_ms": 31.109709001611918,
+        "p95_ms": 36.49156799656339,
+        "p99_ms": 64.32988500455394
+      },
+      "look": {
+        "n": 85,
+        "p50_ms": 31.018349996884353,
+        "p95_ms": 63.97575199662242,
+        "p99_ms": 64.45949499902781
+      },
+      "menu": {
+        "n": 57,
+        "p50_ms": 33.18032400420634,
+        "p95_ms": 66.4242760030902,
+        "p99_ms": 66.49596799979918
+      },
+      "motion_trace": {
+        "n": 43,
+        "p50_ms": 35.33121699729236,
+        "p95_ms": 69.22261100407923,
+        "p99_ms": 70.18822499958333
+      },
+      "navigation": {
+        "n": 321,
+        "p50_ms": 18.631390994414687,
+        "p95_ms": 35.32756799540948,
+        "p99_ms": 52.523597005347256
+      },
+      "observe": {
+        "n": 930,
+        "p50_ms": 33.36615500302287,
+        "p95_ms": 60.02654600160895,
+        "p99_ms": 66.74239700078033
+      },
+      "stop": {
+        "n": 49,
+        "p50_ms": 31.348790995252784,
+        "p95_ms": 33.09045399510069,
+        "p99_ms": 64.87327499780804
+      }
+    },
+    "cpu_policy": "Owned-task6+1+1 SMT-aware; not exclusive reservation; background work unrestricted",
+    "gpu_scope": "Host nvidia-smi sampled; Minecraft actual renderer llvmpipe. Do not attribute all host GPU utilization to these clients.",
+    "long_capacity_claim": false
+  },
+  "recordings": [
+    {
+      "agent": 1,
+      "name": "2026_11_05_15_45_58.mcpr",
+      "sha256": "7d78953b3ac3bd2b5d0f9c7396d8c13f76f07898dd9c0805a2ef79694dabbc7b",
+      "bytes": 77104,
+      "packets": 7075,
+      "duration_ms": 143408,
+      "integrity": "PASS",
+      "viewer_playback": "NOT_RUN"
+    },
+    {
+      "agent": 2,
+      "name": "2026_11_05_15_46_21.mcpr",
+      "sha256": "4c83ac36a55d2e79e1a2af9f9196f826789f91eb91a1505e6056ee0ff4ea78ee",
+      "bytes": 100206,
+      "packets": 6120,
+      "duration_ms": 89183,
+      "integrity": "PASS",
+      "viewer_playback": "NOT_RUN"
+    },
+    {
+      "agent": 2,
+      "name": "2026_11_05_15_47_52.mcpr",
+      "sha256": "5813225fabe30e60ee9777a1e6e717b8977d253f7f8fd7eb2769a346bb8648a3",
+      "bytes": 46607,
+      "packets": 1860,
+      "duration_ms": 35222,
+      "integrity": "PASS",
+      "viewer_playback": "NOT_RUN"
+    }
+  ],
+  "cleanup": {
+    "server": {
+      "timestamp": 1793890111.9390922,
+      "returncode": 0,
+      "normal_stop": true
+    },
+    "native_and_gateway_ports_closed": true,
+    "owned_jvms_closed": true,
+    "dedicated_hidden_display_closed": true,
+    "control_configs_disabled": true,
+    "no_transport_uncertainty_or_automatic_action_retry": true
+  },
+  "checks": {
+    "python_tests": 684,
+    "python_final_serial": "PASS",
+    "gradle_check": "PASS",
+    "tls_interop": 10,
+    "tls": "PASS",
+    "isolated_mutations": {
+      "bcl": 50,
+      "gateway": 14,
+      "automatic_events": 12
+    },
+    "mutation_total": 76,
+    "all_mutations": "KILLED",
+    "regression_diagnostic": "Initial parallel full suite hit new-test sender rendezvous timeout. Test now establishes stalled consumer before filling queue; behavior assertions and 1s/2s rendezvous/poll limits unchanged. Production/native source unchanged; original failed log retained."
+  },
+  "new_public_code": "One targeted real-TLS simulated-source pressure regression; no Java/Python production dispatcher, BCL grammar, transport, planner, peer protocol or movement changes",
+  "historical_cohorts": "MP01/MP02/MP03 failures, source freezes, closed archives and prior soak/Survival worlds retained unchanged; not pooled into MP04",
+  "privacy": "Raw events/chat/model contexts/UUIDs/worlds/replays/keys remain ignored private artifacts (0700/0600); no account database in this archive",
+  "commit_push_upload_deploy_release": "NOT_PERFORMED"
+}

@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "status": "PASS",
+  "scope": "Isolated export of explicitly selected Git index, without unrelated pending soak/campaign/model-limit/session-policy work",
+  "checks": {
+    "python": {
+      "passed": 746
+    },
+    "gradle_check": "PASS",
+    "tls_interop": {
+      "passed": 10
+    },
+    "isolated_mutations": {
+      "search": 25,
+      "machine": 14,
+      "machine_construction": 10,
+      "look_around": 7,
+      "feedback": 16,
+      "gateway": 14,
+      "typed_tools": 6,
+      "auto_events": 12,
+      "total_killed": 104,
+      "total": 104
+    }
+  },
+  "source_file_count": 264,
+  "source_digest_algorithm": "sha256 of UTF-8 compact sorted JSON path->sha256 for indexed python/, src/, tests/, tools/, gradle/ and root Gradle build/config/wrapper files",
+  "source_digest": "03712fd8820d43cc04bb77c8000e61a703f5c4130752bf33d5d49e3fe0fdace0",
+  "runtime_files_byte_identical_to_graphical_freeze": 100,
+  "private_log_sha256": {
+    "build/search/commit-check-logs/feedback-mutations.log": "04c57686b1ee9967f633a82438e24c1a7ab07c570cc576bef3fac70a83841c3e",
+    "build/search/commit-check-logs/auto_event-mutations.log": "d79aed74ca2aa5f02d1cd1ec0c62a7fcc7b8f8763201ce5cafc7bf4991c0158b",
+    "build/search/commit-check-logs/look_around-mutations.log": "43eb96ce88741fc94e1c4b18c4bc88ce5ffc105c75b2bb24b028518df77b9d51",
+    "build/search/commit-check-logs/gateway-mutations.log": "4bcd0782b3dd06679ad03bd30dcd6d31d433b2afc77ce0ee3aab9e18ba30b29f",
+    "build/search/commit-check-logs/machine-mutations.log": "fd0f85d6e69a5ae36f4997dd7c228739f89ff5f4b09ea3bd224b41816d6c34e4",
+    "build/search/commit-check-logs/search-mutations.log": "21eeb0bcc68509e1e6f5fb4bf5d586905c1fc39393f0f7df419bd22e56dede8f",
+    "build/search/commit-check-logs/tool_call-mutations.log": "acc9147104647b5d7c6b96108361658467ad685888cea68ad43d28c64fc88843",
+    "build/search/commit-check-logs/machine_construction-mutations.log": "8bf34612169daf389927250028e1d23118656e978b1ec2ae60ce00a76e42f3c0",
+    "build/search/commit-check-logs/gradle.log": "94ae90372f75c47e6e8b33a86122f0dbf5b257dd66b64e5749bb127aabcf0b9d",
+    "build/search/commit-check-logs/python.log": "782683705eed715b00a63fa1491bab0072ec20006a4102ce2a83527e25699cff",
+    "build/search/commit-check-logs/tls.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f"
+  },
+  "historical_working_tree_checks": {
+    "python": 827,
+    "note": "Includes unrelated pending tests excluded from this commit subset. Not a test-count regression or a relabelled historical qualification."
+  },
+  "graphical_evidence": "search-hidden-test.json",
+  "no_push_tag_upload_release": true
+}

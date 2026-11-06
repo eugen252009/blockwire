@@ -1,0 +1,56 @@
+{
+  "scope": "machine-v1 explicit construction mechanics",
+  "status": "CONTRACTS_PASS_GAMEPLAY_NOT_RUN",
+  "checked_at_utc": "2026-11-06T19:06:10.363521+00:00",
+  "base_head": "a9a7405c0f10accdf047eaac1d7ef74851ef61f5",
+  "preexisting_dirty_worktree": true,
+  "checks": {
+    "python_tests_passed": 790,
+    "gradle_check": "PASS",
+    "tls_interop_passed": 10,
+    "construction_mutations_killed": 10,
+    "machine_mutations_killed": 14,
+    "tool_mutations_killed": 6,
+    "graphical_tree_felling": "NOT_RUN",
+    "graphical_crafting": "NOT_RUN",
+    "graphical_house_construction": "NOT_RUN",
+    "real_model_inference_this_scope": "NOT_RUN"
+  },
+  "scope_limits": [
+    "Native-menu simulations and authenticated TLS contracts are not real Minecraft acceptance",
+    "No hard-coded resource progression, house blueprint, route or recipe execution planner",
+    "Model notes are unverified data, never executable or accepted construction evidence",
+    "Slot checks cover selected item/count and cursor conditions, not server transactions or full item components",
+    "Existing stopped campaigns and historical evidence were not resumed or overwritten"
+  ],
+  "source_sha256": {
+    "python/src/blockwire/machine_actions.py": "b2572643f31b89b4cf6403bc0a198ab48088626e150ee1360500e2597a923c2e",
+    "python/src/blockwire/machine_manipulation.py": "b854b9ae1c8c50cf0c273d3d6e9d27b0ba1d4d5e55ef7a41bd2728eea7d6f06d",
+    "python/src/blockwire/machine_crafting.py": "613f6b7803a59a24a0a5fb54f68e76f34521fea3b4008ed71ae6d4a90fc628c3",
+    "python/src/blockwire/machine_plan.py": "0cb7951877c39e1939d89d9bc9612dd163587bba2f0dab1ed14b27784bbbd2d6",
+    "python/src/blockwire/machine_composition.py": "5b1238b67fc2b12abc65150abcaa18a24fc8226b5edc5feea7e336ff71500bc5",
+    "python/src/blockwire/machine_agent.py": "e6bb275b08991b3f719356c63dd49003472366f7b6dc2e106da45edae9ef4f4f",
+    "python/src/blockwire/machine_mcp.py": "409de2c735c3397b53174d1a7cfc2980a1e3db6646b3619d9406bd17bcf4cfb1",
+    "python/src/blockwire/tool_decider.py": "98f0f4ccb25f158f15a5a54c18f69ad30645f2c6ddcc3c7cb2a32484f3e2c86d",
+    "python/src/blockwire/bcl/machine.py": "0ad4c9c1eaaebc9f7951224e1c1d34281a935541bbb0bac7d5f95d1b4568d0c6",
+    "python/src/blockwire/bcl/runtime.py": "1fb920ba936d7c57d09b773226b2b801650e20e16b7f155ad1f736cc71621f56",
+    "python/src/blockwire/bcl/gateway.py": "a3e87cceee34678a3c54991ead626f7b8652fc0b35338889ae4db3cb1d4cc813",
+    "python/tests/test_machine_manipulation.py": "0f507e92c726894098466aca82ad714260f7c494118eb04ee51e0c41ffc97f44",
+    "python/tests/test_machine_profile.py": "ecf48b718eb3e6bc5e2ec699d502bfd09732b674259715e9fd1f163ed1cbb2e2",
+    "tests/run_machine_construction_mutations.py": "221c98685a89101aa2598fad164cd88310d184b06ebb49867ae4199b284344a4",
+    "tests/run_machine_mutations.py": "22366e3e4d32e7842cd8f4d04446a418dccdbd8c41e0a36bbc3466e8830adae5",
+    "tests/run_tool_call_mutations.py": "d9f13b6de52541fc34f4f96f2c941e7c50031c5a6c907e15de6e483a07749d49",
+    "docs/machine-construction.md": "66dc7a07c2dc9bf6e412c4dee07e064cdd46731181003074707ad18fe3ba0adb",
+    "docs/bcl-machine.md": "c04981284480afa5c06e2c8f11707eaa772766ca5a935be8eaff67e376c711c4",
+    "README.md": "ed45c5fb8efe69dd480de71cd820427ecee6157d1d354b445454f272c1b5cebe",
+    "SECURITY.md": "8933ae6baae8387c64ca09435b8fdd7ecb8a4df041bfb8ceb82c4d3c3655e641"
+  },
+  "private_log_sha256": {
+    "build/machine-construction/checks/python.log": "48e4ae89f9dca20c0d6189e380eb282d36cfafd97d8ca19fe135d47d6b489e15",
+    "build/machine-construction/checks/gradle.log": "d971b5524fd732a557f36c57362194d46095f4c78b6bee340b97ffae749f9456",
+    "build/machine-construction/checks/tls.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f",
+    "build/machine-construction/checks/construction-mutations.log": "8bf34612169daf389927250028e1d23118656e978b1ec2ae60ce00a76e42f3c0",
+    "build/machine-construction/checks/machine-mutations.log": "fd0f85d6e69a5ae36f4997dd7c228739f89ff5f4b09ea3bd224b41816d6c34e4",
+    "build/machine-construction/checks/tool-mutations.log": "acc9147104647b5d7c6b96108361658467ad685888cea68ad43d28c64fc88843"
+  }
+}

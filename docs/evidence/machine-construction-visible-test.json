@@ -1,0 +1,63 @@
+{
+  "status": "NO_GO_OBJECTIVE_NOT_REACHED",
+  "source_and_artifact_identity": {
+    "sha256": {
+      "python/src/blockwire/machine_actions.py": "54f74e89e5fe76359b2db7d8d783a6f8a347082037770d055783e58c2aab23b8",
+      "python/tests/test_machine_profile.py": "bfad205bf993511a2437de823514d9abc991647c934b9ac8281f7cbfdb2c2ee7",
+      "build/machine-construction/visible-001/source-freeze-private.json": "8cbea53fe8e519fd25f7d9f184798d4be8a0a3f5061a801b0d7e2e4353e14a1d",
+      "build/machine-construction/visible-002/source-freeze-private.json": "8b5ead08a3cc3cbde493d420a6a767d6b372d1999c1ac7887914f4da27f49f8e",
+      "build/machine-construction/visible-002/host-source-freeze-private.json": "95169380b662f5c6552cdd0014652958cb7efa635f86944ab3c9c53171500611",
+      "build/machine-construction/visible-002/initial-native-trace-private.json": "0e950305284051e3fdededed0c342a61cf07728bf96d87715fe3b9baf60d2653",
+      "build/machine-construction/visible-002/closed-evaluation-private.json": "8bd5ed326bb836c00e246ca1b18cb04a98dadd227fa0aac7b41851040c3b19a3"
+    },
+    "native_jar_sha256": "8a35f54593712e6be7cca4204a2c0ddc9476ffda099d4d49dabd72d7c25fa0d4"
+  },
+  "first_attempt": {
+    "stage": "controller_bind_before_inference",
+    "model_calls": 0,
+    "admitted_gameplay_actions": 0,
+    "failure": "Adapter expected tick; native MotionTrace supplies client_tick. Simulation fixture had the same wrong field.",
+    "cleanup": "owned JVM and all ports closed; server exit0",
+    "source_corrected_without_native_action_replay": true
+  },
+  "fresh_attempt": {
+    "model": "gpt-6-luna",
+    "model_calls": 48,
+    "provider_requests": 48,
+    "provider_refusals": 0,
+    "decisions": {
+      "plan": 36,
+      "wait": 7,
+      "act": 2,
+      "control": 2,
+      "finish": 1
+    },
+    "reserved_action_operations": 3,
+    "native_programs_completed": 2,
+    "reason": "planner_finished_unverified",
+    "cleanup": "released",
+    "goal_verified": false,
+    "native_inventory_empty": true,
+    "closed_inventory_empty": true,
+    "closed_survival_mode": 0,
+    "closed_health": 20.0,
+    "walk_distance_m": 8.3,
+    "net_displacement_m": 6.107241471834854,
+    "mined": {},
+    "crafted": {},
+    "used": {},
+    "picked_up": {},
+    "resource_stop_reported": false,
+    "replay_integrity": "PASS",
+    "replay_viewer": "NOT_RUN",
+    "world_save_and_stats_read_only_after_verified_close": true
+  },
+  "checks_after_tick_fix": {
+    "python_tests_passed": 791,
+    "gradle_check": "PASS",
+    "tls_checks_passed": 10,
+    "machine_mutations_killed": 14,
+    "construction_mutations_killed": 10
+  },
+  "scope": "Fresh visible isolated localhost Peaceful Survival. No starting materials, structure generation or gameplay/admin commands. No claim of Microsoft-account qualification, near-threat safety or autonomous building."
+}

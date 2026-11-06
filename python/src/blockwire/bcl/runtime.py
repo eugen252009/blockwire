@@ -10,6 +10,7 @@ import time
 from uuid import uuid4
 from .compiler import BCLError,Diagnostic,Program,arguments,compile_bcl,registry_digest
 from .registry import DEFAULT_PERMISSIONS
+from .evidence import diagnostic_evidence
 from .modal import CoordinateContext,Modal,ModalSession
 from ..agent import AgentRuntime,SessionStore
 
@@ -53,7 +54,7 @@ class BatchDriver:
     def failed(self,entry):
         op=self.program.operations[self.index];mode=self.contexts[self.index].error_mode
         self.results.append({'index':self.index,'command':op.namespace+':'+op.command,'status':entry['status'],'reason':entry['reason'],
-                             'evidence':{k:v for k,v in entry.get('details',{}).items() if k in {'expected_face','actual_target','support','eye_position','face_rule','missing','current_cell','known_reachable_count','known_placement_poses','constraint','attempts','position','sample','event','horizontal_speed','on_ground'}}})
+                             'evidence':diagnostic_evidence(entry.get('details',{}), {'expected_face','actual_target','support','eye_position','face_rule','missing','current_cell','known_reachable_count','known_placement_poses','constraint','attempts','position','sample','event','horizontal_speed','on_ground'})})
         self.index+=1;self.issued=None;self._save_progress()
         return mode=='continue'
     def _resolved_coordinates(self,coordinate,observation,op):
@@ -119,7 +120,9 @@ class BatchDriver:
                 else:
                     self.results[-1]['position']=context['observation'].get('position')
                     details=context['history'][-1].get('details',{})
-                    self.results[-1]['evidence']={k:details[k] for k in ('block','position','item','target','placements') if k in details}
+                    self.results[-1]['evidence']=diagnostic_evidence(details, ('block','position','item','target','placements'))
+                    if getattr(self.registry,'machine_profile',False):
+                        self.results[-1]['input_release']={k:details.get(k) for k in ('release_tick','release_observed_monotonic_ns')}
                 self._save_progress()
         if self.index==len(self.program.operations):return {'kind':'finish'}
         op=self.program.operations[self.index];command=self.registry.resolve(op.namespace,op.opcode)
@@ -148,7 +151,8 @@ class BatchDriver:
             mode=values.pop('mode',modal.movement_mode)
             values.update(terrain=True,movement={'normal':'walk','fast':'run','sneak':'sneak'}[mode])
         if command.skill in self.registry.skills._definitions:
-            values['timeout_seconds']=modal.timeout_seconds
+            values['timeout_seconds']=(min(values.get('timeout_seconds',5.),modal.timeout_seconds,35. if command.skill in {'hold','input_sequence','slot_program'} else 5.)
+                if getattr(self.registry,'machine_profile',False) else modal.timeout_seconds)
             try:self.registry.skills.prepare(command.skill,values)
             except (ValueError,TypeError):self.error_at('INVALID_ARGUMENT','Resolved coordinates/defaults violate the skill contract.',op)
         self.issued=(command.skill,context['completed_actions'].get(command.skill,0))
@@ -227,7 +231,7 @@ class BCLJobs:
     def __init__(self,registry,player,state_directory,permissions=DEFAULT_PERMISSIONS):
         self.registry,self.player,self.directory,self.permissions=registry,player,Path(state_directory),permissions
         self.jobs=OrderedDict();self.sessions={};self.queue=deque();self.active=None;self.worker=False
-        self.lock=threading.RLock()
+        self.lock=threading.RLock();self.halted=False
     def ensure_idle(self):
         with self.lock:
             if self.active or self.queue:raise RuntimeError('A BCL batch owns player control')
@@ -246,6 +250,7 @@ class BCLJobs:
         compiled=None if reset else compile_bcl(source,self.registry,permissions=self.permissions)
         if type(duration_seconds) not in (float,int) or not .1<=duration_seconds<=1800:raise ValueError('Bounded duration required')
         with self.lock:
+            if self.halted:raise RuntimeError('UNKNOWN_NO_RETRY: dispatcher quarantined')
             s=self.session(session_id,identity,actor_session)
             if len(self.queue)>=16 and compiled and s.requires_runtime(compiled):raise ValueError('Task queue full')
             if reset and any(j['session_id']==session_id and j['result'] is None for j in self.jobs.values()):raise ValueError('Cancel/wait for own tasks before reset')
@@ -298,7 +303,24 @@ class BCLJobs:
                         if j['cancelled']:runner.cancel()
                     result=runner.run()
             except BaseException as e:result={'status':'failed','reason':'worker_terminated','error_type':type(e).__name__,'rollback_performed':False}
+            if getattr(self.registry,'machine_profile',False) and result.get('status')!='succeeded' and result.get('cleanup')=='released':
+                # A failed/cancelled primitive may exit before its own release
+                # postcondition. Confirm before the FIFO can start another frame.
+                reasons={result.get('reason')} | {h.get('reason') for h in result.get('history',[])}
+                if not reasons & {'transport_error','handler_error','actor_session_changed','player_identity_mismatch','input_release_not_observed'}:
+                    try:
+                        from ..machine_actions import confirm_release
+                        confirm_release(self.player,s.actor_session)
+                    except Exception:
+                        result={**result,'interrupted_reason':result.get('reason'),'reason':'input_release_not_observed','cleanup':'not_confirmed'}
             with self.lock:
+                if getattr(self.registry,'machine_profile',False):
+                    fatal={'transport_error','handler_error','input_release_not_observed','inventory_effect_not_observed','actor_session_changed',
+                           'player_identity_mismatch','cleanup_not_confirmed','state_store_error'}
+                    reasons={result.get('reason')} | {h.get('reason') for h in result.get('history',[])}
+                    if (result.get('cleanup')!='released' and result.get('reason')!='cancelled_before_execution') or reasons & fatal:
+                        self.halted=True
+                        for queued in self.queue:self.jobs[queued]['cancelled']=True
                 j['result']=result
                 try:
                     pending=s.fail_homes(p.request_id,result['status'])
@@ -308,6 +330,7 @@ class BCLJobs:
                              reason=result.get('reason'),diagnostics=result.get('diagnostics',[]),task_id=identifier)
                 except Exception:
                     j['result']={'status':'failed','reason':'state_store_error'}
+                    if getattr(self.registry,'machine_profile',False):self.halted=True
                     for queued in self.queue:self.jobs[queued]['cancelled']=True
                 self.active=None
     def status(self,identifier):

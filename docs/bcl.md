@@ -18,6 +18,16 @@ There is no `eval`, `exec`, Python generation, raw slash-command BCL adapter,
 automatic import/install, or alternate physics/inventory implementation.
 Trusted host extensions remain **not sandboxed**.
 
+## Optional feature feedback and input audit
+
+The existing authenticated gateway can opt into a private
+[feedback/input-admission store](feedback.md). `feedback` / `feedback_status` are
+scoped control envelopes, not BCL commands or a second planner. Native actor
+checks still apply. Proposals await operator review and cannot add capabilities.
+Persistent operation reservations and optional opcode allowlists precede effects;
+inputs/denials are audited. Cancel/status survive audit exhaustion. Without opt-in,
+feedback is disabled and legacy BCL behavior is unchanged.
+
 ## Grammar (normative)
 
 ```ebnf
@@ -547,9 +557,12 @@ crafting/combat commands does **not** qualify their gameplay through BCL.
 
 Spontaneous subscribed events are delivered by the WebSocket gateway; the MCP
 facade offers the same control/discovery/status, not a new MCP push-event transport.
-Future chat providers may use the local `ChatFilter` policy (all, explicit agent
-mentions, sender UUID allowlist, bounded distance). `player.chat` is NOT registered
-without a native provider. Filtering never grants command authority; messages remain
+The opt-in [native auto-event provider](blockwire-auto-event-dispatcher.md) now
+registers actual incoming chat and observed player/Monster enter/leave events.
+It uses existing E0/E1 subscriptions and `ChatFilter` (all, sender UUID allowlist,
+bounded available distance). Mention filtering requires metadata this native
+source does not invent. `player.chat` is NOT registered without an enabled native
+provider. Filtering never grants command authority; messages remain
 untrusted data, and critical lifecycle events cannot be suppressed by chat filters.
 No complete Minecraft wiki, general terrain solver, gamemode mutation, public
 multi-tenant server, non-loopback gateway, non-POSIX journal qualification or

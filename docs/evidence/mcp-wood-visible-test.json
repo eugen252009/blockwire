@@ -1,0 +1,68 @@
+{
+  "status": "NO_GO_STOPPED_NO_RETRY",
+  "goal": "Collect at least 64 natural unprocessed logs in inventory; active exploration; no crafting/house-building or repetitive notes.",
+  "interface": "provider tool calls -> budgeted host -> external MCP stdio ClientSession -> machine-v1 TLS -> authenticated native Minecraft",
+  "model": "gpt-6-luna",
+  "model_calls": 41,
+  "provider_requests": 41,
+  "decisions": {
+    "act": 38,
+    "wait": 3
+  },
+  "requested_actions": {
+    "turn": 36,
+    "hold": 1,
+    "input_sequence": 1
+  },
+  "mcp_tool_call_intents": {
+    "reporting": 1,
+    "events": 782,
+    "turn": 36,
+    "task_result": 328,
+    "hold": 1,
+    "input_sequence": 1
+  },
+  "native_program_admissions": 37,
+  "reserved_action_operations": 39,
+  "observed_logs": 0,
+  "closed_inventory": [],
+  "closed_survival_mode": 0,
+  "closed_health": 20.0,
+  "closed_walk_distance_m": 0.0,
+  "net_displacement_m": 0.0,
+  "mined": {
+    "minecraft:acacia_leaves": 2
+  },
+  "picked_up": {},
+  "host_cleanup_receipt": "not_confirmed",
+  "ended_unknown": true,
+  "gateway_end": {
+    "halted": false,
+    "transport_failed": false
+  },
+  "process_cleanup": {
+    "jvm_closed": true,
+    "native_port_closed": true,
+    "server_port_closed": true,
+    "server_returncode": 0
+  },
+  "diagnosis": "FastMCP handler kwargs retained nested InputPhase models. BCL JSON serialization failed before the final input_sequence could be sent. Reproduced by a failing MCP+TLS regression test; fixed by validating and serializing parameters in JSON mode at the MCP boundary.",
+  "post_fix_native_gameplay": "NOT_RUN; failed live run never resumed or replayed",
+  "checks_after_fix": {
+    "python_tests_passed": 792,
+    "gradle_check": "PASS",
+    "tls_checks_passed": 10,
+    "machine_mutations_killed": 14,
+    "construction_mutations_killed": 10
+  },
+  "replay_viewer": "NOT_RUN",
+  "sha256": {
+    "python/src/blockwire/machine_mcp.py": "61bc9cf8552ffeda412e7c7589a5d605a94735e90d4adefdfc42a0bdfd01ee15",
+    "python/tests/test_machine_profile.py": "0719eafaef0326ed0a7e6b0dd3375c9c9470e3a1dee27bf10487d43a28f11542",
+    "build/mcp-wood/visible-001/goal-private.txt": "5ce5ea53e7acfe8d4924780818e6078d6b6bb37d9c45b20a3096fd3f273c33b7",
+    "build/mcp-wood/visible-001/source-freeze-private.json": "8b5ead08a3cc3cbde493d420a6a767d6b372d1999c1ac7887914f4da27f49f8e",
+    "build/mcp-wood/visible-001/host-source-freeze-private.json": "b8d6bb30abbdc1c8de2d0b7acaed5c005e887ca17c6975ae6885158a1f719105",
+    "build/mcp-wood/visible-001/mcp-discovery-private.json": "24e8555604ec56535636f819aa4a1dd20849e0e7a4558a5b3bdb71b257011ee1"
+  },
+  "late_gateway_session_release": "released; does not replace the missing host cleanup receipt"
+}

@@ -156,7 +156,13 @@ public final class TransportContractTest {
             deny(port,"b".repeat(64),null,"/v1",403,"reject_unauthorized");
             deny(port,token,"https://example.invalid","/v1",403,"reject_browser_origin");
             deny(port,token,null,"/bad",403,"reject_wrong_endpoint");
+            var push=new JsonObject();push.addProperty("type","native_event");push.addProperty("sequence",1);
+            check(!server.publish(push),"events_require_authenticated_owner");
             var inbox=new Inbox();var ws=connect(port,token,null,"/v1",inbox);
+            check(server.publish(push),"nonblocking_event_on_existing_lease");
+            check(inbox.read().get("sequence").getAsInt()==1,"native_event_same_tls_connection");
+            var oversized=new JsonObject();oversized.addProperty("body","x".repeat(17000));
+            check(!server.publish(oversized),"bounded_native_event_size");
             deny(port,token,null,"/v1",409,"exclusive_controller");
             ws.sendText("{\"id\":1,\"op\":\"increment\"}",true).join();
             var response=inbox.read();check(response.get("ok").getAsBoolean() && response.get("id").getAsInt()==1 &&

@@ -7,6 +7,8 @@ from .approaching import APPROACH, Approach
 from .fighting import FIGHT, Fight, Reactions
 from .woodcutting import GATHER_WOOD, GatherWood
 from .distance import ESTIMATE_DISTANCE, EstimateDistance
+from .looking import LOOK_AROUND, LookAround
+from .search import SEARCH, Search
 from .crafting import CRAFT_ITEM, CraftItem
 from .item_actions import EQUIP_ITEM, INTERACT_BLOCK, PLACE_BLOCK, PLACE_AT
 from .mining import GATHER_BLOCK
@@ -28,6 +30,8 @@ def default_registry(*, plugins: bool = False) -> SkillRegistry:
     registry.register(FIGHT)
     registry.register(GATHER_WOOD)
     registry.register(ESTIMATE_DISTANCE)
+    registry.register(LOOK_AROUND)
+    registry.register(SEARCH)
     for definition in (CRAFT_ITEM, EQUIP_ITEM, INTERACT_BLOCK, PLACE_BLOCK, PLACE_AT, GATHER_BLOCK, REMOVE_BLOCK, CONSUME_ITEM, SEARCH_BLOCKS, DIG_STEP, AIM_AT):
         registry.register(definition)
     if plugins:
@@ -36,4 +40,4 @@ def default_registry(*, plugins: bool = False) -> SkillRegistry:
 
 
 __all__ = ["SkillContext", "SkillDefinition", "SkillManager", "SkillParameters", "SkillRegistry",
-           "SkillResult", "SkillStop", "load_selected_plugins", "run_skill", "default_registry", "WalkTo", "Autopilot", "Approach", "Fight", "Reactions", "GatherWood", "EstimateDistance", "CraftItem"]
+           "SkillResult", "SkillStop", "load_selected_plugins", "run_skill", "default_registry", "WalkTo", "Autopilot", "Approach", "Fight", "Reactions", "GatherWood", "EstimateDistance", "LookAround", "Search", "CraftItem"]

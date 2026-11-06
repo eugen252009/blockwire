@@ -4,6 +4,7 @@ import itertools
 import json
 import math
 import os
+import queue
 import ssl
 from pathlib import Path
 import threading
@@ -70,6 +71,14 @@ class Bridge:
         self._socket = None
         self._ids = itertools.count(1)
         self._lock = threading.RLock()
+        self._event_reader = None
+        self._event_actor = None
+        self._event_error = None
+        self._event_queue = queue.Queue(maxsize=64)
+        self._reply_queue = queue.Queue(maxsize=1)
+        self._event_notify = None
+        self.event_dropped = 0
+        self._event_sequence = 0
 
     @classmethod
     def from_token_file(cls, path: str | Path, url: str = "wss://127.0.0.1:8765/v1") -> Bridge:
@@ -117,6 +126,8 @@ class Bridge:
 
     def connect(self) -> Bridge:
         with self._lock:
+            if self._event_error is not None:
+                raise BridgeError('Native event connection lost; no automatic reconnect/replay') from self._event_error
             if self._socket is None:
                 from websockets.sync.client import connect
                 self._socket = connect(self.url, additional_headers={"Authorization": f"Bearer {self._token}"},
@@ -134,7 +145,8 @@ class Bridge:
             try:
                 self.connect()
                 self._socket.send(payload)
-                reply = json.loads(self._socket.recv(timeout=5))
+                reply = self._reply_queue.get(timeout=5) if self._event_reader is not None else json.loads(self._socket.recv(timeout=5))
+                if isinstance(reply,BaseException):raise reply
                 if reply.get("id") != request["id"]:
                     raise BridgeError("Mismatched response ID")
                 if not reply.get("ok"):
@@ -146,9 +158,58 @@ class Bridge:
                 self.close()
                 raise BridgeError("Bridge connection failed; operation outcome may be unknown. Observe before retrying.") from exc
 
+    def start_native_events(self, actor_session: str, notify) -> None:
+        """Opt-in multiplexing on the existing exclusive TLS lease, NOT another connection.
+
+        The callback must be a nonblocking trusted host wakeup, not model inference.
+        Observation overflow drops new low-priority frames with an explicit counter.
+        """
+        if not isinstance(actor_session,str) or not actor_session or not callable(notify):
+            raise ValueError('Explicit actor and trusted wakeup required')
+        with self._lock:
+            if self._event_reader is not None:raise RuntimeError('Native events already configured')
+            self.connect();self._event_actor=actor_session;self._event_notify=notify
+            socket=self._socket
+            def receive():
+                try:
+                    while True:
+                        reply=json.loads(socket.recv())
+                        if reply.get('type')=='native_event':
+                            seq=reply.get('sequence')
+                            if (reply.get('actor_session')!=self._event_actor or type(seq) is not int or seq<1
+                                or reply.get('name') not in {'player.chat','entities.snapshot'}
+                                or not isinstance(reply.get('data'),dict)):
+                                raise BridgeError('Invalid native event identity/schema')
+                            if seq<=self._event_sequence:continue
+                            self._event_sequence=seq
+                            try:self._event_queue.put_nowait(reply)
+                            except queue.Full:self.event_dropped+=1
+                            notify()
+                        else:self._reply_queue.put_nowait(reply)
+                except BaseException as error:
+                    self._event_error=error
+                    try:self._reply_queue.put_nowait(BridgeError('Native event connection lost; no replay'))
+                    except queue.Full:pass
+                    try:socket.close()
+                    except Exception:pass
+                    notify()
+            self._event_reader=threading.Thread(target=receive,name='blockwire-native-events',daemon=True)
+            self._event_reader.start()
+            self.call('events_configure',enabled=True,actor_session=actor_session)
+
+    def drain_native_events(self):
+        rows=[]
+        while len(rows)<64:
+            try:rows.append(self._event_queue.get_nowait())
+            except queue.Empty:break
+        if self._event_error is not None:raise BridgeError('Native event connection lost; no automatic reconnect/replay') from self._event_error
+        return rows
+
     def close(self) -> None:
         with self._lock:
             if self._socket is not None:
+                if self._event_reader is not None and self._event_error is None:
+                    self._event_error=BridgeError('Native event lease closed; use a new explicit connection')
                 self._socket.close()
                 self._socket = None
 
@@ -252,6 +313,27 @@ class Player:
         return run_skill(default_registry(), self, "equip_item", dict(item=item,
             timeout_seconds=timeout_seconds)).model_dump(mode="json")
 
+    def search_page(self, *, actor_session: str, **parameters) -> Json:
+        """One bounded native search page; coordinates cannot be supplied as an origin."""
+        from .skills.search import SearchPage
+        if not isinstance(actor_session, str) or not 1 <= len(actor_session) <= 128:
+            raise ValueError('Explicit actor session required')
+        values = SearchPage.model_validate(parameters).model_dump(exclude_none=True)
+        return self.backend.call('search', actor_session=actor_session, **values)
+
+    def search(self, target: str = 'logs', *, range: int = 64, cone_degrees: int = 30,
+               timeout_seconds: float = 10.) -> Json:
+        """Additional read-only native sight tests, never camera/movement or mining."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, 'search', dict(target=target, range=range,
+            cone_degrees=cone_degrees, timeout_seconds=timeout_seconds)).model_dump(mode='json')
+
+    def look_around(self, *, timeout_seconds: float = 30) -> Json:
+        """Read-only 30-degree/10x10 reticle report; no camera or input changes."""
+        from .skills import default_registry, run_skill
+        return run_skill(default_registry(), self, "look_around",
+                         dict(timeout_seconds=timeout_seconds)).model_dump(mode="json")
+
     def estimate_distance(self, target: str = "minecraft:dirt", *, position: list[int] | None = None,
                           timeout_seconds: float = 30) -> Json:
         """Measure a current observed block only; no hidden coordinate query or controls."""
@@ -344,6 +426,15 @@ class Player:
 
     def stop(self) -> Json:
         return self.backend.call("stop")
+
+    def chat(self, message: str, *, actor_session: str) -> Json:
+        """Submit normal Minecraft chat. Receipt is NOT delivery or gameplay success."""
+        if (not isinstance(message,str) or not message.strip() or message.lstrip().startswith('/')
+            or any(ord(c)<32 or 127<=ord(c)<=159 or c in '§\u2028\u2029' or 0xD800<=ord(c)<=0xDFFF for c in message)
+            or len(message.encode('utf-16-le'))//2>256):
+            raise ValueError('Normal single-line chat, max 256 UTF-16 units, no slash command')
+        if not isinstance(actor_session,str) or not actor_session:raise ValueError('Explicit actor session required')
+        return self.backend.call('chat',message=message,actor_session=actor_session)
 
     def command(self, command: str, *, actor_session: str | None = None) -> Json:
         """Submit one explicit slash command with native permissions, not a success result.

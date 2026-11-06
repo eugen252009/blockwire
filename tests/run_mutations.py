@@ -27,9 +27,9 @@ mutations = [
      "guardedActor(q);playerRequired();\n                if(!(mc.gui.screen() instanceof AbstractContainerScreen<?> screen)",
      "playerRequired();\n                if(!(mc.gui.screen() instanceof AbstractContainerScreen<?> screen)",
      "IV03_click_actor_guard_before_effect", "inventoryContractTest"),
-    ("command_size", "Protocol.java", "text.length()>256", "false",
+    ("command_size", "Protocol.java", "text.length()<2 || text.length()>256 || text.charAt(0)!='/'", "text.length()<2 || false || text.charAt(0)!='/'",
      "CMD06_reject_oversized", "commandContractTest"),
-    ("command_controls", "Protocol.java", "Character.isISOControl(c)", "false",
+    ("command_controls", "Protocol.java", 'throw new IllegalArgumentException("invalid_command_character");', '{}',
      "CMD07_reject_controls_and_malformed_unicode", "commandContractTest"),
     ("command_session", "Blockwire.java", "String command=Protocol.command(q);guardedActor(q);playing();",
      "String command=Protocol.command(q);playing();", "CMD12_validate_and_fence_before_effect", "commandContractTest"),
@@ -131,6 +131,11 @@ mutations = [
     ("logical_backspace", "MenuInput.java", "case InputConstants.KEY_BACKSPACE -> 8", "case InputConstants.KEY_BACKSPACE -> 42", "native_logical_backspace"),
     ("tls_certificate_export_integrity", "TlsIdentity.java", "!MessageDigest.isEqual(exported.getEncoded(),cert.getEncoded())", "false", "export_mismatch_fails_closed", "tlsContractTest"),
     ("tls_expiry", "TlsIdentity.java", "cert.checkValidity();cert.verify", "cert.verify", "expired_certificate_fails_closed", "tlsContractTest"),
+]
+mutations += [
+    ('auto_event_frame_bound', 'BridgeServer.java', 'if(body.getBytes(StandardCharsets.UTF_8).length>16384)', 'if(false)', 'bounded_native_event_size'),
+    ('chat_requires_actor', 'Protocol.java', 'fields(q,"message","actor_session");string(q,"actor_session");', 'fields(q,"message","actor_session");', 'chat_requires_actor', 'autoEventsContractTest'),
+    ('chat_not_slash_command', 'Protocol.java', 'text.stripLeading().startsWith("/")', 'false', 'unsafe_chat_accepted', 'autoEventsContractTest'),
 ]
 results = []
 for mutation in mutations:

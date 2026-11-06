@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "scope": "Targeted read-only search: deterministic native geometry and simulated-native Python/MCP over authenticated TLS",
+  "status": "CONTRACT_PASS_GRAPHICAL_NOT_RUN",
+  "profile": "targeted_surface_search_v1",
+  "worktree": "Uncommitted development source; pre-existing unrelated changes and historical evidence retained",
+  "base_commit": "a9a7405c0f10accdf047eaac1d7ef74851ef61f5",
+  "bounds": {
+    "grid": [
+      65,
+      65
+    ],
+    "grid_cells": 4225,
+    "max_cells_per_page": 128,
+    "max_pages": 34,
+    "max_matches": 32,
+    "max_range_blocks": 64,
+    "cone_degrees": [
+      10,
+      90
+    ],
+    "timeout_seconds": [
+      0.1,
+      30
+    ]
+  },
+  "checks": {
+    "python": {
+      "passed": 827
+    },
+    "gradle_check": "PASS",
+    "gradle_build": "PASS",
+    "tls_interop": {
+      "passed": 10
+    },
+    "search_mutations": {
+      "killed": 25,
+      "total": 25
+    },
+    "regression_mutations": {
+      "machine": [
+        14,
+        14
+      ],
+      "look_around": [
+        7,
+        7
+      ],
+      "feedback": [
+        16,
+        16
+      ],
+      "gateway": [
+        14,
+        14
+      ],
+      "typed_tools": [
+        6,
+        6
+      ]
+    },
+    "diff_check": "PASS"
+  },
+  "qualification_limits": [
+    "Synthetic loaded-world geometry, not graphical Minecraft acceptance",
+    "Real TLS and MCP calls use a simulated native backend; no real-model search run",
+    "Dispatch actor/read-only Java checks are static source contracts",
+    "Dense geometric first-hit rays are not renderer pixels or exhaustive visibility",
+    "No-match results do not prove absence; matches do not prove reach, route, natural origin or harvesting",
+    "Pages are not an atomic world snapshot; pose/actor changes abort",
+    "Existing hidden look_around evidence is not search qualification"
+  ],
+  "not_run": [
+    "graphical Minecraft search",
+    "real-model search",
+    "runtime performance",
+    "wood harvesting",
+    "64 natural logs"
+  ],
+  "local_jar": {
+    "path": "build/libs/blockwire-0.2.0-alpha.4.jar",
+    "sha256": "145b90ba89307b40d5f9f6feb5fad541596721d6156dd509752a2cc4d88cf7c6",
+    "installed_in_client": false,
+    "released": false
+  },
+  "source_sha256": {
+    "build.gradle": "276bd3ead4da5e76b5807199b20ed4e4b2206e819f60a85282aa2c136cc966c1",
+    "docs/search.md": "dab2147532944d295907dc37090e10c3b297614676f3f11fc45977c209d8e568",
+    "python/src/blockwire/bcl/client.py": "8b6f37526606105c9a850e37ca693d1d16dcf1f38a3b31513cee4efdd4ebc797",
+    "python/src/blockwire/bcl/gateway.py": "08b9f9c6c55cf3a43a0924030edcfed4008fba92852a5f003d57afeedcfb557b",
+    "python/src/blockwire/bcl/search.py": "1fab8d338363e18ced2b9859a587e46a4dd56a86a655b888d5fb687ad4c5f5df",
+    "python/src/blockwire/cli.py": "d79134b9ae3e646b130ebc5aceacd6910fd3de4fccee7d03a4381a7f775862fc",
+    "python/src/blockwire/client.py": "d79c087378532fe8269079880c7b0adfad39bd26134fc28fa1a3d7393f3301fd",
+    "python/src/blockwire/machine_agent.py": "25f90725a9f14747d2192e372dba9c4f4b3e0f2d39cc8dff4bd072092fa2697a",
+    "python/src/blockwire/machine_mcp.py": "3aaf40ecdb68f27827798f05eb741dafb33f7722630f4ddfd1036139936e5456",
+    "python/src/blockwire/mcp_server.py": "0995b2b12fd8f032002cd44b7c4d6110a54836b415dee17b744e5efacdab9cd3",
+    "python/src/blockwire/mcp_skill_tools.py": "45a0be29c9a4fc8f05a630fb2d900f01d5f2e4d437106d39dbe5a708b789932a",
+    "python/src/blockwire/skills/__init__.py": "b6690730027b30b58ec4db7fd7774bd6d935a9ec6f9d023d5fb8988d5e49efd7",
+    "python/src/blockwire/skills/looking.py": "db256b2ab056f5c5b82afb54c0c6c63968177926c4bd2c028731295f5ac77f25",
+    "python/src/blockwire/skills/search.py": "0bba34b096b3f4c5d90a801246c687c3f2420582a919ebb1b97031062abe4284",
+    "python/src/blockwire/tool_decider.py": "6915840ec8f20867a57573d6a543d5636fa0d601a22f78a1035d549c48c84917",
+    "python/tests/test_machine_profile.py": "0c2fa00233deaca43a75b4ff65278c5abeb8a89550d8f46b92c21750a2fbd462",
+    "python/tests/test_search.py": "dc12aeb88c6b514a972c553b6f7298402e5b8d9bb875800a7eadb72f7415c884",
+    "python/tests/test_tool_decider.py": "cc8b6af676c984e62f213cec98d1310a31d526872661b48b050d9440ad7114c6",
+    "src/contractTest/java/dev/blockwire/SearchContractTest.java": "bba2ef16b692cacd20ea9b1f3f1dcb1b3b1a3c858f77c15a08809d2d939202e8",
+    "src/main/java/dev/blockwire/Blockwire.java": "a5756db920e8416dfe5674ddeabc3cfca88c6ce0dfd429cdf50867b5a85c6427",
+    "src/main/java/dev/blockwire/SearchView.java": "dad3d1a3130b01627b626aa2745b6c89e13bc87d73e6887349ee6807b99e6523",
+    "src/main/java/dev/blockwire/VisibilityView.java": "695a68ff49c1c8b457f2d477dbb2c5cab2af2c18e482da4e6c97ee69285e2557",
+    "tests/run_gateway_mutations.py": "57a09e1e9b2f147c1b3f04f751380b7e9f43792a5a524a36d01728a6663f7d0c",
+    "tests/run_search_mutations.py": "238af92419190f4553a1ef34cf92b9ef93a62ca484cd3237365047799660f8ef"
+  },
+  "check_log_sha256": {
+    "build/search/checks/build.log": "da1af08063e304c7a9dd4d6c4889804847246aa5948832149d6d3fe2c393bed0",
+    "build/search/checks/feedback-mutations.log": "04c57686b1ee9967f633a82438e24c1a7ab07c570cc576bef3fac70a83841c3e",
+    "build/search/checks/gateway-final.log": "4bcd0782b3dd06679ad03bd30dcd6d31d433b2afc77ce0ee3aab9e18ba30b29f",
+    "build/search/checks/look-mutations.log": "43eb96ce88741fc94e1c4b18c4bc88ce5ffc105c75b2bb24b028518df77b9d51",
+    "build/search/checks/machine-mutations.log": "fd0f85d6e69a5ae36f4997dd7c228739f89ff5f4b09ea3bd224b41816d6c34e4",
+    "build/search/checks/mutations-final-source.log": "21eeb0bcc68509e1e6f5fb4bf5d586905c1fc39393f0f7df419bd22e56dede8f",
+    "build/search/checks/python-final.log": "769b6118f48da4f90da24eac6648027a7ebb41df5c4248fc6f64c606129c5d23",
+    "build/search/checks/tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/search/checks/tool-mutations.log": "acc9147104647b5d7c6b96108361658467ad685888cea68ad43d28c64fc88843"
+  }
+}

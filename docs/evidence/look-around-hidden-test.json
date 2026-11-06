@@ -1,0 +1,104 @@
+{
+  "model": "gpt-6-luna",
+  "route": "provider-native tools -> real MCP stdio -> machine-v1 TLS -> native Minecraft",
+  "scope": "read-only cached perception and bounded camera only; NOT harvesting/building",
+  "cases": [
+    {
+      "scope": "hidden-001",
+      "actual_hidden_child_verified": true,
+      "model_calls": 5,
+      "look_around_calls": 3,
+      "requested_turns": 1,
+      "reason": "model_reported",
+      "host_cleanup": "released",
+      "unknown": false,
+      "all_owned_game_ports_closed": true,
+      "observations": [
+        {
+          "reason": "crosshair_anchor_not_observed",
+          "blocks": 0,
+          "independent_check": "PASS"
+        },
+        {
+          "reason": "crosshair_anchor_not_observed",
+          "blocks": 0,
+          "independent_check": "PASS"
+        },
+        {
+          "reason": "crosshair_anchor_not_observed",
+          "blocks": 0,
+          "independent_check": "PASS"
+        }
+      ],
+      "stationary_when_final_observed": true
+    },
+    {
+      "scope": "hidden-002",
+      "actual_hidden_child_verified": true,
+      "model_calls": 1,
+      "look_around_calls": 0,
+      "requested_turns": 1,
+      "reason": "RuntimeError",
+      "host_cleanup": "not_confirmed",
+      "unknown": true,
+      "all_owned_game_ports_closed": true,
+      "observations": [],
+      "stationary_when_final_observed": null
+    },
+    {
+      "scope": "hidden-003",
+      "actual_hidden_child_verified": true,
+      "model_calls": 4,
+      "look_around_calls": 2,
+      "requested_turns": 1,
+      "reason": "model_reported",
+      "host_cleanup": "released",
+      "unknown": false,
+      "all_owned_game_ports_closed": true,
+      "observations": [
+        {
+          "reason": "view_reported",
+          "blocks": 2,
+          "ids": [
+            "minecraft:grass_block"
+          ],
+          "distances_blocks": [
+            2.12,
+            2.344
+          ],
+          "independent_check": "PASS"
+        },
+        {
+          "reason": "view_reported",
+          "blocks": 2,
+          "ids": [
+            "minecraft:grass_block"
+          ],
+          "distances_blocks": [
+            2.12,
+            2.344
+          ],
+          "independent_check": "PASS"
+        }
+      ],
+      "stationary_when_final_observed": true
+    }
+  ],
+  "positive_block_report_verified": true,
+  "source_sha256": {
+    "python/src/blockwire/skills/looking.py": "db256b2ab056f5c5b82afb54c0c6c63968177926c4bd2c028731295f5ac77f25",
+    "python/src/blockwire/machine_mcp.py": "22629cccca8d32616a86137b5197fa633a49c8b5c10e19d67a4f2fba431b2973"
+  },
+  "limits": [
+    "partial sampled visibility, not exact pixels",
+    "cached timestamps retained",
+    "entities unsupported",
+    "Replay Viewer NOT_RUN",
+    "failed hidden-002 remains UNKNOWN_NO_RETRY"
+  ],
+  "verdict": "SCOPED_PASS: native missing-anchor and positive sampled-block reports; hidden-002 failure retained",
+  "all_owned_displays_closed": true,
+  "total_provider_calls": 10,
+  "total_look_around_calls": 5,
+  "native_jar_sha256": "8a35f54593712e6be7cca4204a2c0ddc9476ffda099d4d49dabd72d7c25fa0d4"
+}

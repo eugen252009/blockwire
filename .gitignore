@@ -11,6 +11,11 @@ __pycache__/
 dist/
 .cocoindex_code/
 .blockwire-agent/
+# Private LLM inputs / feature-review / operational limits, wherever selected
+feedback.sqlite
+feedback.sqlite-*
+model-limits.sqlite
+model-limits.sqlite-*
 
 # Local Pi MCP configuration (instance paths and potentially credentials)
 /.pi/mcp.json

@@ -80,6 +80,21 @@ public final class Protocol {
         fields(q,allowed.toArray(String[]::new));
         if(q.has("actor_session"))string(q,"actor_session");
     }
+    /** Normal signed chat path only; never a slash-command escape hatch. */
+    public static String chat(JsonObject q) {
+        fields(q,"message","actor_session");string(q,"actor_session");
+        String text=string(q,"message");
+        if(text.isBlank() || text.length()>256 || text.stripLeading().startsWith("/"))
+            throw new IllegalArgumentException("expected_chat_max_256_no_command");
+        for(int i=0;i<text.length();i++) {
+            char c=text.charAt(i);
+            if(Character.isISOControl(c) || c=='§' || c=='\u2028' || c=='\u2029' ||
+                (Character.isSurrogate(c) && !(Character.isHighSurrogate(c) &&
+                    i+1<text.length() && Character.isLowSurrogate(text.charAt(++i)))))
+                throw new IllegalArgumentException("invalid_chat_character");
+        }
+        return text;
+    }
     /** One explicit slash command, bounded like native chat; never trim or split it. */
     public static String command(JsonObject q) {
         fields(q,"command","actor_session");

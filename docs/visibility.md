@@ -40,6 +40,16 @@ landing surface. It never uses cached renderer hits alone, moves the camera or
 queries a supplied coordinate. Native visibility semantics and limits below are
 unchanged.
 
+## Separate targeted search
+
+The overview above is intentionally coarse. [search(target="logs")](search.md)
+collects additional bounded native rays in a denser cone grid, without a required
+central hit or camera/movement action. It does not change `observe`/`look_around`
+or their historical evidence. This is still geometric, not pixel-complete sight;
+transparent textures and between-ray gaps remain limitations. Matching development
+mod required. A [hidden graphical/MCP fixture](search-hidden-test.md) now has a
+scoped pass; natural exploration and exhaustive rendered visibility remain unqualified.
+
 ## Compact encoding
 
 `visible_blocks.encoding` is `palette_x_runs_v1`:

@@ -61,6 +61,32 @@ and status remain available. History retains the newest 20 jobs. Existing input
 deadlines and F8 are independent of the Python worker. Extensions are opt-in
 trusted host code; see [extensions](extensions.md).
 
+## Look around the crosshair
+
+`player.look_around()`, CLI `blockwire look_around`, or MCP `look_around()` reports
+sampled block IDs, positions and eye-to-centre distances inside a **30° full cone**
+and a **10×10-block horizontal X/Z window** centred on the sampled forward hit.
+No rotation, movement or hidden lookup. No forward hit means an unknown anchor.
+The machine MCP variant filters the latest scene event and explicitly marks it
+cached; it does not introduce an observation opcode. Current entity observations
+lack coordinates for this filter, so entities are explicitly unsupported.
+See [geometry, freshness and limits](look-around.md) and the
+[scoped machine-MCP hidden-client test](look-around-hidden-test.md). Broader
+views and fresh-query ordinary-MCP graphical acceptance remain **NOT RUN**.
+
+## Targeted read-only search
+
+`player.search("logs")`, CLI `blockwire search logs`, and ordinary/machine MCP
+`search(target="logs")` collect **additional native rays**, not just filtered
+`look_around` samples. Exact block IDs or nine vanilla unstripped log IDs; bounded
+65×65 cone grid, up to34 pages and32 matches. No central hit required, no camera
+turn, walking, mining or route selection. Changed actor/view aborts the scan.
+Not seen is not absent; the LLM chooses further exploration. Native shape rays
+are not pixel visibility. Requires the matching development mod/SDK.
+[Full contract and checks](search.md); [hidden real-model/MCP fixture](search-hidden-test.md)
+**SCOPED PASS**. Natural-world exploration/harvesting remain unqualified.
+The separate legacy active `search_blocks` skill is unchanged.
+
 ## Estimate distance to an observed block
 
 `player.estimate_distance("minecraft:dirt")`, CLI `blockwire estimate_distance dirt`,

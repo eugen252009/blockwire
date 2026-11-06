@@ -3,6 +3,39 @@
 Blockwire gives an authorized program control of a Minecraft player and access
 to client-known inventory/world information. Protect the API key and TLS identity.
 
+## Lean machine profile
+
+The opt-in [machine-v1 profile](docs/bcl-machine.md) offers small native inputs,
+not the legacy route/search/crafting planners. **Raw pulses are not safe routes or
+exact-distance moves**; collision and damage remain native. Health/actor/cancel
+checks and at most six-tick input leases bound execution, but do not prevent every
+fall, attack or placement mistake. Existing walking/placement safety code is not
+relaxed or relabelled as qualification of these primitives.
+
+Reporting is independent, partial and sampled; missing events are not proof that
+nothing happened. Wire gaps/overflow and uncertain cleanup fail closed. Interrupt
+cancels only owned active/queued work, bypassing audit failure and the action FIFO;
+a fresh same-actor native release proof and explicit resume are required before
+new actions. Legacy cancel/reset/respawn cannot bypass this barrier. Disconnection
+never replays actions or launches replacement model calls.
+
+Combined attack/use primitives conservatively require inventory, mining AND combat
+permissions; raw slot clicks require inventory AND crafting permission, since a
+native result-slot click can craft. Typed aliases/compositions pass the same whole-
+program compiler and persistent input admission as text programs. No alias grants
+extra permissions. No remote code loading or executable game text. The separate
+[search observation](docs/search.md) adds bounded, actor-fenced native rays outside
+the action FIFO, never a movement/harvesting planner or hidden-coordinate query.
+A negative result is not proof of absence; geometric rays are not renderer pixels.
+
+Explicit input phases may retain common keys and aim while crouched, but never
+extend an individual native lease beyond six ticks. They require movement,
+inventory, mining and combat permissions. Asserted slot programs require inventory
+and crafting; unconfirmed post-click effects quarantine queued execution. Stack
+assertions cover item IDs/counts, not full item components or server transactions.
+Recipe reports and model-authored blueprint notes are data, never planners,
+executable scripts, permission grants or proof that a structure exists.
+
 ## Transport and identity
 
 - Disabled by default. Explicit local config `enabled: true` authorizes startup
@@ -150,6 +183,25 @@ A planner finish is unverified unless a trusted host checker observes its goal.
 Private state/mailbox files contain player identity, locations and goal/history;
 protect and exclude them from bundles. The current file-lock runner is POSIX-only.
 No autonomous survival, response-time, damage-avoidance or 24/7 guarantee is made.
+
+## Opt-in feedback and input admission
+
+[Feature feedback](docs/feedback.md) stays in the trusted Python host, not the
+Minecraft tick or a new transport. Proposals are bounded untrusted data for human
+review; there is no model-accessible code/install/permission/budget-reset mechanism.
+Fresh native identity checks and existing TLS bindings scope requests. Agent/world
+labels remain operator/client labels, not independently authenticated identities.
+
+Private SQLite storage records bounded inputs/admission/outcomes, never auth
+headers. Raw MCP menu/command/chat strings are digest-only. BCL source and feature
+descriptions may contain sensitive data: do not submit secrets; keep stores out
+of Git/bundles. No complete native keyboard/server-outcome audit is claimed.
+With opt-in enabled, the default MCP profile denies raw commands/menu/control
+conveniences and retains BCL/observation/feedback/cancel/status tools. Durable BCL
+reservations and a store-wide aggregate cap survive reconnect and label changes.
+Audit/storage exhaustion denies new work but not cleanup/status; F8 is unchanged.
+This cannot sandbox separately authorized trusted host Python/raw native clients.
+No unattended two-hour/overnight reliability follows from feedback or admission tests.
 
 ## Passive Play2Code recordings
 

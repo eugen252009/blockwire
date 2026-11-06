@@ -25,6 +25,8 @@ def main(argv=None):
     model_transport.add_argument('--llm-url', help='Explicit full OpenAI-compatible chat/completions URL')
     model_transport.add_argument('--mailbox', help='Private JSON request/reply handoff to an external LLM host')
     parser.add_argument('--model')
+    parser.add_argument('--model-interface', choices=['tools', 'json'], default='tools',
+                        help='Named function calls (default), or legacy JSON decisions; no automatic fallback')
     parser.add_argument('--allow-remote-model', action='store_true', help='Authorize sending compact game context/goal to selected HTTPS model service')
     parser.add_argument('--model-key-env', default='BLOCKWIRE_LLM_API_KEY')
     parser.add_argument('--provider', action='append', default=[], help='Explicit installed trusted skill provider')
@@ -54,8 +56,16 @@ def main(argv=None):
         decider = MailboxDecider(args.mailbox, timeout=args.model_timeout)
     else:
         if not args.llm_url or not args.model: parser.error('Explicit llm-url and model (or mailbox) required')
-        decider = OpenAIJSONDecider(args.llm_url, args.model, api_key=os.environ.get(args.model_key_env),
-                                   timeout=args.model_timeout, allow_remote=args.allow_remote_model)
+        if args.model_interface == 'tools':
+            from .tool_decider import OpenAIToolDecider
+            available = {d['name'] for d in registry.describe()}
+            decider = OpenAIToolDecider(args.llm_url, args.model, registry=registry,
+                allowed_skills=(SAFE_SKILLS & available) | set(args.allow_skill),
+                api_key=os.environ.get(args.model_key_env), timeout=args.model_timeout,
+                allow_remote=args.allow_remote_model)
+        else:
+            decider = OpenAIJSONDecider(args.llm_url, args.model, api_key=os.environ.get(args.model_key_env),
+                                       timeout=args.model_timeout, allow_remote=args.allow_remote_model)
     store = SessionStore(args.state, {'agent_id': args.agent_id, 'world_id': args.world_id, 'player_id': args.player_id})
     baseline, _ = capture_statistics(args.stats_file)
     with Bridge.from_env() as bridge:

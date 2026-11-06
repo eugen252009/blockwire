@@ -1,0 +1,68 @@
+{
+  "profile": "machine-v1",
+  "status": "CONTRACTS_PASS_GAMEPLAY_NOT_RUN",
+  "checked_at_utc": "2026-11-06T17:08:25.716668+00:00",
+  "base_head": "a9a7405c0f10accdf047eaac1d7ef74851ef61f5",
+  "preexisting_dirty_worktree": true,
+  "checks": {
+    "python_tests": {
+      "passed": 779
+    },
+    "gradle_check": "PASS",
+    "tls_interop": {
+      "passed": 10
+    },
+    "isolated_machine_mutations": {
+      "killed": 14,
+      "total": 14
+    },
+    "isolated_tool_mutations": {
+      "killed": 6,
+      "total": 6
+    },
+    "graphical_gameplay": "NOT_RUN",
+    "real_provider_machine_profile": "NOT_RUN",
+    "external_mcp_stdio_client": "NOT_RUN"
+  },
+  "scope": [
+    "Strict primitive schemas and complete finite composition validation before effects",
+    "Independent sampled reporting with unchanged-state freshness heartbeat",
+    "Real authenticated TLS with simulated native backend, not Minecraft acceptance",
+    "Owned queue interruption, fresh native-shaped release proof, explicit resume/reconnect barrier",
+    "Unknown cleanup quarantine, actor fencing, short leases, wire gap and audit-failure contracts",
+    "Event-fed model orchestration using simulated provider decisions; no new real inference"
+  ],
+  "source_sha256": {
+    "python/src/blockwire/machine_actions.py": "357acedd81c6dd96e84376b07bf193521b31702b78cc952b188fa1fb8a2498f5",
+    "python/src/blockwire/machine_composition.py": "524a649139b34c7fec8da5468b5d908279847879ecfe0c5dea91ca218f417316",
+    "python/src/blockwire/machine_mcp.py": "e160e5112a4777adcb27559dfe31a8a9068b5874ad2c53ef0ab41acd587646f1",
+    "python/src/blockwire/machine_agent.py": "37d68c2555d63711ebea3d4fb853c6fa1a93e7ea7022415a0fd61ea3dc27efd1",
+    "python/src/blockwire/bcl/machine.py": "59d2249c69d263cf12d9cdc8ed8fe06c16ba104e4dd8fddbf5a0af20c0ea4b6b",
+    "python/src/blockwire/bcl/machine_control.py": "e7534caa58bef831b9f1c1af64960492d866f115d34e3432422e1b50198406c4",
+    "python/src/blockwire/bcl/gateway.py": "16e7312d82ba883db8f0c134a4b269d20f66ae86468c936edcf757825f9019a9",
+    "python/src/blockwire/bcl/runtime.py": "e969f88ae6555b975e0e294aa05599aecb84e7c444f60fd3c3d24a8f3c324c5c",
+    "python/src/blockwire/bcl/client.py": "def299a259291be6a7b23fb1dcc4f88af4c7f201d7ec6e07b65d7b5b75237769",
+    "python/src/blockwire/agent.py": "215bb412798822b913a759ce6939c5b70bd04b7d85561319ca69ef5ba834fb1f",
+    "python/src/blockwire/mcp_skill_tools.py": "f7118ee7e80898eb99557d8a457e3be5980160285f33205de7f9ccb9d720e096",
+    "python/src/blockwire/tool_decider.py": "42bfb3a56353c12aff0f2e719763699d5a4ee02516c9019687e2a9d366ac06ee",
+    "python/tests/test_machine_profile.py": "b837f597c85c6752ed038df473ad769158fe2afb32641d6d709892f940bc9698",
+    "python/tests/test_tool_decider.py": "085f9413ab3d3730cd2402ff168883b368817d0b297907b2a8827c70188f0318",
+    "python/tests/test_mcp_skill_tools.py": "d8e982b4d50a1cb5e2c01052942e7d479cb172e5be218d0dce538271635f93fa",
+    "tests/run_machine_mutations.py": "22366e3e4d32e7842cd8f4d04446a418dccdbd8c41e0a36bbc3466e8830adae5",
+    "tests/run_tool_call_mutations.py": "d9f13b6de52541fc34f4f96f2c941e7c50031c5a6c907e15de6e483a07749d49",
+    "python/pyproject.toml": "ef9d4484482037e4775e3fae4b051e4e4d45e184f300540b054cdd56c042fd9d",
+    "docs/bcl-machine.md": "029294365f5501c549d5f34845157fedccad838dfb2f97556ea7c81e86f8e8cd",
+    "README.md": "95843c65a7d34415045869b38b8f6c42650c3f82609d5365ddeeaf863aee338d",
+    "SECURITY.md": "f80bac488d029345f2a09cfed384cf6e6894f1c4bca070f120f98244884c11da",
+    "docs/architecture.md": "7a551f12408d4de8558e9cb8d067c7d1cb50b4fff581b6d56bafd6556fac6e08",
+    "docs/protocol.md": "a333f3154126184eb6f8d0a9b51c48a51f88b3f4cef2a4e3e6deaf73a3f7ad3c",
+    "docs/llm-tool-calling.md": "97c0f981b7dce0a3d53b3a936c0798146ea3488a788d4c515c41d9a568f628e4"
+  },
+  "private_log_sha256": {
+    "build/machine-profile/checks/python-final-source.log": "d60bb1ac010d081dce1230ff3717dd58674bdab5bc6836c89b1e01ad39f84c89",
+    "build/machine-profile/checks/gradle-final-source.log": "2c16bd4a0da8f535071f31e9e72afbfb529a377bfabf96a61cab1364bf20c474",
+    "build/machine-profile/checks/tls-final-source.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f",
+    "build/machine-profile/checks/mutations-final-source.log": "fd0f85d6e69a5ae36f4997dd7c228739f89ff5f4b09ea3bd224b41816d6c34e4",
+    "build/machine-profile/checks/tool-mutations-final-source.log": "acc9147104647b5d7c6b96108361658467ad685888cea68ad43d28c64fc88843"
+  }
+}

@@ -55,6 +55,13 @@ class OpenAIJSONDecider:
         payload = {'model': self.model, 'messages': [{'role': 'system', 'content': SYSTEM},
                    {'role': 'user', 'content': json.dumps(context, allow_nan=False)}],
                    'temperature': 0, 'max_tokens': 1024, 'response_format': {'type': 'json_object'}}
+        decoded = self._request(payload)
+        content = decoded['choices'][0]['message']['content']
+        if not isinstance(content, str) or len(content) > 16384:
+            raise ValueError('Bounded text decision required')
+        return strict_json(content)
+
+    def _request(self, payload):
         data = json.dumps(payload, allow_nan=False).encode()
         if len(data) > 128*1024: raise ValueError('Model context bound exceeded')
         headers = {'Content-Type': 'application/json'}
@@ -64,8 +71,4 @@ class OpenAIJSONDecider:
         with build_opener(ProxyHandler({}), _NoRedirect()).open(request, timeout=self.timeout) as response:
             body = response.read(128*1024+1)
         if len(body) > 128*1024: raise ValueError('Model response bound exceeded')
-        decoded = strict_json(body)
-        content = decoded['choices'][0]['message']['content']
-        if not isinstance(content, str) or len(content) > 16384:
-            raise ValueError('Bounded text decision required')
-        return strict_json(content)
+        return strict_json(body)
