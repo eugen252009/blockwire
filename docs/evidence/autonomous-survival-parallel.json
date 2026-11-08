@@ -1,0 +1,1118 @@
+{
+  "agent_outcomes": [
+    {
+      "agent_id": "survival-01",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "GO",
+        "RAMP-04": "GO",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 795635,
+          "duration_ms": 2225,
+          "file": "build/autonomous-survival/parallel-001/agent-01/replay/readiness-01-2026_11_04_11_23_05.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 2509,
+          "sha256": "3180034e624436d8b8b0f6d5176519a59e57bf1650578a3674088a93a4b0d9c0",
+          "zip_crc_valid": true
+        },
+        {
+          "bytes": 7451040,
+          "duration_ms": 330110,
+          "file": "build/autonomous-survival/parallel-001/agent-01/replay/readiness-02-2026_11_04_11_24_05.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 162432,
+          "sha256": "a0c939b392709f39d1a800d77ecad55d437aa24635b46999ab418277af19203e",
+          "zip_crc_valid": true
+        },
+        {
+          "bytes": 8214090,
+          "duration_ms": 635652,
+          "file": "build/autonomous-survival/parallel-001/agent-01/replay/readiness-03-2026_11_04_11_43_48.mcpr",
+          "native_playback": "PASS_SCOPED",
+          "packet_stream_complete": true,
+          "packets": 281461,
+          "sha256": "5b73ff6bfd117313c3244540d09d286dd5506d13af53c6755c09476f9e0fb052",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-02",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "GO",
+        "RAMP-04": "GO",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 8354089,
+          "duration_ms": 713981,
+          "file": "build/autonomous-survival/parallel-001/agent-02/replay/readiness-01-2026_11_04_11_42_29.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 298825,
+          "sha256": "44e08eae8b7b569359d167a87ece2e338f9c950a1f04d3accf26e8fbbcbaeb26",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-03",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "GO",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 7759455,
+          "duration_ms": 486080,
+          "file": "build/autonomous-survival/parallel-001/agent-03/replay/readiness-01-2026_11_04_11_46_22.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 215392,
+          "sha256": "63cc064bcced1fdf1b24f943259c0cc90e437209eeb6d1a68b61cfbe1b8f63e1",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-04",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "GO",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 7789547,
+          "duration_ms": 454939,
+          "file": "build/autonomous-survival/parallel-001/agent-04/replay/readiness-01-2026_11_04_11_46_54.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 222614,
+          "sha256": "1e18122b556ace36f0c50ecae3a1d490b2ca6e85d752f429b12f72d485932cef",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-05",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 7091034,
+          "duration_ms": 234372,
+          "file": "build/autonomous-survival/parallel-001/agent-05/replay/readiness-01-2026_11_04_11_50_39.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 109235,
+          "sha256": "9e4bbabd905c905d078c1e271cdb78bd255549f15b817788bbe54a4d219ce4f4",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-06",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 7032305,
+          "duration_ms": 196664,
+          "file": "build/autonomous-survival/parallel-001/agent-06/replay/readiness-01-2026_11_04_11_51_16.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 100739,
+          "sha256": "408f8379035529521d9b743803a34382d3b4c117bf445b12a62963a5b9e15ddc",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-07",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 6934354,
+          "duration_ms": 158859,
+          "file": "build/autonomous-survival/parallel-001/agent-07/replay/readiness-01-2026_11_04_11_51_58.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 86106,
+          "sha256": "3a4ddfee58c7efb9c4f5e17cf342bb2356c6778b723eeaa40e5c9e2f9c889d46",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-08",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": true,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NO_GO"
+      },
+      "readiness_crafted": {},
+      "readiness_final_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "readiness_health": 20,
+      "readiness_hunger": 20,
+      "readiness_mined": {},
+      "readiness_placed": {},
+      "replay_artifacts": [
+        {
+          "bytes": 6776135,
+          "duration_ms": 111439,
+          "file": "build/autonomous-survival/parallel-001/agent-08/replay/readiness-01-2026_11_04_11_52_46.mcpr",
+          "native_playback": "NOT_RUN",
+          "packet_stream_complete": true,
+          "packets": 61333,
+          "sha256": "14cd964f9ff79d2560296884b07ff1150fd099da8da24c9c95956dddbfc8d19d",
+          "zip_crc_valid": true
+        }
+      ],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-09",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-10",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-11",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-12",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-13",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-14",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-15",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    },
+    {
+      "agent_id": "survival-16",
+      "autonomous_gameplay": "NOT_RUN_RESOURCE_GATE",
+      "autonomous_progress": null,
+      "bcl_campaign_operations": 0,
+      "model_requests": 0,
+      "model_tokens": 0,
+      "native_readiness_launched": false,
+      "readiness": {
+        "RAMP-02": "NOT_RUN",
+        "RAMP-04": "NOT_RUN",
+        "RAMP-08": "NOT_RUN"
+      },
+      "readiness_crafted": null,
+      "readiness_final_position": null,
+      "readiness_health": null,
+      "readiness_hunger": null,
+      "readiness_mined": null,
+      "readiness_placed": null,
+      "replay_artifacts": [],
+      "self_selected_objectives": null,
+      "world_prepared": true
+    }
+  ],
+  "baseline_commit": "a9a7405",
+  "campaign_totals": {
+    "autonomous_started": 0,
+    "failed_campaigns": 0,
+    "not_run_campaigns": 16,
+    "partial_progress_campaigns": 0,
+    "recurrent_native_issue": "All eight RPC latency quantiles exceed 150 ms while CPU saturates. Tick progression alone did not establish readiness.",
+    "requested_agents": 16,
+    "self_selected_strategy_comparison": "UNAVAILABLE_NO_GAMEPLAY",
+    "successful_campaigns": 0
+  },
+  "cleanup": {
+    "all_control_disabled": true,
+    "all_owned_game_processes_closed": true,
+    "all_ports_closed": true,
+    "hidden_display_running": false,
+    "owned_idle_launcher_cleanup": [],
+    "timestamp": 1793790347.6820998,
+    "unrelated_processes_signalled": false
+  },
+  "cohort": "parallel-001",
+  "configuration": {
+    "LP_NUM_THREADS_requested": 2,
+    "actual_inspected_heap_flag": "-Xmx2048m",
+    "bonus_chest": false,
+    "clean_generated_world_not_previous_campaign_progress": true,
+    "clean_world_identity": "3da5b5127f128febd3e51bebe1d6ea955f96cd8d9583bb218a6f839d7cdd7b24",
+    "commands_enabled": false,
+    "configuration_audit": "All eight launched clients rewrote distances to 16/12. Unlaunched eight retain requested 8/5. Inherited fancy preset is plausible cause, not independently proven. Lower-distance profile NOT QUALIFIED; original measurements not rewritten.",
+    "difficulty": "Peaceful",
+    "distinct_live_actor_sessions": 8,
+    "distinct_live_native_certificates": 8,
+    "experimental_reuse": "OFF",
+    "global_max_seconds": 5400,
+    "graphics_preset_persisted": "fancy",
+    "heap_max_mib": 2048,
+    "independent_native_api_keys": 16,
+    "initial_health": 20,
+    "initial_hunger": 20,
+    "initial_inventory": {},
+    "initial_position": [
+      -1.5,
+      93.0,
+      5.5
+    ],
+    "instances": [
+      "survival-01",
+      "survival-02",
+      "survival-03",
+      "survival-04",
+      "survival-05",
+      "survival-06",
+      "survival-07",
+      "survival-08",
+      "survival-09",
+      "survival-10",
+      "survival-11",
+      "survival-12",
+      "survival-13",
+      "survival-14",
+      "survival-15",
+      "survival-16"
+    ],
+    "max_fps_requested": 30,
+    "mode": "Survival",
+    "model": "gpt-6.1-sol",
+    "normal_generation": true,
+    "pause_on_lost_focus": false,
+    "planned_decisions_per_agent": 30,
+    "planned_failed_decisions_per_agent": 8,
+    "planned_operations_per_agent": 300,
+    "planned_seconds_per_agent": 1800,
+    "provider": "openai-codex",
+    "recording_rename_dialog": false,
+    "render_distance_persisted_launched": 16,
+    "render_distance_requested": 8,
+    "replaymod": "26.3-2.6.28",
+    "same_licensed_account_profile_uuid": "Shared licensed profile UUID in separate single-player saves; entities, native actor sessions, endpoints and namespaces independent. Not 16 separately licensed accounts.",
+    "seed": "74219031427",
+    "separate_clean_world_directories": 16,
+    "simulation_distance_persisted_launched": 12,
+    "simulation_distance_requested": 5,
+    "window": [
+      640,
+      360
+    ],
+    "world_name": "Blockwire Parallel Survival"
+  },
+  "durations": {
+    "autonomous_campaign_seconds": 0,
+    "global_limit_seconds": 5400,
+    "preflight_setup_and_playback_until_final_cleanup_seconds": 2737.013329744339,
+    "scope": "Includes preparation/relaunch diagnostics and playback, not autonomous Survival duration"
+  },
+  "failure_isolation": {
+    "cross_actor_live_action_rejection": "NOT_RUN_READINESS_TRACE_ACTOR_IDS_CHECKED_ONLY",
+    "event_driven_campaign_aggregation": "NOT_RUN_NO_CAMPAIGN_EVENT_SYSTEM_STARTED",
+    "existing_contract_tests": "Rerun, not substituted for native 16-agent acceptance",
+    "independent_replay_finalization": "PASS_8_CLIENTS_10_ARTIFACTS",
+    "journal_recovery_and_process_crash": "NOT_RUN_NO_ACTIVATED_CAMPAIGN_JOURNALS",
+    "per_agent_gateway_failure": "NOT_RUN_NO_CAMPAIGN_GATEWAYS",
+    "per_agent_live_cancellation": "NOT_RUN_CAMPAIGN_GATED",
+    "resource_watchdog_and_safe_global_shutdown": "PASS_SCOPED_8_READINESS_CLIENTS"
+  },
+  "gates": {
+    "allowed_swap_growth_bytes": 0,
+    "cpu_watchdog": "Abort when mean >95% across ten successive host intervals; prospectively added and frozen before 8-client stage",
+    "maximum_mean_host_cpu_fraction": 0.85,
+    "maximum_rpc_p95_seconds": 0.15,
+    "minimum_client_tick_and_game_time_rate": 18.0,
+    "minimum_disk_free_bytes": 21474836480,
+    "minimum_mem_available_bytes": 8589934592,
+    "no_native_controller_inputs_in_traces": true,
+    "ramp": [
+      2,
+      4,
+      8,
+      16
+    ],
+    "readiness_no_world_mutating_actions": true,
+    "requested_configuration_gate": "FAILED_AT_FINAL_AUDIT; measured resource pass is scoped to persisted 16/12, not requested 8/5",
+    "rpc_quantile": "Public p95 recomputed as nearest-rank ceil(.95*n). Original short-stage guard used lower rank; all eight fail either statistic. Raw guard values and verdicts retained.",
+    "stage_16": "NOT_STARTED_AFTER_8_FAILED"
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 7 5800X, 8 cores / 16 threads",
+    "gpu_peaks_during_sample_windows": {
+      "NVIDIA GeForce RTX 2080 SUPER": {
+        "max_memory_used_mib": 251,
+        "max_utilization_percent": 2
+      },
+      "NVIDIA GeForce RTX 3060": {
+        "max_memory_used_mib": 12,
+        "max_utilization_percent": 0
+      }
+    },
+    "gpus": [
+      "NVIDIA GeForce RTX 3060, 12288 MiB, 12 MiB, 0 %",
+      "NVIDIA GeForce RTX 2080 SUPER, 8192 MiB, 211 MiB, 0 %"
+    ],
+    "graphics": "Authenticated hidden Xephyr :99; all eight inspected clients use CPU llvmpipe, not GPU-backed Minecraft rendering",
+    "initial_disk_free_bytes": 93067776000,
+    "local_model_client_max_child_rss_kib": 132072,
+    "native_bridge_resources": "Part of each JVM; dispatch CPU not independently attributed. Native RPC latency measured separately.",
+    "remote_model_backend_memory": "NOT_OBSERVABLE_NO_LOCAL_MODEL_LOADED",
+    "rss_scope": "Maximum child RSS for one tiny read-only model probe, not simultaneous model-service RAM",
+    "sampling_limit": "Resource peaks cover sampled readiness windows, not every startup instant; client ticks are NOT rendered FPS; observed game-time progression is not direct server MSPT.",
+    "usable_mem_total_bytes": 66767896576
+  },
+  "inference": {
+    "all_independent_nonce_replies_match": true,
+    "bounded_concurrent_requests": 2,
+    "campaign_requests": 0,
+    "campaign_tokens": 0,
+    "elapsed_seconds": 10.090827640000498,
+    "fairness_scope": "Fixed bounded four-request FIFO executor probe only; no inference slot during BCL, because no BCL campaign started",
+    "no_remote_backend_memory_or_billing_claim": true,
+    "no_shared_conversation_state_in_probes": true,
+    "probe_requests": 4,
+    "probe_results": [
+      {
+        "ended_offset": 4.720113641000353,
+        "inference_seconds": 4.719508919999498,
+        "probe_id": "probe-01",
+        "queue_seconds": 0.00010302000009687617,
+        "reply_matches_independent_nonce": true,
+        "reported_model": "gpt-6.1-sol",
+        "sdk_reported_tokens": {
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "input": 95,
+          "output": 33,
+          "reasoning": 0,
+          "totalTokens": 128
+        },
+        "started_offset": 0.0006047210008546244
+      },
+      {
+        "ended_offset": 4.820665511000698,
+        "inference_seconds": 4.819862019998254,
+        "probe_id": "probe-02",
+        "queue_seconds": 0.00017583000226295553,
+        "reply_matches_independent_nonce": true,
+        "reported_model": "gpt-6.1-sol",
+        "sdk_reported_tokens": {
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "input": 94,
+          "output": 32,
+          "reasoning": 0,
+          "totalTokens": 126
+        },
+        "started_offset": 0.0008034910024434794
+      },
+      {
+        "ended_offset": 10.090457030000834,
+        "inference_seconds": 5.369911468998907,
+        "probe_id": "probe-03",
+        "queue_seconds": 4.719717500000115,
+        "reply_matches_independent_nonce": true,
+        "reported_model": "gpt-6.1-sol",
+        "sdk_reported_tokens": {
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "input": 94,
+          "output": 32,
+          "reasoning": 0,
+          "totalTokens": 126
+        },
+        "started_offset": 4.720545561001927
+      },
+      {
+        "ended_offset": 9.790546359003201,
+        "inference_seconds": 4.969371358001808,
+        "probe_id": "probe-04",
+        "queue_seconds": 4.820330689999537,
+        "reply_matches_independent_nonce": true,
+        "reported_model": "gpt-6.1-sol",
+        "sdk_reported_tokens": {
+          "cacheRead": 0,
+          "cacheWrite": 0,
+          "input": 101,
+          "output": 39,
+          "reasoning": 0,
+          "totalTokens": 140
+        },
+        "started_offset": 4.821175001001393
+      }
+    ],
+    "scope": "Read-only probes after native clients closed, not Minecraft decisions and not a qualified 16-agent scheduler",
+    "separate_local_memory_probe_requests": 1,
+    "short_probe_requests_per_minute": 23.78397576117831
+  },
+  "limitations": [
+    "Measured 4-client readiness is not 4-agent autonomous or long-term qualification",
+    "8 actual active clients failed CPU/latency criteria; 16 native clients and all autonomous sessions NOT RUN",
+    "No scientific strategy/progress distribution exists; no agent was selected as winner",
+    "Rendered FPS, exact server MSPT and remote model-service memory not instrumented",
+    "CPU llvmpipe with launched clients persisting 16/12 is limiting; intended lower-distance 8/5 configuration was not realized or qualified. Not proof hardware could never support 16 with corrected presets or separately qualified GPU rendering",
+    "Most replay artifacts have file integrity but no individual native playback test"
+  ],
+  "no_commit_push_tag_release_upload_deploy": true,
+  "persistence": {
+    "campaign_sqlite_journals_activated": 0,
+    "no_old_campaign_world_or_memory_reused_or_reset": true,
+    "prepared_metadata_per_agent": true,
+    "readiness_resource_or_craft_progress": false,
+    "tested_closed_worlds_audited": 8,
+    "worlds_preserved": 16
+  },
+  "production_runtime_changed": false,
+  "purpose": "Resource-gated attempt toward 16 concurrent independent autonomous agents; stopped at actual 8-client readiness overload, never replaced with sequential or smaller gameplay cohort.",
+  "qa": {
+    "16_agent_failure_isolation": "NOT_QUALIFIED",
+    "gradle": "PASS",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 209,
+        "total": 209
+      }
+    },
+    "native_movement_211_cases": "NOT_RERUN_UNCHANGED_SOURCE_NO_GAMEPLAY",
+    "physical_f8_injection": "NOT_RUN",
+    "python": "603/603 PASS",
+    "tls_interop": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "qualification": {
+    "16_instance_concurrency": "NO_GO_RESOURCE_AND_CONFIGURATION_PREFLIGHT",
+    "actual_peak_simultaneous_native_worlds": 8,
+    "agent_isolation": "SCOPED_NATIVE_ENDPOINTS_AND_ACTORS_ONLY_NOT_16_AGENT_CONTEXT_QUALIFICATION",
+    "autonomous_gameplay": "NOT_RUN_ALL_16",
+    "intended_lower_distance_profile_qualified": false,
+    "long_term_autonomy": "NOT_QUALIFIED",
+    "maximum_passed_readiness_concurrency": 4,
+    "maximum_passed_scope": "Observed resource gates with launched clients persisting 16/12; intended 8/5 profile NOT QUALIFIED",
+    "replay_playback": "ONE_READINESS_ARTIFACT_PASS_NATIVE_VIEWER_OTHERS_NOT_RUN",
+    "replay_recording": "10_READINESS_ARTIFACTS_FROM_8_CLIENTS_CRC_AND_FRAMING_PASS",
+    "resource_stability": "2_AND_4_PASS_8_FAIL_16_NOT_STARTED",
+    "simultaneous_autonomous_players": 0,
+    "survival_progress": "NOT_RUN_NO_AUTONOMOUS_CAMPAIGN"
+  },
+  "recording": {
+    "agents_09_to_16_recordings": "NOT_RUN_NO_CLIENT_LAUNCH",
+    "all_crc_and_complete_monotonic_packet_framing": true,
+    "all_originals_preserved": true,
+    "growing_streams_observed_at_each_recorded_ramp": true,
+    "other_nine_native_playbacks": "NOT_RUN",
+    "overhead_calibration": "One recorder-on and one recorder-off idle measurement; different JVM/world-time/warmup histories, observational only, not a controlled causal percentage. Recorded stream growth present only in ON sample.",
+    "play2code_unchanged": true,
+    "playback": {
+      "artifact_sha256": "5b73ff6bfd117313c3244540d09d286dd5506d13af53c6755c09476f9e0fb052",
+      "scope": "One readiness-only original recording opened, played and native world/overlay seen; not autonomous gameplay and not playback of all 10 artifacts",
+      "status": "PASS_NATIVE_VIEWER"
+    },
+    "scope": "READINESS_ONLY",
+    "source_clients": 8,
+    "total_artifacts": 10
+  },
+  "schema": "blockwire.autonomous-survival-parallel.v1",
+  "setup_diagnostics": {
+    "exclusive_connection_409": "Readiness lifecycle used two successive native connections too quickly; fixed private close helper to use one connection. No TLS/native protocol change.",
+    "final_configuration_audit": "Requested 8/5 persisted as 16/12 in all eight launched clients with inherited fancy preset. Recorded actual configuration, did not retroactively claim requested profile or edit raw stage verdicts.",
+    "initial_gnu_time_memory_probe": "Executable unavailable; retained 127 status, no model request. Replaced with fresh-parent RUSAGE_CHILDREN measurement.",
+    "launcher_ipc_and_idle_console": "Retained launch timeout/guard logs; only exact owned idle console received normal WM_DELETE after proving its game closed. No user launcher killed.",
+    "menu_overlay_active": "Explicit setup click rejection before world load; later fresh ready-screen observation required. No uncertain gameplay retry.",
+    "transient_launch_pid_guard": "Failed closed during bootstrap; same created JVM subsequently proved before any native connection, not relaunched as gameplay"
+  },
+  "stages": [
+    {
+      "all_clients_active_overlap_seconds": 60.08365774154663,
+      "concurrent_loaded_worlds": 1,
+      "end_unix_seconds": 1793788063.2498639,
+      "host_cpu_mean_fraction": 0.13746567185326625,
+      "host_cpu_peak_fraction": 0.1527393469839513,
+      "label": "BASE-REPLAY-ON-01",
+      "max_mem_total_minus_available_bytes": 9206304768,
+      "min_mem_available_bytes": 57561591808,
+      "peak_java_rss_sum_bytes": 4649414656,
+      "planned_measurement_seconds": 60,
+      "problems": [],
+      "results": [
+        {
+          "agent_id": "survival-01",
+          "client_tick_rate": 20.034705869876742,
+          "guard_recorded_quantile_seconds": 0.11042344399902504,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.034705869876742,
+          "recording_packet_bytes_growth": 442197,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.11042344399902504,
+          "status": "GO"
+        }
+      ],
+      "sample_window_seconds": 59.71859407424927,
+      "start_unix_seconds": 1793788003.5312698,
+      "status": "GO",
+      "swap_growth_bytes": 0
+    },
+    {
+      "all_clients_active_overlap_seconds": 60.16381239891052,
+      "concurrent_loaded_worlds": 1,
+      "end_unix_seconds": 1793788884.069235,
+      "host_cpu_mean_fraction": 0.13608329416990747,
+      "host_cpu_peak_fraction": 0.17690140845070423,
+      "label": "BASE-REPLAY-OFF-01",
+      "max_mem_total_minus_available_bytes": 8849526784,
+      "min_mem_available_bytes": 57918369792,
+      "peak_java_rss_sum_bytes": 4313366528,
+      "planned_measurement_seconds": 60,
+      "problems": [],
+      "results": [
+        {
+          "agent_id": "survival-01",
+          "client_tick_rate": 20.022947418092564,
+          "guard_recorded_quantile_seconds": 0.1120661979985016,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.022947418092564,
+          "recording_packet_bytes_growth": 0,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.1120661979985016,
+          "status": "GO"
+        }
+      ],
+      "sample_window_seconds": 59.56695795059204,
+      "start_unix_seconds": 1793788824.5022771,
+      "status": "GO",
+      "swap_growth_bytes": 0
+    },
+    {
+      "all_clients_active_overlap_seconds": 60.17756748199463,
+      "concurrent_loaded_worlds": 2,
+      "end_unix_seconds": 1793789121.376553,
+      "host_cpu_mean_fraction": 0.28456986608341334,
+      "host_cpu_peak_fraction": 0.309328968903437,
+      "label": "RAMP-02",
+      "max_mem_total_minus_available_bytes": 13112680448,
+      "min_mem_available_bytes": 53655216128,
+      "peak_java_rss_sum_bytes": 8650874880,
+      "planned_measurement_seconds": 60,
+      "problems": [],
+      "results": [
+        {
+          "agent_id": "survival-01",
+          "client_tick_rate": 20.01607674365303,
+          "guard_recorded_quantile_seconds": 0.10946105000039097,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 19.99942443355016,
+          "recording_packet_bytes_growth": 597784,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.10946105000039097,
+          "status": "GO"
+        },
+        {
+          "agent_id": "survival-02",
+          "client_tick_rate": 20.023092017159414,
+          "guard_recorded_quantile_seconds": 0.1135411209979793,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.023092017159414,
+          "recording_packet_bytes_growth": 515973,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.1135411209979793,
+          "status": "GO"
+        }
+      ],
+      "sample_window_seconds": 60.12815260887146,
+      "start_unix_seconds": 1793789061.2484004,
+      "status": "GO",
+      "swap_growth_bytes": 0
+    },
+    {
+      "all_clients_active_overlap_seconds": 60.1076340675354,
+      "concurrent_loaded_worlds": 4,
+      "end_unix_seconds": 1793789319.2872767,
+      "host_cpu_mean_fraction": 0.5898835503298793,
+      "host_cpu_peak_fraction": 0.6538263995891114,
+      "label": "RAMP-04",
+      "max_mem_total_minus_available_bytes": 21701677056,
+      "min_mem_available_bytes": 45066219520,
+      "peak_java_rss_sum_bytes": 17401274368,
+      "planned_measurement_seconds": 60,
+      "problems": [],
+      "results": [
+        {
+          "agent_id": "survival-01",
+          "client_tick_rate": 20.0296670263461,
+          "guard_recorded_quantile_seconds": 0.14734952700018766,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.0296670263461,
+          "recording_packet_bytes_growth": 499580,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.14734952700018766,
+          "status": "GO"
+        },
+        {
+          "agent_id": "survival-02",
+          "client_tick_rate": 20.01516682058759,
+          "guard_recorded_quantile_seconds": 0.126301093998336,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.031804531992904,
+          "recording_packet_bytes_growth": 294858,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.126301093998336,
+          "status": "GO"
+        },
+        {
+          "agent_id": "survival-03",
+          "client_tick_rate": 20.03062384325952,
+          "guard_recorded_quantile_seconds": 0.13540044999899692,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.047288255774713,
+          "recording_packet_bytes_growth": 499453,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.13540044999899692,
+          "status": "GO"
+        },
+        {
+          "agent_id": "survival-04",
+          "client_tick_rate": 20.03537921936848,
+          "guard_recorded_quantile_seconds": 0.13746812600220437,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.018710850633564,
+          "recording_packet_bytes_growth": 646824,
+          "rpc_observations": 60,
+          "rpc_p95_seconds": 0.13746812600220437,
+          "status": "GO"
+        }
+      ],
+      "sample_window_seconds": 60.89975643157959,
+      "start_unix_seconds": 1793789258.3875203,
+      "status": "GO",
+      "swap_growth_bytes": 0
+    },
+    {
+      "all_clients_active_overlap_seconds": 12.111258506774902,
+      "concurrent_loaded_worlds": 8,
+      "end_unix_seconds": 1793789626.090614,
+      "host_cpu_mean_fraction": 0.9609951472893173,
+      "host_cpu_peak_fraction": 0.971185640056684,
+      "label": "RAMP-08",
+      "max_mem_total_minus_available_bytes": 39160496128,
+      "min_mem_available_bytes": 27607400448,
+      "peak_java_rss_sum_bytes": 34954018816,
+      "planned_measurement_seconds": 60,
+      "problems": [
+        "resource_watchdog_abort",
+        "native_readiness_gate",
+        "host_cpu_headroom"
+      ],
+      "results": [
+        {
+          "agent_id": "survival-01",
+          "client_tick_rate": 20.32851751375734,
+          "guard_recorded_quantile_seconds": 0.2447779480025929,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.32851751375734,
+          "recording_packet_bytes_growth": 73687,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.25390793200131156,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-02",
+          "client_tick_rate": 20.393523776386687,
+          "guard_recorded_quantile_seconds": 0.2966417300012836,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.393523776386687,
+          "recording_packet_bytes_growth": 57338,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.34695690099761123,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-03",
+          "client_tick_rate": 20.29839369967862,
+          "guard_recorded_quantile_seconds": 0.2191964449993975,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.054812975282477,
+          "recording_packet_bytes_growth": 81882,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.22944979899693863,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-04",
+          "client_tick_rate": 20.37295207735776,
+          "guard_recorded_quantile_seconds": 0.24704390700208023,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.207318320631273,
+          "recording_packet_bytes_growth": 65526,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.25899414399827947,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-05",
+          "client_tick_rate": 20.301301072103257,
+          "guard_recorded_quantile_seconds": 0.27617122999799903,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.54988843216983,
+          "recording_packet_bytes_growth": 90056,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.29459656800099765,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-06",
+          "client_tick_rate": 20.255470000913064,
+          "guard_recorded_quantile_seconds": 0.22166187800030457,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.17313069196626,
+          "recording_packet_bytes_growth": 98261,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.2501261310026166,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-07",
+          "client_tick_rate": 20.337609691008172,
+          "guard_recorded_quantile_seconds": 0.24128217700126697,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.16953027207422,
+          "recording_packet_bytes_growth": 90069,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.25720014100079425,
+          "status": "NO_GO"
+        },
+        {
+          "agent_id": "survival-08",
+          "client_tick_rate": 20.269871172941905,
+          "guard_recorded_quantile_seconds": 0.2757626029997482,
+          "no_native_inputs": true,
+          "observed_game_time_rate": 20.353286280649485,
+          "recording_packet_bytes_growth": 98252,
+          "rpc_observations": 12,
+          "rpc_p95_seconds": 0.302565270998457,
+          "status": "NO_GO"
+        }
+      ],
+      "sample_window_seconds": 12.777969360351562,
+      "start_unix_seconds": 1793789613.3126447,
+      "status": "NO_GO",
+      "swap_growth_bytes": 0
+    }
+  ]
+}

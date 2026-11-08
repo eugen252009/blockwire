@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "benchmark": "stone-tools-benchmark-v1",
+  "status": "CONTRACT_PASS_GRAPHICAL_NOT_RUN",
+  "base_commit": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+  "scope": "Uncommitted current working-tree source; earlier independent dirty work preserved. Not a release or selected-index qualification.",
+  "architecture": "Explicit deterministic Python progression -> legacy BCL/1 -> existing guarded skills -> authenticated native Minecraft. Read-only coarse look and targeted search are separate; no LLM, MCP planner, Java or transport changes.",
+  "changes": [
+    "examples/stone_tools_benchmark.py",
+    "python/src/blockwire/recipes.py",
+    "python/tests/test_crafting.py",
+    "python/tests/test_stone_tools_benchmark.py",
+    "tests/run_stone_tools_benchmark_mutations.py",
+    "docs/stone-tools-benchmark.md"
+  ],
+  "source_sha256": {
+    "examples/stone_tools_benchmark.py": "1dd5ff6788a1207cf8387c040df2cf694a4c674218dd53b7f13f8739d3490ecd",
+    "python/src/blockwire/recipes.py": "91e5483b819f08358765eaed0444ee3b5dbc400f8c0bba866afeed09b663e985",
+    "python/tests/test_crafting.py": "be480b808c91b0e5b9dc1013cc6126b2e8d3ea990f36465c413368a925bfc94a",
+    "python/tests/test_stone_tools_benchmark.py": "9c66e5d5085fb98ed8b47d4f221e2e51b9ffac9b2c2ddf8184685fe69d03b17e",
+    "tests/run_stone_tools_benchmark_mutations.py": "ee761abe210677134ce1d85c776471a935f71d1b7e7feb7b52c618afa79e8e45",
+    "docs/stone-tools-benchmark.md": "3e7be12b483fa8a3f14de89c77b13607e828543fdc1c25ccd32499731f56b5ed"
+  },
+  "private_checks_root": "/mnt/4t/blockwire/checks/stone-tools-benchmark-001/",
+  "artifact_sha256": {
+    "python.log": "229026fb0c5b583e9e86106c50fb78403fefda7b0057a3da89b00d32bb76c384",
+    "gradle.log": "27268a55382e1102127ca769fe3c869c7c0c1e677aa34bb8adecc5cf6cb8e55b",
+    "tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "mutations/baseline.log": "8c76e5886a1a49fc23b433a90b59141a21ceb72e71dd867ef7100ca1b1603d58",
+    "mutations/results.json": "6802fd19020494f0b473fac2a1bb3e6d544850e59df2d5a5ea4b201900432e94",
+    "regression/skill-mutations/results.json": "562a824a8bbe5356120b557142e71bda8353706459819a3616f917846c9b77b2",
+    "regression/mutations/results.json": "0b5dcdbccc6be4475fb2dbee6ff4cdab5efa911697a9ca9476577124c411f481"
+  },
+  "checks": {
+    "python": {
+      "status": "PASS",
+      "tests": 855
+    },
+    "new_benchmark_tests": 18,
+    "crafting_tests": 12,
+    "gradle_check": "PASS",
+    "tls": {
+      "status": "PASS",
+      "checks": 10
+    },
+    "isolated_mutations": {
+      "benchmark_and_recipes": 18,
+      "skills": 209,
+      "bcl": 50,
+      "total": 277,
+      "status": "ALL_KILLED"
+    },
+    "offline_describe": "PASS_NO_CONNECTION"
+  },
+  "contract_coverage": [
+    "Fixed progression including mixed-species wood, wooden pickaxe, at least one supported descent, nine distinct stone targets, plank jump placement, surface return and three stone tools.",
+    "Independent simulated native shovel/sword recipes validate exact material consumption/result/output and reject receipts-only crafting.",
+    "Simulated one- and three-step returns; recorded stair support exclusion; material reserve before descent.",
+    "Missing wood/crafting/mining/placement outcomes, unproven mining, wrong equipped tool, missing final tools and false surface return cannot pass.",
+    "Actor/player/navigation fences, health, cancellation, deadline-before-observation, bounds, pre-dispatch durable intent, cleanup uncertainty and fresh-ledger/no-resume guards.",
+    "Real BCLRunner observation/actor binding integration; other strategy fixtures simulate BCL outcomes and do not replace native motor qualification."
+  ],
+  "bounds": {
+    "duration_seconds": 1800,
+    "descent_steps": 8,
+    "exploration_moves": 32,
+    "exploration_radius_blocks": 64,
+    "bcl_frames": 512,
+    "log_inventory_goal": 8,
+    "distinct_stone_harvest_goal": 9
+  },
+  "material_accounting": {
+    "planks_from_eight_logs": 32,
+    "table_planks": 4,
+    "wooden_pickaxe_planks": 3,
+    "sticks_batches": 2,
+    "sticks_plank_cost": 4,
+    "sticks_produced": 8,
+    "remaining_planks_before_return": 21,
+    "final_stone_tools_cobblestone_cost": 6,
+    "final_stone_tools_stick_cost": 5
+  },
+  "operation_policy": "Every failed frame stops; no reconnect, action replay, automatic ascent rescue, respawn, partial-grid repair or stopped-run resumption. Existing native release/leases/F8/TLS unchanged.",
+  "world_start": {
+    "creation": "Operator creates/selects a fresh isolated Survival world before invocation; the program does not create or select a world.",
+    "native_preconditions": "Matching player/actor/dimension, live, empty inventory/cursor, no initial screen/container, grounded supported navigation.",
+    "attestations": "Fresh world, Survival mode, no bonus chest/gifts/other players; current scene API does not independently certify these. World ID is a label."
+  },
+  "acceptance": {
+    "script": "Fresh client-observed material/output gains, matching exact-target mining evidence, consumed ascent blocks, grounded surface waypoint and all final tools.",
+    "graphical": "NOT RUN",
+    "closed_save_audit": "NOT RUN",
+    "actual_world_created": false,
+    "actual_gameplay_actions": 0,
+    "actual_model_calls": 0,
+    "natural_spawn_reliability": "UNQUALIFIED",
+    "safety": "Best effort; a stopped player may remain underground."
+  },
+  "historical_evidence": "Unchanged; no previous failed world or stopped scope was resumed or reclassified."
+}

@@ -1,0 +1,2960 @@
+{
+  "agents": [
+    {
+      "active_seconds": 1013.223922252655,
+      "agent": 1,
+      "basic_survival_or_home": "NOT_ACHIEVED",
+      "blocked_reasons": {
+        "no_reachable_exposed_blocks": 1,
+        "no_reachable_exposed_logs": 3,
+        "no_verified_step_destination": 4
+      },
+      "climb_metres": 0.0,
+      "compiled_submitted_bcl_operations": 147,
+      "crafted": {},
+      "damage_taken_stat": 0,
+      "deaths": 0,
+      "early_goal_examples": [
+        {
+          "note": "Survey the nearby forest and safe footing before choosing wood to gather.",
+          "source": "V2 -7 92 5\nV0"
+        },
+        {
+          "note": "Look toward the higher side of spawn for accessible trunks and solid ground before leaving the canopy.",
+          "source": "V2 4 93 5\nV0"
+        },
+        {
+          "note": "Climb the observed eastern route and survey beyond the nearby leaves for accessible wood.",
+          "source": "M0 -0.5 94 5.5\nM0 0.5 95 5.5\nV2 6 95 5\nV0"
+        }
+      ],
+      "end_unix": 1793810568.5876834,
+      "finish_proposal": false,
+      "initial_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "item_use_or_placement_stats": {},
+      "jump_count": 7,
+      "llm_decisions": 23,
+      "mined": {
+        "minecraft:spruce_leaves": 2
+      },
+      "model_queue_seconds": {
+        "p50": 0.05594150600518333,
+        "p95": 6.600771149001957,
+        "p99": 6.897018438998202
+      },
+      "model_requests": [
+        {
+          "queue_seconds": 0.03775630599557189,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18515,
+            "output": 291,
+            "reasoning": 176,
+            "totalTokens": 18806
+          },
+          "roundtrip_seconds": 15.684370956005296,
+          "sequence": 2
+        },
+        {
+          "queue_seconds": 0.09338891300285468,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26302,
+            "output": 269,
+            "reasoning": 104,
+            "totalTokens": 26571
+          },
+          "roundtrip_seconds": 15.26371799899789,
+          "sequence": 3
+        },
+        {
+          "queue_seconds": 0.07699873700039461,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 21694,
+            "output": 204,
+            "reasoning": 0,
+            "totalTokens": 21898
+          },
+          "roundtrip_seconds": 9.741477362003934,
+          "sequence": 4
+        },
+        {
+          "queue_seconds": 0.012944515998242423,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23816,
+            "output": 357,
+            "reasoning": 90,
+            "totalTokens": 24173
+          },
+          "roundtrip_seconds": 11.559285354000167,
+          "sequence": 5
+        },
+        {
+          "queue_seconds": 0.08540433199959807,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27763,
+            "output": 237,
+            "reasoning": 22,
+            "totalTokens": 28000
+          },
+          "roundtrip_seconds": 10.243571181003063,
+          "sequence": 6
+        },
+        {
+          "queue_seconds": 0.09705176099669188,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 21083,
+            "output": 394,
+            "reasoning": 130,
+            "totalTokens": 21477
+          },
+          "roundtrip_seconds": 18.183863343001576,
+          "sequence": 7
+        },
+        {
+          "queue_seconds": 0.011646774000837468,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26783,
+            "output": 273,
+            "reasoning": 30,
+            "totalTokens": 27056
+          },
+          "roundtrip_seconds": 11.266052382001362,
+          "sequence": 8
+        },
+        {
+          "queue_seconds": 0.09366533000138588,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18252,
+            "output": 433,
+            "reasoning": 137,
+            "totalTokens": 18685
+          },
+          "roundtrip_seconds": 20.89485592299752,
+          "sequence": 9
+        },
+        {
+          "queue_seconds": 6.897018438998202,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28696,
+            "output": 281,
+            "reasoning": 0,
+            "totalTokens": 28977
+          },
+          "roundtrip_seconds": 9.646372071998485,
+          "sequence": 10
+        },
+        {
+          "queue_seconds": 2.054727095004637,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27126,
+            "output": 358,
+            "reasoning": 94,
+            "totalTokens": 27484
+          },
+          "roundtrip_seconds": 15.678200229995127,
+          "sequence": 11
+        },
+        {
+          "queue_seconds": 3.4452466209986596,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18797,
+            "output": 407,
+            "reasoning": 106,
+            "totalTokens": 19204
+          },
+          "roundtrip_seconds": 14.165715685005125,
+          "sequence": 12
+        },
+        {
+          "queue_seconds": 0.044195934002345894,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 20306,
+            "output": 330,
+            "reasoning": 35,
+            "totalTokens": 20636
+          },
+          "roundtrip_seconds": 12.258082093998382,
+          "sequence": 13
+        },
+        {
+          "queue_seconds": 0.030439319998549763,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23081,
+            "output": 386,
+            "reasoning": 59,
+            "totalTokens": 23467
+          },
+          "roundtrip_seconds": 12.165969289999339,
+          "sequence": 14
+        },
+        {
+          "queue_seconds": 0.011786693001340609,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26676,
+            "output": 374,
+            "reasoning": 21,
+            "totalTokens": 27050
+          },
+          "roundtrip_seconds": 12.075796996999998,
+          "sequence": 15
+        },
+        {
+          "queue_seconds": 0.012003297000774182,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27127,
+            "output": 373,
+            "reasoning": 54,
+            "totalTokens": 27500
+          },
+          "roundtrip_seconds": 16.53891927899531,
+          "sequence": 16
+        },
+        {
+          "queue_seconds": 0.04871544100024039,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18944,
+            "output": 368,
+            "reasoning": 0,
+            "totalTokens": 19312
+          },
+          "roundtrip_seconds": 11.544200407995959,
+          "sequence": 17
+        },
+        {
+          "queue_seconds": 6.600771149001957,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27564,
+            "output": 424,
+            "reasoning": 65,
+            "totalTokens": 27988
+          },
+          "roundtrip_seconds": 13.939744733994303,
+          "sequence": 18
+        },
+        {
+          "queue_seconds": 0.05594150600518333,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23127,
+            "output": 430,
+            "reasoning": 106,
+            "totalTokens": 23557
+          },
+          "roundtrip_seconds": 15.660339426001883,
+          "sequence": 19
+        },
+        {
+          "queue_seconds": 0.05051048799941782,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18268,
+            "output": 513,
+            "reasoning": 212,
+            "totalTokens": 18781
+          },
+          "roundtrip_seconds": 26.222598111999105,
+          "sequence": 20
+        },
+        {
+          "queue_seconds": 0.042526005003310274,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18253,
+            "output": 389,
+            "reasoning": 35,
+            "totalTokens": 18642
+          },
+          "roundtrip_seconds": 14.362509628997941,
+          "sequence": 21
+        },
+        {
+          "queue_seconds": 0.029542440999648534,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 29104,
+            "output": 407,
+            "reasoning": 37,
+            "totalTokens": 29511
+          },
+          "roundtrip_seconds": 13.03884975300025,
+          "sequence": 22
+        },
+        {
+          "queue_seconds": 0.08084435400087386,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28524,
+            "output": 400,
+            "reasoning": 80,
+            "totalTokens": 28924
+          },
+          "roundtrip_seconds": 12.14121698699455,
+          "sequence": 23
+        },
+        {
+          "queue_seconds": 0.06747001899930183,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 29091,
+            "output": 368,
+            "reasoning": 60,
+            "totalTokens": 29459
+          },
+          "roundtrip_seconds": 17.96512677300052,
+          "sequence": 24
+        }
+      ],
+      "model_roundtrip_seconds": {
+        "p50": 13.939744733994303,
+        "p95": 20.89485592299752,
+        "p99": 26.222598111999105
+      },
+      "native_final_inventory": {},
+      "native_final_position": [
+        -0.4971234146252649,
+        93.0,
+        6.582808123028167
+      ],
+      "native_tps_min": 19.9636481048726,
+      "observed_game_tps_min": 19.88867369135994,
+      "picked_up": {},
+      "replanning_after_blocked_frames": 8,
+      "replay": {
+        "agent_id": "parallel-002-agent-01",
+        "bytes": 4401903,
+        "first_packet_ms": 0,
+        "integrity": "PASS_ZIP_CRC_COMPLETE_MONOTONIC_FRAMING",
+        "last_packet_ms": 1438552,
+        "minecraft_version": "26.3",
+        "native_playback": {
+          "capture_agent": 1,
+          "images": [
+            "viewer01-spectate-private.png",
+            "viewer01-exit-menu-private.png"
+          ],
+          "native_viewer_opened_and_played": true,
+          "scope": "Short actual beginning playback; not every visual interaction audited",
+          "timestamp": 1793810969.143934
+        },
+        "packets": 303741,
+        "path": "build/autonomous-survival/parallel-002/agent-01/replay/campaign-01-2026_11_04_17_18_48.mcpr",
+        "recording_duration_ms": 1438552,
+        "recording_end_from_metadata_unix": 1793810566.693,
+        "recording_finalized_by_save_title_unix": 1793810570.7920449,
+        "recording_start_unix": 1793809128.141,
+        "replay_id": "parallel-002-agent-01-01",
+        "sha256": "81e25b5b39a015872bb531bfd87f3673e05e2b0d676b2c726bb44a4fe7e292b1",
+        "timestamp_caveat": "Metadata timeline includes setup and pause behavior; save-title timestamp is an observed finalization upper bound, not a reconstructed exact last-packet wall clock",
+        "world_id": "parallel-002-world-01",
+        "world_identity": "6d2531fc4bd6ee98e319d0dcb8dd9cb4dcae9380956414c032aad4322e284beb"
+      },
+      "returned_skill_outcomes": 129,
+      "rpc_all_quantiles_seconds": {
+        "p50": 0.10158124800364021,
+        "p95": 0.12677433499629842,
+        "p99": 0.1475381819982431
+      },
+      "rpc_observe_quantiles_seconds": {
+        "p50": 0.0994505940034287,
+        "p95": 0.12616192999848863,
+        "p99": 0.14441108599567087
+      },
+      "saved_final_position": [
+        -0.4971234146252649,
+        93.0,
+        6.582808123028167
+      ],
+      "saved_health": 20.0,
+      "saved_hunger": 20,
+      "saved_inventory": [],
+      "skill_status_counts": {
+        "blocked": 8,
+        "succeeded": 121
+      },
+      "sprint_metres": 3.34,
+      "start_unix": 1793809555.3637612,
+      "stop_reason": "failure_budget",
+      "succeeded_commands": {
+        "core:inventory.inspect": 23,
+        "core:movement.walk": 43,
+        "core:view.aim": 17,
+        "core:view.observe": 38
+      },
+      "tools_food_storage_shelter": "NONE_VERIFIED",
+      "unknown_no_retry": false,
+      "walk_metres": 48.56,
+      "world_identity": "6d2531fc4bd6ee98e319d0dcb8dd9cb4dcae9380956414c032aad4322e284beb",
+      "world_memory_preserved": true
+    },
+    {
+      "active_seconds": 691.0181140899658,
+      "agent": 2,
+      "basic_survival_or_home": "NOT_ACHIEVED",
+      "blocked_reasons": {
+        "no_reachable_exposed_logs": 2,
+        "no_verified_step_destination": 3,
+        "step_not_completed": 1,
+        "unsupported_clearance_block": 1
+      },
+      "climb_metres": 0.0,
+      "compiled_submitted_bcl_operations": 111,
+      "crafted": {},
+      "damage_taken_stat": 0,
+      "deaths": 0,
+      "early_goal_examples": [
+        {
+          "note": "Start by collecting nearby spruce wood on observed safe terrain, then reassess for a small base.",
+          "source": "M0 X=-0.5 Y=93 Z=6.5\nC1 N=4 E=true\nV0"
+        },
+        {
+          "note": "The first wood attempt found no reachable logs. Turn toward the nearby spruce and inspect its approach before moving.",
+          "source": "V2 X=-5.5 Y=93 Z=10.5\nV0"
+        },
+        {
+          "note": "Use the observed connected steps westward and inspect for a safe route toward wood.",
+          "source": "M0 X=-0.5 Y=94 Z=5.5\nM0 X=-1.5 Y=93 Z=5.5\nV2 X=-4.5 Y=92 Z=6.5\nV0"
+        }
+      ],
+      "end_unix": 1793810246.5034566,
+      "finish_proposal": false,
+      "initial_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "item_use_or_placement_stats": {},
+      "jump_count": 7,
+      "llm_decisions": 16,
+      "mined": {
+        "minecraft:spruce_leaves": 3
+      },
+      "model_queue_seconds": {
+        "p50": 0.05430438799521653,
+        "p95": 10.898045087000355,
+        "p99": 10.898045087000355
+      },
+      "model_requests": [
+        {
+          "queue_seconds": 10.898045087000355,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18526,
+            "output": 257,
+            "reasoning": 99,
+            "totalTokens": 18783
+          },
+          "roundtrip_seconds": 17.082684335000522,
+          "sequence": 2
+        },
+        {
+          "queue_seconds": 0.05430438799521653,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18486,
+            "output": 273,
+            "reasoning": 92,
+            "totalTokens": 18759
+          },
+          "roundtrip_seconds": 14.763720672002819,
+          "sequence": 3
+        },
+        {
+          "queue_seconds": 0.07768710299569648,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28602,
+            "output": 231,
+            "reasoning": 24,
+            "totalTokens": 28833
+          },
+          "roundtrip_seconds": 12.305561797998962,
+          "sequence": 4
+        },
+        {
+          "queue_seconds": 0.032942213001661,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 25031,
+            "output": 222,
+            "reasoning": 48,
+            "totalTokens": 25253
+          },
+          "roundtrip_seconds": 12.747418637001829,
+          "sequence": 5
+        },
+        {
+          "queue_seconds": 0.0043965410004602745,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18715,
+            "output": 246,
+            "reasoning": 28,
+            "totalTokens": 18961
+          },
+          "roundtrip_seconds": 10.64926651299902,
+          "sequence": 6
+        },
+        {
+          "queue_seconds": 5.4525627229959355,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 24811,
+            "output": 335,
+            "reasoning": 40,
+            "totalTokens": 25146
+          },
+          "roundtrip_seconds": 11.75556920300005,
+          "sequence": 7
+        },
+        {
+          "queue_seconds": 0.05122570499952417,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26831,
+            "output": 267,
+            "reasoning": 0,
+            "totalTokens": 27098
+          },
+          "roundtrip_seconds": 9.726029355006176,
+          "sequence": 8
+        },
+        {
+          "queue_seconds": 0.040960491001897026,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 25374,
+            "output": 373,
+            "reasoning": 63,
+            "totalTokens": 25747
+          },
+          "roundtrip_seconds": 12.447734934998152,
+          "sequence": 9
+        },
+        {
+          "queue_seconds": 0.07109941800445085,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28623,
+            "output": 287,
+            "reasoning": 0,
+            "totalTokens": 28910
+          },
+          "roundtrip_seconds": 10.051743814001384,
+          "sequence": 10
+        },
+        {
+          "queue_seconds": 0.05055963500490179,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 22732,
+            "output": 361,
+            "reasoning": 88,
+            "totalTokens": 23093
+          },
+          "roundtrip_seconds": 14.44847837099951,
+          "sequence": 11
+        },
+        {
+          "queue_seconds": 0.06420230399817228,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18456,
+            "output": 365,
+            "reasoning": 44,
+            "totalTokens": 18821
+          },
+          "roundtrip_seconds": 12.348530057999596,
+          "sequence": 12
+        },
+        {
+          "queue_seconds": 0.08868422300292877,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 29787,
+            "output": 381,
+            "reasoning": 39,
+            "totalTokens": 30168
+          },
+          "roundtrip_seconds": 12.251152489996457,
+          "sequence": 13
+        },
+        {
+          "queue_seconds": 0.06137746700551361,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27789,
+            "output": 263,
+            "reasoning": 28,
+            "totalTokens": 28052
+          },
+          "roundtrip_seconds": 12.88855271099601,
+          "sequence": 14
+        },
+        {
+          "queue_seconds": 5.132915599999251,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19018,
+            "output": 344,
+            "reasoning": 80,
+            "totalTokens": 19362
+          },
+          "roundtrip_seconds": 13.273153351001383,
+          "sequence": 15
+        },
+        {
+          "queue_seconds": 0.021678903998690657,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18228,
+            "output": 348,
+            "reasoning": 79,
+            "totalTokens": 18576
+          },
+          "roundtrip_seconds": 14.757856948999688,
+          "sequence": 16
+        },
+        {
+          "queue_seconds": 0.045593275004648603,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19075,
+            "output": 385,
+            "reasoning": 60,
+            "totalTokens": 19460
+          },
+          "roundtrip_seconds": 12.969903785997303,
+          "sequence": 17
+        }
+      ],
+      "model_roundtrip_seconds": {
+        "p50": 12.447734934998152,
+        "p95": 17.082684335000522,
+        "p99": 17.082684335000522
+      },
+      "native_final_inventory": {},
+      "native_final_position": [
+        -0.4902406927308996,
+        93.0,
+        6.562776157662908
+      ],
+      "native_tps_min": 19.96738195380617,
+      "observed_game_tps_min": 19.869121803682557,
+      "picked_up": {},
+      "replanning_after_blocked_frames": 7,
+      "replay": {
+        "agent_id": "parallel-002-agent-02",
+        "bytes": 4174633,
+        "first_packet_ms": 0,
+        "integrity": "PASS_ZIP_CRC_COMPLETE_MONOTONIC_FRAMING",
+        "last_packet_ms": 1420659,
+        "minecraft_version": "26.3",
+        "native_playback": {
+          "capture_agent": 2,
+          "images": [
+            "viewer02-playing-a-private.png",
+            "viewer02-playing-b-private.png"
+          ],
+          "native_viewer_opened_and_played": true,
+          "scope": "Short actual beginning playback; not every visual interaction audited",
+          "timestamp": 1793811041.804663
+        },
+        "packets": 304444,
+        "path": "build/autonomous-survival/parallel-002/agent-02/replay/campaign-01-2026_11_04_17_19_11.mcpr",
+        "recording_duration_ms": 1420659,
+        "recording_end_from_metadata_unix": 1793810571.957,
+        "recording_finalized_by_save_title_unix": 1793810575.9127908,
+        "recording_start_unix": 1793809151.298,
+        "replay_id": "parallel-002-agent-02-01",
+        "sha256": "d25cc417e7af85888ca193f2d55c499543be94ce9b67ef04bb0e70c55d01f7d8",
+        "timestamp_caveat": "Metadata timeline includes setup and pause behavior; save-title timestamp is an observed finalization upper bound, not a reconstructed exact last-packet wall clock",
+        "world_id": "parallel-002-world-02",
+        "world_identity": "6ba615fae9d3979b444edc0a23b07749517d29cdc0e29e5b17eeb3b8df55125b"
+      },
+      "returned_skill_outcomes": 93,
+      "rpc_all_quantiles_seconds": {
+        "p50": 0.09950970399950165,
+        "p95": 0.12114322499837726,
+        "p99": 0.14222410499496618
+      },
+      "rpc_observe_quantiles_seconds": {
+        "p50": 0.09800335199543042,
+        "p95": 0.12038499600021169,
+        "p99": 0.14349048300209688
+      },
+      "saved_final_position": [
+        -0.4902406927308996,
+        93.0,
+        6.562776157662908
+      ],
+      "saved_health": 20.0,
+      "saved_hunger": 20,
+      "saved_inventory": [],
+      "skill_status_counts": {
+        "blocked": 7,
+        "succeeded": 86
+      },
+      "sprint_metres": 1.97,
+      "start_unix": 1793809555.4853425,
+      "stop_reason": "consecutive_failure_budget",
+      "succeeded_commands": {
+        "core:inventory.inspect": 16,
+        "core:movement.walk": 35,
+        "core:view.aim": 10,
+        "core:view.observe": 25
+      },
+      "tools_food_storage_shelter": "NONE_VERIFIED",
+      "unknown_no_retry": false,
+      "walk_metres": 37.31,
+      "world_identity": "6ba615fae9d3979b444edc0a23b07749517d29cdc0e29e5b17eeb3b8df55125b",
+      "world_memory_preserved": true
+    },
+    {
+      "active_seconds": 750.3602819442749,
+      "agent": 3,
+      "basic_survival_or_home": "NOT_ACHIEVED",
+      "blocked_reasons": {
+        "no_reachable_exposed_blocks": 2,
+        "no_reachable_exposed_logs": 2,
+        "no_verified_step_destination": 4
+      },
+      "climb_metres": 0.0,
+      "compiled_submitted_bcl_operations": 119,
+      "crafted": {},
+      "damage_taken_stat": 0,
+      "deaths": 0,
+      "early_goal_examples": [
+        {
+          "note": "I'll collect nearby spruce wood first, while checking the uneven terrain for a safe place to work.",
+          "source": "C1 N=4 E=true\nV0"
+        },
+        {
+          "note": "The nearby logs are not reachable from here. I'll move along observed safe ground and inspect the tree's approach.",
+          "source": "M0 X=-0.5 Y=93 Z=6.5\nV2 X=-5.5 Y=91.5 Z=10.5\nV0"
+        },
+        {
+          "note": "I'll inspect the western approach from supported ground before trying to reach the spruce.",
+          "source": "M0 X=-0.5 Y=94 Z=5.5\nM0 X=-1.5 Y=93 Z=5.5\nV2 X=-5.5 Y=93 Z=6.5\nV0"
+        }
+      ],
+      "end_unix": 1793810305.913497,
+      "finish_proposal": false,
+      "initial_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "item_use_or_placement_stats": {},
+      "jump_count": 10,
+      "llm_decisions": 18,
+      "mined": {},
+      "model_queue_seconds": {
+        "p50": 0.07867663299839478,
+        "p95": 10.590239627999836,
+        "p99": 10.590239627999836
+      },
+      "model_requests": [
+        {
+          "queue_seconds": 0.07796610199875431,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18517,
+            "output": 182,
+            "reasoning": 42,
+            "totalTokens": 18699
+          },
+          "roundtrip_seconds": 11.059835006002686,
+          "sequence": 2
+        },
+        {
+          "queue_seconds": 0.09918726699834224,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19052,
+            "output": 239,
+            "reasoning": 55,
+            "totalTokens": 19291
+          },
+          "roundtrip_seconds": 12.656084503003513,
+          "sequence": 3
+        },
+        {
+          "queue_seconds": 0.10607110299315536,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28696,
+            "output": 259,
+            "reasoning": 55,
+            "totalTokens": 28955
+          },
+          "roundtrip_seconds": 13.652931194003031,
+          "sequence": 4
+        },
+        {
+          "queue_seconds": 0.08022633899963694,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 25394,
+            "output": 159,
+            "reasoning": 0,
+            "totalTokens": 25553
+          },
+          "roundtrip_seconds": 8.251198568999826,
+          "sequence": 5
+        },
+        {
+          "queue_seconds": 4.57698001999961,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18638,
+            "output": 287,
+            "reasoning": 66,
+            "totalTokens": 18925
+          },
+          "roundtrip_seconds": 13.05593282100017,
+          "sequence": 6
+        },
+        {
+          "queue_seconds": 0.022838409000542015,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 24557,
+            "output": 264,
+            "reasoning": 12,
+            "totalTokens": 24821
+          },
+          "roundtrip_seconds": 9.525861349000479,
+          "sequence": 7
+        },
+        {
+          "queue_seconds": 0.055562609995831735,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27112,
+            "output": 327,
+            "reasoning": 105,
+            "totalTokens": 27439
+          },
+          "roundtrip_seconds": 14.182319084000483,
+          "sequence": 8
+        },
+        {
+          "queue_seconds": 10.590239627999836,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 20510,
+            "output": 295,
+            "reasoning": 26,
+            "totalTokens": 20805
+          },
+          "roundtrip_seconds": 11.251628177000384,
+          "sequence": 9
+        },
+        {
+          "queue_seconds": 0.06106409699714277,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28093,
+            "output": 300,
+            "reasoning": 0,
+            "totalTokens": 28393
+          },
+          "roundtrip_seconds": 10.153993252999499,
+          "sequence": 10
+        },
+        {
+          "queue_seconds": 0.08887569999933476,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28467,
+            "output": 270,
+            "reasoning": 0,
+            "totalTokens": 28737
+          },
+          "roundtrip_seconds": 10.43792455700168,
+          "sequence": 11
+        },
+        {
+          "queue_seconds": 0.08517654900060734,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 25610,
+            "output": 373,
+            "reasoning": 101,
+            "totalTokens": 25983
+          },
+          "roundtrip_seconds": 13.656048680000822,
+          "sequence": 12
+        },
+        {
+          "queue_seconds": 0.07867663299839478,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23123,
+            "output": 410,
+            "reasoning": 33,
+            "totalTokens": 23533
+          },
+          "roundtrip_seconds": 12.454336597002111,
+          "sequence": 13
+        },
+        {
+          "queue_seconds": 0.04799092600296717,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28879,
+            "output": 343,
+            "reasoning": 28,
+            "totalTokens": 29222
+          },
+          "roundtrip_seconds": 12.146105244995852,
+          "sequence": 14
+        },
+        {
+          "queue_seconds": 0.07092897799884668,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27983,
+            "output": 367,
+            "reasoning": 86,
+            "totalTokens": 28350
+          },
+          "roundtrip_seconds": 15.651531902003626,
+          "sequence": 15
+        },
+        {
+          "queue_seconds": 0.0977261299995007,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19111,
+            "output": 436,
+            "reasoning": 75,
+            "totalTokens": 19547
+          },
+          "roundtrip_seconds": 13.769370497997443,
+          "sequence": 16
+        },
+        {
+          "queue_seconds": 0.07285708299605176,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26151,
+            "output": 318,
+            "reasoning": 33,
+            "totalTokens": 26469
+          },
+          "roundtrip_seconds": 11.020710043005238,
+          "sequence": 17
+        },
+        {
+          "queue_seconds": 0.07870689399715047,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18957,
+            "output": 522,
+            "reasoning": 231,
+            "totalTokens": 19479
+          },
+          "roundtrip_seconds": 20.877377297998464,
+          "sequence": 18
+        },
+        {
+          "queue_seconds": 0.03196475000004284,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 20779,
+            "output": 461,
+            "reasoning": 124,
+            "totalTokens": 21240
+          },
+          "roundtrip_seconds": 22.89974084500136,
+          "sequence": 19
+        }
+      ],
+      "model_roundtrip_seconds": {
+        "p50": 12.454336597002111,
+        "p95": 22.89974084500136,
+        "p99": 22.89974084500136
+      },
+      "native_final_inventory": {},
+      "native_final_position": [
+        1.5025102565273103,
+        95.0,
+        3.278807401895465
+      ],
+      "native_tps_min": 19.971074294631496,
+      "observed_game_tps_min": 19.940912120334314,
+      "picked_up": {},
+      "replanning_after_blocked_frames": 8,
+      "replay": {
+        "agent_id": "parallel-002-agent-03",
+        "bytes": 4319399,
+        "first_packet_ms": 0,
+        "integrity": "PASS_ZIP_CRC_COMPLETE_MONOTONIC_FRAMING",
+        "last_packet_ms": 1400951,
+        "minecraft_version": "26.3",
+        "native_playback": {
+          "capture_agent": 3,
+          "images": [
+            "viewer03-playing-a-private.png",
+            "viewer03-playing-b-private.png"
+          ],
+          "native_viewer_opened_and_played": true,
+          "scope": "Short actual beginning playback; not every visual interaction audited",
+          "timestamp": 1793811086.7173786
+        },
+        "packets": 306631,
+        "path": "build/autonomous-survival/parallel-002/agent-03/replay/campaign-01-2026_11_04_17_19_35.mcpr",
+        "recording_duration_ms": 1400951,
+        "recording_end_from_metadata_unix": 1793810576.862,
+        "recording_finalized_by_save_title_unix": 1793810580.7901719,
+        "recording_start_unix": 1793809175.911,
+        "replay_id": "parallel-002-agent-03-01",
+        "sha256": "04e4122ce17cf366ad6da909fab555acbb6cffce4d70ab3fca430b0fe6704731",
+        "timestamp_caveat": "Metadata timeline includes setup and pause behavior; save-title timestamp is an observed finalization upper bound, not a reconstructed exact last-packet wall clock",
+        "world_id": "parallel-002-world-03",
+        "world_identity": "0cfabbe83a446090ef6a4034d2940472ffa7cbb4acfc1415ea1fc36afe1a4650"
+      },
+      "returned_skill_outcomes": 104,
+      "rpc_all_quantiles_seconds": {
+        "p50": 0.09681210599956103,
+        "p95": 0.1232578220005962,
+        "p99": 0.14590496999880997
+      },
+      "rpc_observe_quantiles_seconds": {
+        "p50": 0.09514959000080125,
+        "p95": 0.12261283699626802,
+        "p99": 0.13925495900184615
+      },
+      "saved_final_position": [
+        1.5025102565273103,
+        95.0,
+        3.278807401895465
+      ],
+      "saved_health": 20.0,
+      "saved_hunger": 20,
+      "saved_inventory": [],
+      "skill_status_counts": {
+        "blocked": 8,
+        "succeeded": 96
+      },
+      "sprint_metres": 2.61,
+      "start_unix": 1793809555.553215,
+      "stop_reason": "failure_budget",
+      "succeeded_commands": {
+        "core:inventory.inspect": 18,
+        "core:movement.walk": 34,
+        "core:view.aim": 14,
+        "core:view.observe": 30
+      },
+      "tools_food_storage_shelter": "NONE_VERIFIED",
+      "unknown_no_retry": false,
+      "walk_metres": 33.44,
+      "world_identity": "0cfabbe83a446090ef6a4034d2940472ffa7cbb4acfc1415ea1fc36afe1a4650",
+      "world_memory_preserved": true
+    },
+    {
+      "active_seconds": 901.1617686748505,
+      "agent": 4,
+      "basic_survival_or_home": "NOT_ACHIEVED",
+      "blocked_reasons": {
+        "no_reachable_exposed_blocks": 1,
+        "no_reachable_exposed_logs": 4,
+        "no_verified_step_destination": 2,
+        "step_not_completed": 1
+      },
+      "climb_metres": 0.0,
+      "compiled_submitted_bcl_operations": 133,
+      "crafted": {},
+      "damage_taken_stat": 0,
+      "deaths": 0,
+      "early_goal_examples": [
+        {
+          "note": "I\u2019ll start with nearby spruce wood, checking the terrain and collected resources before choosing a worksite.",
+          "source": "V2 -6 94 10\nC1 3 true\nV0"
+        },
+        {
+          "note": "The spruce is not reachable from the starting position. I\u2019ll move along observed safe ground and reassess access.",
+          "source": "M0 -0.5 93 6.5\nV2 -6 93 10\nV0"
+        },
+        {
+          "note": "I'll follow the observed one-block route west and inspect the approach to the spruce.",
+          "source": "M0 -0.5 94 5.5\nM0 -1.5 93 5.5\nV2 -6 93 10\nV0"
+        }
+      ],
+      "end_unix": 1793810456.7800243,
+      "finish_proposal": false,
+      "initial_position": [
+        -1.5,
+        93.0,
+        5.5
+      ],
+      "item_use_or_placement_stats": {},
+      "jump_count": 11,
+      "llm_decisions": 20,
+      "mined": {},
+      "model_queue_seconds": {
+        "p50": 0.057426594001299236,
+        "p95": 5.532013204996474,
+        "p99": 14.637333343001956
+      },
+      "model_requests": [
+        {
+          "queue_seconds": 14.637333343001956,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18534,
+            "output": 296,
+            "reasoning": 145,
+            "totalTokens": 18830
+          },
+          "roundtrip_seconds": 16.171484359001624,
+          "sequence": 2
+        },
+        {
+          "queue_seconds": 0.007293864997336641,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19765,
+            "output": 269,
+            "reasoning": 74,
+            "totalTokens": 20034
+          },
+          "roundtrip_seconds": 13.675750219998008,
+          "sequence": 3
+        },
+        {
+          "queue_seconds": 0.012190497000119649,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27640,
+            "output": 243,
+            "reasoning": 30,
+            "totalTokens": 27883
+          },
+          "roundtrip_seconds": 12.6412818050012,
+          "sequence": 4
+        },
+        {
+          "queue_seconds": 0.01503542499995092,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 27338,
+            "output": 215,
+            "reasoning": 31,
+            "totalTokens": 27553
+          },
+          "roundtrip_seconds": 14.658674218997476,
+          "sequence": 5
+        },
+        {
+          "queue_seconds": 3.76073516899487,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18752,
+            "output": 238,
+            "reasoning": 0,
+            "totalTokens": 18990
+          },
+          "roundtrip_seconds": 10.75448284400045,
+          "sequence": 6
+        },
+        {
+          "queue_seconds": 0.09743905600043945,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23646,
+            "output": 340,
+            "reasoning": 53,
+            "totalTokens": 23986
+          },
+          "roundtrip_seconds": 11.837634809999145,
+          "sequence": 7
+        },
+        {
+          "queue_seconds": 5.532013204996474,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26804,
+            "output": 371,
+            "reasoning": 107,
+            "totalTokens": 27175
+          },
+          "roundtrip_seconds": 14.366446562999045,
+          "sequence": 8
+        },
+        {
+          "queue_seconds": 0.0733609860035358,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19051,
+            "output": 501,
+            "reasoning": 196,
+            "totalTokens": 19552
+          },
+          "roundtrip_seconds": 19.49752428499778,
+          "sequence": 9
+        },
+        {
+          "queue_seconds": 0.019210311002098024,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28845,
+            "output": 339,
+            "reasoning": 41,
+            "totalTokens": 29184
+          },
+          "roundtrip_seconds": 11.370416560996091,
+          "sequence": 10
+        },
+        {
+          "queue_seconds": 0.008282097995106596,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26129,
+            "output": 406,
+            "reasoning": 61,
+            "totalTokens": 26535
+          },
+          "roundtrip_seconds": 12.252291194003192,
+          "sequence": 11
+        },
+        {
+          "queue_seconds": 0.03079070599778788,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 28814,
+            "output": 368,
+            "reasoning": 38,
+            "totalTokens": 29182
+          },
+          "roundtrip_seconds": 14.466917486002785,
+          "sequence": 12
+        },
+        {
+          "queue_seconds": 0.5912364309988334,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26976,
+            "output": 305,
+            "reasoning": 43,
+            "totalTokens": 27281
+          },
+          "roundtrip_seconds": 11.945296511999913,
+          "sequence": 13
+        },
+        {
+          "queue_seconds": 1.3803781910028192,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 20253,
+            "output": 353,
+            "reasoning": 89,
+            "totalTokens": 20606
+          },
+          "roundtrip_seconds": 16.067846593003196,
+          "sequence": 14
+        },
+        {
+          "queue_seconds": 0.031254000998160336,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 23085,
+            "output": 436,
+            "reasoning": 165,
+            "totalTokens": 23521
+          },
+          "roundtrip_seconds": 16.855218202996184,
+          "sequence": 15
+        },
+        {
+          "queue_seconds": 0.028648203006014228,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 19869,
+            "output": 285,
+            "reasoning": 32,
+            "totalTokens": 20154
+          },
+          "roundtrip_seconds": 13.455592263999279,
+          "sequence": 16
+        },
+        {
+          "queue_seconds": 0.057426594001299236,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26181,
+            "output": 337,
+            "reasoning": 65,
+            "totalTokens": 26518
+          },
+          "roundtrip_seconds": 13.740845040003478,
+          "sequence": 17
+        },
+        {
+          "queue_seconds": 0.10195782899972983,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 18975,
+            "output": 424,
+            "reasoning": 153,
+            "totalTokens": 19399
+          },
+          "roundtrip_seconds": 16.170063420999213,
+          "sequence": 18
+        },
+        {
+          "queue_seconds": 0.08537159099796554,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 24856,
+            "output": 368,
+            "reasoning": 89,
+            "totalTokens": 25224
+          },
+          "roundtrip_seconds": 11.728467380002257,
+          "sequence": 19
+        },
+        {
+          "queue_seconds": 0.08851706499990541,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 21808,
+            "output": 402,
+            "reasoning": 126,
+            "totalTokens": 22210
+          },
+          "roundtrip_seconds": 12.958160997004597,
+          "sequence": 20
+        },
+        {
+          "queue_seconds": 0.03271522599970922,
+          "reported_tokens": {
+            "cacheRead": 0,
+            "cacheWrite": 0,
+            "input": 26832,
+            "output": 269,
+            "reasoning": 0,
+            "totalTokens": 27101
+          },
+          "roundtrip_seconds": 9.652362845998141,
+          "sequence": 21
+        }
+      ],
+      "model_roundtrip_seconds": {
+        "p50": 13.455592263999279,
+        "p95": 16.855218202996184,
+        "p99": 19.49752428499778
+      },
+      "native_final_inventory": {},
+      "native_final_position": [
+        4.500592452007871,
+        94.0,
+        10.562756726002545
+      ],
+      "native_tps_min": 19.965697768456558,
+      "observed_game_tps_min": 19.901446313584437,
+      "picked_up": {},
+      "replanning_after_blocked_frames": 8,
+      "replay": {
+        "agent_id": "parallel-002-agent-04",
+        "bytes": 4252955,
+        "first_packet_ms": 0,
+        "integrity": "PASS_ZIP_CRC_COMPLETE_MONOTONIC_FRAMING",
+        "last_packet_ms": 1380281,
+        "minecraft_version": "26.3",
+        "native_playback": {
+          "native_viewer_opened_and_played": false
+        },
+        "packets": 310477,
+        "path": "build/autonomous-survival/parallel-002/agent-04/replay/campaign-01-2026_11_04_17_20_01.mcpr",
+        "recording_duration_ms": 1380281,
+        "recording_end_from_metadata_unix": 1793810581.698,
+        "recording_finalized_by_save_title_unix": 1793810585.745336,
+        "recording_start_unix": 1793809201.417,
+        "replay_id": "parallel-002-agent-04-01",
+        "sha256": "c39b75f2538b029a42d7cba3c994fc2054b645135422b849dc1604c26c7d51d9",
+        "timestamp_caveat": "Metadata timeline includes setup and pause behavior; save-title timestamp is an observed finalization upper bound, not a reconstructed exact last-packet wall clock",
+        "world_id": "parallel-002-world-04",
+        "world_identity": "422025799fe93298750016e4970f6dd5cdaf675944ddedf82338ce58ad995762"
+      },
+      "returned_skill_outcomes": 114,
+      "rpc_all_quantiles_seconds": {
+        "p50": 0.10045953600638313,
+        "p95": 0.12390912699629553,
+        "p99": 0.14586715400218964
+      },
+      "rpc_observe_quantiles_seconds": {
+        "p50": 0.09864120499696583,
+        "p95": 0.12311099699581973,
+        "p99": 0.1435235349999857
+      },
+      "saved_final_position": [
+        4.500592452007871,
+        94.0,
+        10.562756726002545
+      ],
+      "saved_health": 20.0,
+      "saved_hunger": 20,
+      "saved_inventory": [],
+      "skill_status_counts": {
+        "blocked": 8,
+        "succeeded": 106
+      },
+      "sprint_metres": 4.01,
+      "start_unix": 1793809555.6182556,
+      "stop_reason": "failure_budget",
+      "succeeded_commands": {
+        "core:inventory.inspect": 20,
+        "core:movement.walk": 38,
+        "core:view.aim": 16,
+        "core:view.observe": 32
+      },
+      "tools_food_storage_shelter": "NONE_VERIFIED",
+      "unknown_no_retry": false,
+      "walk_metres": 46.02,
+      "world_identity": "422025799fe93298750016e4970f6dd5cdaf675944ddedf82338ce58ad995762",
+      "world_memory_preserved": true
+    }
+  ],
+  "aggregate_outcomes": {
+    "blocks_mined": {
+      "minecraft:spruce_leaves": 5
+    },
+    "compiled_submitted_bcl_operations": 510,
+    "crafted_items": "None",
+    "partial_mutation_despite_blocked_skill": "Agents 01/02 independently mined two/three leaves; blocked is not a no-effect claim",
+    "placed_blocks_or_shelters": "None verified",
+    "resources_in_final_inventories": "None",
+    "returned_skill_outcomes": 440,
+    "returned_status_counts": {
+      "blocked": 31,
+      "succeeded": 409
+    },
+    "successful_native_walk_goals": 150
+  },
+  "allocation": {
+    "inference_cpus": [
+      7,
+      15
+    ],
+    "minecraft_cpus": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "os_spare_cpus": [
+      0,
+      8
+    ],
+    "physical_cores": [
+      [
+        0,
+        0,
+        [
+          0,
+          8
+        ]
+      ],
+      [
+        0,
+        1,
+        [
+          1,
+          9
+        ]
+      ],
+      [
+        0,
+        2,
+        [
+          2,
+          10
+        ]
+      ],
+      [
+        0,
+        3,
+        [
+          3,
+          11
+        ]
+      ],
+      [
+        0,
+        4,
+        [
+          4,
+          12
+        ]
+      ],
+      [
+        0,
+        5,
+        [
+          5,
+          13
+        ]
+      ],
+      [
+        0,
+        6,
+        [
+          6,
+          14
+        ]
+      ],
+      [
+        0,
+        7,
+        [
+          7,
+          15
+        ]
+      ]
+    ]
+  },
+  "budgets": {
+    "consecutive_failures": 4,
+    "frame_operations": 24,
+    "global_campaign_seconds": 1900,
+    "hard_ten_intervals_limit": 0.95,
+    "identical_failed_frames": 2,
+    "inference_timeout_seconds": 150,
+    "llm_concurrency": 2,
+    "max_global_seconds": 7200,
+    "min_disk_free_bytes": 21474836480,
+    "minecraft_pool_mean_limit": 0.85,
+    "minimum_mem_available_bytes": 8589934592,
+    "no_scripted_progression": true,
+    "no_swap_growth": true,
+    "observe_rpc_p95_limit_seconds": 0.15,
+    "optimizations": false,
+    "per_agent_decisions": 30,
+    "per_agent_operations": 300,
+    "per_agent_seconds": 1800,
+    "preflight_seconds": 120,
+    "replay_causal_overhead": "Not isolated; recording growth and resource cost included in live sampling",
+    "started_unix_seconds": 1793808784.0286307,
+    "sustained_window_seconds": 60,
+    "total_failures": 8
+  },
+  "cleanup": {
+    "all_control_disabled": true,
+    "all_native_gateway_ports_closed": true,
+    "all_owned_java_closed": true,
+    "display_running": false,
+    "owned_idle_launcher_terminated_after_games_closed": [],
+    "system_services_or_unrelated_processes_modified": false,
+    "timestamp": 1793811522.2832296
+  },
+  "cohort": "parallel-002",
+  "concurrency": {
+    "all_four_active_sampled_seconds": 690.9159936904907,
+    "all_four_actual_sessions_overlap_seconds": 690.8852009773254,
+    "campaign_span_seconds": 1013.223922252655,
+    "early_agent_termination_did_not_stop_healthy_peers": true,
+    "peak_observed_active_bcl_tasks": 4,
+    "peak_simultaneous_native_worlds": 4,
+    "proof": "Four per-agent start/end and native actor journals, overlapping BCL-task futures, actual model job intervals, live native world/tick telemetry; not window counts",
+    "sampled_seconds_at_least_two_bcl_tasks": 714.3076717853546,
+    "sampled_seconds_model_inference_while_other_agent_executes_bcl": 624.0361878871918,
+    "sampling_caveat": "Approximately one-second state samples, not an exact continuous profiler"
+  },
+  "limitations": [
+    "No shelter/tools/food/storage established; world-development objective not achieved",
+    "No multi-hour/daily autonomy or hostile-mob qualification",
+    "Short initial viewer playback samples include pre-campaign setup; model-driven gameplay was not visually audited through playback",
+    "Readiness/model budget, live submitted counters and joined terminal outcome counts are separate",
+    "No explicit live fault injection/physical F8 test or new 211-case native movement cohort",
+    "No uncertain action replay, automatic restart, world reset or progression substitution"
+  ],
+  "model": {
+    "actual_decisions": 77,
+    "additional_preflight_nonce_probes": 4,
+    "local_orchestration_cpus": [
+      7,
+      15
+    ],
+    "model": "gpt-6.1-sol",
+    "no_predefined_progression": true,
+    "provider": "openai-codex",
+    "same_system_and_goal": true,
+    "scheduler": "FIFO pending request order, at most two model calls, per-agent context/ticket/sequence/cancel/timeout and no held inference slot during BCL",
+    "shared_backend": "Existing selected remote backend; no local weights or remote VRAM measurement",
+    "thinking": "medium"
+  },
+  "no_commit_push_tag_upload_release_deploy": true,
+  "preflight": {
+    "cpu_mean": 0.6893570918351632,
+    "cross_actor_rejected": 4,
+    "gateway_authenticated": 4,
+    "model_context_nonce_probes": 4,
+    "problems": [],
+    "seconds": 120.28139441599342,
+    "status": "GO",
+    "trace_tps": {
+      "1": [
+        {
+          "at": 1793809411.2564263,
+          "client_tps": 20.16821616820151,
+          "game_tps": 20.2620218247978
+        },
+        {
+          "at": 1793809421.2738743,
+          "client_tps": 20.090628879157926,
+          "game_tps": 20.090628879157926
+        },
+        {
+          "at": 1793809431.4354463,
+          "client_tps": 20.020196850993447,
+          "game_tps": 20.05937531841222
+        },
+        {
+          "at": 1793809441.954173,
+          "client_tps": 19.992063317528675,
+          "game_tps": 19.992063317528675
+        },
+        {
+          "at": 1793809452.071874,
+          "client_tps": 19.991323349408663,
+          "game_tps": 19.991323349408663
+        },
+        {
+          "at": 1793809462.0534427,
+          "client_tps": 20.058473651413916,
+          "game_tps": 20.01922027831917
+        },
+        {
+          "at": 1793809472.0586462,
+          "client_tps": 20.00532509886549,
+          "game_tps": 20.00532509886549
+        },
+        {
+          "at": 1793809482.0905058,
+          "client_tps": 20.026052593318337,
+          "game_tps": 20.065242520115437
+        },
+        {
+          "at": 1793809492.3511372,
+          "client_tps": 20.041158335482482,
+          "game_tps": 20.001938847546114
+        },
+        {
+          "at": 1793809502.2656224,
+          "client_tps": 20.012935645678738,
+          "game_tps": 19.934607130431463
+        },
+        {
+          "at": 1793809512.378097,
+          "client_tps": 20.01399509430872,
+          "game_tps": 20.01399509430872
+        },
+        {
+          "at": 1793809522.3532195,
+          "client_tps": 19.997853730152737,
+          "game_tps": 20.036988473264582
+        },
+        {
+          "at": 1793809532.4009922,
+          "client_tps": 20.03947373339898,
+          "game_tps": 20.078689924658082
+        },
+        {
+          "at": 1793809542.4118567,
+          "client_tps": 20.029083955304817,
+          "game_tps": 19.98988809629248
+        },
+        {
+          "at": 1793809552.6554313,
+          "client_tps": 19.999027471167672,
+          "game_tps": 20.038164511228665
+        }
+      ],
+      "2": [
+        {
+          "at": 1793809411.4427133,
+          "client_tps": 20.07683658739108,
+          "game_tps": 20.262733222459516
+        },
+        {
+          "at": 1793809421.4640489,
+          "client_tps": 20.005392816231357,
+          "game_tps": 20.05348270280884
+        },
+        {
+          "at": 1793809431.8025973,
+          "client_tps": 20.04705719175111,
+          "game_tps": 20.04705719175111
+        },
+        {
+          "at": 1793809442.0974205,
+          "client_tps": 19.99175854659709,
+          "game_tps": 19.99175854659709
+        },
+        {
+          "at": 1793809452.2475696,
+          "client_tps": 20.053160480278436,
+          "game_tps": 20.053160480278436
+        },
+        {
+          "at": 1793809462.2125778,
+          "client_tps": 19.996066963023605,
+          "game_tps": 19.996066963023605
+        },
+        {
+          "at": 1793809472.2437084,
+          "client_tps": 19.996928022609673,
+          "game_tps": 19.996928022609673
+        },
+        {
+          "at": 1793809482.3363228,
+          "client_tps": 20.009091131730404,
+          "game_tps": 20.009091131730404
+        },
+        {
+          "at": 1793809492.4862297,
+          "client_tps": 20.042369881350737,
+          "game_tps": 20.042369881350737
+        },
+        {
+          "at": 1793809502.445603,
+          "client_tps": 20.059746188293097,
+          "game_tps": 20.059746188293097
+        },
+        {
+          "at": 1793809512.525836,
+          "client_tps": 20.035990080445583,
+          "game_tps": 20.035990080445583
+        },
+        {
+          "at": 1793809522.4787028,
+          "client_tps": 19.969091346462253,
+          "game_tps": 19.969091346462253
+        },
+        {
+          "at": 1793809532.6039877,
+          "client_tps": 19.976220087908025,
+          "game_tps": 19.937127680690985
+        },
+        {
+          "at": 1793809542.5877116,
+          "client_tps": 20.008574774566735,
+          "game_tps": 20.008574774566735
+        },
+        {
+          "at": 1793809553.0971754,
+          "client_tps": 20.03718389382606,
+          "game_tps": 20.03718389382606
+        }
+      ],
+      "3": [
+        {
+          "at": 1793809411.574391,
+          "client_tps": 20.065295179792226,
+          "game_tps": 20.065295179792226
+        },
+        {
+          "at": 1793809421.643259,
+          "client_tps": 20.01418644606053,
+          "game_tps": 20.01418644606053
+        },
+        {
+          "at": 1793809432.1073818,
+          "client_tps": 20.032752930849863,
+          "game_tps": 19.993549891846243
+        },
+        {
+          "at": 1793809442.3067193,
+          "client_tps": 20.008331766927636,
+          "game_tps": 19.969176518851455
+        },
+        {
+          "at": 1793809452.4314802,
+          "client_tps": 19.995485559356197,
+          "game_tps": 19.995485559356197
+        },
+        {
+          "at": 1793809462.4087684,
+          "client_tps": 20.020613285341852,
+          "game_tps": 20.059792567700644
+        },
+        {
+          "at": 1793809472.3823345,
+          "client_tps": 19.976696301037244,
+          "game_tps": 20.015789640178216
+        },
+        {
+          "at": 1793809482.5543451,
+          "client_tps": 20.00687840081441,
+          "game_tps": 20.00687840081441
+        },
+        {
+          "at": 1793809492.6621356,
+          "client_tps": 20.0640297097849,
+          "game_tps": 20.024765463777495
+        },
+        {
+          "at": 1793809502.5691013,
+          "client_tps": 20.043155983671443,
+          "game_tps": 20.082379380899763
+        },
+        {
+          "at": 1793809512.7650797,
+          "client_tps": 20.03473049623048,
+          "game_tps": 19.9955235872359
+        },
+        {
+          "at": 1793809522.5951214,
+          "client_tps": 19.968708898728377,
+          "game_tps": 19.968708898728377
+        },
+        {
+          "at": 1793809532.8274014,
+          "client_tps": 20.015185765069027,
+          "game_tps": 20.054354426057422
+        },
+        {
+          "at": 1793809542.9155934,
+          "client_tps": 20.03600945096966,
+          "game_tps": 20.07521886281109
+        },
+        {
+          "at": 1793809553.3128197,
+          "client_tps": 19.97513477007749,
+          "game_tps": 19.97513477007749
+        }
+      ],
+      "4": [
+        {
+          "at": 1793809411.8226018,
+          "client_tps": 20.141417671158642,
+          "game_tps": 20.141417671158642
+        },
+        {
+          "at": 1793809421.8372464,
+          "client_tps": 20.06370574312646,
+          "game_tps": 20.158794395937488
+        },
+        {
+          "at": 1793809432.4749498,
+          "client_tps": 20.025630839397756,
+          "game_tps": 20.025630839397756
+        },
+        {
+          "at": 1793809442.4580188,
+          "client_tps": 20.01882168596344,
+          "game_tps": 19.97964590966997
+        },
+        {
+          "at": 1793809452.582997,
+          "client_tps": 19.983454463846208,
+          "game_tps": 19.983454463846208
+        },
+        {
+          "at": 1793809462.638954,
+          "client_tps": 20.019142149368196,
+          "game_tps": 20.019142149368196
+        },
+        {
+          "at": 1793809472.5046601,
+          "client_tps": 20.008335817267728,
+          "game_tps": 20.04749107327021
+        },
+        {
+          "at": 1793809482.8541348,
+          "client_tps": 20.024008217657045,
+          "game_tps": 19.98482229159509
+        },
+        {
+          "at": 1793809492.8039348,
+          "client_tps": 20.052765833210135,
+          "game_tps": 20.052765833210135
+        },
+        {
+          "at": 1793809502.713289,
+          "client_tps": 20.02879413052963,
+          "game_tps": 20.067989422370196
+        },
+        {
+          "at": 1793809512.919202,
+          "client_tps": 20.047688873424217,
+          "game_tps": 20.008456605570156
+        },
+        {
+          "at": 1793809522.8194842,
+          "client_tps": 20.010434243964923,
+          "game_tps": 19.97127488145227
+        },
+        {
+          "at": 1793809532.965342,
+          "client_tps": 20.02402335453115,
+          "game_tps": 20.063209310215164
+        },
+        {
+          "at": 1793809543.2186353,
+          "client_tps": 20.04609711127699,
+          "game_tps": 20.00686795841735
+        },
+        {
+          "at": 1793809553.5281882,
+          "client_tps": 19.967353324953127,
+          "game_tps": 19.928278269522693
+        }
+      ]
+    }
+  },
+  "preserved_diagnostics": [
+    "Initial preparation field-name mismatch before any client/instance creation, corrected before setup",
+    "First archive scan checked only root .mcpr, failed after a closed-world copy; originals were under recording/. Corrected recursive scan revalidated existing snapshot bytes; original failure kept",
+    "Six host/scheduler contract tests including FIFO/context isolation/per-agent cancellation passed; no production concurrency defect required a core fix",
+    "Post-campaign Replay Viewer 04 NOT RUN: Flatpak reported Extension org.freedesktop.Platform.GL.default has invalid merge-dirs before an owned JVM started; bounded launch timed out, no relaunch or environment/service repair attempted"
+  ],
+  "qualification": {
+    "agent_isolation": "GO_SCOPED_FOUR_LIVE_CONTEXTS_WORLDS_ACTORS_JOURNALS_AND_CROSS_ACTOR_REJECTION",
+    "autonomous_gameplay": "EACH_REAL_EXPLORATION_ONLY_NO_TOOLS_OR_HOME",
+    "eight_or_sixteen_campaigns": "NOT_RUN",
+    "four_agent_concurrency": "GO_SCOPED_REAL_OVERLAPPING_CAMPAIGNS",
+    "four_client_infrastructure": "GO",
+    "long_term_autonomy": "NOT_QUALIFIED",
+    "native_replay_playback": "3/4_SHORT_BEGINNING_SAMPLES",
+    "replay_capture": "GO_FOUR_CRC_AND_COMPLETE_PACKET_STREAMS",
+    "resource_stability": "GO_OBSERVED_CAMPAIGN_WITHIN_PROSPECTIVE_GATES"
+  },
+  "regression": {
+    "gradle": "PASS",
+    "mutations": {
+      "bcl": "50/50 KILLED",
+      "cpu_affinity": "7/7 KILLED",
+      "play2code": "47/47 KILLED",
+      "skills": "209/209 KILLED"
+    },
+    "new_native_211_movement_cohort": "NOT_RUN_UNCHANGED_CORE",
+    "physical_f8_injection": "NOT_RUN",
+    "private_host_scheduler_contracts": "6/6 PASS before and after campaign",
+    "python": "610/610 PASS",
+    "tls": "10/10 PASS"
+  },
+  "resources": {
+    "affinity_escape_observed": false,
+    "campaign_mc_pool_cpu_mean": 0.6838109773380806,
+    "disk_free_min_bytes": 42933506048,
+    "exact_rendered_fps_server_mspt": "NOT_INSTRUMENTED",
+    "gpu_samples_global": [
+      {
+        "at": 1793809558.0372424,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 678, 21\n"
+      },
+      {
+        "at": 1793809563.9068792,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 503, 20\n"
+      },
+      {
+        "at": 1793809569.011325,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 508, 29\n"
+      },
+      {
+        "at": 1793809574.0202155,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 514, 25\n"
+      },
+      {
+        "at": 1793809579.275964,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 513, 32\n"
+      },
+      {
+        "at": 1793809584.2766864,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 518, 22\n"
+      },
+      {
+        "at": 1793809590.2813346,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 19\n"
+      },
+      {
+        "at": 1793809596.7888832,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 497, 18\n"
+      },
+      {
+        "at": 1793809602.023153,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 505, 18\n"
+      },
+      {
+        "at": 1793809608.1404765,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 507, 29\n"
+      },
+      {
+        "at": 1793809613.3928921,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 511, 28\n"
+      },
+      {
+        "at": 1793809620.5074143,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 505, 17\n"
+      },
+      {
+        "at": 1793809625.5207806,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 19\n"
+      },
+      {
+        "at": 1793809631.2187893,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 515, 33\n"
+      },
+      {
+        "at": 1793809636.325332,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 515, 19\n"
+      },
+      {
+        "at": 1793809642.226872,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 513, 31\n"
+      },
+      {
+        "at": 1793809647.4890032,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 518, 33\n"
+      },
+      {
+        "at": 1793809654.9444838,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 19\n"
+      },
+      {
+        "at": 1793809661.005126,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 509, 36\n"
+      },
+      {
+        "at": 1793809666.4060426,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 498, 19\n"
+      },
+      {
+        "at": 1793809673.2033439,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 499, 36\n"
+      },
+      {
+        "at": 1793809678.4182928,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 509, 40\n"
+      },
+      {
+        "at": 1793809685.3723228,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 505, 21\n"
+      },
+      {
+        "at": 1793809691.9540231,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 30\n"
+      },
+      {
+        "at": 1793809697.7802265,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 36\n"
+      },
+      {
+        "at": 1793809703.73392,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 517, 29\n"
+      },
+      {
+        "at": 1793809708.7304173,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 525, 39\n"
+      },
+      {
+        "at": 1793809714.2224348,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 498, 32\n"
+      },
+      {
+        "at": 1793809719.28819,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 505, 23\n"
+      },
+      {
+        "at": 1793809725.1803315,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 505, 30\n"
+      },
+      {
+        "at": 1793809730.184162,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 503, 32\n"
+      },
+      {
+        "at": 1793809735.3787162,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 509, 17\n"
+      },
+      {
+        "at": 1793809740.38834,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 517, 21\n"
+      },
+      {
+        "at": 1793809746.4113863,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 517, 30\n"
+      },
+      {
+        "at": 1793809752.036211,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 497, 21\n"
+      },
+      {
+        "at": 1793809758.1281023,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 501, 17\n"
+      },
+      {
+        "at": 1793809763.208307,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 516, 35\n"
+      },
+      {
+        "at": 1793809768.7731273,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 504, 31\n"
+      },
+      {
+        "at": 1793809773.9777727,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 510, 20\n"
+      },
+      {
+        "at": 1793809779.7103493,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 478, 17\n"
+      },
+      {
+        "at": 1793809784.7301824,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 476, 17\n"
+      },
+      {
+        "at": 1793809791.3102973,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 476, 20\n"
+      },
+      {
+        "at": 1793809798.0200107,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 465, 39\n"
+      },
+      {
+        "at": 1793809803.7226477,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 470, 28\n"
+      },
+      {
+        "at": 1793809809.1030076,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 465, 26\n"
+      },
+      {
+        "at": 1793809814.2398205,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 469, 19\n"
+      },
+      {
+        "at": 1793809820.0330672,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 478, 32\n"
+      },
+      {
+        "at": 1793809825.4450276,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 477, 30\n"
+      },
+      {
+        "at": 1793809831.1384478,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 476, 30\n"
+      },
+      {
+        "at": 1793809836.1791503,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 478, 19\n"
+      },
+      {
+        "at": 1793809841.3066475,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 449, 20\n"
+      },
+      {
+        "at": 1793809846.3219147,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 454, 26\n"
+      },
+      {
+        "at": 1793809852.1229851,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 454, 19\n"
+      },
+      {
+        "at": 1793809857.3061316,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 454, 35\n"
+      },
+      {
+        "at": 1793809863.1805062,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 25\n"
+      },
+      {
+        "at": 1793809868.3307931,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 20\n"
+      },
+      {
+        "at": 1793809873.9038575,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 19\n"
+      },
+      {
+        "at": 1793809879.1343944,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 35\n"
+      },
+      {
+        "at": 1793809885.348346,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 411, 32\n"
+      },
+      {
+        "at": 1793809890.4791644,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 34\n"
+      },
+      {
+        "at": 1793809895.786736,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 33\n"
+      },
+      {
+        "at": 1793809900.8449235,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 428, 19\n"
+      },
+      {
+        "at": 1793809906.8470585,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 25\n"
+      },
+      {
+        "at": 1793809913.3809915,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 27\n"
+      },
+      {
+        "at": 1793809918.445722,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 419, 34\n"
+      },
+      {
+        "at": 1793809924.681272,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 27\n"
+      },
+      {
+        "at": 1793809929.9210706,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 30\n"
+      },
+      {
+        "at": 1793809936.1284022,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 24\n"
+      },
+      {
+        "at": 1793809941.1787329,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 20\n"
+      },
+      {
+        "at": 1793809947.3364973,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 433, 24\n"
+      },
+      {
+        "at": 1793809952.5233219,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 32\n"
+      },
+      {
+        "at": 1793809959.0606768,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 30\n"
+      },
+      {
+        "at": 1793809964.5482178,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 26\n"
+      },
+      {
+        "at": 1793809969.7043478,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 20\n"
+      },
+      {
+        "at": 1793809975.2136607,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 32\n"
+      },
+      {
+        "at": 1793809980.246807,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 19\n"
+      },
+      {
+        "at": 1793809985.4440765,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 38\n"
+      },
+      {
+        "at": 1793809990.6127808,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 35\n"
+      },
+      {
+        "at": 1793809996.7507093,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 20\n"
+      },
+      {
+        "at": 1793810002.1845417,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 18\n"
+      },
+      {
+        "at": 1793810008.42677,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 30\n"
+      },
+      {
+        "at": 1793810013.6143913,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 419, 31\n"
+      },
+      {
+        "at": 1793810019.0145972,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 27\n"
+      },
+      {
+        "at": 1793810024.2537608,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 20\n"
+      },
+      {
+        "at": 1793810030.4616363,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 28\n"
+      },
+      {
+        "at": 1793810036.4128985,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 32\n"
+      },
+      {
+        "at": 1793810042.3959875,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 35\n"
+      },
+      {
+        "at": 1793810047.6069458,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 37\n"
+      },
+      {
+        "at": 1793810053.8511395,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 32\n"
+      },
+      {
+        "at": 1793810060.629879,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 29\n"
+      },
+      {
+        "at": 1793810066.202687,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 425, 35\n"
+      },
+      {
+        "at": 1793810071.7155912,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 18\n"
+      },
+      {
+        "at": 1793810076.8983073,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 30\n"
+      },
+      {
+        "at": 1793810082.808386,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 19\n"
+      },
+      {
+        "at": 1793810087.9703414,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 30\n"
+      },
+      {
+        "at": 1793810095.0198648,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 35\n"
+      },
+      {
+        "at": 1793810101.972654,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 40\n"
+      },
+      {
+        "at": 1793810107.8664718,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 21\n"
+      },
+      {
+        "at": 1793810115.077397,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 28\n"
+      },
+      {
+        "at": 1793810120.4565349,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 25\n"
+      },
+      {
+        "at": 1793810126.4986665,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 17\n"
+      },
+      {
+        "at": 1793810131.503812,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 20\n"
+      },
+      {
+        "at": 1793810138.3613894,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 408, 21\n"
+      },
+      {
+        "at": 1793810143.4572964,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 32\n"
+      },
+      {
+        "at": 1793810149.372467,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 30\n"
+      },
+      {
+        "at": 1793810154.3826606,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 31\n"
+      },
+      {
+        "at": 1793810159.9058115,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 428, 20\n"
+      },
+      {
+        "at": 1793810164.9154875,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 19\n"
+      },
+      {
+        "at": 1793810170.2763262,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 30\n"
+      },
+      {
+        "at": 1793810175.5071373,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 410, 26\n"
+      },
+      {
+        "at": 1793810181.4591284,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 408, 18\n"
+      },
+      {
+        "at": 1793810186.4686735,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 31\n"
+      },
+      {
+        "at": 1793810192.3434682,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 417, 20\n"
+      },
+      {
+        "at": 1793810197.568383,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 425, 32\n"
+      },
+      {
+        "at": 1793810203.03432,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 425, 18\n"
+      },
+      {
+        "at": 1793810208.044295,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 414, 30\n"
+      },
+      {
+        "at": 1793810213.8853617,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 32\n"
+      },
+      {
+        "at": 1793810218.8812397,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 20\n"
+      },
+      {
+        "at": 1793810225.0341656,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 32\n"
+      },
+      {
+        "at": 1793810231.3689647,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 412, 17\n"
+      },
+      {
+        "at": 1793810236.3744283,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 33\n"
+      },
+      {
+        "at": 1793810241.9655375,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 19\n"
+      },
+      {
+        "at": 1793810246.9768684,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 32\n"
+      },
+      {
+        "at": 1793810252.990305,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 427, 18\n"
+      },
+      {
+        "at": 1793810257.9990406,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 21\n"
+      },
+      {
+        "at": 1793810263.7529666,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 414, 19\n"
+      },
+      {
+        "at": 1793810269.2003298,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 23\n"
+      },
+      {
+        "at": 1793810274.6554163,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 31\n"
+      },
+      {
+        "at": 1793810279.688854,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 31\n"
+      },
+      {
+        "at": 1793810285.6304743,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 27\n"
+      },
+      {
+        "at": 1793810290.95037,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 18\n"
+      },
+      {
+        "at": 1793810296.4015884,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 19\n"
+      },
+      {
+        "at": 1793810301.4111452,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 29\n"
+      },
+      {
+        "at": 1793810306.8939753,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 29\n"
+      },
+      {
+        "at": 1793810311.8489008,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 18\n"
+      },
+      {
+        "at": 1793810317.1955585,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 25\n"
+      },
+      {
+        "at": 1793810322.1957214,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 19\n"
+      },
+      {
+        "at": 1793810328.1356516,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 32\n"
+      },
+      {
+        "at": 1793810333.2725317,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 28\n"
+      },
+      {
+        "at": 1793810338.8131814,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 32\n"
+      },
+      {
+        "at": 1793810343.8277156,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 29\n"
+      },
+      {
+        "at": 1793810348.8336437,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 434, 23\n"
+      },
+      {
+        "at": 1793810353.8407624,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 23\n"
+      },
+      {
+        "at": 1793810359.350452,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 419, 29\n"
+      },
+      {
+        "at": 1793810364.3592799,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 428, 32\n"
+      },
+      {
+        "at": 1793810370.113386,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 27\n"
+      },
+      {
+        "at": 1793810375.1110997,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 421, 26\n"
+      },
+      {
+        "at": 1793810380.6866894,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 28\n"
+      },
+      {
+        "at": 1793810385.9922247,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 434, 21\n"
+      },
+      {
+        "at": 1793810391.361095,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 424, 24\n"
+      },
+      {
+        "at": 1793810396.3623207,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 419, 38\n"
+      },
+      {
+        "at": 1793810401.52633,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 418, 28\n"
+      },
+      {
+        "at": 1793810406.6160414,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 422, 21\n"
+      },
+      {
+        "at": 1793810412.610996,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 22\n"
+      },
+      {
+        "at": 1793810417.9329696,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 427, 19\n"
+      },
+      {
+        "at": 1793810423.3444977,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 28\n"
+      },
+      {
+        "at": 1793810428.9322636,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 428, 27\n"
+      },
+      {
+        "at": 1793810433.9274552,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 28\n"
+      },
+      {
+        "at": 1793810439.4608288,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 411, 21\n"
+      },
+      {
+        "at": 1793810444.4625719,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 411, 27\n"
+      },
+      {
+        "at": 1793810450.124516,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 419, 28\n"
+      },
+      {
+        "at": 1793810455.3392053,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 32\n"
+      },
+      {
+        "at": 1793810460.7698815,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 27\n"
+      },
+      {
+        "at": 1793810465.7739635,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 27\n"
+      },
+      {
+        "at": 1793810471.336755,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 18\n"
+      },
+      {
+        "at": 1793810476.3386161,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 36\n"
+      },
+      {
+        "at": 1793810481.498278,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 434, 29\n"
+      },
+      {
+        "at": 1793810486.5172472,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 432, 33\n"
+      },
+      {
+        "at": 1793810492.2373188,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 416, 20\n"
+      },
+      {
+        "at": 1793810497.2313354,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 425, 18\n"
+      },
+      {
+        "at": 1793810502.6546466,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 425, 21\n"
+      },
+      {
+        "at": 1793810507.6522586,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 423, 23\n"
+      },
+      {
+        "at": 1793810512.7630315,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 428, 18\n"
+      },
+      {
+        "at": 1793810517.716299,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 426, 30\n"
+      },
+      {
+        "at": 1793810522.8756201,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 420, 31\n"
+      },
+      {
+        "at": 1793810527.8794546,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 458, 28\n"
+      },
+      {
+        "at": 1793810533.142823,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 442, 17\n"
+      },
+      {
+        "at": 1793810538.129221,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 429, 29\n"
+      },
+      {
+        "at": 1793810543.5545492,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 436, 41\n"
+      },
+      {
+        "at": 1793810548.5592215,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 442, 14\n"
+      },
+      {
+        "at": 1793810553.9439278,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 470, 17\n"
+      },
+      {
+        "at": 1793810558.9583228,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 513, 28\n"
+      },
+      {
+        "at": 1793810564.0592425,
+        "csv": "NVIDIA GeForce RTX 3060, 12, 0\nNVIDIA GeForce RTX 2080 SUPER, 495, 18\n"
+      }
+    ],
+    "mem_available_min_bytes": 38573633536,
+    "per_core_cpu_includes_background_work": true,
+    "per_logical_cpu": {
+      "0": {
+        "mean": 0.3110277387727402,
+        "peak": 0.6701030927835052
+      },
+      "1": {
+        "mean": 0.7069140496360037,
+        "peak": 0.9285714285714286
+      },
+      "10": {
+        "mean": 0.6571260839687809,
+        "peak": 0.8865979381443299
+      },
+      "11": {
+        "mean": 0.712630144399228,
+        "peak": 0.9019607843137255
+      },
+      "12": {
+        "mean": 0.7035164671443427,
+        "peak": 0.908256880733945
+      },
+      "13": {
+        "mean": 0.6814144727360615,
+        "peak": 0.8686868686868687
+      },
+      "14": {
+        "mean": 0.7232027851401628,
+        "peak": 0.9711538461538461
+      },
+      "15": {
+        "mean": 0.32342362280931125,
+        "peak": 0.7142857142857143
+      },
+      "2": {
+        "mean": 0.6607171262334526,
+        "peak": 0.8431372549019608
+      },
+      "3": {
+        "mean": 0.6552510943702042,
+        "peak": 0.8484848484848485
+      },
+      "4": {
+        "mean": 0.6629076887724974,
+        "peak": 0.8571428571428572
+      },
+      "5": {
+        "mean": 0.6500143418453602,
+        "peak": 0.8673469387755102
+      },
+      "6": {
+        "mean": 0.669503839747189,
+        "peak": 0.8446601941747574
+      },
+      "7": {
+        "mean": 0.3265815820845624,
+        "peak": 0.696969696969697
+      },
+      "8": {
+        "mean": 0.31561333117722273,
+        "peak": 0.6862745098039216
+      },
+      "9": {
+        "mean": 0.7226720204902992,
+        "peak": 0.9595959595959596
+      }
+    },
+    "per_physical_core_smt_mean": {
+      "0": {
+        "cpus": [
+          0,
+          8
+        ],
+        "mean": 0.31332053497498147
+      },
+      "1": {
+        "cpus": [
+          1,
+          9
+        ],
+        "mean": 0.7147930350631515
+      },
+      "2": {
+        "cpus": [
+          2,
+          10
+        ],
+        "mean": 0.6589216051011167
+      },
+      "3": {
+        "cpus": [
+          3,
+          11
+        ],
+        "mean": 0.6839406193847162
+      },
+      "4": {
+        "cpus": [
+          4,
+          12
+        ],
+        "mean": 0.6832120779584201
+      },
+      "5": {
+        "cpus": [
+          5,
+          13
+        ],
+        "mean": 0.6657144072907109
+      },
+      "6": {
+        "cpus": [
+          6,
+          14
+        ],
+        "mean": 0.6963533124436758
+      },
+      "7": {
+        "cpus": [
+          7,
+          15
+        ],
+        "mean": 0.3250026024469368
+      }
+    },
+    "recording_causal_cpu_overhead": "NOT_ISOLATED; recording ON throughout, growth monitored and cost included in resource totals",
+    "replay_packet_byte_growth": {
+      "1": {
+        "first": 14939240,
+        "last": 21840165
+      },
+      "2": {
+        "first": 14926475,
+        "last": 20218994
+      },
+      "3": {
+        "first": 14824069,
+        "last": 21066721
+      },
+      "4": {
+        "first": 14921018,
+        "last": 21093634
+      }
+    },
+    "resource_stop_events": [],
+    "rss_can_double_count_shared_mappings": true,
+    "rss_local_inference_peak_bytes": 303005696,
+    "rss_mc_java_aux_monitor_peak_bytes": 17197969408,
+    "swap_growth_bytes": 0
+  },
+  "schema": "blockwire.parallel-autonomous-survival.v1",
+  "settings": {
+    "clean_snapshot_clones": true,
+    "commands_bonus_chest": false,
+    "difficulty": "Peaceful",
+    "empty_starting_inventory": true,
+    "experimental_stateful_reuse": false,
+    "fps_limit": 30,
+    "graphicsPreset": "custom",
+    "heap_max_mib": 2048,
+    "inactivityFpsLimit": "minimized",
+    "independent_directories": true,
+    "licensed_profile": "Same licensed UUID, distinct native world/player entities and actor sessions; not four separate licensed accounts",
+    "live_native_video_settings_verified_before_campaign": 4,
+    "minecraft": "26.3",
+    "mode": "Survival",
+    "normal_generation": true,
+    "pauseOnLostFocus": false,
+    "render_distance": 8,
+    "renderer": "CPU llvmpipe on authenticated hidden :99",
+    "replaymod": "26.3-2.6.28",
+    "seed": 74219031427,
+    "simulation_distance": 5
+  },
+  "source_freeze": "build/autonomous-survival/parallel-002/campaign-source-freeze-private.json",
+  "source_revision": "a9a7405",
+  "source_state": "Existing dirty documented CPU qualification plus new ignored orchestration; production Python/Java unchanged"
+}

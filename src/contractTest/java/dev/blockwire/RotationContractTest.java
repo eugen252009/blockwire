@@ -46,7 +46,8 @@ public final class RotationContractTest {
 
         String blockwire=Files.readString(Path.of("src/main/java/dev/blockwire/Blockwire.java"));
         String look=blockwire.substring(blockwire.indexOf("case \"look\" ->"),blockwire.indexOf("case \"drive\" ->"));
-        check(look.contains("Protocol.fields(q,\"yaw\",\"pitch\",\"actor_session\",\"duration_ms\",\"rotation_profile\")") &&
+        check(look.contains("Protocol.fields(q,\"yaw\",\"pitch\",\"actor_session\",\"duration_ms\",\"rotation_profile\",\"grounded_creative\")") &&
+              look.indexOf("guardedActor(q)")<look.indexOf("CreativeBuild.guardedInput") && look.indexOf("CreativeBuild.guardedInput")<look.indexOf("rotation.schedule") &&
               look.indexOf("rotationDuration(q)")<look.indexOf("guardedActor(q)") && look.indexOf("guardedActor(q)")<look.indexOf("rotation.schedule"),
               "RT23_validate_and_actor_fence_before_schedule");
         check(blockwire.contains("rotation.tick(mc,server!=null && server.connected());\n        if(held.isEmpty())return;"),

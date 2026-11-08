@@ -24,6 +24,8 @@ blockwire-agent = "blockwire.agent_cli:main"
 blockwire-machine-agent = "blockwire.machine_agent:main"
 blockwire-machine-mcp = "blockwire.machine_mcp:main"
 blockwire-play2code = "blockwire.play2code:main"
+blockwire-schematic = "blockwire.schematic:main"
+blockwire-build = "blockwire.grounded_build:main"
 # Compatibility commands for existing agent-host configurations.
 block-bridge = "blockwire.cli:main"
 block-bridge-mcp = "blockwire.mcp_server:main"

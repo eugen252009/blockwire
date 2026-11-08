@@ -1,0 +1,407 @@
+{
+  "agents": [
+    {
+      "BCL_operations_including_4_host_queries": 42,
+      "agent": "agent-a",
+      "autonomous_duration_seconds": 443.3188648223877,
+      "chat_submissions": 28,
+      "closed_authoritative_stats": {
+        "minecraft:mined": {
+          "minecraft:grass_block": 4
+        },
+        "minecraft:picked_up": {
+          "minecraft:dirt": 4
+        }
+      },
+      "closed_save_matches_final_native_position": true,
+      "decisions": 30,
+      "durable_memory_finalization": "COMPLETED",
+      "failed_operation_reasons": {
+        "local_activity_radius_exceeded": 1,
+        "mining_not_observed": 2,
+        "no_reachable_exposed_blocks": 2,
+        "no_reachable_exposed_logs": 2
+      },
+      "final_inventory": [
+        {
+          "count": 4,
+          "item": "minecraft:dirt"
+        }
+      ],
+      "inference_ms_charged": 200126,
+      "input_release_verified": true,
+      "model_generated_BCL_operations": 38,
+      "native_UNKNOWN_NO_RETRY": false,
+      "operation_outcomes": {
+        "blocked": 7,
+        "succeeded": 31
+      },
+      "peer_chat_reports_received": 22,
+      "provider_attempts": 30,
+      "provider_errors": 0,
+      "remaining_inference_ms": 1599874,
+      "remaining_operations": 258,
+      "remaining_requests": 0,
+      "saved_health": 20.0,
+      "saved_survival_game_mode": 0,
+      "stop_reason": "30_decision_request_limit",
+      "usage_telemetry": {
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "input": 453458,
+        "output": 6186,
+        "reasoning": 2484,
+        "totalTokens": 459644
+      }
+    },
+    {
+      "BCL_operations_including_4_host_queries": 34,
+      "agent": "agent-b",
+      "autonomous_duration_seconds": 376.9801423549652,
+      "chat_submissions": 22,
+      "closed_authoritative_stats": {},
+      "closed_save_matches_final_native_position": true,
+      "decisions": 30,
+      "durable_memory_finalization": "COMPLETED",
+      "failed_operation_reasons": {
+        "no_reachable_exposed_blocks": 3,
+        "no_reachable_exposed_logs": 4
+      },
+      "final_inventory": [],
+      "inference_ms_charged": 206105,
+      "input_release_verified": true,
+      "model_generated_BCL_operations": 30,
+      "native_UNKNOWN_NO_RETRY": false,
+      "operation_outcomes": {
+        "blocked": 7,
+        "succeeded": 23
+      },
+      "peer_chat_reports_received": 24,
+      "provider_attempts": 30,
+      "provider_errors": 0,
+      "remaining_inference_ms": 1593895,
+      "remaining_operations": 266,
+      "remaining_requests": 0,
+      "saved_health": 20.0,
+      "saved_survival_game_mode": 0,
+      "stop_reason": "30_decision_request_limit",
+      "usage_telemetry": {
+        "cacheRead": 0,
+        "cacheWrite": 0,
+        "input": 462173,
+        "output": 5923,
+        "reasoning": 2475,
+        "totalTokens": 468096
+      }
+    }
+  ],
+  "autonomous_span_seconds": 443.3188648223877,
+  "both_agent_loops_overlap_seconds": 376.98014211654663,
+  "checks_reference": "llm-budget-qualification.json; 709 regressions, Gradle, TLS10, public mutations123, private integration6/mutations2",
+  "controller_wall_seconds_including_preflight": 457.9788775444031,
+  "cooperation_observations": {
+    "budget_isolation": "B reached 30 decisions about 66 seconds before A; A continued independently. Subsequent observed queries/blocked gather do not prove useful peer progress during interruption.",
+    "communication": "50 model-chosen chat submissions, 46 peer reports captured while recipients remained subscribed; ordinary native chat only, not shared private model memory or an event-triggered inference loop.",
+    "independent_verification": "Agent B explicitly did not treat a distant dirt report as verified inventory or a safe route; final outcome evaluated from native and closed-save data, not agreement.",
+    "long_term_autonomy": "NOT_QUALIFIED",
+    "task_negotiation": "Self-chosen wood/soil proposals, requests for help and reachability reports observed; initial duplicated wood attempts and later read-only observation loops. Successful complementary execution not established.",
+    "useful_cooperation": "NO_GO_NOT_DEMONSTRATED_IN_THIS_RUN"
+  },
+  "failed_preflight_cooperation_002": {
+    "autonomous_gameplay_actions": 0,
+    "autonomous_model_requests": 0,
+    "failure": "host supplied string to numeric BCL SDK request_id",
+    "finalized_recordings": 2,
+    "native_clients_started": 2,
+    "no_resume_or_ambiguous_action_replay": true,
+    "normal_server_exit": 0,
+    "original_source_world_and_recordings_preserved": true,
+    "phase": "local SDK validation before WebSocket send",
+    "status": "PREFLIGHT_FAILED"
+  },
+  "historical_cooperation_001": {
+    "baseline_evidence": "docs/evidence/multiplayer-event-qualification.json",
+    "baseline_scope": "Historical native 18/18 communication/isolation/event qualification. Its superflat admin fixture and chat sample are not new Survival cooperation.",
+    "blocker": {
+      "code": "HARD_TOKEN_COST_BUDGET_UNQUALIFIED",
+      "estimates_as_hard_limits": false,
+      "finding": "Selected PI text adapter bounds captured reply bytes after generation; no qualified durable total/per-agent token/cost reservation and usage reconciliation",
+      "guard_probe_result": "CAMPAIGN_BLOCKED: model_token_cost_limits",
+      "http_alternative": "Existing per-request max_tokens=1024 is not the missing campaign/agent ledger; no alternate provider or credential path selected",
+      "source": "python/src/blockwire/command_decider.py"
+    },
+    "captured_unix": 1793893125.6426418,
+    "commit_push_upload_deploy_release": "NOT_PERFORMED",
+    "experiment": "cooperation-001",
+    "fresh_checks": {
+      "all_mutations": "KILLED",
+      "gradle_check": "PASS",
+      "mutation_total": 76,
+      "mutations": {
+        "auto_events": 12,
+        "bcl": 50,
+        "gateway": 14
+      },
+      "native_cooperation_tests": 0,
+      "python": "PASS",
+      "python_tests": 684,
+      "tls": "PASS",
+      "tls_interop_checks": 10
+    },
+    "gameplay_evaluation": {
+      "actual_world_changes": null,
+      "conflicts": null,
+      "duplicate_work": null,
+      "incomplete_objectives": null,
+      "reason": "No live experiment; do not substitute historical/mocked effects or infer incapacity from admission failure",
+      "recovery": null,
+      "self_selected_goals": null,
+      "shared_achievements": null,
+      "task_negotiations": null
+    },
+    "historical_replays_rechecked": [
+      {
+        "integrity_recheck": "PASS",
+        "name": "2026_11_05_15_45_58.mcpr",
+        "scope": "Historical MP04, not a cooperation recording",
+        "sha256": "7d78953b3ac3bd2b5d0f9c7396d8c13f76f07898dd9c0805a2ef79694dabbc7b"
+      },
+      {
+        "integrity_recheck": "PASS",
+        "name": "2026_11_05_15_46_21.mcpr",
+        "scope": "Historical MP04, not a cooperation recording",
+        "sha256": "4c83ac36a55d2e79e1a2af9f9196f826789f91eb91a1505e6056ee0ff4ea78ee"
+      },
+      {
+        "integrity_recheck": "PASS",
+        "name": "2026_11_05_15_47_52.mcpr",
+        "scope": "Historical MP04, not a cooperation recording",
+        "sha256": "5813225fabe30e60ee9777a1e6e717b8977d253f7f8fd7eb2769a346bb8648a3"
+      }
+    ],
+    "live_execution": {
+      "admin_commands": 0,
+      "agents_launched": 0,
+      "chat_messages_received": 0,
+      "chat_messages_sent": 0,
+      "gameplay_seconds": 0,
+      "generated_tokens": 0,
+      "llm_decisions": 0,
+      "model_requests": 0,
+      "native_bcl_operations": 0,
+      "recordings_produced": 0,
+      "sessions_started": 0,
+      "worlds_created": 0
+    },
+    "next_required_work": [
+      "Qualified metered selected-backend adapter with durable global and per-agent pre-request reservations and fail-closed usage accounting",
+      "Native scenarios B/C/E/F with independently observed block/drop/inventory/consumption and cleanup facts",
+      "Fresh actual cooperation-world resource/recording/persistence preflight",
+      "Only then start unscripted two-agent Survival within authorized bounds"
+    ],
+    "performance": {
+      "cpu_ram_gpu_maxima": null,
+      "inference_seconds": 0,
+      "model_queue_seconds": null,
+      "native_rpc_p50_p95_p99_ms": null,
+      "recording_overhead": null,
+      "scope": "No live measurement or comparison claimed",
+      "tokens_per_second": null
+    },
+    "private_preflight": "build/blockwire-multiplayer/cooperation-001/supervisor/preflight-result-private.json",
+    "qualification_decisions": {
+      "agent_isolation": {
+        "scope": "MP04 actor/task isolation; new peer-continuation-under-interruption untested",
+        "status": "GO_SCOPED_BASELINE"
+      },
+      "autonomous_cooperation": {
+        "meaningful_cooperative_contribution_verified": false,
+        "not_a_behavioral_failure_finding": true,
+        "status": "BLOCKED_NOT_EVALUATED"
+      },
+      "concurrent_world_interactions": {
+        "execution": "NOT_RUN",
+        "status": "NOT_QUALIFIED"
+      },
+      "hard_token_cost_budgets": {
+        "status": "NO_GO_TO_START"
+      },
+      "independent_llm_communication": {
+        "scope": "Inherited small MP04 exchange only; not new cooperation",
+        "status": "GO"
+      },
+      "long_running_cooperative_autonomy": {
+        "status": "NOT_QUALIFIED"
+      },
+      "multiplayer_transport": {
+        "scope": "Inherited unchanged MP04 only",
+        "status": "GO"
+      },
+      "replay_recording": {
+        "historical_integrity_rechecks": 3,
+        "new_recordings": 0,
+        "new_viewer_playbacks": 0,
+        "status": "NOT_RUN_FOR_COOPERATION"
+      },
+      "shared_project_verification": {
+        "execution": "NOT_RUN",
+        "status": "NOT_QUALIFIED"
+      }
+    },
+    "request_execution": "Partial: baseline/source/evidence/budget preflight and offline regressions executed; mandatory safety gate stops live work",
+    "requested_bounds_not_activated": {
+      "agents": 2,
+      "bcl_operations_per_agent": 300,
+      "decisions_per_agent": 30,
+      "generated_token_limit": null,
+      "note": "Request/time/byte bounds are not substitutes for the missing generated-token/cost budget",
+      "total_bcl_operations": 600,
+      "total_inference_requests": 60,
+      "wall_seconds": 1800
+    },
+    "safety": {
+      "central_llm_or_shared_private_context": false,
+      "existing_worlds_recordings_evidence_unchanged": true,
+      "new_model_provider_or_authentication": false,
+      "new_transport_opcode_broker_or_global_gameplay_lock": false,
+      "no_new_live_resources": true,
+      "production_source_changed": false,
+      "scripted_roles_or_progression": false,
+      "stateful_input_optimizations": "DISABLED_UNCHANGED",
+      "unknown_no_retry": "UNCHANGED_NO_REPLAY"
+    },
+    "scenario_results": {
+      "A_chat_while_moving": "HISTORICAL_MP04_GO_NOT_RERUN",
+      "B_concurrent_resource": "NOT_RUN",
+      "C_concurrent_placement": "NOT_RUN",
+      "D_task_proposal_independent_action": "NOT_RUN_HISTORICAL_CHAT_ONLY",
+      "E_interrupt_one_agent_peer_continues": "NOT_RUN_HISTORICAL_ACTOR_TASK_ISOLATION_ONLY",
+      "F_shared_goal_world_verification": "NOT_RUN"
+    },
+    "schema": "blockwire-cooperation-qualification/v1",
+    "source_revision": "a9a7405c0f10accdf047eaac1d7ef74851ef61f5 plus existing uncommitted frozen runtime",
+    "status": "BLOCKED_PRELAUNCH",
+    "unchanged_MP04_private_artifacts_verified": 416,
+    "unchanged_MP04_runtime_files_verified": 83
+  },
+  "latest_cohort": "cooperation-003",
+  "meaning": "Real bounded independent two-agent Survival operation and communication executed; useful shared-project cooperation NOT demonstrated.",
+  "minecraft": "26.3 vanilla localhost server, two genuine Fabric clients",
+  "model": "openai-codex/gpt-6-luna, existing pi OAuth subscription SDK, separate request contexts and durable memories",
+  "no_commit_push_upload_deploy_release": true,
+  "no_source_patch_during_active_cohort": true,
+  "operational_budget": "GO in separately qualified explicit subscription exception; strict tokens/costs NOT CLAIMED",
+  "recordings": [
+    {
+      "agent": "agent-a",
+      "bytes": 3181841,
+      "duration_ms": 492162,
+      "integrity": "PASS",
+      "name": "2026_11_05_19_39_37.mcpr",
+      "packets": 145853,
+      "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+    },
+    {
+      "agent": "agent-b",
+      "bytes": 2920921,
+      "duration_ms": 472372,
+      "integrity": "PASS",
+      "name": "2026_11_05_19_40_02.mcpr",
+      "packets": 132633,
+      "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+    }
+  ],
+  "resource": {
+    "affinity_escape": false,
+    "minecraft_pool_cpu_mean_percent": 32.78188161378266,
+    "minecraft_pool_cpu_peak_1s_percent": 50.167109309615164,
+    "minimum_available_ram_gib": 43.40787887573242,
+    "minimum_free_disk_gib": 36.49600601196289,
+    "observe_p95_ms": 141.24081000045408,
+    "peak_owned_minecraft_pool_RSS_gib": 8.090721130371094,
+    "samples": 455,
+    "scope": "Actual two-client campaign only; affinity is owned-task placement, not reservation; host GPU samples not attributable exclusively to clients",
+    "violations": []
+  },
+  "scenarios": {
+    "A_chat_during_movement": "Historical MP04 GO retained; new run communication GO, no new isolated same-mover timing claim.",
+    "B_same_resource_contention": "NOT_QUALIFIED; concurrent attempts at broad resource classes are not proof of same-block/drop ownership.",
+    "C_competing_placement": "NOT_RUN; no placement submitted.",
+    "D_proposal_independent_useful_action": "PARTIAL communication/proposals; successful complementary task execution not demonstrated.",
+    "E_interrupt_one_peer_useful_continuation": "PARTIAL independent per-agent budget termination/peer continuation; useful world effects after peer termination not demonstrated.",
+    "F_shared_project_verification": "NOT_RUN_NO_SHARED_PROJECT"
+  },
+  "schema": "blockwire-autonomous-cooperation/v2",
+  "shutdown": {
+    "UNKNOWN_NO_RETRY_native_outcomes": 0,
+    "closed_player_positions_match_final_native": true,
+    "configs_disabled": true,
+    "durable_memory_finalized_both": true,
+    "finalized_replays": 2,
+    "native_gateway_server_ports_closed": true,
+    "normal_server_exit": 0,
+    "owned_JVMs_model_workers_display_closed": true,
+    "owned_inputs_observed_released_both": true,
+    "scope": "Actual normal shutdown qualified; exhaustive native fault shutdown/cancellation matrix and full replay visual audit NOT RUN."
+  },
+  "status": "PARTIAL",
+  "totals": {
+    "BCL_operations_including_host": 76,
+    "chat_submissions": 50,
+    "decisions": 60,
+    "host_BCL_configuration_queries": 8,
+    "model_generated_BCL_operations": 68,
+    "peer_chat_reports_captured": 46,
+    "provider_attempts": 60,
+    "provider_errors_or_throttling": 0,
+    "remaining_BCL_operations": 524,
+    "remaining_requests": 0,
+    "unresolved_model_reservations": 0,
+    "usage_telemetry": {
+      "cacheRead": 0,
+      "cacheWrite": 0,
+      "input": 915631,
+      "output": 12109,
+      "reasoning": 4959,
+      "totalTokens": 927740
+    }
+  },
+  "viewer": {
+    "known_spectator_menu_rejection_retained": true,
+    "original_hashes_unchanged": true,
+    "recording": "2026_11_05_19_39_37.mcpr",
+    "samples": [
+      {
+        "native_replay_game_ticks_advanced": 251,
+        "sample": "sampled-first",
+        "wall_seconds": 12.567556142807007
+      },
+      {
+        "native_replay_game_ticks_advanced": 211,
+        "sample": "harvest-first",
+        "wall_seconds": 10.636127948760986
+      }
+    ],
+    "scope": "Early real autonomous tree/mining attempts and later recorded interval sampled; not a complete visual audit or proof of every harvesting action. B recording not opened.",
+    "status": "GO_SCOPED"
+  },
+  "world": {
+    "console_command": "lifecycle stop only",
+    "difficulty": "peaceful",
+    "game_type": 0,
+    "generation": "fresh normal",
+    "initial_inventories": "empty, separately observed",
+    "loopback_listener_verified": true,
+    "no_admin_gameplay_commands": true,
+    "no_scripted_roles_routes_or_progression": true,
+    "offline_identities": "supported Prism 11.1.1 --offline NAME, local test identities only; not two online Microsoft accounts",
+    "same_high_level_objective": true
+  },
+  "world_progress": {
+    "agent_a": "Four grass blocks mined and four dirt picked up; four dirt retained, confirmed by native inventory and closed authoritative player NBT/statistics.",
+    "agent_b": "Empty inventory; no recorded resource/crafting/placement progress.",
+    "crafting_equipment_storage_building_item_sharing": "NOT demonstrated",
+    "partial_side_effects": "Per-task success/failure is not an exact attribution of every mined/picked-up block; failed attempts and native partial effects retained.",
+    "shared_project": "No independently verified shared project; no cooperation GO from chat or query success."
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "captured_unix": 1793861621.0686913,
+  "scope": "Progress snapshot, not final long-run acceptance",
+  "agents": [
+    {
+      "agent": 1,
+      "state": "running",
+      "cycles": 42,
+      "failures": 5,
+      "stop_reason": null,
+      "goal_verified": false
+    },
+    {
+      "agent": 2,
+      "state": "ended",
+      "cycles": 26,
+      "failures": 3,
+      "stop_reason": "stopped_or_failed",
+      "goal_verified": false
+    }
+  ],
+  "private_harness_blocker": {
+    "agent": 2,
+    "seconds_before_stop": 730.985,
+    "cause": "Optional empty BCL source was incorrectly compiled although model proposed finish=true with final feedback",
+    "proposal_preserved_but_not_submitted": true,
+    "original_failure_retained": true,
+    "automatic_restart_or_mid_cohort_patch": false
+  },
+  "maximum_gameplay_deadline_unix": 1793867641.654137,
+  "overnight_qualified": false
+}

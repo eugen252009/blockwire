@@ -391,6 +391,11 @@ class Player:
             arguments["actor_session"] = actor_session
         return self.backend.call("hotbar", **arguments)
 
+    def creative(self, action: str, *, actor_session: str, **parameters) -> Json:
+        """Strict opt-in grounded Creative mechanics; receipts require native readback."""
+        from .creative import native_call
+        return native_call(self, action, actor_session=actor_session, **parameters)
+
     def open_inventory(self, *, actor_session: str | None = None) -> Json:
         return self.backend.call("open_inventory", **({"actor_session": actor_session} if actor_session is not None else {}))
 

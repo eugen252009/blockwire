@@ -1,0 +1,2928 @@
+{
+  "changes": [
+    {
+      "change": "Actor-consistent fresh bounded local navigation; retain bounded operation evidence; report read-only streak without selecting replacement actions.",
+      "execution_semantics_changed": false,
+      "file": "python/src/blockwire/decision_context.py",
+      "tests": "DC01..DC09"
+    },
+    {
+      "change": "Add bounded allowlisted harvest diagnostics; preserve all old placement evidence keys. No grammar or skill action changes.",
+      "execution_semantics_changed": false,
+      "file": "python/src/blockwire/bcl/evidence.py + runtime.py",
+      "tests": "DC04..DC06"
+    },
+    {
+      "change": "Optional submit returns existing accepted receipt before sync completion, allowing known-task cancel and honest active-task attribution. Legacy send unchanged.",
+      "file": "python/src/blockwire/bcl/client.py",
+      "tests": "DC13..DC15 + three actual read-only native cancels",
+      "wire_grammar_changed": false
+    },
+    {
+      "change": "Explicit ExperimentSeriesPolicy: five independent <=30 request / <=300 operation scopes, one persistent <=150 request / <=1500 operation umbrella, <=2 concurrent requests, <=7200s global and <=1800s per experiment in host. Single policy limits unchanged.",
+      "file": "python/src/blockwire/model_limits.py",
+      "tests": "DC10..DC12"
+    },
+    {
+      "change": "Same corrected context/guidance in A/B/C; objectives differ as specified. No scripted materials/routes/roles/progression. All queries/chat/world labels remain untrusted data.",
+      "file": "private fresh experiment hosts"
+    }
+  ],
+  "code_index_refresh": {
+    "files": 394,
+    "indexing_errors": 0,
+    "shared_service_not_restarted": true,
+    "status": "PASS"
+  },
+  "communication": {
+    "B_two_missing_messages": "Received 5.757s and 14.805s after the final model decision began; no next inference existed. Not evidence of transport loss.",
+    "coordination": "Proposals/help/blocked reports, no verified useful division of labor. Repeated self/peer history can distract, causal magnitude unproven.",
+    "event_triggered_decisions": 0,
+    "model_chat_history": {
+      "agent-a": {
+        "model_event_types": {
+          "player.chat": 222
+        },
+        "model_peer_chat_occurrences": 96,
+        "native_peer_messages_absent_from_all_model_contexts": 0,
+        "native_peer_reports": 22,
+        "unique_peer_model": 22,
+        "unique_peer_native": 22
+      },
+      "agent-b": {
+        "model_event_types": {
+          "player.chat": 214
+        },
+        "model_peer_chat_occurrences": 105,
+        "native_peer_messages_absent_from_all_model_contexts": 2,
+        "native_peer_reports": 24,
+        "unique_peer_model": 22,
+        "unique_peer_native": 24
+      }
+    },
+    "peer_history_occurrences": 201,
+    "peer_reports_captured": 46,
+    "proximity_triggered_decisions": 0,
+    "sent": 50,
+    "unique_peer_messages_in_model_contexts": 44
+  },
+  "deliberately_not_changed": [
+    "BCL/1 grammar",
+    "Java/native TLS/dispatcher",
+    "movement/collision/damage/crafting",
+    "default-off Stateful Input",
+    "resource reach/physics limits",
+    "No house/wood progression macro or hidden planner",
+    "No automatic peer-message planner or event-triggered inference"
+  ],
+  "findings": [
+    {
+      "causal_limit": "Verified information-loss regression, not proof it alone caused every failed goal.",
+      "cause": "Host presentation removed bounded navigation",
+      "evidence": "42 V0 outputs contained navigation; zero of 60 model contexts exposed that navigation. Earlier single-agent contexts included navigation in all 12 decisions.",
+      "id": "F1",
+      "status": "CONFIRMED"
+    },
+    {
+      "causal_limit": "The same runtime hash existed in the earlier single-agent run, so this is not by itself a between-campaign regression.",
+      "cause": "Harvest details discarded by existing BCL evidence whitelist",
+      "evidence": "Cause, observed_logs, local_radius, navigation_profile, collected/requested/tool_substitution guidance existed in skill results but were not exposed in operation evidence.",
+      "id": "F2",
+      "status": "CONFIRMED"
+    },
+    {
+      "causal_limit": "No reachable exposed resource is different from invalid syntax or a lost request. Exact mining_not_observed causes remain unresolved.",
+      "cause": "Local geometry/reach preconditions rejected requested resources",
+      "evidence": {
+        "local_activity_radius_exceeded": 1,
+        "mining_not_observed": 2,
+        "no_reachable_exposed_blocks": 5,
+        "no_reachable_exposed_logs": 6
+      },
+      "id": "F3",
+      "status": "CONFIRMED"
+    },
+    {
+      "causal_limit": "A new real Luna single-agent run still repeated C1 with delivered navigation; context correction is insufficient alone.",
+      "cause": "Repeated unchanged observation and no explicit local repositioning",
+      "evidence": {
+        "earlier_single_M0_operations": 8,
+        "earlier_single_V2_operations": 9,
+        "original_model_M0_operations": 0,
+        "original_model_V2_operations": 0,
+        "strict_identical_state_repeat_decisions": 29
+      },
+      "id": "F4",
+      "status": "CONFIRMED_BEHAVIOR"
+    },
+    {
+      "causal_limit": "Natural-language note is a self-report, not hidden reasoning or executable authority.",
+      "cause": "Note/action mismatches",
+      "evidence": [
+        "agent-a-008: says avoid speculative gather, submits exact C2",
+        "agent-b-002: says terrain-enabled, submits E=false",
+        "agent-b-003: says observe, submits C1"
+      ],
+      "id": "F5",
+      "status": "CONFIRMED_BEHAVIOR"
+    },
+    {
+      "causal_limit": "No single-variable model or terrain ablation completed; no blanket LLM/Blockwire blame.",
+      "cause": "Model/prompt/memory differences and spawn geometry",
+      "evidence": "Earlier configured model gpt-6.1-sol, richer persistent-memory prompt, frame24, initial Y90. Multiplayer Luna frame12, initial Y97/100. Same seed is not pose-equivalence.",
+      "id": "H1",
+      "status": "UNRESOLVED"
+    },
+    {
+      "cause": "Chat/proximity caused extra inference or recursive action loops",
+      "evidence": "Every inference came from the normal terminal-feedback loop; zero event-triggered calls. Chat history repeats but does not dispatch inference.",
+      "id": "R1",
+      "status": "REJECTED_FOR_RECORDED_RUN"
+    },
+    {
+      "cause": "Parser/TLS dropped valid requests",
+      "evidence": "68 model operations have known terminal typed results, zero invalid BCL or native transport UNKNOWN. Auto-event bridge/gateway/transport drop counters were zero.",
+      "id": "R2",
+      "status": "NOT_SUPPORTED_BY_EVIDENCE"
+    }
+  ],
+  "initial_global_budget": {
+    "agents": {
+      "A-a": {
+        "halted": false,
+        "inference_ms_charged": 12254,
+        "operations": 10,
+        "requests": 3,
+        "states": {
+          "COMPLETED": 3
+        }
+      },
+      "B-a": {
+        "halted": false,
+        "inference_ms_charged": 0,
+        "operations": 7,
+        "requests": 0,
+        "states": {}
+      },
+      "B-b": {
+        "halted": false,
+        "inference_ms_charged": 0,
+        "operations": 7,
+        "requests": 0,
+        "states": {}
+      },
+      "C-a": {
+        "halted": false,
+        "inference_ms_charged": 0,
+        "operations": 0,
+        "requests": 0,
+        "states": {}
+      },
+      "C-b": {
+        "halted": false,
+        "inference_ms_charged": 0,
+        "operations": 0,
+        "requests": 0,
+        "states": {}
+      }
+    },
+    "campaign": "stagnation-series-001",
+    "deadline_ms": 1793919207209,
+    "mode": "subscription_operational_not_financial",
+    "operations": 24,
+    "requests": 3,
+    "started_ms": 1793912007209,
+    "state": "STOPPED",
+    "token_accounting": "optional telemetry, not a hard token/billing guarantee"
+  },
+  "global_budget": {"campaign": "stagnation-series-003", "state": "STOPPED", "requests": 17, "operations": 40, "cumulative_task_requests": 37, "cumulative_task_operations": 98, "original_request_cap": 150, "prior_ledgers_stopped_not_reset": true},
+  "limitations": ["Individual material progress observed in one C3 actor, not reliable autonomy or useful shared cooperation.", "No single-variable causal proof; spawn poses/objective/host lifecycle differ.", "C2 handshake root cause and microscopic mining failures remain unresolved.", "Current support whitelist excludes observed spruce logs; no native placement rejection established.", "Short actual Viewer playback only, not full visual audit.", "No physical F8, full fault matrix, eight-hour soak or online-account qualification rerun.", "Operational subscription bounds, not strict billing/token ceilings; affinity is not reservation."],
+  "initial_analysis_status": "PARTIAL_EXECUTION_BLOCKED_AT_REQUIRED_LIVE_RESOURCE_GATE",
+  "initial_code_index_refresh": "REQUESTED; shared daemon indexing; CLI/diagnostic waits timed out; no fully refreshed index or service restart claimed",
+  "initial_live_experiments": {
+    "A": {
+      "BCL_with_7_host_queries": 10,
+      "actual_crafting_or_world_resource_progress": false,
+      "actual_inventory": [],
+      "chat_messages": 0,
+      "conclusion": "Information delivery fixed, but no measurable Survival improvement in this sample. Chat was absent, so chat overhead is not a necessary explanation.",
+      "decisions": 3,
+      "duration_seconds": 46.28575301170349,
+      "failures": {
+        "no_reachable_exposed_logs": 3
+      },
+      "inference_errors": 0,
+      "initial_height": 98.0,
+      "model": "openai-codex/gpt-6-luna",
+      "model_BCL": 3,
+      "native_clients": 1,
+      "native_nav_first_case": "ready, 22 cells / 32 edges; not proof of globally reachable resources",
+      "native_nav_in_each_input": true,
+      "native_release_and_closed_position_match": true,
+      "provider_requests": 3,
+      "saved_health": 20.0,
+      "server_exit": 0,
+      "status": "EXECUTED_TECHNICAL_PASS_GAMEPLAY_NO_PROGRESS",
+      "stop": "Existing identical-failure budget: C1 3 false, C1 3 true, C1 3 true",
+      "usage_telemetry": {
+        "input": 43474,
+        "output": 279,
+        "reasoning": 104,
+        "totalTokens": 43753
+      }
+    },
+    "B": {
+      "autonomous_gameplay_actions": 0,
+      "autonomous_inference_requests": 0,
+      "exact_cutoff_not_logged": "Original guard logged AssertionError without predicate. Every plausible 10..13 sample prefix violates the unchanged 80% guard; other assertions pass. No threshold relaxation/retry.",
+      "last_pre_exception_prefix_mean_percent": 89.24910815603657,
+      "native_clients": 2,
+      "owned_tracked_MC_pool_process_cpu_estimate_percent": 30.918984896718264,
+      "possible_read_file_cutoff_prefixes": [
+        {
+          "cpu_mean_percent": 89.32420136654889,
+          "flushed_prefix_samples": 10,
+          "last_sample_vs_assertion_seconds": -2.9928157329559326
+        },
+        {
+          "cpu_mean_percent": 89.36547792059389,
+          "flushed_prefix_samples": 11,
+          "last_sample_vs_assertion_seconds": -1.9908816814422607
+        },
+        {
+          "cpu_mean_percent": 89.24910815603657,
+          "flushed_prefix_samples": 12,
+          "last_sample_vs_assertion_seconds": -0.9958794116973877
+        },
+        {
+          "cpu_mean_percent": 89.19951574013326,
+          "flushed_prefix_samples": 13,
+          "last_sample_vs_assertion_seconds": 0.058464765548706055
+        }
+      ],
+      "pre_exception_samples": 12,
+      "read_only_preflight_BCL_operations": 14,
+      "required_gate": "fresh_cpu_headroom",
+      "server_exit": 0,
+      "status": "BLOCKED_BEFORE_AUTONOMY",
+      "threshold_percent": 80,
+      "unattributed_pool_load": "System pool includes untracked work; affinity is placement, not reservation. Do not blame MC or stop/pin unrelated processes from this residual."
+    },
+    "C": {
+      "reason": "Required B CPU admission gate failed. No restart, threshold relaxation or bypass.",
+      "status": "NOT_RUN"
+    }
+  },
+  "latest_authorized_continuation": {
+    "agents": [
+      {
+        "authoritative_stats": {
+          "minecraft:crafted": {
+            "minecraft:crafting_table": 1,
+            "minecraft:spruce_planks": 12,
+            "minecraft:stick": 4
+          },
+          "minecraft:mined": {
+            "minecraft:spruce_log": 3
+          },
+          "minecraft:picked_up": {
+            "minecraft:spruce_log": 3
+          }
+        },
+        "blocked_reasons": {
+          "deadline_exceeded": 1,
+          "equip_requested_block_first": 1,
+          "mining_not_observed": 3,
+          "no_known_safe_route": 1,
+          "unsupported_placement_support": 1,
+          "workbench_required": 1
+        },
+        "chat_submissions": 5,
+        "cycles": 13,
+        "duration_seconds": 270.6215476989746,
+        "game_mode": 0,
+        "handler_commands": {
+          "core:crafting.gather_wood": 4,
+          "core:crafting.item": 6,
+          "core:inventory.equip": 1,
+          "core:inventory.place": 2,
+          "core:movement.walk": 4
+        },
+        "handler_outcomes": {
+          "blocked": 7,
+          "succeeded": 9,
+          "timed_out": 1
+        },
+        "health": 20.0,
+        "id": "C3-a",
+        "native_cleanup_verified": true,
+        "native_inventory": {
+          "minecraft:crafting_table": 1,
+          "minecraft:spruce_planks": 6,
+          "minecraft:stick": 4
+        },
+        "native_unknown": false,
+        "net_displacement_blocks": 7.195495439046444,
+        "peer_reports_captured": 1,
+        "position_matches_save": true,
+        "provider_errors": 0,
+        "provider_requests": 13,
+        "saved_inventory": {
+          "minecraft:crafting_table": 1,
+          "minecraft:spruce_planks": 6,
+          "minecraft:stick": 4
+        },
+        "stop": "failure_budget",
+        "usage": {
+          "input": 212229,
+          "output": 3168,
+          "reasoning": 1664,
+          "totalTokens": 215397
+        }
+      },
+      {
+        "authoritative_stats": {},
+        "blocked_reasons": {
+          "no_reachable_exposed_logs": 4
+        },
+        "chat_submissions": 1,
+        "cycles": 4,
+        "duration_seconds": 70.52251267433167,
+        "game_mode": 0,
+        "handler_commands": {
+          "core:crafting.gather_wood": 4,
+          "core:movement.walk": 2
+        },
+        "handler_outcomes": {
+          "blocked": 4,
+          "succeeded": 2
+        },
+        "health": 20.0,
+        "id": "C3-b",
+        "native_cleanup_verified": true,
+        "native_inventory": {},
+        "native_unknown": false,
+        "net_displacement_blocks": 1.4190985455161298,
+        "peer_reports_captured": 2,
+        "position_matches_save": true,
+        "provider_errors": 0,
+        "provider_requests": 4,
+        "saved_inventory": {},
+        "stop": "failure_budget",
+        "usage": {
+          "input": 61238,
+          "output": 493,
+          "reasoning": 242,
+          "totalTokens": 61731
+        }
+      }
+    ],
+    "assessment": {
+      "autonomy_reliability": "NOT_QUALIFIED; A/B normal failure budgets stop after 13/4 decisions; solo A and independent B previously had no resource progression",
+      "causality": "Descriptive context correction is present in every input; observed improvement in one C actor is not single-variable causal proof. Spawn pose/objective/native lifecycle differ between cohorts.",
+      "eight_hour_soak_or_online_account_qualification": "NOT_RUN",
+      "goal_handler_success_not_required_for_partial_side_effect": "A wood handlers did not report success; resources nevertheless observed in next inventory and closed stats",
+      "individual_material_progress": "OBSERVED_A_THREE_LOGS_AND_CRAFTING",
+      "shared_or_complementary_project": "NOT_DEMONSTRATED",
+      "useful_item_transfer_workbench_placement_or_tools": "NOT_DEMONSTRATED"
+    },
+    "authorization": "Mache weiter after terminal C2 handshake failure; fresh scopes/world/client JVMs, no reconnect/replay/resume of C2",
+    "budget": {
+      "cumulative_stagnation_task_BCL_admitted": 98,
+      "cumulative_stagnation_task_requests": 37,
+      "new_BCL_admitted": 40,
+      "new_requests_cap": 60,
+      "new_requests_spent": 17,
+      "no_unresolved_requests": true,
+      "original_task_cap": 150,
+      "previous_BCL_admitted": 58,
+      "previous_requests_spent": 20,
+      "same_subscription_exception_not_billing_guarantee": true,
+      "state": "STOPPED"
+    },
+    "checks": {
+      "TLS_cases": 10,
+      "additional_host_mutations": 11,
+      "core_mutations": 137,
+      "fresh_python": 724,
+      "gradle": "PASS",
+      "host_tests": 17,
+      "qualified_python_files_unchanged": 58
+    },
+    "cohort": "series-003/C",
+    "mitigation": {
+      "TLS_timeouts_native_JAR_physics_and_public_runtime_unchanged": true,
+      "actual_new_harness_is_private": true,
+      "late_controller_reconnect_eliminated": true,
+      "one_actual_native_upgrade_per_client_through_controller": true,
+      "previous_handshake_root_cause": "NOT_ESTABLISHED",
+      "same_prepared_lease_before_and_after": true,
+      "same_process_socket_handoff": true
+    },
+    "remaining_blockers": {
+      "mining": "All four A wood goal handlers failed/timed out, yet A001 interval gained2 logs and A007 gained1; native pickup/NBT/stats confirm3. Detailed microscopic mining failure cause still unresolved.",
+      "no_boundary_relaxation": true,
+      "placement": "Current DRY_SUPPORTS rejects the observed spruce_log support before native placement; native Minecraft rejection is NOT established. I3 registry describes full-cube support without enumerating this support whitelist.",
+      "workbench": "Crafted table remained in inventory, not placed/opened; wooden pickaxe rejected with workbench_required."
+    },
+    "replays": [
+      {
+        "agent": "C3-a",
+        "bytes": 2879760,
+        "duration_ms": 318458,
+        "integrity": "PASS",
+        "name": "2026_11_06_06_15_37.mcpr",
+        "packets": 104185,
+        "sha256": "fdd0378a0742af5e0e786381c8dc92433dcf42d890cc3f0c366afe07771f7d87",
+        "viewer_playback": "PASS_SHORT_NATIVE_PLAYBACK"
+      },
+      {
+        "agent": "C3-b",
+        "bytes": 2553772,
+        "duration_ms": 299787,
+        "integrity": "PASS",
+        "name": "2026_11_06_06_16_02.mcpr",
+        "packets": 85207,
+        "sha256": "ab24648bc1afd6cba8e2ff4a4c32c8af97c85d6a1584cd81f94669477f5433a1",
+        "viewer_playback": "PASS_SHORT_NATIVE_PLAYBACK"
+      }
+    ],
+    "resource": {
+      "affinity_escape": false,
+      "affinity_is_not_reservation": true,
+      "mean_pool_cpu_percent": 28.410850256219323,
+      "minimum_available_RAM_GiB": 49.52859115600586,
+      "minimum_disk_free_GiB": 32.528350830078125,
+      "peak_1s_pool_cpu_percent": 40.12872004061619,
+      "samples": 284,
+      "violations": []
+    },
+    "status": "C3_EXECUTED_PARTIAL_INDIVIDUAL_PROGRESS_NO_SHARED_PROJECT",
+    "timing": {
+      "A_continued_seconds_after_B_agent_stop": 200.07172060012817,
+      "B_native_client_still_present_until_campaign_close": true,
+      "scope": "Known budget termination, not injected socket/process fault resilience"
+    },
+    "totals": {
+      "BCL_admitted_including_host": 40,
+      "captured_peer_reports": 3,
+      "chat_submissions": 6,
+      "handler_outcomes": {
+        "blocked": 11,
+        "succeeded": 11,
+        "timed_out": 1
+      },
+      "host_BCL_admitted": 14,
+      "model_BCL_admitted": 26,
+      "model_decisions_requests": 17,
+      "observed_walk_successes": 5,
+      "operation_handlers_executed": 23,
+      "provider_errors": 0,
+      "reported_tokens": 277128,
+      "settings_operations_applied": 1,
+      "skipped_stop_on_error": 2
+    },
+    "viewer": {
+      "A": "PASS_SHORT_NATIVE_PLAYBACK",
+      "B": "PASS_SHORT_NATIVE_PLAYBACK",
+      "full_visual_review": "NOT_RUN",
+      "native_normal_exit_replay_and_quit": true,
+      "original_bytes_unchanged": true,
+      "scope": "Both copies actually opened/played, private images show playhead/recorded scene/chat advancing; native traces corroborate client ticks, not a full visual audit"
+    }
+  },
+  "initial_limitations": [
+    "No strict financial/token guarantee; existing pi stored OAuth subscription route, no paid API introduced. Usage telemetry optional.",
+    "No full cause established for historical mining_not_observed.",
+    "No evidence of improved useful Survival/cooperation after corrections; B/C autonomy not evaluated.",
+    "No native held-movement cancellation or physical F8 rerun; historical held-input proof retained, new read-only task cancellation actually tested.",
+    "Global pool occupancy is not exclusive Minecraft utilization or CPU reservation."
+  ],
+  "live_experiments": {
+    "A": {
+      "BCL_with_7_host_queries": 10,
+      "actual_crafting_or_world_resource_progress": false,
+      "actual_inventory": [],
+      "chat_messages": 0,
+      "conclusion": "Information delivery fixed, but no measurable Survival improvement in this sample. Chat was absent, so chat overhead is not a necessary explanation.",
+      "decisions": 3,
+      "duration_seconds": 46.28575301170349,
+      "failures": {
+        "no_reachable_exposed_logs": 3
+      },
+      "inference_errors": 0,
+      "initial_height": 98.0,
+      "model": "openai-codex/gpt-6-luna",
+      "model_BCL": 3,
+      "native_clients": 1,
+      "native_nav_first_case": "ready, 22 cells / 32 edges; not proof of globally reachable resources",
+      "native_nav_in_each_input": true,
+      "native_release_and_closed_position_match": true,
+      "provider_requests": 3,
+      "saved_health": 20.0,
+      "server_exit": 0,
+      "status": "EXECUTED_TECHNICAL_PASS_GAMEPLAY_NO_PROGRESS",
+      "stop": "Existing identical-failure budget: C1 3 false, C1 3 true, C1 3 true",
+      "usage_telemetry": {
+        "input": 43474,
+        "output": 279,
+        "reasoning": 104,
+        "totalTokens": 43753
+      }
+    },
+    "B": {
+      "agents": [
+        {
+          "agent": "B2-a",
+          "blocked_reasons": {
+            "no_known_safe_route": 2,
+            "no_reachable_exposed_logs": 2
+          },
+          "chat_submissions": 0,
+          "commands_executed": {
+            "core:crafting.gather_wood": 2,
+            "core:movement.walk": 2
+          },
+          "decisions": 4,
+          "duration_seconds": 52.554415225982666,
+          "final_inventory": [],
+          "initial_position": [
+            -9.5,
+            95.0,
+            3.5
+          ],
+          "input_release_and_closed_position_verified": true,
+          "model_operations_submitted": 6,
+          "net_displacement_blocks": 1.199999988079071,
+          "operation_outcomes": {
+            "blocked": 4
+          },
+          "operations_admitted_including_7_host_queries": 13,
+          "provider_errors": [],
+          "provider_requests": 4,
+          "resource_crafting_placement_stats": {},
+          "saved_movement_counters": {
+            "minecraft:walk_one_cm": 121
+          },
+          "saved_position": [
+            -9.5,
+            95.0,
+            2.300000011920929
+          ],
+          "stop_reason": "failure_budget",
+          "tokens_telemetry": {
+            "input": 58903,
+            "output": 655,
+            "reasoning": 261,
+            "totalTokens": 59558
+          }
+        },
+        {
+          "agent": "B2-b",
+          "blocked_reasons": {
+            "no_known_safe_route": 3,
+            "no_reachable_exposed_logs": 5
+          },
+          "chat_submissions": 0,
+          "commands_executed": {
+            "core:crafting.gather_wood": 5,
+            "core:movement.walk": 8
+          },
+          "decisions": 13,
+          "duration_seconds": 192.7364866733551,
+          "final_inventory": [],
+          "initial_position": [
+            2.5,
+            96.0,
+            4.5
+          ],
+          "input_release_and_closed_position_verified": true,
+          "model_operations_submitted": 14,
+          "net_displacement_blocks": 3.2592487911589156,
+          "operation_outcomes": {
+            "blocked": 8,
+            "succeeded": 5
+          },
+          "operations_admitted_including_7_host_queries": 21,
+          "provider_errors": [],
+          "provider_requests": 13,
+          "resource_crafting_placement_stats": {},
+          "saved_movement_counters": {
+            "minecraft:jump": 2,
+            "minecraft:sprint_one_cm": 157,
+            "minecraft:walk_one_cm": 1286
+          },
+          "saved_position": [
+            5.5020551433071025,
+            96.0,
+            5.769002600160546
+          ],
+          "stop_reason": "failure_budget",
+          "tokens_telemetry": {
+            "input": 202310,
+            "output": 2482,
+            "reasoning": 1292,
+            "totalTokens": 204792
+          }
+        }
+      ],
+      "cohort": "series-002/B",
+      "executed_handlers": 17,
+      "model_decisions": 17,
+      "model_operations_submitted": 20,
+      "skipped_on_error": 3,
+      "status": "EXECUTED_NO_RESOURCE_PROGRESSION",
+      "walk_successes": 5
+    },
+    "C": {
+      "agents": [
+        {
+          "authoritative_stats": {
+            "minecraft:crafted": {
+              "minecraft:crafting_table": 1,
+              "minecraft:spruce_planks": 12,
+              "minecraft:stick": 4
+            },
+            "minecraft:mined": {
+              "minecraft:spruce_log": 3
+            },
+            "minecraft:picked_up": {
+              "minecraft:spruce_log": 3
+            }
+          },
+          "blocked_reasons": {
+            "deadline_exceeded": 1,
+            "equip_requested_block_first": 1,
+            "mining_not_observed": 3,
+            "no_known_safe_route": 1,
+            "unsupported_placement_support": 1,
+            "workbench_required": 1
+          },
+          "chat_submissions": 5,
+          "cycles": 13,
+          "duration_seconds": 270.6215476989746,
+          "game_mode": 0,
+          "handler_commands": {
+            "core:crafting.gather_wood": 4,
+            "core:crafting.item": 6,
+            "core:inventory.equip": 1,
+            "core:inventory.place": 2,
+            "core:movement.walk": 4
+          },
+          "handler_outcomes": {
+            "blocked": 7,
+            "succeeded": 9,
+            "timed_out": 1
+          },
+          "health": 20.0,
+          "id": "C3-a",
+          "native_cleanup_verified": true,
+          "native_inventory": {
+            "minecraft:crafting_table": 1,
+            "minecraft:spruce_planks": 6,
+            "minecraft:stick": 4
+          },
+          "native_unknown": false,
+          "net_displacement_blocks": 7.195495439046444,
+          "peer_reports_captured": 1,
+          "position_matches_save": true,
+          "provider_errors": 0,
+          "provider_requests": 13,
+          "saved_inventory": {
+            "minecraft:crafting_table": 1,
+            "minecraft:spruce_planks": 6,
+            "minecraft:stick": 4
+          },
+          "stop": "failure_budget",
+          "usage": {
+            "input": 212229,
+            "output": 3168,
+            "reasoning": 1664,
+            "totalTokens": 215397
+          }
+        },
+        {
+          "authoritative_stats": {},
+          "blocked_reasons": {
+            "no_reachable_exposed_logs": 4
+          },
+          "chat_submissions": 1,
+          "cycles": 4,
+          "duration_seconds": 70.52251267433167,
+          "game_mode": 0,
+          "handler_commands": {
+            "core:crafting.gather_wood": 4,
+            "core:movement.walk": 2
+          },
+          "handler_outcomes": {
+            "blocked": 4,
+            "succeeded": 2
+          },
+          "health": 20.0,
+          "id": "C3-b",
+          "native_cleanup_verified": true,
+          "native_inventory": {},
+          "native_unknown": false,
+          "net_displacement_blocks": 1.4190985455161298,
+          "peer_reports_captured": 2,
+          "position_matches_save": true,
+          "provider_errors": 0,
+          "provider_requests": 4,
+          "saved_inventory": {},
+          "stop": "failure_budget",
+          "usage": {
+            "input": 61238,
+            "output": 493,
+            "reasoning": 242,
+            "totalTokens": 61731
+          }
+        }
+      ],
+      "cohort": "series-003/C",
+      "cooperation": "NOT_DEMONSTRATED",
+      "decisions": 17,
+      "fresh_native_handshake": "PASS_RETAINED_SAME_PREPARED_LEASE",
+      "status": "EXECUTED_PARTIAL_INDIVIDUAL_PROGRESS_NO_SHARED_PROJECT"
+    }
+  },
+  "new_recordings": [
+    {
+      "agent": "A-a",
+      "bytes": 2261097,
+      "duration_ms": 71615,
+      "integrity": "PASS",
+      "name": "2026_11_05_21_53_53.mcpr",
+      "packets": 29245,
+      "sha256": "6adb24993bb14874e2354444e6b68ed6fed2cc200a190bc1f073f85673dca7d7"
+    },
+    {
+      "agent": "B-a",
+      "bytes": 2332459,
+      "duration_ms": 74988,
+      "integrity": "PASS",
+      "name": "2026_11_05_21_56_00.mcpr",
+      "packets": 35118,
+      "sha256": "1a7f91d2270dc22d986a2210af8bcfe05bb9cb1e866b9bb23158421adea7b286"
+    },
+    {
+      "agent": "B-b",
+      "bytes": 2086227,
+      "duration_ms": 35448,
+      "integrity": "PASS",
+      "name": "2026_11_05_21_56_43.mcpr",
+      "packets": 13235,
+      "sha256": "f9bda7f7c628dcf501db407e6cfa5a9ec677f6a5af9b436a278df2d5bd08b0c0"
+    },
+    {
+      "agent": "B2-a",
+      "bytes": 2509626,
+      "cohort": "series-002/B",
+      "duration_ms": 241762,
+      "integrity": "PASS",
+      "name": "2026_11_06_05_14_53.mcpr",
+      "packets": 69516,
+      "sha256": "6a08aeb1fbff596e66af2153c11ed70bea5ea0c36afea352c5f6bd352cbc12bb"
+    },
+    {
+      "agent": "B2-b",
+      "bytes": 2364460,
+      "cohort": "series-002/B",
+      "duration_ms": 222319,
+      "integrity": "PASS",
+      "name": "2026_11_06_05_15_18.mcpr",
+      "packets": 58410,
+      "sha256": "d0b1d4d4b1bf966093c4c442e46f06a744506641c9777d333059772c286f3aa4"
+    },
+    {
+      "agent": "C2-a",
+      "bytes": 2208027,
+      "cohort": "series-002/C-preflight",
+      "duration_ms": 36616,
+      "integrity": "PASS",
+      "name": "2026_11_06_05_19_32.mcpr",
+      "packets": 19932,
+      "sha256": "f45d6b439003e15586a2e520b81b2aad7c6aaad548c6757a11537fe2f0fb1046"
+    },
+    {
+      "agent": "C2-b",
+      "bytes": 2056844,
+      "cohort": "series-002/C-preflight",
+      "duration_ms": 13367,
+      "integrity": "PASS",
+      "name": "2026_11_06_05_19_58.mcpr",
+      "packets": 6961,
+      "sha256": "e33050e0956fb4fd8f38907dffbe3d473520251e1ffab9bf20dca798870831ff"
+    },
+    {
+      "agent": "C3-a",
+      "bytes": 2879760,
+      "cohort": "series-003/C",
+      "duration_ms": 318458,
+      "integrity": "PASS",
+      "name": "2026_11_06_06_15_37.mcpr",
+      "packets": 104185,
+      "sha256": "fdd0378a0742af5e0e786381c8dc92433dcf42d890cc3f0c366afe07771f7d87",
+      "viewer_playback": "PASS_SHORT_NATIVE_PLAYBACK"
+    },
+    {
+      "agent": "C3-b",
+      "bytes": 2553772,
+      "cohort": "series-003/C",
+      "duration_ms": 299787,
+      "integrity": "PASS",
+      "name": "2026_11_06_06_16_02.mcpr",
+      "packets": 85207,
+      "sha256": "ab24648bc1afd6cba8e2ff4a4c32c8af97c85d6a1584cd81f94669477f5433a1",
+      "viewer_playback": "PASS_SHORT_NATIVE_PLAYBACK"
+    }
+  ],
+  "no_commit_push_deploy_upload_release": true,
+  "original_counts": {
+    "BCL_total_with_host": 76,
+    "V0_navigation_outputs_discarded": 42,
+    "aggregate_resource_gain": "A four dirt, B empty; no tools/building/crafting/shared project",
+    "blocked_handlers": 14,
+    "decisions": 60,
+    "empty_BCL_decisions": 2,
+    "execution_envelope_seconds_sum": 330.48065209388733,
+    "host_BCL": 8,
+    "invalid_BCL": 0,
+    "model_BCL": 68,
+    "model_BCL_per_decision": 1.1333333333333333,
+    "model_contexts_with_navigation": 0,
+    "model_request_wall_seconds_sum": 385.244,
+    "operation_count_histogram": {
+      "0": 2,
+      "1": 48,
+      "2": 10
+    },
+    "primary_classifications": {
+      "communication": 2,
+      "execution_failure": 13,
+      "necessary_observation_attempt": 13,
+      "productive_action": 3,
+      "repetition": 29
+    },
+    "readonly_commands": 52,
+    "successful_handlers": 54,
+    "time_caveat": "Sums overlap across agents; envelope includes queue/RPC. Private thinking, pure planning/chat generation time not separately observable.",
+    "verified_resource_intervals": [
+      {
+        "blocked": true,
+        "decision": "agent-a-006",
+        "delta": {
+          "minecraft:dirt": 2
+        }
+      },
+      {
+        "blocked": false,
+        "decision": "agent-a-017",
+        "delta": {
+          "minecraft:dirt": 1
+        }
+      },
+      {
+        "blocked": false,
+        "decision": "agent-a-019",
+        "delta": {
+          "minecraft:dirt": 1
+        }
+      }
+    ]
+  },
+  "original_decisions_reconstructed": 60,
+  "original_per_agent": {
+    "agent-a": {
+      "V0_navigation_outputs_discarded": 21,
+      "decisions": 30,
+      "execution_envelope_seconds": 201.2673945426941,
+      "model_wall_seconds": 189.732,
+      "navigation_in_any_input": false,
+      "operations": 38,
+      "operations_per_decision": {
+        "1": 22,
+        "2": 8
+      },
+      "positive_resource_intervals": [
+        {
+          "decision": "agent-a-006",
+          "delta": {
+            "minecraft:dirt": 2
+          },
+          "failure": [
+            "local_activity_radius_exceeded"
+          ]
+        },
+        {
+          "decision": "agent-a-017",
+          "delta": {
+            "minecraft:dirt": 1
+          },
+          "failure": []
+        },
+        {
+          "decision": "agent-a-019",
+          "delta": {
+            "minecraft:dirt": 1
+          },
+          "failure": []
+        }
+      ],
+      "primary_categories": {
+        "execution_failure": 6,
+        "necessary_observation_attempt": 9,
+        "productive_action": 3,
+        "repetition": 12
+      },
+      "read_only_commands": 29
+    },
+    "agent-b": {
+      "V0_navigation_outputs_discarded": 21,
+      "decisions": 30,
+      "execution_envelope_seconds": 129.21325755119324,
+      "model_wall_seconds": 195.512,
+      "navigation_in_any_input": false,
+      "operations": 30,
+      "operations_per_decision": {
+        "0": 2,
+        "1": 26,
+        "2": 2
+      },
+      "positive_resource_intervals": [],
+      "primary_categories": {
+        "communication": 2,
+        "execution_failure": 7,
+        "necessary_observation_attempt": 4,
+        "repetition": 17
+      },
+      "read_only_commands": 23
+    }
+  },
+  "original_timeline": [
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-001",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 1,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          54966,
+          62484
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904023.278464,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-002",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 2,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          69466,
+          73059
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904040.784033,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-003",
+      "failure_reasons": [
+        "mining_not_observed"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 3,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          81713,
+          112561
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904051.4069731,
+      "verified_progress": "position_change_only_not_automatically_useful"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-004",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 4,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          120406,
+          124093
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904090.801403,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-005",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 5,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          129146,
+          133016
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904102.3798432,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-006",
+      "failure_reasons": [
+        "local_activity_radius_exceeded"
+      ],
+      "inventory_delta_at_next_observation": {
+        "minecraft:dirt": 2
+      },
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 6,
+      "primary_category": "productive_action",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          138292,
+          162012
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "execution_failure_with_observed_partial_effect",
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904111.2538111,
+      "verified_progress": "resource_inventory_gain"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-007",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 7,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          169642,
+          173551
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904140.2646728,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-008",
+      "failure_reasons": [
+        "no_reachable_exposed_blocks"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 8,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          179168,
+          186765
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication",
+        "note_says_avoid_speculative_gather_but_source_submits_gather"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904151.8512177,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-009",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 9,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          193926,
+          197362
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904165.0388098,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-010",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 10,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          207750,
+          211471
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904175.5862744,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-011",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 11,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          217005,
+          220636
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904189.6873906,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-012",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 12,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          230904,
+          237998
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904198.8701875,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-013",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 13,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          247622,
+          251543
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904216.2244997,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-014",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 14,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          259913,
+          263567
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904229.7853103,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-015",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 15,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          269673,
+          273135
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904241.8772175,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-016",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 16,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          285809,
+          289447
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904251.4258754,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-017",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {
+        "minecraft:dirt": 1
+      },
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 17,
+      "primary_category": "productive_action",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          300262,
+          319358
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_input_contains_inventory_gain; next_note_requests_verification; exact understanding_not_inferred",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904267.6940403,
+      "verified_progress": "resource_inventory_gain"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-018",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 18,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          327333,
+          330925
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904297.6202,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-019",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {
+        "minecraft:dirt": 1
+      },
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 19,
+      "primary_category": "productive_action",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          338272,
+          343444
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_input_contains_inventory_gain; next_note_requests_verification; exact understanding_not_inferred",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904309.1014783,
+      "verified_progress": "resource_inventory_gain"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-020",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 20,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          351171,
+          353677
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904321.6312912,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-021",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 21,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          362237,
+          364215
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904331.8002155,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-022",
+      "failure_reasons": [
+        "no_reachable_exposed_blocks"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 22,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          373526,
+          379448
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904342.5140262,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-023",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 23,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          387072,
+          391505
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904357.8257284,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-024",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 24,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          399550,
+          402551
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904369.7387965,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-025",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 25,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          408161,
+          412942
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904380.8378696,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-026",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 26,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          417669,
+          422136
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904391.1628346,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-027",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 27,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          433227,
+          437426
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904400.4458773,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-028",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 28,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          446655,
+          451231
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904415.7201562,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-029",
+      "failure_reasons": [
+        "mining_not_observed"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 29,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          460761,
+          476836
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904429.4906166,
+      "verified_progress": "position_change_only_not_automatically_useful"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-a",
+      "decision_id": "agent-a-030",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "decision budget terminal; no next inference",
+      "ordinal": 30,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          483961,
+          488132
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_39_37.mcpr",
+        "sha256": "8a4cf02644d16c6c8c2d2fc026efeb969e0f6474621c24052d190fefecfa4df3"
+      },
+      "result_recognition": "not_assessable_no_next_decision",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904455.1318698,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-001",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 1,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          26837,
+          34504
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904023.2287173,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-002",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 2,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          38941,
+          45986
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "communication",
+        "note_action_parameter_or_action_mismatch"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904038.5162518,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-003",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 3,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          50628,
+          57562
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication",
+        "note_action_parameter_or_action_mismatch"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904049.9226289,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-004",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 4,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          61830,
+          65451
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904061.5386066,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-005",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 5,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          75897,
+          79111
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904069.463649,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 0,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-006",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 6,
+      "primary_category": "communication",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          92947,
+          92947
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "no_BCL_not_inherently_invalid",
+        "communication"
+      ],
+      "submitted_operations": 0,
+      "timestamp": 1793904083.1116066,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-007",
+      "failure_reasons": [
+        "no_reachable_exposed_blocks"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 7,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          99299,
+          106619
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904096.8726752,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-008",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 8,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          112013,
+          115690
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904110.5803382,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-009",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 9,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          120672,
+          124308
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904119.6518385,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-010",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 10,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          129070,
+          132722
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904128.245679,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-011",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 11,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          138301,
+          141908
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904136.7054052,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-012",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 12,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          152170,
+          155656
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904145.9055915,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-013",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 13,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          164561,
+          167711
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904159.5654263,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-014",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 14,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          175719,
+          179075
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904171.5748465,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-015",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 15,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          186656,
+          190145
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904183.0935786,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-016",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 16,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          203588,
+          206867
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904194.1460173,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-017",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 17,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          223169,
+          227018
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904210.7588232,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-018",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 18,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          232250,
+          235566
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904231.1387808,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-019",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 19,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          240734,
+          244227
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904239.4579105,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-020",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 20,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          253546,
+          257218
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904248.2488887,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-021",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 21,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          262824,
+          266395
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904261.1058342,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-022",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 22,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          279329,
+          282795
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904270.4128468,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-023",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 23,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          293766,
+          297309
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904286.7289157,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-024",
+      "failure_reasons": [
+        "no_reachable_exposed_blocks"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 24,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          310828,
+          318705
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904301.1790183,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-025",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 25,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          327529,
+          331133
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904322.633939,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 0,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-026",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 26,
+      "primary_category": "communication",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          337236,
+          337236
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "no_BCL_not_inherently_invalid",
+        "communication"
+      ],
+      "submitted_operations": 0,
+      "timestamp": 1793904335.0298808,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-027",
+      "failure_reasons": [
+        "no_reachable_exposed_logs"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 27,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          345841,
+          353353
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_acknowledges_failure; partial resource recognition requires separate evidence",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904341.3063588,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-028",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 28,
+      "primary_category": "necessary_observation_attempt",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          365544,
+          370758
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "see_next_note_and_memory; hidden_reasoning_not_inferred",
+      "secondary_categories": [
+        "information_requested_but_navigation_not_returned_to_next_context",
+        "communication",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904357.323147,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 2,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-029",
+      "failure_reasons": [],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "normal terminal-feedback loop plus configured wait, NOT chat/proximity event callback",
+      "ordinal": 29,
+      "primary_category": "repetition",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          375576,
+          380476
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "next_note_continues_refresh; no newly usable navigation delivered",
+      "secondary_categories": [
+        "observation",
+        "no_material_state_change",
+        "navigation_discarded_by_host_history"
+      ],
+      "submitted_operations": 2,
+      "timestamp": 1793904374.7381742,
+      "verified_progress": "no_verified_material_progress"
+    },
+    {
+      "accepted_operations": 1,
+      "agent_id": "agent-b",
+      "decision_id": "agent-b-030",
+      "failure_reasons": [
+        "no_reachable_exposed_blocks"
+      ],
+      "inventory_delta_at_next_observation": {},
+      "next_decision_trigger": "decision budget terminal; no next inference",
+      "ordinal": 30,
+      "primary_category": "execution_failure",
+      "replay_reference": {
+        "approximate_execution_interval_ms": [
+          388057,
+          396117
+        ],
+        "clock_basis": "Wall time versus ReplayMod metadata date; approximate window, not individual packet/action proof",
+        "name": "2026_11_05_19_40_02.mcpr",
+        "sha256": "08204c0c1a5c433b8957d5ce04b49d91662f30375028709cc9f008cf9867f43d"
+      },
+      "result_recognition": "not_assessable_no_next_decision",
+      "secondary_categories": [
+        "communication"
+      ],
+      "submitted_operations": 1,
+      "timestamp": 1793904384.508585,
+      "verified_progress": "no_verified_material_progress"
+    }
+  ],
+  "prelaunch_incident": "A first master invocation resolved the venv symlink to system Python lacking pydantic; failed before STARTED marker/ledger/native/model creation. Original log retained; corrected invocation used venv path. Not an uncertain action retry.",
+  "previous_C2_blocked": {
+    "BCL_operations": 0,
+    "endpoint": "instance A loopback endpoint 17701",
+    "exact_phase": "First Session.start native Bridge.connect; no native RPC journal, gateway bind/cert directory or BCL admission followed",
+    "exception_message": "timed out while waiting for handshake response",
+    "exception_type": "TimeoutError",
+    "mandatory_gate": "Native TLS/WebSocket connection establishment",
+    "model_requests": 0,
+    "native_clients_started": 2,
+    "native_replays": 2,
+    "owned_controls_acquired_or_released_observation": "No client-acknowledged control connection; possible server-side handshake/lease completion unknown. No RPC/BCL dispatched. Release trace NOT CHECKED.",
+    "reconnect_or_request_retry": false,
+    "server_exit": 0,
+    "status": "BLOCKED_BEFORE_AUTONOMY",
+    "underlying_cause": "UNRESOLVED; no server/render/network cause inferred from timeout alone"
+  },
+  "previous_authorized_continuation_C2": {
+    "B_admission_cpu_percent": 33.867348986343124,
+    "B_totals": {
+      "blocked_gather_wood": 7,
+      "blocked_walks": 5,
+      "chat_messages": 0,
+      "decisions": 17,
+      "executed_operation_handlers": 17,
+      "model_operations_submitted": 20,
+      "native_replays": 2,
+      "resources_crafted_placed_or_retained": 0,
+      "skipped_after_prior_operation_blocked": 3,
+      "walk_attempts": 10,
+      "walk_successes": 5
+    },
+    "C": {
+      "BCL_operations": 0,
+      "endpoint": "instance A loopback endpoint 17701",
+      "exact_phase": "First Session.start native Bridge.connect; no native RPC journal, gateway bind/cert directory or BCL admission followed",
+      "exception_message": "timed out while waiting for handshake response",
+      "exception_type": "TimeoutError",
+      "mandatory_gate": "Native TLS/WebSocket connection establishment",
+      "model_requests": 0,
+      "native_clients_started": 2,
+      "native_replays": 2,
+      "owned_controls_acquired_or_released_observation": "No client-acknowledged control connection; possible server-side handshake/lease completion unknown. No RPC/BCL dispatched. Release trace NOT CHECKED.",
+      "reconnect_or_request_retry": false,
+      "server_exit": 0,
+      "status": "BLOCKED_BEFORE_AUTONOMY",
+      "underlying_cause": "UNRESOLVED; no server/render/network cause inferred from timeout alone"
+    },
+    "agents": [
+      {
+        "agent": "B2-a",
+        "blocked_reasons": {
+          "no_known_safe_route": 2,
+          "no_reachable_exposed_logs": 2
+        },
+        "chat_submissions": 0,
+        "commands_executed": {
+          "core:crafting.gather_wood": 2,
+          "core:movement.walk": 2
+        },
+        "decisions": 4,
+        "duration_seconds": 52.554415225982666,
+        "final_inventory": [],
+        "initial_position": [
+          -9.5,
+          95.0,
+          3.5
+        ],
+        "input_release_and_closed_position_verified": true,
+        "model_operations_submitted": 6,
+        "net_displacement_blocks": 1.199999988079071,
+        "operation_outcomes": {
+          "blocked": 4
+        },
+        "operations_admitted_including_7_host_queries": 13,
+        "provider_errors": [],
+        "provider_requests": 4,
+        "resource_crafting_placement_stats": {},
+        "saved_movement_counters": {
+          "minecraft:walk_one_cm": 121
+        },
+        "saved_position": [
+          -9.5,
+          95.0,
+          2.300000011920929
+        ],
+        "stop_reason": "failure_budget",
+        "tokens_telemetry": {
+          "input": 58903,
+          "output": 655,
+          "reasoning": 261,
+          "totalTokens": 59558
+        }
+      },
+      {
+        "agent": "B2-b",
+        "blocked_reasons": {
+          "no_known_safe_route": 3,
+          "no_reachable_exposed_logs": 5
+        },
+        "chat_submissions": 0,
+        "commands_executed": {
+          "core:crafting.gather_wood": 5,
+          "core:movement.walk": 8
+        },
+        "decisions": 13,
+        "duration_seconds": 192.7364866733551,
+        "final_inventory": [],
+        "initial_position": [
+          2.5,
+          96.0,
+          4.5
+        ],
+        "input_release_and_closed_position_verified": true,
+        "model_operations_submitted": 14,
+        "net_displacement_blocks": 3.2592487911589156,
+        "operation_outcomes": {
+          "blocked": 8,
+          "succeeded": 5
+        },
+        "operations_admitted_including_7_host_queries": 21,
+        "provider_errors": [],
+        "provider_requests": 13,
+        "resource_crafting_placement_stats": {},
+        "saved_movement_counters": {
+          "minecraft:jump": 2,
+          "minecraft:sprint_one_cm": 157,
+          "minecraft:walk_one_cm": 1286
+        },
+        "saved_position": [
+          5.5020551433071025,
+          96.0,
+          5.769002600160546
+        ],
+        "stop_reason": "failure_budget",
+        "tokens_telemetry": {
+          "input": 202310,
+          "output": 2482,
+          "reasoning": 1292,
+          "totalTokens": 204792
+        }
+      }
+    ],
+    "assessment": {
+      "all_owned_native_server_gateway_model_display_resources_closed": true,
+      "causality": "Same corrected runtime but different world spawn poses/objective; cannot attribute all variation to the correction alone",
+      "cooperation": "NOT_EVALUATED; C inference never started",
+      "decision_to_action_conversion": "PARTIAL positive evidence: 10 explicit walk attempts, 5 observed arrivals; unlike original zero explicit M0",
+      "exploration": "Closed movement counters/positions corroborate locomotion, not resource success",
+      "native_viewer": "NOT_RUN after required C handshake gate; prepared viewer host was never launched",
+      "no_commit_push_upload_deploy_release": true,
+      "no_live_source_patch": true,
+      "recording_integrity": "Four new originals copied and ZIP/CRC/full packet framing verified",
+      "survival_progression": "NOT_DEMONSTRATED; both final inventories empty, no mined/crafted/placed resources"
+    },
+    "authorization": "Explicit operator Fahre fort after prior stop; fresh worlds/scopes, no prior ledger restart or action replay",
+    "baseline_cpu_percent": 5.206710899844716,
+    "budgets": {
+      "aggregate_authorized_maximum_for_this_continuation": 123,
+      "continuation_global_seconds": 5400,
+      "cumulative_admitted_BCL": 58,
+      "cumulative_task_requests": 20,
+      "model_concurrency_cap": 2,
+      "new_admitted_BCL": 34,
+      "new_budget_state": "STOPPED",
+      "new_request_cap": 120,
+      "new_requests_spent": 17,
+      "original_task_request_cap": 150,
+      "per_agent_BCL_cap": 300,
+      "per_agent_decisions": 30,
+      "per_experiment_seconds": 1800,
+      "prior_admitted_BCL": 24,
+      "prior_requests_spent": 3,
+      "unresolved_model_reservations": 0
+    },
+    "checks": {
+      "directory": "build/autonomous-stagnation/continuation-002/checks",
+      "fresh_TLS_interop": 10,
+      "fresh_full_python": 724,
+      "fresh_gradle": "PASS",
+      "fresh_mutations_killed": 137,
+      "private_host_tests": 6,
+      "runtime_python_source_unchanged_from_previous_qualification": 58
+    },
+    "cohort": "series-002",
+    "resource_B": {
+      "affinity_escape": false,
+      "mean_pool_cpu_percent": 29.633107720279167,
+      "minimum_available_RAM_GiB": 50.481353759765625,
+      "minimum_free_disk_GiB": 32.72503662109375,
+      "not_reservation": true,
+      "peak_1s_pool_cpu_percent": 45.21918212229386,
+      "samples": 206,
+      "violations": []
+    },
+    "status": "B_EXECUTED_C_BLOCKED_BEFORE_AUTONOMY"
+  },
+  "private_complete_timeline": "build/autonomous-stagnation/analysis-001/timeline-private.jsonl",
+  "private_timeline_sha256": "b314b44e5e0dcd9391bd811b87277d54651982441e0f0ad93a3f095850259681",
+  "replay_analysis": {
+    "new_cohorts": "Three new finalized replays (A1/B2), CRC/full framing PASS. Native viewer NOT RUN after mandatory stop; no live experiment relaunched.",
+    "original": "Original native viewer samples and images retained; decision windows now linked to original replay clock and server logs. Machine records support conclusions; visual impressions not substituted."
+  },
+  "schema": "blockwire-autonomous-stagnation-analysis/v1",
+  "shutdown": {
+    "all_frozen_new_runtime_source_hashes_verify": true,
+    "configs_disabled": true,
+    "latest_continuation_resources_closed": true,
+    "latest_native_handshake_timeouts_before_gameplay": 0,
+    "latest_uncertain_gameplay_mutations": 0,
+    "new_native_transport_UNKNOWN": 0,
+    "new_unresolved_model_requests": 0,
+    "original_1305_private_hashes_verify": true,
+    "owned_JVMs_model_workers_Xephyr99_closed": true,
+    "owned_native_and_gateway_server_ports_closed": true,
+    "previous_C2_native_handshake_timeouts_before_gameplay": 1
+  },
+  "single_comparison": {
+    "BCL_total_with_host_postreads": 80,
+    "M0_operations": 8,
+    "V2_operations": 9,
+    "common_original_source_hashes_equal": {
+      "agent.py": true,
+      "bcl/registry.py": true,
+      "bcl/runtime.py": true,
+      "recipes.py": true,
+      "skills/mining.py": true,
+      "skills/motion.py": true,
+      "skills/walking.py": true,
+      "skills/woodcutting.py": true
+    },
+    "configured_model": "gpt-6.1-sol",
+    "decisions": 12,
+    "frame_limit": 24,
+    "initial_height": 90,
+    "model_BCL": 53,
+    "navigation_delivered_inputs": 12,
+    "verified_progress": "One spruce log, planks, crafting table crafted and placed; not complete Survival.",
+    "why_difference": "Earlier model used delivered collision information for eight walks and nine explicit aims to reach a log, then crafted/placed a table. Multiplayer lacked the collision data, chose no explicit movement, spawned higher and had different model/prompt/batching. These are verified differences, not a single-cause proof."
+  },
+  "status": "PARTIAL_MATERIAL_PROGRESS_C3_COOPERATION_NOT_DEMONSTRATED",
+  "tests": {
+    "TLS_interop": 10,
+    "all_mutations": "KILLED",
+    "checks_root": "build/autonomous-stagnation/analysis-001/checks",
+    "gradle": "PASS",
+    "mutations": {
+      "auto_event": 12,
+      "bcl": 50,
+      "decision_context": 14,
+      "feedback": 16,
+      "gateway": 14,
+      "model_limit": 17,
+      "soak": 14
+    },
+    "mutations_total": 137,
+    "new_tests": 15,
+    "private_host_tests": 6,
+    "python_tests": 724,
+    "scope": "Actual rerun, not inherited 709/123. Deterministic tests alone are not live gameplay proof."
+  },
+  "timeline_scope": "Full actual contexts, memory, model response, typed BCL, terminal execution, inventory/position intervals, next reported rationale, server and native events. Missing hidden reasoning/per-block attribution not invented; replay clock windows approximate."
+}

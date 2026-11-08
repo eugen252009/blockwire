@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "status": "CONTRACT_PASS_COMPILER_ONLY",
+  "compiler": "litematic-grounded-v1",
+  "format": "blockwire-grounded-build-plan-v1",
+  "execution_ready": false,
+  "graphical_acceptance": "NOT_RUN",
+  "gameplay_started": false,
+  "scope": "Offline Litematica import and grounded Creative desired-state specification. NOT a runnable BCL program or completed building bot.",
+  "policy": {
+    "creative_for_materials_only": true,
+    "flight": false,
+    "teleport": false,
+    "slash_commands": false,
+    "direct_world_writes": false,
+    "clear_schematic_air": false
+  },
+  "implementation": {
+    "importer": "python/src/blockwire/litematic.py",
+    "compiler_cli": "python/src/blockwire/schematic.py",
+    "command": "python -m blockwire.schematic",
+    "installed_entry_point": "blockwire-schematic",
+    "documentation": "docs/schematic-compiler.md",
+    "java_transport_mcp_changed": false,
+    "survival_placement_contracts_changed": false,
+    "input_file_modified": false
+  },
+  "supplied_input": {
+    "path": "schemas/starter house.litematic",
+    "sha256": "31c374eebd93ffb53a92809b8f978e3e6b23379adb9ed430d7b140fc3563fbd7",
+    "litematic_version": 7,
+    "minecraft_data_version": 5023,
+    "selection_size": [
+      32,
+      16,
+      32
+    ],
+    "occupied_size": [
+      14,
+      10,
+      14
+    ],
+    "exact_target_states": 658,
+    "placement_operations": 656,
+    "upper_door_verifications": 2,
+    "neighbor_state_verifications": 163,
+    "preview": "build/litematic/starter-house-001",
+    "preview_origin": [
+      0,
+      0,
+      0
+    ],
+    "preview_origin_is_authorized_build_site": false,
+    "independent_offline_comparison": "PASS: all 658 coordinates, IDs and properties; item counts and artifact hashes; recompilation matches",
+    "independent_decoder": "tests/building/anvil.py NBT parser plus separate whole-stream big-integer palette extraction, in private offline auditor only"
+  },
+  "checks": {
+    "focused": {
+      "status": "PASS",
+      "tests": 30
+    },
+    "python_working_tree": {
+      "status": "PASS",
+      "tests": 885,
+      "previous_dirty_scope_preserved": true
+    },
+    "gradle_check": {
+      "status": "PASS"
+    },
+    "tls_interop": {
+      "status": "PASS",
+      "checks": 10,
+      "minecraft_world_started": false
+    },
+    "isolated_mutations": {
+      "status": "PASS",
+      "killed": 27,
+      "invalid_or_survived": 0,
+      "runner": "tests/run_schematic_mutations.py"
+    },
+    "index": {
+      "status": "PASS"
+    },
+    "git_diff_check": {
+      "status": "PASS"
+    },
+    "previous_work": {
+      "status": "PASS",
+      "files": 71
+    },
+    "git_index_empty": true
+  },
+  "remaining_execution_blockers": [
+    "Native Creative material selection and non-consuming placement verification",
+    "Exact native state placement/observation for logs, stairs, panes and doors",
+    "Grounded runtime access, bounded jumping/scaffolding and safe return",
+    "Owned scaffold cleanup, final structure validation and guarded no-replay execution"
+  ],
+  "limitations": [
+    "Layer order and blueprint supports are not verified walking routes, standing poses or an executable schedule.",
+    "No flight/Creative action guards were added to a runner because this change has no execution path.",
+    "No Minecraft building, inventory supply, scaffolding or graphical acceptance was performed.",
+    "Litematica v6/v7 and the documented small dry vanilla catalogue only; no DataFixer, rotations, entities, block entities or scheduled ticks.",
+    "This does not resume or qualify any previous gameplay or benchmark scope.",
+    "User schematic, generated private plans and private check artifacts are not bundled."
+  ],
+  "base_commit": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+  "source_sha256": {
+    "python/src/blockwire/litematic.py": "0274f40bb43d06b7a44446c94adb092295e551e5600376f69570575feb763263",
+    "python/src/blockwire/schematic.py": "fcc7281e134ce9390ea80983c1e77f03e01317d87977af628904cc85b384a695",
+    "python/pyproject.toml": "386363a767991280be63cc1faae0c576bf65378dc9b8d5a74fb1d6a810bc5466",
+    "python/tests/test_schematic.py": "46cd2f203edab33eb16266f59fab4a9de5c1c95e6815fc9bfcde8c3c08526e68",
+    "tests/run_schematic_mutations.py": "5aa2a84ace542f65dd570ed3352da27588f986e680f396375ab1a90f8094276e",
+    "docs/schematic-compiler.md": "df3858abbf86ebca104050d70f1e0822fd52bb8151cba158b906765722cd9c53"
+  },
+  "checks_sha256": {
+    "build/litematic/checks-001/python.log": "838307762d5f172e09f9b06e5328e36fc7c1ae0bffe7faf1796f53111813a696",
+    "build/litematic/checks-001/gradle.log": "fe379dde3b27d2737c7f9facbdd0e907aa4439d26d9da47013afc9554466b56b",
+    "build/litematic/checks-001/tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/litematic/checks-001/focused-02.log": "7b10ba098828517c9afaf305e9b8b22c15982dc4ddee356fff4be7028eb50acb",
+    "build/litematic/checks-001/mutations-01/results.json": "0b1ad075ec801281c1093c68a93e7ee14f11a01f8f68a735568231b15cb4c16a",
+    "build/litematic/checks-001/audit-input-private.json": "e600b0f1dbe9cbf3d57ba1729a922864ea3b9ed14b72ff2897d38cc1018fa03e",
+    "build/litematic/checks-001/ccc.log": "8f9da1c373d7302fc4e704e3d895e509d12437fc632b7d6540f5027bdcea5f94"
+  }
+}

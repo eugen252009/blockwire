@@ -1,0 +1,33 @@
+{
+  "historical_manifests": {
+    "analysis-001": {
+      "files_verified": 772,
+      "manifest_sha256": "f4546a5c15cf0edb8c46a3f5951d179d377689bd9421674af07050f81a8f009a"
+    },
+    "continuation-002": {
+      "files_verified": 777,
+      "manifest_sha256": "c0f9d3f4fb1ca80b634cfe2ce7f5ccf1700782fa23896b1b23b0aa48d9ace290"
+    }
+  },
+  "initial_public_snapshots_preserved": true,
+  "no_credentials_keys_or_recordings_distributed": true,
+  "original_cooperation_files_verified": 1305,
+  "private_files": 676,
+  "private_manifest": "build/autonomous-stagnation/continuation-003/hashes-private.json",
+  "private_manifest_sha256": "58c9d0a741bcb6fa89a2649d209bc0cf36336e5ba415b88c39d41112f94816e0",
+  "public_files": {
+    "CHANGELOG.md": "59cecb4b4460b8a4bf80b00c9cd9de41c5ec6f61eee407d9f923ad50c39e1a09",
+    "README.md": "181201da9e3def5b508f368a5fa22b8d8b8d04268fe893558cfcd5e5c44acce0",
+    "docs/blockwire-autonomous-stagnation-analysis.md": "3a5acbfb769511042834df432763bd79f1e82b9603b4b9997ed1cfa4b4505b82",
+    "docs/evidence/autonomous-stagnation-analysis.json": "ab8cbc0a7a31127b2fbacda1e3a7e08cfb5d911963521312b54697efe67b6a81",
+    "python/src/blockwire/bcl/client.py": "d6643efdfe03ee09a3f905760e7c5e3c26355e7b261b3e114c73d905d9633329",
+    "python/src/blockwire/bcl/evidence.py": "6b2f58bc1f3d5cb410436d5b8927d421f54ac3b1705b3233f004e769bb414c09",
+    "python/src/blockwire/bcl/runtime.py": "658466cfec47985bc2d9075de413ed55704cb0c8a9027aa3af4e5e01e223ba6f",
+    "python/src/blockwire/decision_context.py": "4e11fa6f49ae20fb48f74966942e17e7b11432aea03840b2f564cf4cc8d52210",
+    "python/src/blockwire/model_limits.py": "532da351e59852dfb18948bb2401cc5f1d02d2f4cf148c7a5a44abc992da9962",
+    "python/tests/test_decision_context.py": "66a20c51da93cdc12ca442861bc5bde16a95abe67ea31a890892e833901b6117",
+    "tests/run_decision_context_mutations.py": "7f920324341350992be2a019e8e0ef2d1fe3bbd401e65d0da46f697754e9580b"
+  },
+  "raw_contexts_worlds_chats_recordings_identities_and_host_harnesses_remain_private": true,
+  "schema": "blockwire-stagnation-evidence-hashes/v3"
+}

@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "scope": "search-hidden-002",
+  "status": "SCOPED_PASS",
+  "source_commit": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+  "runtime_identical_to_hidden_001": true,
+  "synthetic_fixture": true,
+  "natural_forestry": false,
+  "fresh_world_and_identity": true,
+  "source_worktree_contains_separate_pending_work": true,
+  "private_lifecycle_helpers_frozen": true,
+  "route": "real gpt-6-luna -> MCP stdio -> authenticated machine-v1 TLS -> native Minecraft",
+  "display": {
+    "hidden": true,
+    "authenticated": true,
+    "owned_parent_unmapped": true,
+    "actual_child_verified_before_native_connection": true
+  },
+  "bounds": {
+    "test_seconds": 480,
+    "outer_seconds": 900,
+    "model_calls": 6,
+    "camera_actions": 1,
+    "look_around_calls": 1,
+    "search_calls": 3,
+    "native_search_pages": 102
+  },
+  "provider_probe_inference_calls": 0,
+  "retries": 0,
+  "results": {
+    "status": "SCOPED_PASS",
+    "model_calls": 6,
+    "native_pages": 102,
+    "rays": 9627,
+    "scans": [
+      {
+        "target": "logs",
+        "range": 32,
+        "reason": "targets_observed",
+        "matches": 1,
+        "distances_blocks": [
+          19.558020686842788
+        ],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4597,
+        "independent_ray_and_closed_save_audit": "PASS"
+      },
+      {
+        "target": "minecraft:birch_log",
+        "range": 32,
+        "reason": "target_not_seen",
+        "matches": 0,
+        "distances_blocks": [],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4800,
+        "independent_ray_and_closed_save_audit": "PASS"
+      },
+      {
+        "target": "logs",
+        "range": 8,
+        "reason": "target_not_seen",
+        "matches": 0,
+        "distances_blocks": [],
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4700,
+        "independent_ray_and_closed_save_audit": "PASS"
+      }
+    ],
+    "coarse_missed_exposed_log": true,
+    "missing_crosshair_anchor": true,
+    "initial_final_and_saved_position_unchanged": true,
+    "inventory_empty": true,
+    "health": 20,
+    "all_owned_processes_ports_display_closed": true,
+    "host_cleanup": "released",
+    "unknown": false,
+    "declared_pre_player_fixture": true,
+    "model_summary_not_used_as_evidence": true,
+    "graphical_machine_mcp": "PASS",
+    "ordinary_mcp_graphical": "NOT_RUN",
+    "harvesting": "NOT_RUN",
+    "natural_survival_search": "NOT_RUN",
+    "replay_viewer": "NOT_RUN"
+  },
+  "native_jar_sha256": "145b90ba89307b40d5f9f6feb5fad541596721d6156dd509752a2cc4d88cf7c6",
+  "private_evidence_sha256": {
+    "build/search/hidden-002/prepared-private.json": "e094d3fd9d0c205360dd6dcdbdeba415287f6705ff46cc289cf449fdfcf6b0bd",
+    "build/search/hidden-002/source-commit-private.json": "80cd98346839eb9b90d3432ad5e68e9750e15ea132107ac5faa024c8147f26cf",
+    "build/search/hidden-002/source-freeze-private.json": "3fa944c4a59587f1709cccf241a5374fa7fe3aebf10246cfab787187e5a6c014",
+    "build/search/hidden-002/native-source-freeze-private.json": "f59b35ebaa2e013c3bc66520ea2d4c25174423d15bfa40961c8ad63c0014cb7a",
+    "build/search/hidden-002/host-source-freeze-private.json": "a209e3b9981373e7de9979233ed709d871e295785aac220115a6b64f36c20987",
+    "build/search/hidden-002/host-tests-private.log": "58976e1ebef02b28fad1bcf93e82831c9ac8cc4bf93fac3ea64e4eed88432c50",
+    "build/search/hidden-002/provider-probe-private.json": "e12fe5f032b28c85d404fb24352fc9cd107c980696770b0892288bc55451dad3",
+    "build/search/hidden-002/hidden-display-observed-private.json": "29d35704a31af3723a6ad4dedc161a0ff4720e972cdade5e5de1bc71e9602304",
+    "build/search/hidden-002/agent-result-private.json": "f499619fea43ed0fde943a34ac3e550272b0c46ce0d78f4ceef61c6de9ec6dc9",
+    "build/search/hidden-002/gateway-ended-private.json": "78da6628bf6f4a4a4d590f73b4b45d6f0d1ff00ca06ad4233030eecd29f81f4d",
+    "build/search/hidden-002/ended-private.json": "be42afb9c3427d73ab11e56109150d343963d5593178e00e264a14c60aebe80f",
+    "build/search/hidden-002/independent-audit-private.json": "793ddc2091de43833c5d24ac0dec069f5e469bf0063443398b619d4f8399d9a7",
+    "build/search/hidden-002/audit-final-private.log": "793ddc2091de43833c5d24ac0dec069f5e469bf0063443398b619d4f8399d9a7",
+    "build/search/hidden-002/run-01/client/evidence/visible-title/actual-child-proof-private.json": "ca9b51c0995611b86a824eb3f8bc520383de521be52022ba499c648761b3733e",
+    "build/search/hidden-002/run-01/client/evidence/visible-final-replay-finalization-private.json": "729de2857177868e019e3cc9df29c465382e95dfb6028ce546770fe6e3ad74a7"
+  },
+  "audit_source_sha256": "f3b59ebf0e8483bd6cb6dcebd19d1a57de48dd131d8be125bb1d61fea4baf603",
+  "scope_closed": true,
+  "historical_evidence_unchanged": true,
+  "no_automatic_resume": true,
+  "no_push_tag_upload_release": true
+}

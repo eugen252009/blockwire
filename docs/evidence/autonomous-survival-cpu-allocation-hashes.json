@@ -1,0 +1,1463 @@
+{
+  "baseline_commit": "a9a7405c0f10accdf047eaac1d7ef74851ef61f5",
+  "files": {
+    ".gitignore": {
+      "sha256": "0a369a87185a4182b2fad188dcad5e888043a0ce3f4c31b82e28d1d3c2e569be",
+      "size": 222
+    },
+    "AGENTS.md": {
+      "sha256": "b0221e7d710ebb54048df78ad40716ed8402f5fcaaf2cd9bf498dd7cae21cd25",
+      "size": 2794
+    },
+    "CHANGELOG.md": {
+      "sha256": "95aeab8292da890c4f2aeb72b93537531c586dbc9ac2d0cc0308b016255d6cd5",
+      "size": 19098
+    },
+    "LICENSE": {
+      "sha256": "475ec0a24f0cf283d09a7a0cd0b4d842a46d7ea9482f2bcda1dd8d52252525fd",
+      "size": 1079
+    },
+    "README.md": {
+      "sha256": "af283c668f4f77381c25f84769ee50b37bddb748e29c7a54604efc2134ad2d7a",
+      "size": 22927
+    },
+    "SECURITY.md": {
+      "sha256": "77ab2e63f289acdadc7649aa5823408f446884e6ad3821557135cb0851383542",
+      "size": 17045
+    },
+    "THIRD_PARTY.md": {
+      "sha256": "e490914be967f8c137debef09f315643ad262c0bc1fdf0eec5547f492f64f290",
+      "size": 1124
+    },
+    "TODO.md": {
+      "sha256": "490a2717cf1706a9c65f291c45dd40d2dfdfb2be2da4f470be080c064d68e822",
+      "size": 1554
+    },
+    "build.gradle": {
+      "sha256": "50115af3e90c77d61a92efe7e7d908088b387f401908cbe0bd05fad3bdd99ff9",
+      "size": 4821
+    },
+    "docs/approach.md": {
+      "sha256": "cb5d982a9f9ba299c11c8cdd2a0fdf374bac7648e751b8fac015beb30e0fed4b",
+      "size": 17132
+    },
+    "docs/architecture.md": {
+      "sha256": "8bc4daaff37610c8d45023af696dfd51bceb3288196ecee2eb8ac6eb3f62ef8c",
+      "size": 15379
+    },
+    "docs/autonomous-survival-campaign.md": {
+      "sha256": "07504699f1e9db8ab069cd8078cc8a38eb56ffa2eb62a70fd07e226dc0855e28",
+      "size": 12612
+    },
+    "docs/autonomous-survival-cpu-allocation.md": {
+      "sha256": "3e389d0ac2722b7a4d87b7296e4d1611717b86882d58d0cad2791455218740bd",
+      "size": 15086
+    },
+    "docs/autonomous-survival-parallel.md": {
+      "sha256": "8f09c2a06bdf587e922f375308cec0e29eb47717b1156a29605f001fd29a3235",
+      "size": 17503
+    },
+    "docs/autonomous-survival.md": {
+      "sha256": "9286a3fb617b090d896285b26f43d8a757e778b1e60cac1018f575fccadcfd93",
+      "size": 18966
+    },
+    "docs/autopilot.md": {
+      "sha256": "da0cfbd1d4a8d7154a932c050ec517dbf0e95a5a553008af0d3674afb238546f",
+      "size": 7834
+    },
+    "docs/bcl-commands.json": {
+      "sha256": "778536699017673598cde3c6ac68aa976411a4057cb225ecdfa691ce609d4802",
+      "size": 87616
+    },
+    "docs/bcl-reference.md": {
+      "sha256": "af003978d399631bf0c7915aba172ed1dd042d4dfb79598bc2c4d1ff4c399359",
+      "size": 47291
+    },
+    "docs/bcl-terminal.md": {
+      "sha256": "ba1dfd430b95f67e76109a5c7c84a2f9f1f37f56fa355fabb104d0cae87aa5c8",
+      "size": 10773
+    },
+    "docs/bcl.md": {
+      "sha256": "d97f8e5866effb5cdc17dd4da203d28c5b988eb6f0fa390c75985287e2593025",
+      "size": 33675
+    },
+    "docs/bundle-install.md": {
+      "sha256": "2c913770e4908ffdc2a8fead21059643328bafd574d662926035d3047461d6b7",
+      "size": 1825
+    },
+    "docs/commands.md": {
+      "sha256": "fa45aca3db61bf120cab7bb1d72146bdcae5835ad9baa9d993e349b45d832246",
+      "size": 3202
+    },
+    "docs/configuration.md": {
+      "sha256": "ccb5699a248e94666431d4fca0277652a94e545246b7157480ed46eb867c2c30",
+      "size": 7278
+    },
+    "docs/controller.md": {
+      "sha256": "6034851816f6ef9430a3666d71ccfd74c17b6e312a237fb306e81ae2891dbc46",
+      "size": 10040
+    },
+    "docs/development-history.md": {
+      "sha256": "6a07332d6acde4919f0ad3ff7439c27209356ac1aac62bf417486327a83cc717",
+      "size": 36050
+    },
+    "docs/end-portal.md": {
+      "sha256": "4d6bb0f7851e2f1f02c60b05c9dd956b1e44da895dffce565aeb0148bdf91b96",
+      "size": 9899
+    },
+    "docs/estimate-distance.md": {
+      "sha256": "a31a882cee6e0290b0c9398f256647be569d7f3e73000beeadd92f132a589b3f",
+      "size": 5994
+    },
+    "docs/evidence/alpha3-prism.json": {
+      "sha256": "273438dbb77bd0624d58aae9552c6620ff7fb32b93a1e47ed13b0803139bc1ea",
+      "size": 7196
+    },
+    "docs/evidence/alpha3.json": {
+      "sha256": "3463537a9d1eac6c7b146e0e2649f89f88f0ae0e743ad1afa99bc532b3ef39e8",
+      "size": 3809
+    },
+    "docs/evidence/approach-facing-live.json": {
+      "sha256": "381e214b21d464ba3e97aef44436e1d3833c0cd8badbbd8a94c18f658d29bf2e",
+      "size": 872
+    },
+    "docs/evidence/approach-facing.json": {
+      "sha256": "9552f20f027f9755590d747b58ed06b0fdcdcc61fe1711cbc05008dc28c6063c",
+      "size": 2931
+    },
+    "docs/evidence/approach-forward-live.json": {
+      "sha256": "ac8058d01b2dd1306e498d30ec8ed225515f680bcae991973fd13eb64b784a8b",
+      "size": 825
+    },
+    "docs/evidence/approach-forward.json": {
+      "sha256": "b09da07b878e200194af49c920a74e17827b5122db8bbbf22715c566c3a7db31",
+      "size": 4000
+    },
+    "docs/evidence/approach-live-smoke.json": {
+      "sha256": "92da7c81f4f03f0cecc517a23f1a17f3746f3bddd69612e03bba4f4bd6aa3291",
+      "size": 1212
+    },
+    "docs/evidence/approach-motion.json": {
+      "sha256": "25e8ee34c0dfde450b3b3795c7bf3e3126395b2b6db3572fe2e7f57da25362c9",
+      "size": 3273
+    },
+    "docs/evidence/approach.json": {
+      "sha256": "79ea0c6f5d125fc7fd330b828163af2de7f1a4d8d80f69f55b2be59341a5640c",
+      "size": 4617
+    },
+    "docs/evidence/armed-combat-setup.json": {
+      "sha256": "297b56e67c95fb5e3167ab1a54d6b5f104a8a380e47b61d84f1dc0aba76cad54",
+      "size": 4190
+    },
+    "docs/evidence/armed-natural-wait.json": {
+      "sha256": "f26b48193fa0905c1902b2e21b461ac2b255c61556c80689c3074e1d097ca147",
+      "size": 2179
+    },
+    "docs/evidence/armed-zombie.json": {
+      "sha256": "eae5d8a062bf291b0f1a2e132024ba24362316f351bdb46b8370aaf8f57ff036",
+      "size": 3725
+    },
+    "docs/evidence/autonomous-survival-campaign-hashes.json": {
+      "sha256": "cb8414e55d29cd2e9c6482121eee19c7d6b38896c070d73332e9130159528dbd",
+      "size": 54932
+    },
+    "docs/evidence/autonomous-survival-campaign.json": {
+      "sha256": "d2d60398f5301bced88f621a46bfaee0e7a377d4d3a9a2d750a75a785f3a1ebd",
+      "size": 13757
+    },
+    "docs/evidence/autonomous-survival-cpu-allocation.json": {
+      "sha256": "d0e6419642c3c126e6e507b9fb8f380e8a1c2420d2e28d56247aa8623f77bce2",
+      "size": 92372
+    },
+    "docs/evidence/autonomous-survival-live.json": {
+      "sha256": "fbae1d4285917146334cd4e2849a6595ba911e99969056539a269a00c9389f4e",
+      "size": 10854
+    },
+    "docs/evidence/autonomous-survival-parallel-hashes.json": {
+      "sha256": "f81ce9904ab8308665b28d2f1cca74a2500d6c683a13012d04f0583a170eb256",
+      "size": 55482
+    },
+    "docs/evidence/autonomous-survival-parallel.json": {
+      "sha256": "dd49551f876f89318f52fb1da2d9c6b33665ffbb8db36569bbe04750f1197733",
+      "size": 40214
+    },
+    "docs/evidence/bcl-live.json": {
+      "sha256": "80566fa7ac3ee461a3545badac4ab8140f83bcd6acb1eeebe77580aef482b613",
+      "size": 10473
+    },
+    "docs/evidence/bcl-relative-portability.json": {
+      "sha256": "5e70a0ce23046a790357a1e135959b2c82ece4bb67b240e55ec09bbaa8073be5",
+      "size": 10726
+    },
+    "docs/evidence/bcl-s1-homing.json": {
+      "sha256": "2fe298377e4e00c81eb38a6cea0baccf38a0b89cb53037c84114f78844df1221",
+      "size": 7155
+    },
+    "docs/evidence/continuous-fight-attempt.json": {
+      "sha256": "f2cae5ba23b3d5be05e22da029f95eb425897eba4efa04e69066c84a7622ccec",
+      "size": 2074
+    },
+    "docs/evidence/continuous-motion-live-retry.json": {
+      "sha256": "e16b6457cd573e6ce51444658a2dd91a73025a87f8508d1b190b90eeed0754b6",
+      "size": 3827
+    },
+    "docs/evidence/continuous-motion-live.json": {
+      "sha256": "c09270f62a38794c0d023834fb9cd990079999e53e0bc87b91462f6e37985226",
+      "size": 1766
+    },
+    "docs/evidence/continuous-motion.json": {
+      "sha256": "f9b081fbb47f3981bba52a1642016c10c6627f6962e4493dde00893583af8e08",
+      "size": 7370
+    },
+    "docs/evidence/controller-live.json": {
+      "sha256": "c93308977794778e60c3cf201d8bac4ee2d4bc6b143c62e160c90a77e3358387",
+      "size": 5230
+    },
+    "docs/evidence/controller.json": {
+      "sha256": "d4e43e1e0663f040ae737635b425f49c5895dfb90a8791af8e88a1eb0e46ad8a",
+      "size": 4985
+    },
+    "docs/evidence/estimate-distance-live.json": {
+      "sha256": "38c9fe4705d1eb7fb9451b20f5e3eee4bb931c4d32b81cc1f3427f9f115fdb74",
+      "size": 2629
+    },
+    "docs/evidence/fight-live.json": {
+      "sha256": "a243f1742e842577f560214a147aa288f932c3ad09648b478476b27ea7352651",
+      "size": 2198
+    },
+    "docs/evidence/fight-maps.json": {
+      "sha256": "83262501dc181591d3794d345d7e114102f3c4b9c147253bcfa320d5ef0f5538",
+      "size": 10223
+    },
+    "docs/evidence/fight-optimization-live.json": {
+      "sha256": "4ff5eaa86880f869f3c653cff75b478bafbf267f3966c3b069e9e1f2fd81adcf",
+      "size": 4575
+    },
+    "docs/evidence/fight-optimization.json": {
+      "sha256": "e14a093d6ff54d894c9c6c1c046e75d7206b5b66606c534d4e0a7a56c73431c7",
+      "size": 6501
+    },
+    "docs/evidence/fight-visibility-live.json": {
+      "sha256": "73d3c63e622ff018afaf013bc4e36f19d1a709ce5c9ff19d66aa9a8d6fd44df8",
+      "size": 6762
+    },
+    "docs/evidence/fight-visibility.json": {
+      "sha256": "84822d8ab60260a6a47059452d4d13437047cf26aa68f4553c2d3cf78b756e8b",
+      "size": 5419
+    },
+    "docs/evidence/fight.json": {
+      "sha256": "f70e5d79da406c95c862d10953e417c89abce6d958dbf2420c4607657f941e5d",
+      "size": 4326
+    },
+    "docs/evidence/gateway-building.json": {
+      "sha256": "569bd82c7843b09dca50c04811edd38af87b3e17c4e5e4581f2fabdc4d357879",
+      "size": 14525
+    },
+    "docs/evidence/gather-wood-followup-live.json": {
+      "sha256": "6350ec6ea20e9cc1d71155efdec83d378d473b34a986810097f6b5712cf18faa",
+      "size": 3399
+    },
+    "docs/evidence/gather-wood-live.json": {
+      "sha256": "e92425471ab9d2f745c2d0f1857e6dfbc1429f9d2641918c45d20b1fe2a6f1e1",
+      "size": 2266
+    },
+    "docs/evidence/mcp-dirt-home.json": {
+      "sha256": "eeefb557f89972b57589fc63372a366d963a8fd3e66d9e36a9e2c733d62405e6",
+      "size": 1828
+    },
+    "docs/evidence/modmenu.json": {
+      "sha256": "cd70bc294abdb5e52442c728ddb26687e6e08de67bdaf52c810387817f4aaf5d",
+      "size": 5409
+    },
+    "docs/evidence/movement-benchmark.json": {
+      "sha256": "5a72bbaded4e5aa6dc5f7435d599d4b395869bc27cb5d5f7d608222b743537f8",
+      "size": 123112
+    },
+    "docs/evidence/persistent-projects.json": {
+      "sha256": "6b3b3b0b97260de30df6c969ae7075010ad8de3a82f21c818adef76092bb2f54",
+      "size": 156381
+    },
+    "docs/evidence/play2code-coordinate-rotation-hashes.json": {
+      "sha256": "127434b8becbac5df4b41753a6fe72674a02cb60dfd67fc97d0df3eefe447f20",
+      "size": 1932
+    },
+    "docs/evidence/play2code-coordinate-rotation.json": {
+      "sha256": "e4a5c0e03916661a1bbf55e3053a60404b8827973cb6cfce8cf429ab4e871f94",
+      "size": 8809
+    },
+    "docs/evidence/play2code-coordinate-transformation-hashes.json": {
+      "sha256": "a96b5652b5fc513d43f46cd2c784206493e396893a7e45f86ae81dd94401a6e6",
+      "size": 1126
+    },
+    "docs/evidence/play2code-coordinate-transformation.json": {
+      "sha256": "f9067e0fe3575215524454dbc0845040dc1fe3f17ce442c6a1c2f77625f2c88b",
+      "size": 6401
+    },
+    "docs/evidence/play2code-h04-r33.json": {
+      "sha256": "93a452f9be69c9119d9a20129f86b81fdf553a80ff5f82b7f23c0fc6b0cd7368",
+      "size": 5066
+    },
+    "docs/evidence/play2code-repeatability-portability-hashes.json": {
+      "sha256": "0eec592e310bbedd5b54d09ba283ae36719dbbddbcf0c2958d6ffeddb9ae1888",
+      "size": 801
+    },
+    "docs/evidence/play2code-repeatability-portability.json": {
+      "sha256": "99fd1e765d1a36db0183257050821ba32eefff206e849da527d938e87c2d648a",
+      "size": 6596
+    },
+    "docs/evidence/play2code-rotation-stabilization-hashes.json": {
+      "sha256": "aab3c47a8afed0bd1a2d6275ed31f24bd5e48fbef031cd1796cc4d9dcb4da9db",
+      "size": 1939
+    },
+    "docs/evidence/play2code-rotation-stabilization.json": {
+      "sha256": "d95e89fefd93efe9889dfc0c71eacde21485acebb65ab6d8c42f9374b1d92a1c",
+      "size": 11096
+    },
+    "docs/evidence/play2code.json": {
+      "sha256": "f86f3a89ad917f3f834fd9f5111d1201578534711c19ba76e0ec0a7212ad08ff",
+      "size": 4084
+    },
+    "docs/evidence/pose-handoff-hashes.json": {
+      "sha256": "fe321513eb66a7a932da2818d5e7cbdb085823858ca22055a29f824ea515c7f0",
+      "size": 19312
+    },
+    "docs/evidence/pose-handoff.json": {
+      "sha256": "d9efc5401e343f51a51be9f67b4a3823d89dec567527c19fc302b5d39dc66085",
+      "size": 61392
+    },
+    "docs/evidence/rename.json": {
+      "sha256": "50593b4221bd54fffe8e439982cb420c2ca6a122c23c58525682b0d2fe6e50d4",
+      "size": 2365
+    },
+    "docs/evidence/replay-baseline-recovery-hashes.json": {
+      "sha256": "97f7c311a9f1e92ff60e2ea8ea747751b03b97acc1d8f1a46092967abe2c776f",
+      "size": 18182
+    },
+    "docs/evidence/replay-baseline-recovery.json": {
+      "sha256": "4252b948e4ff42e3a1d2efc2aa3254460e85c3b8159b82fc97522ba93c26ec08",
+      "size": 25742
+    },
+    "docs/evidence/rotation-benchmark.json": {
+      "sha256": "e3dff08e98f8a8aa97fe0520939b7afb4a13b77d8dad9fc17ba953b2b8b1247c",
+      "size": 56589
+    },
+    "docs/evidence/saved-statistics.json": {
+      "sha256": "8cb6ccfaf21ed33c3c7b3580bc81d2198c8f65b7e942e57a2ee405487899a369",
+      "size": 1939
+    },
+    "docs/evidence/skills.json": {
+      "sha256": "bb5dbfd929d579924e8860f33fd450b76e98c5528cf50d9eef8b1ef924fac73a",
+      "size": 3330
+    },
+    "docs/evidence/stateful-input-grounding-hashes.json": {
+      "sha256": "e08459a2d0faf36488d53ced426df25e847c17da3054e3d05fb69327a98f11a6",
+      "size": 2605
+    },
+    "docs/evidence/stateful-input-grounding.json": {
+      "sha256": "89ca38947b5b92e859e47e294195a4aa2d3018237615772fa833bf7f26526e5e",
+      "size": 35939
+    },
+    "docs/evidence/stateful-input-performance-hashes.json": {
+      "sha256": "734ad580af4b7be9e695d9446849431d220bb10496deebca3d1660b9c80f10ce",
+      "size": 1652
+    },
+    "docs/evidence/stateful-input-performance.json": {
+      "sha256": "0906f4d5bfb35737d54bad04393fc274f30e7b80703c31728c0257c454f61bc3",
+      "size": 47897
+    },
+    "docs/evidence/stateful-requalification-hashes.json": {
+      "sha256": "05d95f4db915a6fc4bc00a0a38a5350c0fb809258356f4a7c6841ea394406f2d",
+      "size": 15905
+    },
+    "docs/evidence/stateful-requalification-resume-hashes.json": {
+      "sha256": "ad33770cf8634269e0650eae48891d46247c2af1a5d70e17aa9c516d63143681",
+      "size": 54424
+    },
+    "docs/evidence/stateful-requalification-resume.json": {
+      "sha256": "bd4f70fd2134746e8e37eb0287e655c6c805a94b94996c39e7019a328fce9b70",
+      "size": 18410
+    },
+    "docs/evidence/stateful-requalification.json": {
+      "sha256": "e2d7688ce741b7a8a9e8a314293ea5f2292af2be1b9ae0d6568834a05d742737",
+      "size": 23498
+    },
+    "docs/evidence/superflat-building-B01.bcl": {
+      "sha256": "5b626c16fe2577db76a419e042fb2f6205f655d432a7f1fd1afc64fc6a3f0acb",
+      "size": 8270
+    },
+    "docs/evidence/superflat-building.json": {
+      "sha256": "1f5c50b8c63b2b22e9ec2c79ac8111aed4c29e70b63b3d32827e603b3c495965",
+      "size": 278221
+    },
+    "docs/evidence/tls.json": {
+      "sha256": "5ed625bcd0df5f4e076cba04d5bcc87b40c67be2170d290c4c29039505b6e6d2",
+      "size": 2450
+    },
+    "docs/evidence/verification.json": {
+      "sha256": "e7cd32d92b69b5c60ca20b6a29b539140c570d017cff65728d040533a0bf4895",
+      "size": 2974
+    },
+    "docs/evidence/visibility.json": {
+      "sha256": "c63981627efafa4f566ccec937290f7a69a84441e07724fa327cda12bea674bb",
+      "size": 4062
+    },
+    "docs/evidence/walk-continuous-live.json": {
+      "sha256": "b8758f57d06b7cdb4e51add0266a168454ed7b068f09e30584a89048686c44fb",
+      "size": 2712
+    },
+    "docs/extensions.md": {
+      "sha256": "9336e5391bc5acc4e47fede046a63f86a9379cd03e499266fc5933e4855fdc74",
+      "size": 4849
+    },
+    "docs/fight.md": {
+      "sha256": "f50836bf431e7992968cfe2149195d9992f7991bba37d2a227c410f9112e95be",
+      "size": 10488
+    },
+    "docs/gateway-building.md": {
+      "sha256": "34cdc334d87aa7d2d5b34eacabd5aeef4263e538b5af84d807c8daa2073f914e",
+      "size": 14824
+    },
+    "docs/gather-wood.md": {
+      "sha256": "819a3e46c96770f1108458f1ab61536526d46f6e5892a721115b99950fbbf21e",
+      "size": 6374
+    },
+    "docs/modrinth-description.md": {
+      "sha256": "c9d70a9d00ff9bb1b79b0f7878a1e089a5ce5ab4508e07256e51bb2ce6d9606f",
+      "size": 3631
+    },
+    "docs/modrinth.md": {
+      "sha256": "7cdbf9fb01cdf7d6ec1962ae8bfb738fae6242cbf98f800196a4d6c5c7b6bf56",
+      "size": 3584
+    },
+    "docs/motion.md": {
+      "sha256": "38598a118969e7b71d4481495a9ac3388042e26557c5ed3b028cc579c74d1cd5",
+      "size": 10601
+    },
+    "docs/movement-benchmark.md": {
+      "sha256": "cf4ab5e7b55787254883b10f68d0e1613a70999a3cee44eaceba3a1fbaca9fd1",
+      "size": 9667
+    },
+    "docs/play2code.md": {
+      "sha256": "4c1d62a3beb55e0764fff6e1585715cf9e450d23d874757d796cd00c56ab824d",
+      "size": 25320
+    },
+    "docs/pose-handoff.md": {
+      "sha256": "0d3155a2ed4fff432bbc8b81180fbfae2be942f873501e4f88d2e36f4862da6e",
+      "size": 11738
+    },
+    "docs/projects.md": {
+      "sha256": "0b10cb85e3b93c42d6f7ec6b9c17c81d4e35041b781634726714aae55a804914",
+      "size": 22107
+    },
+    "docs/protocol.md": {
+      "sha256": "4458769e55e17fa45b2eb2e0bce1891dbdca3895ff214960ea663697a81f0514",
+      "size": 15895
+    },
+    "docs/releases/0.2.0-alpha.3.md": {
+      "sha256": "b30fcc484f07554f601c989ab6d87e550d85cb30cd5ea751e707f944223c7e60",
+      "size": 2583
+    },
+    "docs/releases/0.2.0-alpha.4.md": {
+      "sha256": "ce8bc0ce19eeb4a001982dff5a8099de9da6d9368cff8613850ff4fccf3193c3",
+      "size": 2710
+    },
+    "docs/rename.md": {
+      "sha256": "2836a19fa3850a3104c5472a05f19b0dada6966f23374de953e4ad4c448d5d6d",
+      "size": 4339
+    },
+    "docs/replay-baseline-recovery.md": {
+      "sha256": "fa724080d9fe3ec5a252853fbd34ac8603e99a906dcc12169fcaa69395ff9c01",
+      "size": 10765
+    },
+    "docs/rotation-benchmark.md": {
+      "sha256": "ef71c17a8da41249338026dea4a51138296a97c74337eef79dd737491367126a",
+      "size": 9401
+    },
+    "docs/skills.md": {
+      "sha256": "fc8abd2e8b27dd2b52fb5a390194674194c98c7f0aa57370402a48642d0157d6",
+      "size": 15108
+    },
+    "docs/stateful-input-execution.md": {
+      "sha256": "bc78432d3ff4881ee5bdd61f2b78efa2425ed84eaed74f36f67c9e445a8edcc6",
+      "size": 14588
+    },
+    "docs/stateful-requalification-resume.md": {
+      "sha256": "a76a58f05ffbd6e5b479cc58aeff284613134629726c8c2b91a2da91b71c4e27",
+      "size": 7315
+    },
+    "docs/stateful-requalification.md": {
+      "sha256": "198a8397f07db6696727c80ea856795e697d343d7bff1e670612cb9eff5d5254",
+      "size": 10369
+    },
+    "docs/statistics.md": {
+      "sha256": "182ce4ef0f6156b5c6b2ca69e36d6a27c5d4adc48a7b25303e0085fcc68e74d2",
+      "size": 5525
+    },
+    "docs/superflat-building.md": {
+      "sha256": "f42b934f5318081975f52651f61f2468687a9f5782b4dc7935e93f2bbc1abcba",
+      "size": 29947
+    },
+    "docs/tls.md": {
+      "sha256": "1d97b6016c19e37a4e3a4ab2b9bab15ee9c48e11313b551ee1f80dad4b4ca71e",
+      "size": 6829
+    },
+    "docs/verification.md": {
+      "sha256": "f7a6939a9359e9c9db0e5818c47134a2a108e3daec8e8e58850f35361edb3805",
+      "size": 6544
+    },
+    "docs/visibility.md": {
+      "sha256": "af8b7dbfa2f2154b13c2d8f020b70cf4e1b492556225c552fa36ee4cc045c167",
+      "size": 9014
+    },
+    "examples/controller.py": {
+      "sha256": "5e87caccc6d22ee314ee7abf06b175a31356300bbe6ba53b7f17b6fa725ac18e",
+      "size": 1657
+    },
+    "examples/end_portal.py": {
+      "sha256": "8d135ad41aeac57ca9167956614ec8b8c3ebbddfa9f55aa15b876b3fe79dd0fa",
+      "size": 15446
+    },
+    "examples/extension/pyproject.toml": {
+      "sha256": "57498b61d8e9750a3731b1ce73cf910e5614e163494696968b9688b4d0be0c56",
+      "size": 438
+    },
+    "examples/extension/src/blockwire_example/__init__.py": {
+      "sha256": "60e92d4f8cb6710331d5b5b4fae1109b5c7dc9538955e011dc1b8829588ab201",
+      "size": 744
+    },
+    "examples/mcp-config.json": {
+      "sha256": "7f13e27e3b4c41667f145ecf1f57bffe4c54de65a174aa1ee39ce33cbab341ff",
+      "size": 296
+    },
+    "examples/project_agent.py": {
+      "sha256": "9bd9774273c73ccdbcfb414add3ecb550ba8fc2944fa05523d7df7e3e7fe64a6",
+      "size": 5745
+    },
+    "examples/report_statistics.py": {
+      "sha256": "50f26ef6cd2c886a8ead181dde94770077c4881d88525ba11c5eed4715283333",
+      "size": 1341
+    },
+    "examples/scripted_player.py": {
+      "sha256": "8a93593e08e8d69e3ded3b84427c834550484ce66b88223c3ecb7080ae90d90a",
+      "size": 438
+    },
+    "examples/stone_age.py": {
+      "sha256": "21052502cf9e19ae820a25de08217084b8e545efd7827574815409959a50dcea",
+      "size": 5352
+    },
+    "examples/walk_to.py": {
+      "sha256": "b93c703422f9a29c1da5894e9154a4c7db58e4f3fe70ba96393e3516fe2f94ef",
+      "size": 498
+    },
+    "gradle.properties": {
+      "sha256": "8d75fdbda33844b7e8d37eb664b08e5ed2c6b6e19f17887e46a87db877a8d3b7",
+      "size": 198
+    },
+    "gradle/wrapper/gradle-wrapper.jar": {
+      "sha256": "3b8a25775a69158b5ad2b1d17a80a88dc7b40a352a73eb27d06c612a7ce68e98",
+      "size": 48749
+    },
+    "gradle/wrapper/gradle-wrapper.properties": {
+      "sha256": "af4a14d316075e9fe9e90c1628954902d66c0d80fb2219b6cbacd664d008d531",
+      "size": 339
+    },
+    "gradlew": {
+      "sha256": "a5a5c199ba02189ae8c46a334223371a20599d9c298ef65e7540ede4a3f72d59",
+      "size": 8656
+    },
+    "gradlew.bat": {
+      "sha256": "31ec098bd961c460b62875950c3eff5c8213bcb0bbde38d769b88512877fd21f",
+      "size": 4776
+    },
+    "licenses/BouncyCastle.txt": {
+      "sha256": "89e61e44dcdd5bf128446fcdb8b2adf41d597d5c5a3de25e91c0b682af710ed8",
+      "size": 1120
+    },
+    "python/LICENSE": {
+      "sha256": "475ec0a24f0cf283d09a7a0cd0b4d842a46d7ea9482f2bcda1dd8d52252525fd",
+      "size": 1079
+    },
+    "python/README.md": {
+      "sha256": "b1e80a533df34dcb01e353deaa2fd4ad2aba8ede109027d613f555a3358b6c9f",
+      "size": 6644
+    },
+    "python/pyproject.toml": {
+      "sha256": "690a0358ccd00bda5d53b38dfe3492575d5c02e1017442e22b3ab8dd03106955",
+      "size": 994
+    },
+    "python/src/block_bridge/__init__.py": {
+      "sha256": "f852dcdca993bbd07b349dba6bafda0d18bb49b4e15ecb313a2239c6b1ed8590",
+      "size": 91
+    },
+    "python/src/block_bridge/cli.py": {
+      "sha256": "999fd5635f863dcab3d6e50a3838e18b5484e77f2ebe0d13409d7a464f74d0b6",
+      "size": 129
+    },
+    "python/src/block_bridge/client.py": {
+      "sha256": "c5b53056dc81801fb832f339ea54a147ec1647aeedafe7f611c558e8f888b5e8",
+      "size": 105
+    },
+    "python/src/block_bridge/mcp_server.py": {
+      "sha256": "dc6d8c5d73b7783d7033a30ec920b5ada56168786a626acb17ad6978b0a13a2e",
+      "size": 118
+    },
+    "python/src/block_bridge/skills/__init__.py": {
+      "sha256": "b94b0aba3fa928195c45ce88b2df50abd1c5d282e8b4fc4b8d1ca8b8ad04e159",
+      "size": 105
+    },
+    "python/src/block_bridge/skills/core.py": {
+      "sha256": "50baf093d10b0bc230cf4cb0060388966d26a39eeae1e60acadb5b17b5254abb",
+      "size": 115
+    },
+    "python/src/block_bridge/skills/walking.py": {
+      "sha256": "a78a04c9429e85e79e5b505690d270a6a1dd93a4060fb61bc109338933485b04",
+      "size": 121
+    },
+    "python/src/blockwire/__init__.py": {
+      "sha256": "23c0d3949cfe03865d0ea0f17f0cd8cc7842295ab0ad3ead7fc0ba02cb454943",
+      "size": 451
+    },
+    "python/src/blockwire/__main__.py": {
+      "sha256": "e1ab25eb7fbe9c21aab9eba643dea4ffd24baf8f47fafc761a84572e02206e4f",
+      "size": 119
+    },
+    "python/src/blockwire/agent.py": {
+      "sha256": "9ab104314e2805bcac463251f5a2123e607c60886e65db5e6599ca049ce5195a",
+      "size": 29294
+    },
+    "python/src/blockwire/agent_cli.py": {
+      "sha256": "7973862e05b30c9176314a61a37046834b7af300cc8cff1a95a30144c9add5a3",
+      "size": 5447
+    },
+    "python/src/blockwire/bcl/__init__.py": {
+      "sha256": "71aff088201a23fb6396c450929d0a846358e950400d4385c5df454010499634",
+      "size": 614
+    },
+    "python/src/blockwire/bcl/__main__.py": {
+      "sha256": "c3dc6c510a7d6b70cf13f5fa3a3cf3e0e3def0ba103bce1077356fd81ca96cf1",
+      "size": 893
+    },
+    "python/src/blockwire/bcl/cli.py": {
+      "sha256": "a7d9a57edd11541f49252ce51006e3c3a2bbaec60bebb5390f9c0ac90c42b4ce",
+      "size": 14743
+    },
+    "python/src/blockwire/bcl/client.py": {
+      "sha256": "6cd87796b020c3130216100fd454074849bb7b239dd68f0ac77eb07b8ac9b93b",
+      "size": 6564
+    },
+    "python/src/blockwire/bcl/compiler.py": {
+      "sha256": "be1892e10efe582c97c59a54b08323707c2543da6180c355fe8aed7fd480338f",
+      "size": 10822
+    },
+    "python/src/blockwire/bcl/event_policy.py": {
+      "sha256": "9149178ef40f31cf82cc60559ecb51faaa6623f3b9a3994bc7dd0580cf00cd6b",
+      "size": 1522
+    },
+    "python/src/blockwire/bcl/gateway.py": {
+      "sha256": "f1ddc5b35412aab879ee37df8edf685442171370d84976674ef64edd0e02b6f9",
+      "size": 25812
+    },
+    "python/src/blockwire/bcl/modal.py": {
+      "sha256": "94cf28768b96e8c3ac566ff435c88073f7a88c450aa66a67443c7573f86a1ac5",
+      "size": 22306
+    },
+    "python/src/blockwire/bcl/registry.py": {
+      "sha256": "e5eed7952bc0d28f46d284f564f31b28636920476adcc92b5ad1d5fc240f1f52",
+      "size": 15262
+    },
+    "python/src/blockwire/bcl/runtime.py": {
+      "sha256": "a4b1719f3cf5eafa67b68e38d2a5b89f2105960f1bce32b3370facb6f43761bd",
+      "size": 25629
+    },
+    "python/src/blockwire/bcl/verification.py": {
+      "sha256": "59f254a1a2461ae18474cdb5b4eb130a26c70c8ccf0442e882e23a98f8c61fe0",
+      "size": 5581
+    },
+    "python/src/blockwire/cli.py": {
+      "sha256": "39d09c11594ec8db53d5f0cb4310a6a3add17e424cff502e0eabcf3ab6d15eb4",
+      "size": 3727
+    },
+    "python/src/blockwire/client.py": {
+      "sha256": "3e3cd79e9906a256e3aa673d45d6dcc27ecd418aa473c1c57dd620552d9ac91f",
+      "size": 18622
+    },
+    "python/src/blockwire/command_decider.py": {
+      "sha256": "184f04c7d40cc9cf8469727cbd05abc085cc97fb2212e0aded4ee9106adcbf67",
+      "size": 2974
+    },
+    "python/src/blockwire/controller.py": {
+      "sha256": "fb2141068eb86bc72d03992556b642ce41b8469b81fa97d1b4101c541314a465",
+      "size": 27677
+    },
+    "python/src/blockwire/controller_cli.py": {
+      "sha256": "e4d9e0c8af0b465c6e5ba8777eddfa6860b6e5f8cc0813575e4e27629d31c298",
+      "size": 1612
+    },
+    "python/src/blockwire/errors.py": {
+      "sha256": "9e0fc53a52ef6da9df7522a06086438261d322e760651befac5846a168ebf3a0",
+      "size": 1126
+    },
+    "python/src/blockwire/food.py": {
+      "sha256": "980b74d507603494855d66290e72f3f85ffa69d46b85029c0f7884a667186fc1",
+      "size": 436
+    },
+    "python/src/blockwire/goals.py": {
+      "sha256": "5ebab24158d281c5491ae4ea3b66f275668f29e6a2ecc10f38086ba01f74e55c",
+      "size": 1804
+    },
+    "python/src/blockwire/llm.py": {
+      "sha256": "3cadbbbd211a6c117a354159186590b5cfea04ffbd0c49a922f91188aae732f5",
+      "size": 4210
+    },
+    "python/src/blockwire/mailbox.py": {
+      "sha256": "53ca313afd0a5078e2098becac3d2839313fb7e9cdaa30c3c554d3cc6bb27453",
+      "size": 2445
+    },
+    "python/src/blockwire/mcp_server.py": {
+      "sha256": "3541097ce286944b343b4473e261db3c185540acf2816ddabb73cf50b096072c",
+      "size": 18064
+    },
+    "python/src/blockwire/mechanics.py": {
+      "sha256": "79ee1a7a093e5c45693be1a7677dbf8f6cf1ce2a72925c48505203e83d88f472",
+      "size": 2567
+    },
+    "python/src/blockwire/ownership.py": {
+      "sha256": "15cf2816c7185d4cf6e52a9dd82888a3eedfd253d90539d811be17684480a4a1",
+      "size": 1261
+    },
+    "python/src/blockwire/play2code.py": {
+      "sha256": "5617b1d5b472e83540850e242cc8c343a6d0ab5569eb46be08b20faf19fd8d1d",
+      "size": 69799
+    },
+    "python/src/blockwire/project_agent.py": {
+      "sha256": "331108c7a0e0508d5e63b15c5d8e5743ce296e1f06ec8171b6ed9fbda80250d6",
+      "size": 14372
+    },
+    "python/src/blockwire/project_inspection.py": {
+      "sha256": "70f08cac2973ccf855586e046967d49ca991fb18a42ef50ee264a6d00b6882d1",
+      "size": 6274
+    },
+    "python/src/blockwire/projects.py": {
+      "sha256": "3b84dd31e62cae9c0565c97ceb6aa93638a54e4102d264f9146f12e74eae5307",
+      "size": 23479
+    },
+    "python/src/blockwire/recipes.py": {
+      "sha256": "155d24de981e9537d700876a1387660730e36fc72ce17f7c619b989fc51658d2",
+      "size": 3117
+    },
+    "python/src/blockwire/skills/__init__.py": {
+      "sha256": "03bb1960fafd713f7bf930490a9d3ad0e6dd50ddce5a597ab6fe22f9ee72b4f8",
+      "size": 1877
+    },
+    "python/src/blockwire/skills/approaching.py": {
+      "sha256": "6a8a095cf2122ec0725fd155648ac283c1c695c2b4664acfc9f1125382628aa2",
+      "size": 13785
+    },
+    "python/src/blockwire/skills/autopilot.py": {
+      "sha256": "bef5176d4c8dc4b40fd5ecdc008e8cc471d01a18b18b726c2cb3f8704ab18d8c",
+      "size": 8853
+    },
+    "python/src/blockwire/skills/core.py": {
+      "sha256": "c7ccc2ebcff9f9de40e9d328578806be3413cacb163f5b906c389717f7253db1",
+      "size": 12888
+    },
+    "python/src/blockwire/skills/crafting.py": {
+      "sha256": "530ce5a5642305588619f3ecee7c620358e1c155b72f75aec929b6249fdd92c6",
+      "size": 8854
+    },
+    "python/src/blockwire/skills/distance.py": {
+      "sha256": "e7d4b73de20e0fd70f97969909ec63d4708d8b5c06bf1223f810b018e87fbf29",
+      "size": 6904
+    },
+    "python/src/blockwire/skills/eating.py": {
+      "sha256": "fda1ad27ffcd22b07b22523be2ca7ad8090575935d2a9a08e55857963d7c504c",
+      "size": 3475
+    },
+    "python/src/blockwire/skills/excavating.py": {
+      "sha256": "3923f718c7b50ec5006812ac53e115d6523cc492d8666a18228f6df231ec9ea6",
+      "size": 7110
+    },
+    "python/src/blockwire/skills/fighting.py": {
+      "sha256": "229dc0a1da2dc880b8d18b0bd4a818f4bc263a3836af53912aa10367b415a02e",
+      "size": 15647
+    },
+    "python/src/blockwire/skills/item_actions.py": {
+      "sha256": "b410f96789a8d70fbce2e7bdb9d8ac4e51461223cc832725d5a2ee82ed5ea61a",
+      "size": 41976
+    },
+    "python/src/blockwire/skills/mining.py": {
+      "sha256": "b263593774aa7be4133c3d416eb0d50864c930b288596a7ed94fca718c92ff97",
+      "size": 4398
+    },
+    "python/src/blockwire/skills/motion.py": {
+      "sha256": "88d63237d9fa0b33e7566f080722a5c9e34428044f310cf0f6ba64058ae941ce",
+      "size": 26620
+    },
+    "python/src/blockwire/skills/removing.py": {
+      "sha256": "fc987e2c2b7ac0ba3535d78ab2330feb47e454f6e24a5e12d9d24c13b361db94",
+      "size": 4809
+    },
+    "python/src/blockwire/skills/searching.py": {
+      "sha256": "ae238a07b3e62bf8f74437af4c4faa0aae50edc1329e487a3f621b77fde26c85",
+      "size": 5016
+    },
+    "python/src/blockwire/skills/viewing.py": {
+      "sha256": "2de432a4de6cef9136d5ced7ea82718fd6e1d43629cf36a8e1734ed45e2070e6",
+      "size": 1704
+    },
+    "python/src/blockwire/skills/walking.py": {
+      "sha256": "431d3c8d9858178871418ed0760be27d4dbf866465609cd2b85aec1d1d44d46c",
+      "size": 34062
+    },
+    "python/src/blockwire/skills/woodcutting.py": {
+      "sha256": "e0b62fc2ba826860b6c574ab7c7b458b801e8d96b28b5da9010268ac5463c02f",
+      "size": 16906
+    },
+    "python/src/blockwire/statistics.py": {
+      "sha256": "5a91ce3c9c79331c62976321ad4e8fee281445b790ffcf1bbc72a8cf5bd19df0",
+      "size": 5898
+    },
+    "python/tests/test_agent.py": {
+      "sha256": "d49debd56c2f164ada507ca71ce38f627fbaefd6f2a253e0cb67ddf95b9c5e03",
+      "size": 15439
+    },
+    "python/tests/test_approach.py": {
+      "sha256": "b3a34cdd5508490241b402b89db6b8c0d47b33adb9efdb5c6a5cf2e40b8c44cf",
+      "size": 26658
+    },
+    "python/tests/test_approach_natural.py": {
+      "sha256": "667001ebc6580187b5293f45e89ef0cbbbfe80961fbb3478eb8c8ac441ab9fac",
+      "size": 6239
+    },
+    "python/tests/test_autopilot.py": {
+      "sha256": "9350f5a5fc21f5fd2efe825e811ad65b4fbb6b22997c582a27643cfd50059769",
+      "size": 14296
+    },
+    "python/tests/test_bcl.py": {
+      "sha256": "a1c3f992533a9a0fa5fb559504449ba37178ed8d70ad6557603b7633ca6a25f2",
+      "size": 16840
+    },
+    "python/tests/test_bcl_cli.py": {
+      "sha256": "47cde850c1c34c05ec0d8494cd680f77d71515c5ae73d925d4d99da2fb84c5c4",
+      "size": 14736
+    },
+    "python/tests/test_bcl_mcp.py": {
+      "sha256": "d345dafcd5d25ce85c3f655c6448372e3f48e08a41119aaa9d03ab0b0e4b4eb6",
+      "size": 2973
+    },
+    "python/tests/test_bcl_modal.py": {
+      "sha256": "675e4c8d4775f8252725dfc2c7763afd44989bfafe77e9d2306f58286f45b485",
+      "size": 24932
+    },
+    "python/tests/test_bcl_websocket.py": {
+      "sha256": "007ebcdcf6ca566f8bac78fa0d6343e47d50993a8575a977f0f0745f4c8f08f1",
+      "size": 13056
+    },
+    "python/tests/test_benchmark_cpu_allocation.py": {
+      "sha256": "0b851284e16d15d0d2bb900aacd35e742f79c26d33af33ab2116d9fdd29a1407",
+      "size": 4901
+    },
+    "python/tests/test_benchmark_display_guard.py": {
+      "sha256": "0911c5fc3d43a58283fc41fddf3ed51aff28b05fc06c63b7e7a261ae493c696b",
+      "size": 3358
+    },
+    "python/tests/test_benchmark_lifecycle.py": {
+      "sha256": "19f4bd96ca39bd26f081d755a1b85d299fd3575a17274587d6bd0d989d822a80",
+      "size": 5352
+    },
+    "python/tests/test_building_benchmark.py": {
+      "sha256": "e4069bc5713b5cc6c9d5990a5b53665cedde2232a73ee9a4904a13d80c164ca8",
+      "size": 12944
+    },
+    "python/tests/test_building_verification.py": {
+      "sha256": "852c7ded2fb3f6eb26d639e2a5df715d9dc417602ac5026587ca4fd229d4ee42",
+      "size": 2977
+    },
+    "python/tests/test_client.py": {
+      "sha256": "bcc47bea453d76cc596b802ff51367831b074ec9521a134a37dde24e5a430f06",
+      "size": 7548
+    },
+    "python/tests/test_command_decider.py": {
+      "sha256": "17e9a3e4d50dcac58a5be1b017584a0768ca168d9b1dffbbf4d9b3ad662883fc",
+      "size": 2973
+    },
+    "python/tests/test_commands.py": {
+      "sha256": "b929e0b6a34a337fc9ced8022931dfc7ae8be50657a78b7d95e661cf0854dcf7",
+      "size": 3761
+    },
+    "python/tests/test_continuous_motion.py": {
+      "sha256": "382d7c7bd3e1ca9325b6a63b6714217f1a05933b2693dc29cb43ac2f48d2898e",
+      "size": 18192
+    },
+    "python/tests/test_controller.py": {
+      "sha256": "24555e57dd8b76437144f29846bba8d214666fb243a0519779000b168c0814b5",
+      "size": 29593
+    },
+    "python/tests/test_crafting.py": {
+      "sha256": "6d4796d6d9d1b0b882e4c08b24f0ccbcf3f9647ff9bd8a26ea17fdaa77679018",
+      "size": 9835
+    },
+    "python/tests/test_distance.py": {
+      "sha256": "c12bdfaa30416ea1d3c704b335b4283206b6f5724c3b0572c6adab107978255c",
+      "size": 10545
+    },
+    "python/tests/test_end_portal_example.py": {
+      "sha256": "cc94fd0a0712ca5d6a73428bb1414c27a8fbfa3a04fae558868c705fc9228d13",
+      "size": 14779
+    },
+    "python/tests/test_event_policy.py": {
+      "sha256": "e57d8b69e46926b257014930a2f94417ed2c400d1447a086826a168ba7bc24ce",
+      "size": 1210
+    },
+    "python/tests/test_excavation.py": {
+      "sha256": "5aed87c128d7397bebdff47741ddb1a3fbb68f82ef0f990dd1f441ef280d106d",
+      "size": 3958
+    },
+    "python/tests/test_execution_reuse.py": {
+      "sha256": "dd190f818508422817afa6d4792ba994ebf234ca101674378d91fd245dee9d10",
+      "size": 10198
+    },
+    "python/tests/test_fight_optimized.py": {
+      "sha256": "908510e646d387185743b8442f17a0e6a1b51d26d83c67659d6f5bf39b205434",
+      "size": 14574
+    },
+    "python/tests/test_fighting.py": {
+      "sha256": "5eb5ec162e5fc3478cc119b781312a303cc59693a2be51e3a42cb7e5bd421218",
+      "size": 16303
+    },
+    "python/tests/test_gameplay_ui.py": {
+      "sha256": "fc56b959f9e6dd2ba98812cfb4a5279b03d2de23e4369342dbb31696b066f800",
+      "size": 2369
+    },
+    "python/tests/test_gateway_hardening.py": {
+      "sha256": "c507a79ba0fc0da5fe0baf50cc89d6051b43f9a9e88fb7facf517d4c9c509575",
+      "size": 9670
+    },
+    "python/tests/test_goals.py": {
+      "sha256": "8cd7467d9df1230f5ce4fe705a74359f5319c4c2f82dca6b8cee5982aa2b4196",
+      "size": 1210
+    },
+    "python/tests/test_llm_boundary.py": {
+      "sha256": "878f41871b37db33cff0783b5fbb094af81c94645cb59696fc05e21bcbdbd227",
+      "size": 3578
+    },
+    "python/tests/test_mining.py": {
+      "sha256": "11a9eca6cd6190edff52e3905a639a010d38f2d813bb86393cb14eb174db1c57",
+      "size": 5859
+    },
+    "python/tests/test_motion_trace.py": {
+      "sha256": "f707d195780ecceaa7d87e301aeaac2f88b9661d2a1a4c86a4f6d846cd6488bf",
+      "size": 1089
+    },
+    "python/tests/test_movement_benchmark.py": {
+      "sha256": "836b92bcfe9c5d899ac60b754807b04764ee8e3ae8eb0a27c56632bfba8f5c8b",
+      "size": 3857
+    },
+    "python/tests/test_place_at.py": {
+      "sha256": "a14eb37f48811a8aabb7c89c28d406c61b5b2e79286a31d1cf2262207aba981a",
+      "size": 4027
+    },
+    "python/tests/test_placement.py": {
+      "sha256": "5b9a94160c0dc6c47b17efa2601530241b4cac99e0f9f3c7492389c5635e654e",
+      "size": 33701
+    },
+    "python/tests/test_play2code.py": {
+      "sha256": "b700ec6339aa2f0afc9ead1c4c5ae304e644a4e6837f82a0cccf6ec454251553",
+      "size": 60161
+    },
+    "python/tests/test_play2code_benchmark.py": {
+      "sha256": "d44f61cdb156746d99d4a67392e9cecf88745aecf1b292169c709056c436b782",
+      "size": 2301
+    },
+    "python/tests/test_portable_building.py": {
+      "sha256": "66e66f9abe1893ccaedce03f5631c2eeac04487cdeb163e2581b561295bf7a15",
+      "size": 7601
+    },
+    "python/tests/test_pose_handoff.py": {
+      "sha256": "963cf683be57e393fc795d7cdb6b5bcae9a7fa0bc71fd001b2e55085adb396e2",
+      "size": 11097
+    },
+    "python/tests/test_progress_evidence.py": {
+      "sha256": "012494a04cca7d07e531f09913a7bd655a416cc973dd91745bf25ec448b7562c",
+      "size": 4415
+    },
+    "python/tests/test_project_agent.py": {
+      "sha256": "abd8754d3077084fee4584963f2e8484da5109a8dcc9a6172d4661a3f54b0184",
+      "size": 12381
+    },
+    "python/tests/test_project_inspection.py": {
+      "sha256": "610f50836ea778840ed0ddf2e9320800601a7c51a2547b9a6793051dd7b01198",
+      "size": 6053
+    },
+    "python/tests/test_projects.py": {
+      "sha256": "49e7c8667eea3849c89f496131ea3f826c46f76120382ea83d85b0f5c64025ba",
+      "size": 15516
+    },
+    "python/tests/test_recorded_arrival.py": {
+      "sha256": "d4945e8feeaaf99ac7dfd545d69a406995352aa3ac9f6bc9257d68226b2c0a4e",
+      "size": 3602
+    },
+    "python/tests/test_recorded_pose_boundaries.py": {
+      "sha256": "041267ddc9160ec38fce0668e2e8eecb1407acf41be65b15ccb162b183bd72ae",
+      "size": 6848
+    },
+    "python/tests/test_recorded_proxy.py": {
+      "sha256": "5631272cc5301dccddf6529531d4c6961513f5c4900d829493c7a63bf39cd110",
+      "size": 11039
+    },
+    "python/tests/test_removing.py": {
+      "sha256": "b89034bdcc3d1b9d258b592ba0973824749f607e77cc744c4a56d3e2974c9264",
+      "size": 2848
+    },
+    "python/tests/test_rename.py": {
+      "sha256": "f297c4b8d49e61577aca43f07887821a02f9df5f28c3de8022024f4a177e2368",
+      "size": 4102
+    },
+    "python/tests/test_rotation.py": {
+      "sha256": "4571f546ab2d3cb38773b64c422e2ea74685eb8b482796d33ac66704c11a1296",
+      "size": 4428
+    },
+    "python/tests/test_rotation_benchmark.py": {
+      "sha256": "ee09bad07ce38b2ca001db01a5f54edd92b2ed90aeddd691da6c872e992d95eb",
+      "size": 5955
+    },
+    "python/tests/test_skills.py": {
+      "sha256": "fb0eb96eca663dc9c8cda0a357b7435d96b071db9940412353b68de5d01fdd9b",
+      "size": 28163
+    },
+    "python/tests/test_statistics.py": {
+      "sha256": "84fec9301c7b79f6f36282ad3327805e230a83140f6c9a9be2f26939e3f42e32",
+      "size": 5570
+    },
+    "python/tests/test_survival_actions.py": {
+      "sha256": "a9e90c43bd0a75bc2190547ead71d686454e5360192c2eebeda263dd3377bd81",
+      "size": 3801
+    },
+    "python/tests/test_terrain.py": {
+      "sha256": "7bb4f346dd66f43583db9f4028ba244e045b9ef88e77f3e9b93f9b99ce7a2d6f",
+      "size": 11488
+    },
+    "python/tests/test_viewing.py": {
+      "sha256": "94e25cbbb765bfdcb048691ac57508733ff2a05daa8a807de8d6bc3317ee47e6",
+      "size": 1189
+    },
+    "python/tests/test_walking_continuous.py": {
+      "sha256": "c201859645e47d303e9cba335063b0e57d496935475ef82542a4f9c58317fac7",
+      "size": 3497
+    },
+    "python/tests/test_woodcutting.py": {
+      "sha256": "20d90ee114b12b09bf2474c1926dd4f65baff87bd3e2cb4499d04416970b98bb",
+      "size": 11376
+    },
+    "settings.gradle": {
+      "sha256": "c2e3f092c1fbf60f9b2ede140a9f69d2a76f9a089246fa1883906142a9ae6bc2",
+      "size": 141
+    },
+    "src/contractTest/java/dev/blockwire/CommandContractTest.java": {
+      "sha256": "f8152ea7f397b0d742161090e14bd566fe581384c4147d42dbb853093db42e84",
+      "size": 3029
+    },
+    "src/contractTest/java/dev/blockwire/ControllerContractTest.java": {
+      "sha256": "789c2412d8be1a32851d5b46a030eedb615c55dfe4c7374e7670ff4e7bf31ae3",
+      "size": 6250
+    },
+    "src/contractTest/java/dev/blockwire/InventoryContractTest.java": {
+      "sha256": "bb08e3a292618028de98c8a92c53d08fff1a8642efc29e045a263f1b8f1b02bc",
+      "size": 2887
+    },
+    "src/contractTest/java/dev/blockwire/ModMenuContractTest.java": {
+      "sha256": "b1d1811a50fc2dccfbe9cd116b38093c2be6ae01bbb1e187377f91689faf230a",
+      "size": 1356
+    },
+    "src/contractTest/java/dev/blockwire/MotionTraceContractTest.java": {
+      "sha256": "ebf3f0b6066a73fd84ee0119e14d18dcdadee2e65277263c234137567ec6baef",
+      "size": 2206
+    },
+    "src/contractTest/java/dev/blockwire/Play2CodeContractTest.java": {
+      "sha256": "3b948531a6fa900e3896f83dcf87cddee8f822abd59d070de75422b05bf93d88",
+      "size": 5522
+    },
+    "src/contractTest/java/dev/blockwire/RotationContractTest.java": {
+      "sha256": "1dce9ecd8f459b755e702ac6510c2c6ab7157c9882f04c572f9870a1e0c0788e",
+      "size": 6174
+    },
+    "src/contractTest/java/dev/blockwire/SettingsContractTest.java": {
+      "sha256": "8cef011868ec3a13862e66777689f90b88abd118631e97c4171836b0945f05c8",
+      "size": 7776
+    },
+    "src/contractTest/java/dev/blockwire/TerrainContractTest.java": {
+      "sha256": "77318974980ea864c949e411580bda1be9c3536954f74859204c749a9e0b6b78",
+      "size": 2699
+    },
+    "src/contractTest/java/dev/blockwire/TlsContractTest.java": {
+      "sha256": "6b62f93a65cfba6d9c190172a9690abcf155fa442f0b741dc8c28bc840542ae7",
+      "size": 7241
+    },
+    "src/contractTest/java/dev/blockwire/TlsFixture.java": {
+      "sha256": "ebdca40d33024b5796db5e463e5952770427a5a7ea95a2c57e40a915396ddff9",
+      "size": 1356
+    },
+    "src/contractTest/java/dev/blockwire/TransportContractTest.java": {
+      "sha256": "c4ed13bbe3c372abbd793c35fd782d8ea92e9c7cf7e5653211133576f6a70f12",
+      "size": 14486
+    },
+    "src/contractTest/java/dev/blockwire/VisibilityContractTest.java": {
+      "sha256": "9dced7c6dc0edff1ff85806338277eedc7d16ccbe349b22c30d89632ec66f309",
+      "size": 9452
+    },
+    "src/main/java/dev/blockwire/Blockwire.java": {
+      "sha256": "b375c110261351ab37da718f8d97d90b579ee0a6a1fa6bd779e79c1876e4cbe7",
+      "size": 18343
+    },
+    "src/main/java/dev/blockwire/BlockwireSettingsScreen.java": {
+      "sha256": "d7ea1046d3fbce4ae386b17ef7cee5a66ef65a9b599a7bff4e9efe0a3a56e4b8",
+      "size": 4298
+    },
+    "src/main/java/dev/blockwire/BridgeConfig.java": {
+      "sha256": "24d36aee3eb5cf728d19d1e1e12df7d6219145059d71af58627f85477d31f5f0",
+      "size": 6216
+    },
+    "src/main/java/dev/blockwire/BridgeServer.java": {
+      "sha256": "0a463b391c3700dbdaf90619fa0f6ba940be1a3df834ca52da0bb4330cbcc07f",
+      "size": 8246
+    },
+    "src/main/java/dev/blockwire/InputLeases.java": {
+      "sha256": "4be1bcd4b257c7ee25cfabcded753369f84cdabb0a7f17a01ed5bec79caf9d36",
+      "size": 1795
+    },
+    "src/main/java/dev/blockwire/InputState.java": {
+      "sha256": "7dd3e7ab35f4bd58c418ef459d53b25e1f90800aafa8b5e0c418b3df5474748f",
+      "size": 488
+    },
+    "src/main/java/dev/blockwire/LocalSettingsModel.java": {
+      "sha256": "22ab9b99ab8f7d12e4935b1c1291fdfb78d51980c2c1f31ffdf2f71f1baa7b92",
+      "size": 1468
+    },
+    "src/main/java/dev/blockwire/MenuBridge.java": {
+      "sha256": "615b10f2540f4f313f80e1c60ac733c00246c4f1648600bf6f73bc218d5f6d9c",
+      "size": 11316
+    },
+    "src/main/java/dev/blockwire/MenuInput.java": {
+      "sha256": "49e8a9aa4dcc71ec4340173cbe2bc2664119336b20d077c539fb868e1200394d",
+      "size": 1306
+    },
+    "src/main/java/dev/blockwire/MotionTrace.java": {
+      "sha256": "719572ff7edf254062d8d28ad913372c6f4523dd68047c3b27becd0c10843bb5",
+      "size": 4007
+    },
+    "src/main/java/dev/blockwire/NavigationView.java": {
+      "sha256": "8c42933d2f3caad4068b6c32a96f061624147996e728c6514e5544eead9b49c8",
+      "size": 12227
+    },
+    "src/main/java/dev/blockwire/Observations.java": {
+      "sha256": "30d56005b720627d1cdeb6a16cb31492d4f5ba7184f7a4f83b71f46d899d41f1",
+      "size": 8703
+    },
+    "src/main/java/dev/blockwire/Play2CodeCapture.java": {
+      "sha256": "01ed7104ee0337cf19d1f89584e80a29cddeeda949bf819d42dbbf3f487238a1",
+      "size": 6829
+    },
+    "src/main/java/dev/blockwire/Play2CodeRecorder.java": {
+      "sha256": "7d162e5ac562018afeee45b7aa340873a298cdccb95b6ecfcf93b36a08be5d77",
+      "size": 19964
+    },
+    "src/main/java/dev/blockwire/Protocol.java": {
+      "sha256": "d90ac1cb5d1a4e6886f2274c61fb5a80caa6dfff8d341677a0e9799fa51ebc28",
+      "size": 6066
+    },
+    "src/main/java/dev/blockwire/RotationController.java": {
+      "sha256": "087066040bf3528a259db434ef943e7790c5f90f32b622ee9402e63042f4a1ff",
+      "size": 9663
+    },
+    "src/main/java/dev/blockwire/TlsIdentity.java": {
+      "sha256": "b1eac814dcb4343f5d0f18b50761a5a64d21460823217fca5e0e702b77f8888c",
+      "size": 8267
+    },
+    "src/main/java/dev/blockwire/VisibilityView.java": {
+      "sha256": "31be1f852c6c6f264e0b909fbee7eb8d5e2f8bb70be4edbcca673b0ba5d4c224",
+      "size": 12463
+    },
+    "src/main/java/dev/blockwire/compat/BlockwireModMenu.java": {
+      "sha256": "c10617334e82690407657da37b09037ee903e0e3878e17f2fdf3443fb813b1e9",
+      "size": 494
+    },
+    "src/main/java/dev/blockwire/mixin/MinecraftActions.java": {
+      "sha256": "ac858b633838d923e1468f1981e6ddd7e5538f5e4a3aeaa4269c3f26f05414ac",
+      "size": 396
+    },
+    "src/main/java/dev/blockwire/mixin/MinecraftInputMixin.java": {
+      "sha256": "b21a6d13d26a7f4413a66c40923bc0be9ded99be134088d129af6f70e337a0c2",
+      "size": 1052
+    },
+    "src/main/java/dev/blockwire/mixin/Play2CodeInteractionMixin.java": {
+      "sha256": "e0bed168746e5882c66b1236436eae2e870b61ba189b739b944328abaaa95e8d",
+      "size": 1225
+    },
+    "src/main/resources/assets/blockwire/icon.png": {
+      "sha256": "8205cae17e041c3d2d05016d84face90828519db2b45df8a3e5371ca29b53367",
+      "size": 493
+    },
+    "src/main/resources/assets/blockwire/lang/de_de.json": {
+      "sha256": "9cbb78ae00022eca2c8d8b5073f9669ede60bf19cf4adffc5cf03a85a4fbd92e",
+      "size": 1738
+    },
+    "src/main/resources/assets/blockwire/lang/en_us.json": {
+      "sha256": "bfda29ef422596202d159ce7cfe134117a0d4b75ca2a9049290f5ad0164f1a65",
+      "size": 1637
+    },
+    "src/main/resources/blockwire.mixins.json": {
+      "sha256": "05eae16979ff742f6e10a23ff4f45981ef44b776830667aee52c3d7169a1a9e5",
+      "size": 242
+    },
+    "src/main/resources/fabric.mod.json": {
+      "sha256": "351c5044de3e0ba7e65d19e942eb789b18f5d9b9647245a3d39ad8c23f0e1187",
+      "size": 757
+    },
+    "tests/building/__init__.py": {
+      "sha256": "b6b140213c6e99a4bfc257c87199820a92bf3a6a4a1facc53e7ed77ed43fea2f",
+      "size": 84
+    },
+    "tests/building/anvil.py": {
+      "sha256": "6f7eaba488b3dcccfee1182147760497c9f9920ed12a6ff4d9ca6e9a734b13ce",
+      "size": 5026
+    },
+    "tests/building/audit.py": {
+      "sha256": "4624d6134d88017eeb808c08eafba2fba6d46be1fd1746b951538e47f7194620",
+      "size": 2318
+    },
+    "tests/building/cpu_allocation.py": {
+      "sha256": "1e4201c12c39f7933047d8ad77833c11f61ed22a35bdb6c4724969010c36a4c0",
+      "size": 5052
+    },
+    "tests/building/display_guard.py": {
+      "sha256": "ece408116901ff712f03268018e7aed9ea06557c1d4fa165af4b4713eff2cc45",
+      "size": 2830
+    },
+    "tests/building/evidence.py": {
+      "sha256": "64f556e0b6ab13aa1e1a112361010c693b597b651ec6447c399b60ae9edffc80",
+      "size": 658
+    },
+    "tests/building/fixture.py": {
+      "sha256": "22070df2381db89348eaeb7a5e75cba57abeede847ea487fe24e44c9e9ca4d7c",
+      "size": 7068
+    },
+    "tests/building/fixtures/build.bcl": {
+      "sha256": "c62c6ae8a1419e576f454f2831b5c79d4b64735ccd2de6636536ff3b07c32788",
+      "size": 6492
+    },
+    "tests/building/fixtures/reference.json": {
+      "sha256": "95f30e0d6e44c8fa6d5ac68e2370ebbfd7c4c693e4d8b297ae86d1a19405e52e",
+      "size": 9918
+    },
+    "tests/building/fixtures/superflat-house-relative.bcl": {
+      "sha256": "72e2368fb9861de72342d32b8a21825623e7dbabaf946348d786898f5d69c60b",
+      "size": 5462
+    },
+    "tests/building/live.py": {
+      "sha256": "be7d98c9482e6053db0e1a13a8efd171b240621005031c80a94eb27d3f4f2b52",
+      "size": 17897
+    },
+    "tests/building/portable.py": {
+      "sha256": "0807114b84e2b15b8f20a617e2f8dcddbc43bbd877aed17875f4ee1a54ebdb30",
+      "size": 3837
+    },
+    "tests/building/portable_live.py": {
+      "sha256": "30c03f43e6d8823f147dca9c63722cfe27ea753e3af247015b0e0e639edfc88b",
+      "size": 37002
+    },
+    "tests/building/program.py": {
+      "sha256": "cc815b59e60dd8b8d204dcacccf2eb13285701991d3e940a5ad00c6aa4045515",
+      "size": 3505
+    },
+    "tests/building/recovery.py": {
+      "sha256": "7e5dc2f1dfe762b89411c226048233d043898834328414695904a04d384125d6",
+      "size": 5411
+    },
+    "tests/building/reference.py": {
+      "sha256": "1f1be0d8dd630edac0f5fc15043d87eaa743d2632678b4a6be8e373529e15f54",
+      "size": 5158
+    },
+    "tests/building/snapshots.py": {
+      "sha256": "265786fb76c99fbec6e217b2f5ab704a15e635feb21c4ea9ec84a2e18ec39c81",
+      "size": 3206
+    },
+    "tests/mcp_menu_smoke.py": {
+      "sha256": "1066772fe248d19d3b1d678afa8ebae293d2f794142b83dca3dfabf0a2c49284",
+      "size": 6340
+    },
+    "tests/mcp_skills_live.py": {
+      "sha256": "922b7abdbc9657c4d1578b23bfa76979d63cad9c73bf676c72d643d99aa21674",
+      "size": 3482
+    },
+    "tests/mcp_smoke.py": {
+      "sha256": "602ee6d2986e221fc87daefbb04fb7a89c28697c6e8860f7bdfcfd2ff4cdacbb",
+      "size": 2766
+    },
+    "tests/movement/__init__.py": {
+      "sha256": "87e401abb2955ed395c1b8aaabad0c2ee303d8495426c0891605acc5c9a95232",
+      "size": 89
+    },
+    "tests/movement/fixture.py": {
+      "sha256": "e6c5f6f2ed01c32094607ac55a8034da15482e2e669698d516da919dbc117ade",
+      "size": 8462
+    },
+    "tests/movement/live.py": {
+      "sha256": "bc9c224cc30d0a988c779c76f3e98ff466f6959345e2e87c11405f79b8488385",
+      "size": 11667
+    },
+    "tests/movement/metrics.py": {
+      "sha256": "e6ad55f0c094ac04b59063692a7af05124d78d747d76482271e0270953fcb29e",
+      "size": 5496
+    },
+    "tests/movement/reference.py": {
+      "sha256": "d27ff7aff54e311e600de6169d695daebb8b939a3a59a4afeaf26997ff4bd4bb",
+      "size": 6808
+    },
+    "tests/movement/snapshots.py": {
+      "sha256": "ba8696db9e9270dbc9b4e4f633a1da7336923f5e38f3becf24e898f65378a59b",
+      "size": 2944
+    },
+    "tests/play2code/__init__.py": {
+      "sha256": "7093bbe257071fee366c06ae9b9d134d420cb6194f1544fbb749640b7524346a",
+      "size": 85
+    },
+    "tests/play2code/native_smoke.py": {
+      "sha256": "ecbdbaec9a7d79b9db599f63a62960afff866b2b05c5a9552d6b3b431393d5de",
+      "size": 2607
+    },
+    "tests/rename_live.py": {
+      "sha256": "eea838c029a1ca2338dfb4f4b6b13c26a85533a1e7bd97894b8067aaefc3cc44",
+      "size": 4107
+    },
+    "tests/rotation/__init__.py": {
+      "sha256": "13028786a389c82b5ab62dd19813d9072298d534150b41c755836425a446b154",
+      "size": 95
+    },
+    "tests/rotation/live.py": {
+      "sha256": "307b0d678b7ebcbe00b5e9f274b3c0db90e508a2a15b94217f947911eae7db83",
+      "size": 12385
+    },
+    "tests/rotation/metrics.py": {
+      "sha256": "b98943bcaea1c3fb2127b0f68df9ece29de3f38614d85dd7e95ea8dad5a44c04",
+      "size": 9087
+    },
+    "tests/rotation/reference.py": {
+      "sha256": "50e43277facfaf1fb142415299ece81a77c0f7ff5baf7f5ceec77cdfd1cb19ad",
+      "size": 4596
+    },
+    "tests/run_bcl_mutations.py": {
+      "sha256": "79a527dc47df67e3e6c5051ee2d4624bffecacdc01155ae10ec6892a583463fc",
+      "size": 14242
+    },
+    "tests/run_benchmark_cpu_mutations.py": {
+      "sha256": "645dec18dbcd72ae6a7e5fa968251540c4f8ed3d92f532fea4c043128da8d058",
+      "size": 3485
+    },
+    "tests/run_building_mutations.py": {
+      "sha256": "9138fea54c06c18169067920f7cf41a694fe2694f410eaa69fac1cb9729f84db",
+      "size": 8157
+    },
+    "tests/run_controller_mutations.py": {
+      "sha256": "73dfa2fedc6ce26d6bbbd3dcfff2f51b916fcad832bbd2753233abe24f2cd8f6",
+      "size": 5150
+    },
+    "tests/run_end_portal_mutations.py": {
+      "sha256": "55e5e7a18230492a0e4af8b01636e6e149f544177b496f18972b935d47611a3d",
+      "size": 3766
+    },
+    "tests/run_gateway_mutations.py": {
+      "sha256": "f1ee5aaea80fedce0cce68af7cdfaa142798a9ea238406b28019c24a09784351",
+      "size": 3933
+    },
+    "tests/run_mutations.py": {
+      "sha256": "1c6493333f7e85a1134713a7c6bb0ffa0943681f9e2f5daf7a61492d86b54c50",
+      "size": 12642
+    },
+    "tests/run_play2code_mutations.py": {
+      "sha256": "a75c47434a25aedc61c20abfcade60dffe48ac108153bb9c2a99f8c2f6a02a7e",
+      "size": 12072
+    },
+    "tests/run_project_mutations.py": {
+      "sha256": "ffc39525c37157ee900a6289a8ffa41fa4f24dd691c5895634ffc9916455a63c",
+      "size": 9775
+    },
+    "tests/run_skill_mutations.py": {
+      "sha256": "0d2bd223faa07b89e021068fcddcd108233edcd5af2bc4cca7bab20542dfa7e2",
+      "size": 48665
+    },
+    "tests/run_tls_client_mutation.py": {
+      "sha256": "8ccd9ebef952612690813199a6c50440c578de754c1b3c251f16286b5e32dfcd",
+      "size": 1508
+    },
+    "tests/test_package_modrinth.py": {
+      "sha256": "cd5c0a206e45c241b2976b67ccbfe2a5b2077e5a247fee908a9e457b83af5474",
+      "size": 5437
+    },
+    "tests/tls_interop.py": {
+      "sha256": "9e398dcf0b9ecd7e99ce088d68dcd354e940ffe760138e8295fe1151fb2a8553",
+      "size": 5596
+    },
+    "tests/tls_mcp_menu_smoke.py": {
+      "sha256": "dbdbcc0afc5a97c3bbd3be2e0d7184a946fcfc3cc8714e8714940153c9ff1998",
+      "size": 2570
+    },
+    "tools/build_bundle.py": {
+      "sha256": "19cea522e8a17bccfa32ae85b311add227bd226d14840e38cc51b6492490fe6e",
+      "size": 4707
+    },
+    "tools/generate_bcl_reference.py": {
+      "sha256": "f1ebdf65681ce960d6b8f4e656d1a55ae9e93e64c2eff582e9ec9c3e1b42d1b7",
+      "size": 2218
+    },
+    "tools/generate_building_reference.py": {
+      "sha256": "8bd7289cbe97653f886fda99e4d76b9305e5be57fb0ac538cb8cc0e7ca77c5c9",
+      "size": 700
+    },
+    "tools/movement_benchmark.py": {
+      "sha256": "d24abc79e5f1297503da8b2d07289077af7f8f6d62c05337e527056594f0d8ef",
+      "size": 1664
+    },
+    "tools/package_modrinth.py": {
+      "sha256": "b15d5d43ee34c582846ba88aa7a5fe0cb08fde1752bf81400ba34a79873e63f2",
+      "size": 8946
+    },
+    "tools/play2code_benchmark.py": {
+      "sha256": "b974774d9ce0bca5c27ae1c5ec354a5b512c27920e2e62457c0bb412316fb88c",
+      "size": 4472
+    },
+    "tools/portable_bcl_benchmark.py": {
+      "sha256": "eae410d974fa4322748caebc53a5fd6f21b3d6a367851c5a8fe1813de8e275a9",
+      "size": 3791
+    },
+    "tools/report_movement_benchmark.py": {
+      "sha256": "8af9bba7a62089402c412ff2905ee38c33e0576bfd78ef0db303ac57d7c28486",
+      "size": 18575
+    },
+    "tools/report_rotation_benchmark.py": {
+      "sha256": "e70552dccaa07bbdc98217543d680fbd2abd6c679adbfe7bd359345552579468",
+      "size": 25735
+    },
+    "tools/report_superflat_benchmark.py": {
+      "sha256": "512279efc98acb8123faf9414fab02586c37f0550c13069f287915fd70f1bace",
+      "size": 12888
+    },
+    "tools/rotation_benchmark.py": {
+      "sha256": "9678cd2dc056ce40905aaa2bbc4865a188bc8009efaacae95cf098588bed40b6",
+      "size": 1592
+    },
+    "tools/superflat_benchmark.py": {
+      "sha256": "dae2a9b23de5739afc3a2d9967d0dbe65060ef1338fc310d06c6f401f446971c",
+      "size": 2140
+    }
+  },
+  "historical_maps": "Preserved point-in-time identities; additive documentation has new current hashes",
+  "identity": "3b601a00b9b6da5d033a2df55b33afc82423420cfc12b746bf31089246931328",
+  "no_private_world_data_credentials_raw_identities_or_recordings_published": true,
+  "private_artifacts": {
+    "artifact_count": 974,
+    "identity": "4cc27973405869303fd39054696d3da9db618053fe948c1d3de06f490475ae3f",
+    "index": "build/autonomous-survival/parallel-cpu-001/evidence-hashes-private.json",
+    "scope": "Local private CPU topology/affinity/timing/world/replay artifacts, not autonomous gameplay outcomes"
+  },
+  "schema": "blockwire.autonomous-survival-cpu-allocation-hashes.v1"
+}

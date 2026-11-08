@@ -1,0 +1,151 @@
+{
+  "format": "blockwire-grounded-access-evidence-v1",
+  "status": "CONTRACT_PASS_EXPERIMENTAL_RETURN_PLANNING_GRAPHICAL_NOT_RUN",
+  "parent_milestone": "docs/evidence/grounded-builder.json",
+  "parent_sha256": "81029e7eecab9030ac6c4095e89c04a0a66f0ae2fbf735030a542370ce5ea2ca",
+  "scope": "Python observed-route history, return-preserving projections and owned scaffold teardown; not house or gameplay acceptance",
+  "source_schematic": {
+    "path": "schemas/starter house.litematic",
+    "sha256": "31c374eebd93ffb53a92809b8f978e3e6b23379adb9ed430d7b140fc3563fbd7",
+    "desired_states": 658,
+    "input_unchanged": true,
+    "built": false
+  },
+  "implementation": {
+    "native_profile": "grounded_creative_v1",
+    "route_profile": "observed_build_retreat_v1",
+    "new_java_transport_mcp_or_bcl_authority": false,
+    "survival_motors_changed": false,
+    "sources": "Explicit native stepped meshes and actor-fenced motion telemetry only; no desired voxels as observed geometry",
+    "history": "Bounded mixed-time observations; missing cells in refreshed footprints become unknown; historical border edges require fresh traversal checks",
+    "projection": "Subtraction only: floors, headroom, diagonal corner supports and step envelopes; never invents newly usable landings",
+    "walking": "Adjacent waypoints with a freshly observed first edge; existing native-observing motor, same actor and grounded-Creative input guards; one shared approach deadline",
+    "scaffolds": "Explicitly authorized owned cobblestone; child dependencies before parents; retreat and ownership rechecked after approach; own support protected; no temporary permanent-door floor",
+    "accounting": "Pending effect remains latched until verified ownership/removal bookkeeping is committed; hard pre-commit interruption remains unknown_no_retry",
+    "outcome": "Unchanged exact positive targets, owned-scaffold air, grounded return and newer same-actor input-release evidence",
+    "no_flight_teleport_commands_paste_inventory_injection": true,
+    "no_automatic_reconnect_replay_rescue_or_resume": true,
+    "retreat_is_escape_guarantee": false,
+    "independent_server_save_certification": false
+  },
+  "bounds": {
+    "history_nodes": 8192,
+    "history_edges": 32768,
+    "native_frame_cells": 405,
+    "native_frame_edge_transition_entries": 4096,
+    "route_edges": 512,
+    "approach_deadline_seconds": 30,
+    "initial_center_distance_blocks": 0.15,
+    "body_width_depth_max_blocks": 0.7,
+    "body_height_range_blocks": [
+      1.75,
+      1.85
+    ],
+    "existing_work_rpc_audit_scaffold_and_global_deadline_bounds_retained": true
+  },
+  "checks": {
+    "python": {
+      "status": "PASS",
+      "count": 957
+    },
+    "new_contracts": {
+      "status": "PASS",
+      "count": 31,
+      "labels": "GA01-GA31"
+    },
+    "retained_builder_contracts": {
+      "status": "PASS",
+      "count": 41
+    },
+    "gradle_check_build": "PASS",
+    "tls_interoperability": {
+      "status": "PASS",
+      "count": 10,
+      "scope": "isolated Netty/Python fixture, not Minecraft"
+    },
+    "new_mutations": {
+      "status": "KILLED",
+      "count": 33
+    },
+    "regression_mutations": {
+      "builder": 37,
+      "skills": 209,
+      "status": "KILLED"
+    },
+    "total_mutations_killed": 279,
+    "compilation_import_or_runtime_errors_count_as_kills": false,
+    "source_freeze_files": 245,
+    "diff_check": "PASS",
+    "ccc_index": "PASS",
+    "final_source_freeze": "build/grounded-access/checks-004/source-freeze-private.json"
+  },
+  "fixture_limits": [
+    "Independent explicit graph inputs, not native collision/physics simulation",
+    "Small voxel integration mocks walking, Creative GUI and placement",
+    "Injected bridge ownership tests teardown policy, not feasibility or native placement provenance",
+    "Native builder tests retain parser/policy/API and STATIC wiring scope; no GUI/mixin execution"
+  ],
+  "retained_development_findings": [
+    "checks-001/focused-01.log: new body read omitted actor_session and was correctly rejected; call fixed, fence retained; focused-02 passed 41 contracts",
+    "checks-002: intermediate 955-test/31-mutation PASS before tighter current-cell/actual-pose binding",
+    "checks-003: intermediate 956-test/32-mutation PASS before retaining pending state through verified-effect accounting",
+    "checks-004 is final: 957 tests, 33 new mutations plus 246 regression mutations; prior scopes unchanged"
+  ],
+  "non_acceptance": [
+    "Graphical Minecraft execution NOT_RUN; no client/world started by this work",
+    "Creative GUI, flight avoidance, actual traversal/return, scaffold cleanup and complete 658-state house NOT_RUN",
+    "Access heuristic incomplete; old distant route knowledge and environmental/other-actor changes may invalidate plans",
+    "Extra reads and conservative refusals can exhaust bounds or leave partial structures/scaffolds",
+    "No source-air interior, atomic server/save or independent multiplayer-causality certificate",
+    "No Creative world/actor/build site selected or authorized; project relocation does not select a gameplay data scope",
+    "Separate Survival benchmark remains PAUSED and graphically NOT_RUN"
+  ],
+  "preservation": {
+    "head": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+    "baseline_dirty_files": 94,
+    "byte_identical_baseline_files": 92,
+    "intentional_overlaps": [
+      "python/src/blockwire/grounded_build.py",
+      "python/tests/test_grounded_build.py"
+    ],
+    "source_and_baseline_preserved_across_project_path_change": true,
+    "historical_evidence_unchanged": true,
+    "index_empty": true,
+    "commit": false,
+    "push": false,
+    "release": false
+  },
+  "source_sha256": {
+    "python/src/blockwire/skills/build_access.py": "4a2aefa70d3581d8357562d65dbc80d55619ac94b90dfb72fbea058ee709c9f6",
+    "python/src/blockwire/grounded_build.py": "832b27d3b045e3ad8a4aa77f8251eb904593a86d0e841e0ab2cf86f9f10a194d",
+    "python/tests/test_build_access.py": "265fa62693d85e6dd8428b871f4304b2d1a4223a59184e33b7efb263a1c243ee",
+    "python/tests/test_grounded_build.py": "30b556f21412b9705a8844151113dc34323f44abbcce524601f87d911588b605",
+    "tests/run_build_access_mutations.py": "9d33368a83cb857703f49847e8db8463dead1b40383fa4ad211143f7fbb5df1f",
+    "docs/grounded-access.md": "8d14a9fcd1c5737e298189cd96505949a2d108b4c3cf3ea7cf51f8e4f75609cf"
+  },
+  "check_artifact_sha256": {
+    "build/grounded-access/checks-004/source-freeze-private.json": "b0f10fa629dedd76cf02c09551f5ee616a824908e3d9b287e0934c3fadefade4",
+    "build/grounded-access/checks-004/python.log": "52cf93e8305f2418b44a380328797128e04e5ac87bba1c6513e4b39e74347767",
+    "build/grounded-access/checks-004/python.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/access-mutations.log": "c5e12a7ed9f624c9defbfb635553fa6fcd460d19182002300a220c6728e1334f",
+    "build/grounded-access/checks-004/access-mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/access-mutations/results.json": "2d054f00f3217a2f5587b9a84026e4ea1fead07447e33e3c4f33072955d6b92a",
+    "build/grounded-access/checks-004/access-mutations/baseline.log": "76c45523bea34b0b81812a3f26a128ea5206366031b969e1ed5b0ad212db1c51",
+    "build/grounded-access/checks-004/builder-mutations.log": "822be58786a7f45f544a76896b4a9301b65c22761fe6beeda4c1aed8a0cac555",
+    "build/grounded-access/checks-004/builder-mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/builder-mutations/results.json": "b37197aea8730ac30ff8e6168f791f5d6c32170259e0badb123ae7d5c3f24e6f",
+    "build/grounded-access/checks-004/builder-mutations/python-baseline.log": "a5a90c037daee33d24bd7f50ea13a440580a66bb4960c4d52f08ae32b86ec73e",
+    "build/grounded-access/checks-004/builder-mutations/native-baseline.log": "7545e4a50f8689cb5676a2d69efebc480aa184cde8f3eb196b1e20f05089a348",
+    "build/grounded-access/checks-004/skill-mutations.log": "562a824a8bbe5356120b557142e71bda8353706459819a3616f917846c9b77b2",
+    "build/grounded-access/checks-004/skill-mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/skill-regression/skill-mutations/results.json": "562a824a8bbe5356120b557142e71bda8353706459819a3616f917846c9b77b2",
+    "build/grounded-access/checks-004/gradle.log": "d4fa7f8a3b5696c0f2c68ff544733d46b6a0f9e124bc778d6e0e2fd9fae434b1",
+    "build/grounded-access/checks-004/gradle.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/tls.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f",
+    "build/grounded-access/checks-004/tls.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/grounded-access/checks-004/ccc-01.log": "5672d2e6e100583f36eb4e074be4badf6fb0cbe222c723c6edf42db956eff185",
+    "build/grounded-access/checks-004/ccc-01.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-access/checks-004/CHECKS_FINISHED": "1eb4be235af2a9477babc22ae725503d7843a67057f49020258fb04f7abf0dae"
+  }
+}

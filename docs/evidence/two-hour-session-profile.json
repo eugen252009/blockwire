@@ -1,0 +1,101 @@
+{
+  "activation": "PREPARED_NOT_STARTED; separate owned0600 nonsymlink campaign-specific approval absent",
+  "failed_attempts_preserved": [
+    "initial synthetic TLS handshake stall",
+    "original mutation anchor ambiguous after second policy class",
+    "repeated ticket-enabled fixture stall with both SSL readers waiting before HTTP",
+    "isolated host mutation import setup initially missing series_limits; INVALID, not counted killed"
+  ],
+  "live_native_model_requests": 0,
+  "model_policy": {
+    "agents": [
+      "H2-a",
+      "H2-b"
+    ],
+    "campaign_id": "two-hour-001",
+    "concurrent_requests": 2,
+    "duration_ms": 9000000,
+    "inference_ms_per_agent": 7200000,
+    "model": "gpt-6-luna",
+    "operations_per_agent": 9000,
+    "provider": "openai-codex",
+    "request_timeout_ms": 90000,
+    "requests_per_agent": 720,
+    "total_inference_ms": 14400000,
+    "total_operations": 18000,
+    "total_requests": 1440
+  },
+  "new_world_started": false,
+  "no_commit_push_deploy_upload_release": true,
+  "old_campaigns_resumed_or_ledgers_reset": false,
+  "prepared_private_host": "build/blockwire-multiplayer/two-hour-001",
+  "profile": {
+    "blocked_backoff_seconds": 30,
+    "duration_is_ceiling_not_guaranteed_progress": true,
+    "finalization_seconds": 900,
+    "gameplay_seconds": 7200,
+    "identical_failure_limit": 2,
+    "idle_backoff_seconds": 30,
+    "known_failure_behavior": "wait then ask model again; no automatic action retry",
+    "max_feedback": 100,
+    "max_frame_operations": 12,
+    "minimum_decision_interval": 10,
+    "model_concurrency": 2,
+    "model_timeout_seconds": 90,
+    "operations_per_agent": 9000,
+    "outer_seconds": 9000,
+    "preparation_seconds": 900,
+    "rejected_backoff_seconds": 120,
+    "requests_per_agent": 720,
+    "total_operations": 18000,
+    "total_requests": 1440,
+    "two_hour_native_acceptance": "NOT_RUN",
+    "unknown_actor_resource_F8_behavior": "terminal; no reconnect/rebind/respawn"
+  },
+  "remaining_gates": {
+    "actual_two_hour_play": "NOT_RUN",
+    "eight_hour_soak": "STILL_SEPARATELY_BLOCKED",
+    "long_run_fault_shutdown": "NOT_RUN",
+    "repeatable_survival_or_cooperation": "NOT_QUALIFIED",
+    "two_hour_resource_headroom": "NOT_RUN",
+    "two_hour_world_replay_finalization_and_viewer": "NOT_RUN"
+  },
+  "schema": "blockwire-two-hour-sessions/v1",
+  "status": "IMPLEMENTED_CONTRACTS_PASS_NATIVE_TWO_HOUR_NOT_RUN",
+  "test_fixture_mitigation": {
+    "C2_handshake_cause_proven": false,
+    "certificate_auth_TLS13_and_client_timeout_retained": true,
+    "fresh_fixture_comparison_passed": 60,
+    "production_TLS_changed": false,
+    "synthetic_sync_SSL_server_num_tickets": 0
+  },
+  "tests": {
+    "TLS_interop": 10,
+    "gradle": "PASS",
+    "new_public_profile_tests": 24,
+    "private_handoff_mutations": 11,
+    "private_host_tests": 26,
+    "private_loop_wiring_mutations": 8,
+    "public_mutations": {
+      "auto_event": 12,
+      "bcl": 50,
+      "decision_context": 14,
+      "feedback": 16,
+      "gateway": 14,
+      "model_limit": 17,
+      "soak": 14,
+      "two_hour": 22
+    },
+    "public_mutations_total": 159,
+    "python": 748,
+    "virtual_two_hour_loop": "PASS_SIMULATION_NOT_MINECRAFT"
+  },
+  "unchanged": [
+    "TLS/hostname/per-instance trust/API keys",
+    "native input leases/F8/ownership/queues",
+    "actor fence every look/drive",
+    "native movement/collision/crafting/placement whitelist",
+    "legacy30min/30request/300op and2000-row defaults",
+    "no provider fallback or hard billing/token guarantee"
+  ]
+}

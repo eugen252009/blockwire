@@ -5,7 +5,9 @@
   "client": [
     "MinecraftInputMixin",
     "MinecraftActions",
-    "Play2CodeInteractionMixin"
+    "Play2CodeInteractionMixin",
+    "CreativeInventoryAccess",
+    "PlayerJumpAccess"
   ],
   "injectors": {
     "defaultRequire": 1

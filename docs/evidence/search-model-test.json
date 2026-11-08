@@ -1,0 +1,159 @@
+{
+  "schema": 1,
+  "scope": "search-model-001",
+  "status": "SCOPED_PASS_MODEL_CHOSEN_NATURAL_PERCEPTION",
+  "source_commit": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+  "production_unchanged": true,
+  "model_chooses_order_and_parameters": true,
+  "prescribed_hits_or_coordinates": false,
+  "environment": {
+    "fresh_normal_world": true,
+    "seed_property_blank": true,
+    "closed_save_noise_generator_verified": true,
+    "fixture": false,
+    "relocation": false,
+    "console_setup": false,
+    "granted_items": false,
+    "hidden_authenticated_display": true,
+    "actual_jvm_verified_before_native_connection": true
+  },
+  "transport": "real gpt-6-luna -> MCP stdio -> machine-v1 TLS -> native Minecraft",
+  "bounds": {
+    "model_calls": 6,
+    "search_calls": 3,
+    "native_pages": 102,
+    "turns": 2,
+    "look_around": 1,
+    "test_seconds": 480,
+    "outer_seconds": 900
+  },
+  "offline_host_tests": 8,
+  "offline_host_mutations_killed": 3,
+  "audit_decoder_unit_tests": 3,
+  "provider_probe_inference_calls": 0,
+  "provider_or_gameplay_retries": 0,
+  "result": {
+    "status": "SCOPED_PASS_MODEL_CHOSEN_NATURAL_PERCEPTION",
+    "model_calls": 5,
+    "decision_tools": [
+      "look_around",
+      "search",
+      "turn",
+      "search",
+      "report_test"
+    ],
+    "model_parameters_unmodified": true,
+    "prescribed_test_sequence": false,
+    "normal_noise_world_confirmed": true,
+    "no_fixture_spawn_relocation_or_console_setup": true,
+    "native_pages": 68,
+    "native_rays": 6417,
+    "scans": [
+      {
+        "model_step": 2,
+        "parameters": {
+          "target": "logs",
+          "range": 64,
+          "cone_degrees": 90,
+          "timeout_seconds": 20
+        },
+        "reason": "targets_observed",
+        "matches": 13,
+        "additional_distinct_blocks": 13,
+        "ids": [
+          "minecraft:spruce_log"
+        ],
+        "surface_distance_min": 12.675766202803088,
+        "surface_distance_max": 21.73924346964846,
+        "native_pages": 34,
+        "rays": 3209,
+        "sample_interval_ms": 4692
+      },
+      {
+        "model_step": 4,
+        "parameters": {
+          "target": "logs",
+          "range": 64,
+          "cone_degrees": 90,
+          "timeout_seconds": 20
+        },
+        "reason": "targets_observed",
+        "matches": 18,
+        "additional_distinct_blocks": 5,
+        "ids": [
+          "minecraft:spruce_log"
+        ],
+        "surface_distance_min": 10.529994128434522,
+        "surface_distance_max": 39.716960639439705,
+        "native_pages": 34,
+        "rays": 3208,
+        "sample_interval_ms": 4800
+      }
+    ],
+    "unique_reported_blocks_verified_in_closed_save": 18,
+    "coarse": [
+      {
+        "reason": "crosshair_anchor_not_observed",
+        "sampled_log_positions": 4,
+        "first_search_matches_not_in_cached_coarse_sample": 10,
+        "different_sample_times": true
+      }
+    ],
+    "positive_hit_geometry_and_page_aggregation": "PASS",
+    "all_world_ray_collisions_independently_reconstructed": false,
+    "pixel_visibility_verified": false,
+    "position_unchanged": true,
+    "inventory_empty": true,
+    "health": 20,
+    "walking_and_mining_stats_zero": true,
+    "host_cleanup": "released",
+    "unknown": false,
+    "all_owned_processes_ports_display_closed": true,
+    "model_report_used_as_acceptance": false,
+    "harvesting": "NOT_RUN",
+    "ordinary_mcp_graphical": "NOT_RUN",
+    "replay_viewer": "NOT_RUN",
+    "audit_completed_at": 1794036314.6744606
+  },
+  "audit_limitations": [
+    "Only reported positive block IDs queried in the closed save",
+    "Not an independent reconstruction of every world collision/ray",
+    "No pixel visibility, absence, reachability, natural-tree origin or harvesting certificate",
+    "Native camera angles checked after release; ideal libm view-vector equality is not assumed"
+  ],
+  "audit_corrections_retained": [
+    "Java properties colon escaping",
+    "Minecraft 26.3 compact empty-key compound palette entries",
+    "Native camera-state verification rather than exact ideal-trigonometry vector"
+  ],
+  "native_jar_sha256": "145b90ba89307b40d5f9f6feb5fad541596721d6156dd509752a2cc4d88cf7c6",
+  "audit_source_sha256": "a49ddbb4561a3101953e1252641fb35843414ebb467acedbcc4c125473040715",
+  "private_evidence_sha256": {
+    "build/search/model-001/prepared-private.json": "9b453817300ef64a1ed381d2e57072890b60b91d1a49a41806ca693ef8de1dec",
+    "build/search/model-001/scope-private.json": "1b67566fcd1c48e5d9feb139f46758c775b80d7233c22862becf1e726605ddd5",
+    "build/search/model-001/source-commit-private.json": "6e087a4a85800d413c66a333914dc27a7300b119d8f7f20a94341e3f17aad5a1",
+    "build/search/model-001/source-freeze-private.json": "3fa944c4a59587f1709cccf241a5374fa7fe3aebf10246cfab787187e5a6c014",
+    "build/search/model-001/native-source-freeze-private.json": "f59b35ebaa2e013c3bc66520ea2d4c25174423d15bfa40961c8ad63c0014cb7a",
+    "build/search/model-001/host-source-freeze-private.json": "e32768f2ee37e894e0df4ec7b61b0b284f8c656056e1bd8603fefb104fee13e6",
+    "build/search/model-001/host-tests-initial-private.log": "f5b263383757119c3f6a1cbc15c4fab81c370b8778514e783b39746e66a38217",
+    "build/search/model-001/host-tests-final-private.log": "63a6d8087a817476a1a646930c8113e41ebcfaefc73da0c2063cb9d7b5c52f63",
+    "build/search/model-001/host-mutations-private.json": "df8e60eb40e02db14c0b7d93ef93fee021fd203a3c979c6a35b2a9766a1c6dcc",
+    "build/search/model-001/provider-probe-private.json": "566ec64cd9fef023f232827a868ee1bcb422c1d65097ec401b3fa62e0fda4d3a",
+    "build/search/model-001/hidden-display-observed-private.json": "c633f20bf7d936b2779d7c1015293ffabf1003e628733124d87a1129266a714a",
+    "build/search/model-001/agent-result-private.json": "5c31ebb6db1150c01ee9621049851f322f44ec4d51cbb4361eb441cd423c38c6",
+    "build/search/model-001/gateway-ended-private.json": "9cbb83f1757d30a8dfaeab7ac29bfd7805af43c39cecddbe18e62bb0c574ba50",
+    "build/search/model-001/ended-private.json": "ab0f73d291894c1e815a883d2d611ae5004fa50b2ca735e60ce7f7a9084cae11",
+    "build/search/model-001/independent-audit-private.json": "469142f48b9b59352b1894599b9279d07a43fe0e1abdb3239ac8916148ba579d",
+    "build/search/model-001/audit-final-private.log": "d07103bd94404aaa930776bde1c24ad3d5a2fc6fa7c41ff1b3374f6884eb4d8b",
+    "build/search/model-001/audit-passed-private.log": "ae1b589f2d3fc0411bcd8e4574068895d301764246ae4f7fd3bb968905cc2c13",
+    "build/search/model-001/audit-verified-private.log": "af07212fbe9a77c332f44ed47fe47ef79287785ae33d01c77eaadbbb6c4f5507",
+    "build/search/model-001/audit-complete-private.log": "39682bd337a9490b34f9a0d1d4dd77bd686f2a296c25bdcfe4c66a820874635d",
+    "build/search/model-001/auditor-unit-private.log": "33060fd73862c5e1af97335504d5b45211fce6d229657f556d8deceeadc52ce4",
+    "build/search/model-001/palette-format-private.json": "58c96325014a6697776820bc2177227f9080b0780e6498be76dbbcef6d75cd80",
+    "build/search/model-001/run-01/client/evidence/visible-title/actual-child-proof-private.json": "8277094b4cec4df92bcf9eb57b8c27aa52906b91345689a06cfd6cdb261261a5",
+    "build/search/model-001/run-01/client/evidence/visible-final-replay-finalization-private.json": "246d41dc26043e1f77ea72aff7fc3f6ada72eddb1236da7eb8b76fafcf2493c5"
+  },
+  "historical_evidence_unchanged": true,
+  "scope_stopped": true,
+  "no_push_tag_upload_release": true
+}

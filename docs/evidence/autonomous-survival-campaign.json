@@ -1,0 +1,324 @@
+{
+  "architecture": "External LLM -> bounded host/persistent SessionStore -> BCLClient over authenticated loopback TLS -> BCLGateway/BCLJobs/AgentRuntime -> native Minecraft. Host validates, budgets and persists; it does not select gameplay goals or generate action sequences.",
+  "baseline_commit": "a9a7405",
+  "bounds": {
+    "actual_compiled_submitted_operations": 80,
+    "actual_decisions": 12,
+    "automatic_action_retry": false,
+    "blocked_skill_outcomes": 8,
+    "max_compiled_submitted_operations": 300,
+    "max_decisions": 30,
+    "max_failed_frames_or_decisions": 8,
+    "max_identical_failed_frame_submissions": 2,
+    "max_operations_per_model_frame": 24,
+    "max_wall_seconds": 1800,
+    "model_chosen_replanning_after_observed_failures": true,
+    "returned_skill_outcomes": 62,
+    "stop_reason": "failure_budget",
+    "succeeded_skill_outcomes": 54,
+    "uncertain_transport": false,
+    "wall_seconds_from_pre_action_recording_check": 498.2123248577118
+  },
+  "campaign_id": "campaign-001",
+  "cleanup": {
+    "config_control_disabled": true,
+    "gateway_closed": true,
+    "hidden_display_stopped": true,
+    "native_client_closed": true,
+    "normal_native_save_and_quit": true,
+    "original_prism_instances_modified": false,
+    "ports_8765_and_8879_closed": true,
+    "unrelated_processes_terminated": false
+  },
+  "commit_push_release_upload_deploy": false,
+  "decisions": [
+    {
+      "bcl_sha256": "4338b2d3bd8667eef8d3359895fad40a9e7df8415aa36c58f4dfdfd3eee269d3",
+      "decision": 1,
+      "finish": false,
+      "note": "The spruce forest offers nearby timber. I\u2019ll gather a small supply first, then choose a safe spot for a workshop and shelter."
+    },
+    {
+      "bcl_sha256": "0db9a6eed72ba1b3ea1171a2628ad30c46cefe2b4921b49031fdc80c25169946",
+      "decision": 2,
+      "finish": false,
+      "note": "The first timber targets lacked a reachable route. I\u2019ll move along observed safe ground to inspect the closer spruce from another side."
+    },
+    {
+      "bcl_sha256": "5ed3137b199ab6d269c96c7f387406e21f83c980443ae4939f7460b1aa8fb36b",
+      "decision": 3,
+      "finish": false,
+      "note": "The spruce log is now directly exposed beside supported ground. I\u2019ll try gathering timber from this closer position."
+    },
+    {
+      "bcl_sha256": "5931519d613c496ba752d5c5e27dcc059957a920b9fd0ae9370f5b80b4835834",
+      "decision": 4,
+      "finish": false,
+      "note": "The mining attempt made no progress at point-blank range. I\u2019ll try a clear, supported stance farther from the trunk and harvest just one log."
+    },
+    {
+      "bcl_sha256": "25cf56f614a2e2746911fce5ed7541d2b66217097b1d0827c894d7e9b4c32869",
+      "decision": 5,
+      "finish": false,
+      "note": "The first log is secured. I\u2019ll make a workbench and collect another exposed log for tools."
+    },
+    {
+      "bcl_sha256": "858fb13455da97b8dfee72879aa274b7199dd15b035a3fabd22703534ce0a75c",
+      "decision": 6,
+      "finish": false,
+      "note": "The workbench is crafted. Mining from immediately beside the trunk stalled, so I\u2019ll try an offset eastern stance with more clearance."
+    },
+    {
+      "bcl_sha256": "9d99fc12860e9e0045dff146e8a2d323e4af2f0457dcc7f7b6be4112eadad688",
+      "decision": 7,
+      "finish": false,
+      "note": "This trunk has repeatedly resisted harvesting. I\u2019ll explore the nearby supported ground for easier timber and a practical home site."
+    },
+    {
+      "bcl_sha256": "2fc30c25e40415d851f654be9bb2faaf3b513d3b8be465ebfaaf1eba707cae40",
+      "decision": 8,
+      "finish": false,
+      "note": "There is another exposed spruce trunk east of me. I\u2019ll approach over the observed level ground and try collecting timber there."
+    },
+    {
+      "bcl_sha256": "9a7e6ca2ca5545a39490ca9b7ddcb66e379ed931d1fda1b261b607b5e8fb5e81",
+      "decision": 9,
+      "finish": false,
+      "note": "Leaves obstruct the western approach. I\u2019ll inspect the trunk from its accessible southern side and try harvesting the lower exposed wood."
+    },
+    {
+      "bcl_sha256": "5e89deb44d0cd3317de35a0b59e5234e2a016118fc2e7063125562062042db9c",
+      "decision": 10,
+      "finish": false,
+      "note": "A different trunk is now directly exposed. I\u2019ll harvest from a clear, slightly offset stance and check whether wood is actually collected."
+    },
+    {
+      "bcl_sha256": "376190ea4e5d776670a6492301b124d4d03bba8c128c92d2473dd23b38713172",
+      "decision": 11,
+      "finish": false,
+      "note": "Timber harvesting is repeatedly failing. I\u2019ll establish a small workbench site on the observed level ground, then inspect nearby terrain for a modest shelter."
+    },
+    {
+      "bcl_sha256": "c4d9bc15621689a47193e6b95fdf3f9cd7e7221110c22278961104015465290c",
+      "decision": 12,
+      "finish": false,
+      "note": "The workbench is placed. I\u2019ll test collecting exposed soil beside the slope for a small shelter without disturbing my footing."
+    }
+  ],
+  "failures": [
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "no_reachable_exposed_logs",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "no_reachable_exposed_logs",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_wood",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    },
+    {
+      "command": "core:crafting.gather_block",
+      "reason": "mining_not_observed",
+      "status": "blocked"
+    }
+  ],
+  "limitations": [
+    "One short Peaceful campaign, no hostile-mob or long-term qualification",
+    "No shelter, persistent home, tools, stone, food production or storage established",
+    "Repeated native mining failures exhausted budget; no precise root cause established",
+    "Replay GUI/camera smoke and campaign playback scoped, not every visual interaction audited",
+    "Original benchmark closed-save palette decoder rejected fresh 26.3 empty-key palette. A strict one-voxel private read-only audit verified crafting_table; old decoder and historical verdicts unchanged.",
+    "Private staging/UI/audit diagnostic errors retained, not gameplay retries"
+  ],
+  "model": {
+    "decider": "Existing CommandJSONDecider with explicitly selected installed pi CLI",
+    "knowledge": "Actual BCL registry and existing structured native recipe catalogue",
+    "manual_decision_replies": false,
+    "model": "gpt-6.1-sol",
+    "predefined_progression_or_building_template": false,
+    "primary_instruction": "You are playing Minecraft Survival in a new world.\nYour objective is to survive, establish a useful home and gradually develop your world.\nYou decide what to do, what to build, which resources to collect and how to organize your work.\nUse the available Blockwire capabilities to interact with Minecraft.\nObserve the results of your actions and change your plans when necessary.\nDo not claim success unless the actual world state confirms it.\nYou do not need to defeat the Ender Dragon.\nStart by examining your surroundings and deciding what would be useful to do first.",
+    "provider": "openai-codex",
+    "thinking": "medium",
+    "tools": []
+  },
+  "outcomes": {
+    "crafted": {
+      "minecraft:crafting_table": 1,
+      "minecraft:spruce_planks": 4
+    },
+    "failure_counts": {
+      "mining_not_observed": 6,
+      "no_reachable_exposed_logs": 2
+    },
+    "failure_root_cause": "Reach/route rejection and mining postcondition timeouts observed. Precise native mining cause not established; no fabricated fix or attribution.",
+    "final_health": 20,
+    "final_hunger": 20,
+    "final_inventory": {},
+    "final_position": [
+      16.645726409751465,
+      88.0,
+      12.350008662604113
+    ],
+    "home_established": false,
+    "mined": {
+      "minecraft:spruce_log": 1
+    },
+    "native_successful_walks": 8,
+    "picked_up": {
+      "minecraft:spruce_log": 1
+    },
+    "placed": {
+      "minecraft:crafting_table": 1
+    },
+    "placed_position": [
+      15,
+      88,
+      15
+    ],
+    "placement_independent_closed_save": true,
+    "shelter_built": false,
+    "stone_gathered": false,
+    "tools_crafted": false,
+    "useful_progress": "Self-selected exploration, resource acquisition, crafting and one-block workshop infrastructure; not a completed Survival base."
+  },
+  "persistence": {
+    "agent_store": "build/autonomous-survival/campaign-001/campaign.sqlite",
+    "automatic_restart_or_resume_qualification": false,
+    "fresh_native_and_closed_state_authoritative": true,
+    "future_continuation": "Explicit fresh actor rebind/new activation; revalidate existing memory/world; never replay pending or old frames.",
+    "home_in_model_memory": null,
+    "last_model_memory_may_be_stale": true,
+    "pending_intent_at_stop": null,
+    "stores_goal_memory_locations_history_actor_pending_and_counters": true
+  },
+  "production_sources_changed": false,
+  "qa": {
+    "experimental_stateful_optimizations": "OFF_UNCHANGED",
+    "gradle": "PASS",
+    "movement_211_case_suite": "NOT_RERUN_UNCHANGED_PRODUCTION_SOURCE",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 209,
+        "total": 209
+      }
+    },
+    "physical_f8_injection": "NOT_RUN",
+    "python": "603/603 PASS",
+    "tls_interop": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "qualification": {
+    "autonomous_progress": "GO_SCOPED",
+    "basic_survival": "NOT_QUALIFIED_NO_HOME",
+    "campaign_execution": "GO_SCOPED",
+    "long_term_autonomy": "NOT_QUALIFIED",
+    "normal_difficulty_survival": "NOT_RUN",
+    "recording_integrity": "GO_SCOPED",
+    "recording_performance_overhead": "NOT_MEASURED_NO_MATCHED_CONTROL",
+    "replay_capture": "GO",
+    "replay_playback": "GO_SCOPED_NATIVE_VIEWER"
+  },
+  "replay": {
+    "all_inventory_gui_interactions_visually_audited": false,
+    "campaign_file": "build/autonomous-survival/campaign-001/replay/session.mcpr",
+    "complete_monotonic_packet_framing": true,
+    "contains_failures": true,
+    "distribution_source": "https://modrinth.com/mod/replaymod",
+    "download_sha512_verified": true,
+    "duration_ms": 499816,
+    "first_packet_ms": 6,
+    "free_camera": "Viewer offers free-camera and recorded-player spectator controls; no cinematic qualification",
+    "initial_active_check": "ReplayMod auto-recording smoke-qualified, per-world staging directory present before first BCL action; growing actual packet stream confirmed during campaign. Initial staging directory size was not a replay-file size.",
+    "instance_file": "replay_recordings/2026_11_04_08_00_05.mcpr",
+    "interval": "Recording starts at world join, before first autonomous action, ends after native save/quit. Pause-adjusted duration 499.816 s covers 498.212 s bounded agent interval; not an exact wall-clock video timestamp or proof of every rendered frame.",
+    "last_packet_ms": 499816,
+    "native_viewer_open_and_playback": "PASS",
+    "original_copy_identical": true,
+    "overhead": "NOT_MEASURED; no matched recorder-off campaign",
+    "packet_count": 230260,
+    "play2code_replaced": false,
+    "playback_scope": "Original campaign archive selected by world/name, opened in real ReplayMod viewer, played and inspected in early/later world views; recorded-player overview and recipe-unlock toast observed. Not every action/GUI visually audited.",
+    "raw_recording_unmodified": true,
+    "recorder": "ReplayMod",
+    "separate_smoke_record_and_native_playback": "PASS",
+    "sha256": "2c13c2912fe355d0f3b1480e2446e2da4c1e1fca38ff8f57bec9ee0001d7279d",
+    "size_bytes": 8382961,
+    "upstream_source": "https://github.com/ReplayMod/ReplayMod",
+    "version": "26.3-2.6.28",
+    "zip_crc_valid": true
+  },
+  "schema": "blockwire.autonomous-survival-campaign.v1",
+  "world": {
+    "artificial_supplies_or_prebuilt_structures": false,
+    "biome": "minecraft:taiga",
+    "bonus_chest": false,
+    "commands_enabled": false,
+    "difficulty": "Peaceful",
+    "final_closed_snapshot": "build/autonomous-survival/campaign-001/final-closed-world",
+    "final_closed_world_identity": "4446d8b27582c0c4a3bc76dff0111f49e02442f858aec54862fbc29a1004b833",
+    "generation": "Default normal noise overworld",
+    "initial_actor_session_recorded_privately": true,
+    "initial_health": 20.0,
+    "initial_hunger": 20,
+    "initial_inventory": {},
+    "initial_level_dat_sha256": "702c6449dbd80a744fc874f4f230bc6999fb8980ba12c90370ce117c8dd06f74",
+    "initial_position": [
+      -2.5,
+      90.0,
+      4.5
+    ],
+    "instance": "Blockwire-Survival-Campaign-001",
+    "minecraft_version": "26.3",
+    "mode": "Survival",
+    "name": "Blockwire Survival Campaign 001",
+    "persistent_original_world_preserved": true,
+    "seed": "74219031427",
+    "world_reset_after_failures": false
+  }
+}

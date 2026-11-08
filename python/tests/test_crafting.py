@@ -36,6 +36,11 @@ class CraftNative:
         if self.width == 3 and set(g) == {1,2,3,5,8} and all(g[i][0] == 'minecraft:stick' for i in (5,8)):
             if all(g[i][0].endswith('_planks') for i in (1,2,3)): return ('minecraft:wooden_pickaxe', 1)
             if all(g[i][0] == 'minecraft:cobblestone' for i in (1,2,3)): return ('minecraft:stone_pickaxe', 1)
+        if self.width == 3 and set(g) == {1,4,7}:
+            if [g[i][0] for i in (1,4,7)] == ['minecraft:cobblestone', 'minecraft:stick', 'minecraft:stick']:
+                return ('minecraft:stone_shovel', 1)
+            if [g[i][0] for i in (1,4,7)] == ['minecraft:cobblestone', 'minecraft:cobblestone', 'minecraft:stick']:
+                return ('minecraft:stone_sword', 1)
         return None
 
     def call(self, op, **q):
@@ -174,6 +179,24 @@ class CraftContracts(unittest.TestCase):
         r=self.execute(n,item='minecraft:stone_pickaxe')
         self.assertEqual(r.status,'succeeded',r)
         self.assertEqual(n.items,{0:('minecraft:stone_pickaxe',1)})
+
+    def test_CF12_stone_shovel_and_sword_require_native_result_and_exact_consumption(self):
+        for item, cobble, sticks in [('minecraft:stone_shovel', 1, 2), ('minecraft:stone_sword', 2, 1)]:
+            with self.subTest(item=item):
+                n = CraftNative({0: ('minecraft:cobblestone', cobble), 1: ('minecraft:stick', sticks)}, width=3)
+                result = self.execute(n, item)
+                self.assertEqual(result.status, 'succeeded', result)
+                self.assertEqual(result.details['consumed'], {'minecraft:cobblestone': cobble, 'minecraft:stick': sticks})
+                self.assertEqual(n.items, {0: (item, 1)})
+                self.assertFalse(n.grid)
+                self.assertIsNone(n.carried)
+                n = CraftNative({0: ('minecraft:cobblestone', cobble), 1: ('minecraft:stick', sticks)})
+                self.assertEqual(self.execute(n, item).reason, 'workbench_required')
+                self.assertEqual(n.clicks, 0)
+                for flag in ('drop_result', 'return_ingredients', 'receipts_only'):
+                    n = CraftNative({0: ('minecraft:cobblestone', cobble), 1: ('minecraft:stick', sticks)}, width=3)
+                    setattr(n, flag, True)
+                    self.assertNotEqual(self.execute(n, item).status, 'succeeded')
 
     def test_CF07_capability_cursor_grid_and_parameter_guards(self):
         n = CraftNative();n.guard_support = False

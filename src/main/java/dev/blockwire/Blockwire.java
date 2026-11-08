@@ -29,6 +29,8 @@ public final class Blockwire implements ClientModInitializer {
     private final NavigationView navigation=new NavigationView();
     private final MotionTrace motionTrace=new MotionTrace();
     private final AutoEvents autoEvents=new AutoEvents();
+    private final CreativeBuild creativeBuild=new CreativeBuild();
+    private boolean groundedCreativeLease;
     private long lastChatSend;
     private final RotationController rotation=new RotationController();
     private final InputLeases inputLeases=new InputLeases();
@@ -124,7 +126,7 @@ public final class Blockwire implements ClientModInitializer {
         try {
             long epoch=++generation;
             server=new BridgeServer(config.serverIp(),config.port(),config.apiKey(),tls.context(),mc,this::dispatch,
-                ()->{if(generation==epoch){autoEvents.disable();release();}});
+                ()->{if(generation==epoch){autoEvents.disable();creativeBuild.clear();release();}});
             if(!java.net.InetAddress.getByName(config.serverIp()).isLoopbackAddress())
                 LOG.warn("Blockwire is exposed beyond loopback. TLS is active; retain firewall and trusted-client restrictions.");
             message("Enabled TLS on "+config.serverIp()+":"+config.port()+" (F8 stops).");
@@ -135,6 +137,8 @@ public final class Blockwire implements ClientModInitializer {
         if(held.isEmpty())return;
         if(server==null || !server.connected() || mc.player==null || mc.player!=actor || mc.level!=world || !mc.player.isAlive() ||
             mc.gui.screen()!=null || mc.isPaused()) {release();return;}
+        if(groundedCreativeLease && (mc.gameMode==null || mc.gameMode.getPlayerMode()!=net.minecraft.world.level.GameType.CREATIVE ||
+            mc.player.getAbilities().flying || mc.player.isFallFlying() || mc.player.isPassenger())) {release();return;}
         long now=System.nanoTime();
         if(ticksLeft--<=0 || now>=deadline){releaseInputs();return;}
         var expired=inputLeases.expire(now);
@@ -152,12 +156,12 @@ public final class Blockwire implements ClientModInitializer {
     }
     private void releaseInputs() {
         held.forEach(key->InputState.set(keys().get(key),false));
-        held=Set.of();inputLeases.clear();ticksLeft=0;actor=null;world=null;
+        held=Set.of();inputLeases.clear();ticksLeft=0;actor=null;world=null;groundedCreativeLease=false;
     }
     private void release() {
         rotation.cancel(mc,"controls_released");releaseInputs();
     }
-    private void stop() {++generation;autoEvents.disable();release();if(server!=null){server.close();server=null;}}
+    private void stop() {++generation;autoEvents.disable();creativeBuild.clear();release();if(server!=null){server.close();server=null;}}
     public static boolean holdingAttack() {
         return instance!=null && instance.server!=null && instance.held.contains("attack") &&
             instance.server.connected() && instance.mc.gui.screen()==null && !instance.mc.isPaused() &&
@@ -188,6 +192,11 @@ public final class Blockwire implements ClientModInitializer {
             case "observe" -> {
                 Protocol.fields(q);var scene=Observations.scene(mc);String session=navigation.actorSession(mc);
                 scene.addProperty("actor_session",session);scene.addProperty("auto_events_supported",true);scene.addProperty("search_supported",true);scene.add("rotation",rotation.snapshot(mc,session));return scene;
+            }
+            case "creative" -> {
+                var request=CreativeBuild.request(q);guardedActor(q);playing();
+                if(request.action().equals("material"))release();
+                return creativeBuild.dispatch(mc,request);
             }
             case "search" -> {
                 var request=SearchView.request(q);guardedActor(q);playerRequired();
@@ -224,14 +233,15 @@ public final class Blockwire implements ClientModInitializer {
             }
             case "stop" -> {Protocol.fields(q);release();return Protocol.ok("Inputs and active camera rotation released.");}
             case "look" -> {
-                Protocol.fields(q,"yaw","pitch","actor_session","duration_ms","rotation_profile");
+                Protocol.fields(q,"yaw","pitch","actor_session","duration_ms","rotation_profile","grounded_creative");
                 double yaw=Protocol.number(q,"yaw",-180,180),pitch=Protocol.number(q,"pitch",-90,90);
                 Integer duration=Protocol.rotationDuration(q);String profile=Protocol.rotationProfile(q);
                 guardedActor(q);playing();
+                CreativeBuild.guardedInput(mc,q,held,null);
                 return duration==null?rotation.immediate(mc,yaw,pitch):rotation.schedule(mc,yaw,pitch,duration,profile);
             }
             case "drive" -> {
-                Protocol.fields(q,"buttons","ticks","actor_session","button_ticks");int ticks=Protocol.integer(q,"ticks",1,100);
+                Protocol.fields(q,"buttons","ticks","actor_session","button_ticks","grounded_creative");int ticks=Protocol.integer(q,"ticks",1,100);
                 if(!q.has("buttons") || !q.get("buttons").isJsonArray() || q.getAsJsonArray("buttons").size()>9)
                     throw new IllegalArgumentException("expected_buttons_array_max_9");
                 Set<String> buttons=new HashSet<>();
@@ -244,6 +254,8 @@ public final class Blockwire implements ClientModInitializer {
                     throw new IllegalArgumentException("opposed_buttons");
                 var leases=Protocol.buttonTicks(q,buttons,ticks);
                 guardedActor(q);playing();
+                CreativeBuild.guardedInput(mc,q,actor==mc.player && world==mc.level?held:Set.of(),buttons);
+                groundedCreativeLease=Protocol.bool(q,"grounded_creative",false);
                 if(actor!=mc.player || world!=mc.level)inputLeases.clear();
                 var next=inputLeases.replace(buttons,leases,System.nanoTime());
                 inputLeases.cap(ticks,System.nanoTime());

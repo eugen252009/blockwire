@@ -34,6 +34,8 @@ RECIPES = {r.output: r for r in [
     Recipe('minecraft:wooden_axe', 1, (('#planks', '#planks'), ('#planks', 'minecraft:stick'), ('', 'minecraft:stick'))),
     Recipe('minecraft:wooden_hoe', 1, (('#planks', '#planks'), ('', 'minecraft:stick'), ('', 'minecraft:stick'))),
     Recipe('minecraft:stone_pickaxe', 1, (('minecraft:cobblestone',)*3, ('', 'minecraft:stick', ''), ('', 'minecraft:stick', ''))),
+    Recipe('minecraft:stone_shovel', 1, (('minecraft:cobblestone',), ('minecraft:stick',), ('minecraft:stick',))),
+    Recipe('minecraft:stone_sword', 1, (('minecraft:cobblestone',), ('minecraft:cobblestone',), ('minecraft:stick',))),
     Recipe('minecraft:stone_axe', 1, (('minecraft:cobblestone',)*2, ('minecraft:cobblestone', 'minecraft:stick'), ('', 'minecraft:stick'))),
     Recipe('minecraft:stone_hoe', 1, (('minecraft:cobblestone',)*2, ('', 'minecraft:stick'), ('', 'minecraft:stick'))),
     Recipe('minecraft:furnace', 1, (('minecraft:cobblestone',)*3, ('minecraft:cobblestone', '', 'minecraft:cobblestone'), ('minecraft:cobblestone',)*3)),

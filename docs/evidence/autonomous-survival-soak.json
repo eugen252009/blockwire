@@ -1,0 +1,153 @@
+{
+  "schema": "blockwire-autonomous-survival-soak/v1",
+  "captured_unix": 1793872754.7497282,
+  "campaign": "autonomous-survival-soak-001",
+  "verdict": "BLOCKED_BEFORE_EXTENDED_CAMPAIGN",
+  "authorization": "Eight-hour maximum explicitly authorized; never extended automatically",
+  "requested_global_duration_seconds": 28800,
+  "actual_autonomous_campaign_seconds": 0,
+  "autonomous_sessions_started": 0,
+  "autonomous_sessions_completed": 0,
+  "autonomous_sessions_failed": 0,
+  "autonomous_model_decisions": 0,
+  "autonomous_bcl_operations": 0,
+  "autonomous_generated_tokens": 0,
+  "no_model_inference_during_prerequisite_fixtures": true,
+  "gates": {
+    "empty_bcl": "PASS",
+    "normal_shutdown": "PASS",
+    "cancellation_input_release": "PASS",
+    "tls_gateway": "PASS",
+    "world_persistence": "PASS",
+    "memory_persistence": "PASS",
+    "replay_finalization": "PASS",
+    "bcl_regression": "PASS",
+    "actor_isolation": "CONTRACTS_PASS_FRESH_NEGATIVE_NATIVE_NOT_RUN",
+    "unknown_no_retry": "CONTRACTS_PASS_NATIVE_FAULT_MATRIX_INCOMPLETE",
+    "resource_limits": "NOT_REQUALIFIED_FOR_SOAK",
+    "current_concurrency": "NOT_REQUALIFIED_FOR_SOAK",
+    "model_token_cost_limits": "BLOCKED_CURRENT_TEXT_ADAPTER_HAS_NO_DURABLE_TOKEN_LEDGER"
+  },
+  "campaign_blockers": [
+    "actor_isolation",
+    "current_concurrency",
+    "model_token_cost_limits",
+    "resource_limits",
+    "unknown_no_retry"
+  ],
+  "gate_enforcement": "CAMPAIGN_BLOCKED: actor_isolation, current_concurrency, model_token_cost_limits, resource_limits, unknown_no_retry",
+  "prerequisite_native_cohorts": [
+    {
+      "cohort": "phase1-Q01",
+      "agent": 1,
+      "finalization": "PASS",
+      "replays": [
+        {
+          "name": "2026_11_05_10_27_14.mcpr",
+          "sha256": "0076b0a312a4074028544d76dd5cf461584a1559fc8d72d6bee814f75f288164",
+          "packets": 2671,
+          "duration_ms": 39060
+        }
+      ],
+      "active_held_cancel_observed": false,
+      "scope": "deterministic prerequisite fixture, not autonomous campaign"
+    },
+    {
+      "cohort": "phase1-Q01",
+      "agent": 2,
+      "finalization": "PASS",
+      "replays": [
+        {
+          "name": "2026_11_05_10_27_37.mcpr",
+          "sha256": "175ec695d45247fe532838d4b5d503e1454ca60cf2381eebe0b9cb70ce4af78a",
+          "packets": 2059,
+          "duration_ms": 21751
+        }
+      ],
+      "active_held_cancel_observed": false,
+      "scope": "deterministic prerequisite fixture, not autonomous campaign"
+    },
+    {
+      "cohort": "phase1-Q02",
+      "agent": 1,
+      "finalization": "PASS",
+      "replays": [
+        {
+          "name": "2026_11_05_10_37_47.mcpr",
+          "sha256": "3db8d4169b18b294a4ee954b8d0e1353b4e952750a461517abc66b059405781d",
+          "packets": 3619,
+          "duration_ms": 41621
+        }
+      ],
+      "active_held_cancel_observed": true,
+      "scope": "deterministic prerequisite fixture, not autonomous campaign"
+    },
+    {
+      "cohort": "phase1-Q02",
+      "agent": 2,
+      "finalization": "PASS",
+      "replays": [
+        {
+          "name": "2026_11_05_10_38_09.mcpr",
+          "sha256": "2bdbabf27f51c5475377e0065adcd318f51ad5548a59f085f1bead371097bc68",
+          "packets": 1967,
+          "duration_ms": 24714
+        }
+      ],
+      "active_held_cancel_observed": true,
+      "scope": "deterministic prerequisite fixture, not autonomous campaign"
+    }
+  ],
+  "prerequisite_recordings": 4,
+  "recordings_integrity_verified": 4,
+  "representative_viewer_samples": 1,
+  "viewer_scope": "Q02 A short actual playback; not every replay/action visually audited",
+  "regressions": {
+    "python_tests": 683,
+    "python": "PASS",
+    "gradle_check": "PASS",
+    "tls_interop_checks": 10,
+    "tls": "PASS",
+    "soak_mutations": 14,
+    "soak_mutations_status": "ALL_KILLED",
+    "bcl_mutations": 50,
+    "gateway_mutations": 14,
+    "applicable_mutation_total": 78,
+    "all_applicable_mutations": "KILLED"
+  },
+  "shutdown_scope": "Normal completion and real active-held cancel/input release verified; complete native disconnect/process-failure/failure-budget fault matrix NOT qualified",
+  "cpu_topology": "Ryzen 5800X, SMT pairs (0,8)..(7,15); initial owned-task policy MC 1-6,9-14; orchestration 7,15; OS spare 0,8. Not exclusive reservation. No system services pinned.",
+  "capacity_scope": "Historical five-client headroom and four-agent gameplay evidence unchanged; no fresh maximal-capacity soak resource preflight claimed",
+  "token_cost_blocker": "Existing selected PI text adapter limits JSON reply bytes but does not collect provider token usage or persist token/cost reservations. Catalog advertises gpt-6.1-sol max-out 128K; a byte limit is NOT a generated-token cap. No unmetered eight-hour campaign started.",
+  "failure_corpus": {
+    "path": "build/autonomous-survival/soak-001/failure-corpus-private.jsonl",
+    "incidents": 4,
+    "scope": "forensic prerequisite imports, not autonomous soak failures",
+    "dedup": "artifact/context-specific stable identifiers; no message-only merging",
+    "nulls": "Unobserved fields are null, not invented"
+  },
+  "confirmed_blockwire_engine_defects": 0,
+  "confirmed_private_harness_defects": [
+    "empty optional source compiled before final feedback",
+    "nonexistent hidden.stop cleanup helper"
+  ],
+  "potential_integration_defects": [
+    "ReplayMod startup recovery scan raced direct-join active recording"
+  ],
+  "resource_maxima": null,
+  "tokens_per_second": null,
+  "recording_overhead": null,
+  "autonomous_gameplay_verdict": "NOT_RUN",
+  "failure_recovery_verdict": "PARTIAL_CONTRACTS_ONLY",
+  "long_running_stability": "NOT_RUN",
+  "stateful_input_optimizations": "DISABLED_UNCHANGED",
+  "engineering_priorities": [
+    "Implement metered selected-model adapter, pessimistic pre-request token/cost reservations, bounded inference queue and global ledger",
+    "Complete native fault-shutdown matrix including disconnect/process failure; never resume an unresolved action",
+    "Requalify current effective 8/5 maximal safe concurrency with resource/recording/model telemetry",
+    "Only then wire and start bounded sessions/verified continuation under the authorized global eight-hour budget",
+    "Investigate retained mining_not_observed and navigation rejection causes using exact native incidents, not model claims"
+  ],
+  "historical_evidence": "All old manifests/source freezes/failures retained; no pooling into eight-hour acceptance",
+  "commit_push_upload_release_deploy": "NOT_PERFORMED"
+}

@@ -1,0 +1,31 @@
+{
+  "historical_manifests": {
+    "build/autonomous-stagnation/continuation-003/hashes-private.json": {
+      "files_verified": 676,
+      "sha256": "58c9d0a741bcb6fa89a2649d209bc0cf36336e5ba415b88c39d41112f94816e0"
+    },
+    "build/blockwire-multiplayer/cooperation-003/final-evidence-hashes-private.json": {
+      "files_verified": 1305,
+      "sha256": "e77db6b479e1ac08464f6c8a07bd3281587b029bdde7ac25dfa2f1d9e57b2f4a"
+    }
+  },
+  "no_keys_credentials_recordings_or_worlds_distributed": true,
+  "private_files": 597,
+  "private_manifest": "build/two-hour-session-preparation/hashes-private.json",
+  "private_manifest_sha256": "1f111d4794fd5860466297dfd86602de366afaba23207b89402a70cd629f4f42",
+  "public_files": {
+    "CHANGELOG.md": "55f2320edfbdce8ad6535ac25f98b10006a5c0065a1c809b4d12af93f79a9de5",
+    "README.md": "2aa201e9c7dd9db64b5d70c2d71d929d96beff61ea6a8baf4d94b61588e98050",
+    "SECURITY.md": "d6116b545e1a9e4192a56ecfc23abf892d26ae3b982b74173538513a65bf7d7f",
+    "docs/architecture.md": "debbd41a8aad77b16a8c369b645b69b52f5a8538ad7816de8077f27d615a0e58",
+    "docs/blockwire-two-hour-sessions.md": "ec4eb8abd938c4ae8d16ba8cbd79968ff65bd799695aaf683d52db7352c6f30f",
+    "docs/evidence/two-hour-session-profile.json": "c0d3fffac69322e987a51593bc141abc0a704fe7438ebf403f375ecc035bbd36",
+    "python/src/blockwire/model_limits.py": "5e4eaf9a0de3cfd0e07621617c85e07a3f92c5e60e3e2c0058ad66082e40fd26",
+    "python/src/blockwire/session_policy.py": "306fa29e214056673658bf9703c32e5117831443425870687c29b7be9c9797b9",
+    "python/tests/test_native_auto_stream.py": "511827d6d57db4c2360413f328471c6e29926ebf989fdc98d4908ca112047259",
+    "python/tests/test_two_hour_sessions.py": "41b3ba3c20fae622e6ba53b8e30aa7557cd0316ebc2a0f7deded5bcd7e3e5492",
+    "tests/run_decision_context_mutations.py": "61dbc883008598293ae4df05bf344b8474a748f337f396dc94838561d0781cf3",
+    "tests/run_two_hour_mutations.py": "62d29f1fee5b031c63025717a9ad23ea16938ab4f82035c0417cc63ed86c906b"
+  },
+  "schema": "blockwire-two-hour-hashes/v1"
+}

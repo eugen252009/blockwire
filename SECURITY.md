@@ -203,6 +203,22 @@ Audit/storage exhaustion denies new work but not cleanup/status; F8 is unchanged
 This cannot sandbox separately authorized trusted host Python/raw native clients.
 No unattended two-hour/overnight reliability follows from feedback or admission tests.
 
+## Opt-in two-hour subscription profile
+
+[Two-hour scheduling](docs/blockwire-two-hour-sessions.md) is an explicitly selected
+trusted-host policy, not an extension of native key leases or a safety waiver.
+It has separate immutable gameplay/outer deadlines, shared and per-agent quotas,
+and an8192-row bounded model audit; legacy policies retain their2000-row audit
+and cannot be upgraded by lowering the new profile to identical numeric quotas.
+The persisted two-hour profile discriminator prevents that implicit conversion.
+Known terminal goal blocks can lead to cooldown and a fresh model decision, never
+an automatic action retry. Repeated unchanged failed frames are rejected before
+BCL admission. Unknown receipts, actor replacement, F8 and resource failure still
+terminate; no reconnect, rebind, respawn or provider fallback is added. Defaults,
+TLS/hostname/key checks, ownership, short input leases and native physics remain.
+A prepared host is not authorized automatically; native two-hour reliability is
+NOT RUN, and existing eight-hour soak gates are unchanged.
+
 ## Passive Play2Code recordings
 
 [Play2Code](docs/play2code.md) is local-only and adds no recorder RPC, MCP authority,

@@ -69,6 +69,10 @@ public final class Observations {
         if(mc.gui.screen()!=null)out.addProperty("screen",text(mc.gui.screen().getTitle().getString()));
         if(mc.player==null || mc.level==null) {out.addProperty("in_world",false);out.addProperty("text","Not in a world.");return out;}
         var p=mc.player;out.addProperty("in_world",true);out.addProperty("alive",p.isAlive());
+        out.addProperty("creative_build_profile",CreativeBuild.PROFILE);
+        out.addProperty("game_mode",mc.gameMode==null?"unknown":mc.gameMode.getPlayerMode().getName());
+        out.addProperty("flying",p.getAbilities().flying);out.addProperty("fall_flying",p.isFallFlying());out.addProperty("riding",p.isPassenger());
+        out.addProperty("minecraft_data_version",net.minecraft.SharedConstants.getCurrentVersion().dataVersion().version());
         out.addProperty("player_uuid",p.getUUID().toString());
         out.addProperty("dimension",mc.level.dimension().identifier().toString());
         var pos=new JsonArray();pos.add(p.getX());pos.add(p.getY());pos.add(p.getZ());out.add("position",pos);

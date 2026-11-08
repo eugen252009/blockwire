@@ -1,0 +1,87 @@
+{
+  "admission_scope": "All new campaign/probe inference passes one shared campaign ledger across both agents before dispatch. Legacy direct HTTP/command/mailbox APIs remain opt-in trusted operator entry points, not globally intercepted. Other local/paid providers not qualified.",
+  "billing": "SDK subscription route confirmed; no separately billed API access introduced. Account invoice/credit/top-up settings not audited. SDK usage.cost catalog estimates are not actual charges or zero-charge proof.",
+  "checks": {
+    "TLS_interop_checks": 10,
+    "early_expanded_mutation_run": "Two survivors retained; strengthened held-transaction and explicit UNCERTAIN assertions, final 17/17 killed.",
+    "full_python_tests": 709,
+    "gradle": "PASS",
+    "new_public_tests": 25,
+    "private_integration_mutations_killed": 2,
+    "private_integration_tests": 6,
+    "public_mutations": {
+      "auto_event": 12,
+      "bcl": 50,
+      "feedback": 16,
+      "gateway": 14,
+      "model_limits": 17,
+      "soak": 14
+    },
+    "public_mutations_total": 123
+  },
+  "eight_hour_soak_gate": "UNCHANGED; not waived by this experiment",
+  "implementation": "python/src/blockwire/model_limits.py: ModelLimits + LimitedDecider",
+  "limits": {
+    "BCL_operations_global": 600,
+    "BCL_operations_per_agent": 300,
+    "SDK_abort_ms": 85000,
+    "agents": 2,
+    "inference_ms_global": 3600000,
+    "inference_ms_per_agent": 1800000,
+    "max_concurrent_model_requests": 2,
+    "request_timeout_ms": 90000,
+    "requests_global": 60,
+    "requests_per_agent": 30,
+    "runtime_ms": 1800000
+  },
+  "mode": "subscription_operational_not_financial",
+  "model": {
+    "api": "openai-codex-responses",
+    "auth": "existing stored OAuth subscription through supported pi SDK",
+    "base_url": "https://chatgpt.com/backend-api",
+    "credential_extraction_or_new_paid_API": false,
+    "id": "gpt-6-luna",
+    "provider": "openai-codex",
+    "provider_fallback": false,
+    "retries": 0,
+    "subscription_metadata_verified": true,
+    "transport": "sse"
+  },
+  "no_commit_push_upload_deploy_release": true,
+  "probes": [
+    {
+      "cohort": "subscription-001",
+      "extra_request_rejected_before_dispatch": "global_request_budget",
+      "max_output_tokens_sent": null,
+      "provider_attempt_overlap_ms": 1848,
+      "requests": 2,
+      "restart_same_deadline": true,
+      "status": "GO",
+      "usage_total_tokens": 220
+    },
+    {
+      "cohort": "subscription-002",
+      "extra_request_rejected_before_dispatch": "global_request_budget",
+      "max_output_tokens_sent": null,
+      "provider_attempt_overlap_ms": 1718,
+      "requests": 2,
+      "restart_same_deadline": true,
+      "status": "GO",
+      "usage_total_tokens": 235
+    }
+  ],
+  "qualification": {
+    "atomic_global_and_agent_requests": "GO",
+    "global_interception_of_legacy_direct_adapters": "NOT_CLAIMED",
+    "independent_scopes": "GO",
+    "live_concurrent_subscription_model": "GO",
+    "monetary_ceiling": "NOT_IMPLEMENTED_CONDITIONAL_SUBSCRIPTION_ROUTE_NOT_BILLING_AUDIT",
+    "persistence_restart": "GO",
+    "strict_provider_output_token_limit": "NOT_QUALIFIED_FIELD_ABSENT",
+    "uncertain_timeout_conservative_charge": "GO"
+  },
+  "schema": "blockwire-subscription-operational-qualification/v1",
+  "scope": "Operator addendum supersedes hard financial/token gate ONLY for this GPT-6-luna cooperation experiment",
+  "token_usage": "Optional telemetry; no hard prompt/output token ceiling. SDK maxTokens=2048 was not sent as provider output cap. Missing usage does not block the authorized subscription exception.",
+  "unresolved_remote_compute": "Timeout bounds owned host worker, not remote completion after cancellation. Uncertain requests retain their maximum charge/slot and halt that model agent; no retry/refund/replay."
+}

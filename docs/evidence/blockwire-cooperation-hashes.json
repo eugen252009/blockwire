@@ -1,0 +1,20 @@
+{
+  "historical_cooperation_001_originals": {
+    "directory": "build/blockwire-multiplayer/cooperation-002/historical-blocked-001",
+    "preserved_unmodified": true
+  },
+  "private_files": 1305,
+  "private_manifest": "build/blockwire-multiplayer/cooperation-003/final-evidence-hashes-private.json",
+  "private_manifest_sha256": "e77db6b479e1ac08464f6c8a07bd3281587b029bdde7ac25dfa2f1d9e57b2f4a",
+  "public_files": {
+    ".gitignore": "a5c4d0fb97b22f579d3f8eae8a7b09dcf415b89740ebce54aecac808eb27b51e",
+    "CHANGELOG.md": "aad6132f0fd976f1582a49a886d3c96fb80160cf61a32dd0cc63191eb59cd105",
+    "README.md": "93f320ce23dc2a9e8154c372e10e9ade95dfc9e90221398814247838fabce0ff",
+    "docs/blockwire-cooperation-qualification.md": "2965e3bd10faed774db7135ca6e734d2945a6f71a6f372ec49970d61a061caad",
+    "docs/evidence/blockwire-cooperation.json": "a7f26bb882185d0835b4c0b8b019bfde537da7227134b49306635c1923c45552",
+    "python/src/blockwire/model_limits.py": "2653c00787fe50544d8d6f21ef54ba2cb5b9ef53dbab2a840cea46734c98a545",
+    "python/tests/test_model_limits.py": "d76ab4378388c27b3c24e614cd16a4c2ea2f90ae46a96cfb53b9cd8d262c35e7",
+    "tests/run_model_limit_mutations.py": "6be03ed19300eda325e1c8bfe736a890b83bf51c6b1ec8133eea965f344ee5ab"
+  },
+  "scope": "Public summaries/source support plus private immutable evidence manifest reference; not a distributable"
+}

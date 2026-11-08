@@ -40,11 +40,13 @@ class EventInbox:
                 'failure':self.failure,'snapshot_is_partial':True,'gameplay_goal_verified':False}
 
 
-def create_machine_server(client):
+def create_machine_server(client,*,max_session_tasks=128):
     from mcp.server.fastmcp import FastMCP
     if client.profile!='machine-v1':raise ValueError('Explicit machine gateway binding required')
+    if type(max_session_tasks)is not int or not 1<=max_session_tasks<=1000:raise ValueError('Bounded explicit session task limit required')
     registry=action_registry()
     inbox=EventInbox(client.bind['actor_session']);owned=set();plan=MachinePlan(notes='').model_dump()
+    admission_lock=asyncio.Lock()
     @asynccontextmanager
     async def lifespan(server):
         async with client:
@@ -79,15 +81,20 @@ def create_machine_server(client):
         'Actions return admission, not gameplay outcomes. Inputs obey native collision/reach/inventory rules. '
         'Interrupt is out-of-band; wait for control.released, explicitly resume, never replay old work. '
         'F8 is the human stop. State snapshots are coalesced, not an atomic or complete world model.'))
+    async def admit(operation,*arguments):
+        # Serialize only admissions, never execution or interrupt/status. Concurrent
+        # tool calls cannot overrun the lifetime task-ID bound while awaiting TLS.
+        async with admission_lock:
+            if inbox.failure:raise RuntimeError('Event stream failed; no new actions')
+            if len(owned)>=max_session_tasks:raise RuntimeError('MCP task history bound; explicitly start a fresh session')
+            result=await operation(*arguments)
+            if result.get('task_id'):owned.add(result['task_id'])
+            return result
     async def start(name,parameters):
-        if inbox.failure:raise RuntimeError('Event stream failed; no new actions')
-        if len(owned)>=128:raise RuntimeError('MCP task history bound; explicitly start a fresh session')
         # FastMCP preserves nested Pydantic models in handler kwargs. Convert
         # validated parameters to JSON values before the BCL wire boundary.
         parameters=registry._definitions[name].parameters.model_validate(parameters).model_dump(mode='json')
-        result=await client.action(name,parameters)
-        if result.get('task_id'):owned.add(result['task_id'])
-        return result
+        return await admit(client.action,name,parameters)
     register_skill_tools(server,registry,start,None,prefix='',asynchronous=True)
 
     @server.tool()
@@ -95,10 +102,7 @@ def create_machine_server(client):
         """Queue a finite ordered composition of typed primitive calls, validated in full before effects.
         No loops, variables, hidden planning, rollback or automatic retries. Interrupt cancels the tail.
         Do not precompute inventory clicks using stale menu/state IDs; obtain new IDs from events."""
-        if inbox.failure or len(owned)>=128:raise RuntimeError('Stream/history bound; no new work')
-        result=await client.compose([action.model_dump() for action in actions])
-        if result.get('task_id'):owned.add(result['task_id'])
-        return result
+        return await admit(client.compose,[action.model_dump() for action in actions])
 
     @server.tool()
     def remember_plan(notes: Annotated[str,Field(max_length=4096)]) -> dict:
@@ -187,11 +191,12 @@ def main(argv=None):
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ['url','certificate','token-file','session-id','agent-id','world-id','player-uuid','actor-session']:
         parser.add_argument('--'+name,required=True)
+    parser.add_argument('--max-session-tasks',type=int,default=128,help='Lifetime task-ID bound (1..1000), not concurrent queue capacity; explicit opt-in for extended runs.')
     args=parser.parse_args(argv);token=Path(args.token_file)
     if token.is_symlink() or token.stat().st_mode&0o077:raise ValueError('Private token file required')
     client=BCLClient(args.url,token.read_text().strip(),args.certificate,session_id=args.session_id,
         agent_id=args.agent_id,world_id=args.world_id,player_uuid=args.player_uuid,
         actor_session=args.actor_session,profile='machine-v1')
-    create_machine_server(client).run(transport='stdio')
+    create_machine_server(client,max_session_tasks=args.max_session_tasks).run(transport='stdio')
 
 if __name__=='__main__':main()

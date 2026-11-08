@@ -1,0 +1,51 @@
+{
+  "agent_snapshot": {
+    "agent-a": {
+      "cycles": 7,
+      "failures": 2,
+      "ops": 13,
+      "remaining_seconds": 6982.886751827893
+    },
+    "agent-b": {
+      "cycles": 7,
+      "failures": 2,
+      "ops": 15,
+      "remaining_seconds": 6971.849815671896
+    }
+  },
+  "agents": 2,
+  "campaign": "two-hour-001",
+  "gameplay_deadline_local": "2026-11-06T11:51:25.807000+01:00",
+  "gameplay_deadline_unix": 1793962285.807,
+  "gameplay_started_unix": 1793955085.807537,
+  "max_gameplay_seconds": 7200,
+  "max_global_operations": 18000,
+  "max_global_requests": 1440,
+  "model": "gpt-6-luna",
+  "native_admission": {
+    "empty_inventories": true,
+    "independent_actors": true,
+    "observe_p95_ms": 94.88551599861239,
+    "passed": true,
+    "pool_cpu_percent": 33.302402123363514
+  },
+  "no_commit_push_deploy_upload_release": true,
+  "no_old_world_ledger_resume_or_uncertain_replay": true,
+  "observed_at": "2026-11-06T09:55:24.860703+01:00",
+  "prelaunch_correction": {
+    "additional_host_tests": 35,
+    "additional_negative_mutations": 7,
+    "both_bound_to_fixed_outer_deadline_before_native_model_start": true,
+    "no_security_or_resource_threshold_relaxation": true,
+    "resource_monitor_old_seconds": 3600,
+    "server_owner_old_seconds": 2700
+  },
+  "private_activation_artifacts": "build/two-hour-session-activation/attempt-001",
+  "provider": "openai-codex",
+  "schema": "blockwire-two-hour-run/v1",
+  "status": "RUNNING_NOT_COMPLETED_OR_QUALIFIED",
+  "supervised_finalization": "PENDING, not claimed complete",
+  "two_hour_completion_or_useful_cooperation": "NOT_ESTABLISHED",
+  "validated_model_decisions_observed": 14,
+  "world_replay_memory_and_inputs_final_proofs": "PENDING"
+}

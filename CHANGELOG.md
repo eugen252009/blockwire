@@ -2,6 +2,124 @@
 
 ## Unreleased — mod 0.2.0-alpha.4 / Python SDK 0.2.0a7
 
+- Add an explicit two-hour subscription profile: 7200s gameplay inside a9000s
+  preparation/finalization envelope, 720 requests / 9000 admitted operations per
+  actor, and a shared persistent1440-request/18000-operation ledger. Preserve
+  legacy defaults/configuration identity and bound the opt-in audit at8192 rows.
+  Known blocked goals can wait/replan instead of stopping after a few failures;
+  repeated unchanged failed frames are rejected before execution, never replayed
+  automatically. Unknown outcomes/F8/actor/resource faults remain terminal. Prepare
+  a fresh retained-lease private host, without activation or a claimed native
+  two-hour acceptance. See docs/blockwire-two-hour-sessions.md.
+
+- Execute a fresh authorized C cooperation cohort using the same prepared native
+  TLS leases from setup through controller/finalization; no native/public runtime
+  or handshake-timeout change. Qualify 17 host tests / 11 additional mutations.
+  Seventeen real Luna decisions yield three logs and native crafting in A, no
+  resources in B; no shared project/reliable autonomy claimed. Preserve known
+  partial effects during failed harvest goals and the log-support API restriction.
+  Both replays pass integrity and short actual native Viewer playback. All owned
+  resources closed; original CPU/handshake failures and STOPPED ledgers retained.
+
+- Continue the stagnation study in fresh, separately bounded B/C cohorts after
+  explicit operator authorization. Re-run 724 tests / 137 mutations / Gradle /
+  TLS10; B passes unchanged CPU admission and executes 17 real Luna decisions,
+  including five verified walks but no resource/crafting gain. C's initial native
+  TLS/WebSocket handshake times out before inference; stop without reconnect or
+  threshold relaxation. Preserve four additional finalized recordings; no new
+  Viewer launch after the required gate failure. Original failures remain intact.
+
+- Reconstruct/classify all 60 multiplayer decisions: fix host-discarded local
+  navigation and bounded harvesting diagnostics without changing native movement
+  or BCL grammar. Add optional SDK accepted-receipt submission for owned cancellation
+  and an explicit durable three-experiment budget umbrella. 724 tests / 137
+  mutations pass. Real Luna single-agent A stopped after three blocked wood goals
+  with no resource gain; B failed the unchanged 80% CPU admission gate before
+  inference, C was not launched. Preserve originals and all partial/blocked evidence;
+  no improved-autonomy claim. See `docs/blockwire-autonomous-stagnation-analysis.md`.
+
+- Add opt-in persistent global/per-agent subscription operational limits at the
+  model-request boundary; qualify atomic admission, conservative uncertainty,
+  restart safety and the existing pi GPT-6-luna OAuth route. Hard token/cost
+  enforcement and global interception of legacy adapters are not claimed.
+  Execute fresh bounded two-agent Survival cooperation: 30 decisions each,
+  four dirt retained by A, B empty, no verified shared project. Finalize both
+  recordings, sample A in the native viewer and close owned resources. Preserve
+  the failed numeric-wire-ID preflight and early mutation survivors separately.
+  See `docs/blockwire-llm-budget-qualification.md` and
+  `docs/blockwire-cooperation-qualification.md`; the eight-hour gate is unchanged.
+
+- Qualify native two-player localhost/offline event delivery in fresh MP04:
+  18/18 cases, both chat/proximity directions and delivery during verified BCL
+  movement, isolation, filters/rebind/rejoin and three independent model decisions
+  communicating through Minecraft chat. Actual native backpressure counts one
+  automatic-report drop while preserving 52 control responses, without changing
+  queue/send bounds. Three recordings finalize; scoped native playback and normal
+  cleanup pass. Add one pressure regression; preserve all historical failures.
+  No production dispatcher, transport, grammar or movement rewrite. Online-account,
+  hard native/socket-overflow and long-term-autonomy gates remain separate.
+  See `docs/blockwire-multiplayer-qualification.md`.
+
+- Add strict optional-command soak decision boundary, no-command budget, durable
+  memory/lifecycle prerequisites and fail-closed campaign gates. Preserve strict
+  EMPTY_PROGRAM on raw BCL; retain feedback-only finish proposals without actions.
+  Qualify two separate native prerequisite cohorts, actual held-input cancellation,
+  closed-save/memory persistence, four finalized replay recordings and one native
+  viewer sample. Fix title/join lifecycle to avoid ReplayMod startup recovery race;
+  retain all original incomplete recordings. Eight-hour soak remains BLOCKED on
+  incomplete fault/resource/model-cost gates, not a claimed autonomy GO.
+  See `docs/autonomous-survival-soak.md`.
+
+- Add opt-in host-side feature requests via existing MCP / authenticated BCL
+  gateway, scoped durable review tickets and private input audits. Persistent
+  per-frame/session/aggregate operation admission and a controlled MCP tool
+  profile prevent proposals from granting capabilities; cancel/stop/status remain
+  available on audit exhaustion. Review is operator-only, never auto-install or
+  code execution. Native TLS, actor fences, movement and leases are unchanged.
+  See `docs/feedback.md`; uninterrupted two-hour/overnight gameplay is a separate gate.
+
+- Add opt-in automatic native chat/observable-player/Monster reporting over the
+  existing authenticated TLS lease and BCL subscriptions, bounded filtering,
+  loss/coalescing metrics, priority reserve and normal signed chat send APIs.
+  Original candidate-004 qualification: real single-client/integrated-server chat,
+  hostile visibility and chat during verified walking pass; two-client testing was
+  then NOT RUN (one authenticated profile available). Later MP04 gates above are
+  separate. No peer broker or movement rewrite.
+  See `docs/blockwire-auto-event-dispatcher.md`.
+
+- Execute four real concurrent open-ended LLM Survival campaigns on the qualified
+  6+1+1 / live 8/5 configuration: 690.885 s four-agent overlap, 77 decisions,
+  150 observed walk goals, independent worlds/journals/recordings. Resource and
+  isolation gates pass; useful Survival development remains unachieved (five
+  leaves mined, no item pickups/tools/home). Capture 4/4; short native playback
+  3/4, fourth viewer-only launch blocked by Flatpak GL. Preserve all failure
+  budgets, diagnostics and historical evidence; production runtime unchanged.
+  See `docs/autonomous-survival-parallel-campaigns.md`.
+
+- Configure SMT-aware 6+1+1 benchmark affinity without system-service changes;
+  verify live Custom/8/5 Minecraft settings and measure per-core CPU, memory, GPU,
+  RPC tails and separately pinned inference latency. Five instances pass 120/180 s
+  windows; six functionally passes but misses the 85% CPU-headroom rule. Eight and
+  the 16-agent campaign remain NOT RUN. Preserve all worlds, replays and cleanup
+  diagnostics. Add seven CPU-allocation contracts and seven isolated mutations;
+  see `docs/autonomous-survival-cpu-allocation.md`. Production runtime unchanged.
+
+- Attempt a 16-client independent Survival cohort through a measured resource ramp:
+  2/4 concurrent native readiness passes, 8 fails CPU/RPC limits and safely stops;
+  no 16-client or autonomous campaign is claimed. Preserve 16 clean worlds, eight
+  tested-world audits, ten readiness replays and scoped native playback. Final
+  settings audit finds persisted 16/12 rather than requested 8/5 distances; intended
+  lower-cost profile remains unqualified, not a claimed hardware ceiling. Production
+  execution/defaults unchanged; see `docs/autonomous-survival-parallel.md`.
+
+- Run a bounded real-LLM open-ended Peaceful Survival campaign on a new natural
+  world through the existing BCL/TLS/native stack. Independently verify one log,
+  four crafted planks and a crafted/placed workbench; preserve eight failed frames,
+  model replanning, world and SQLite context. No shelter/long-term qualification.
+  ReplayMod 26.3-2.6.28 capture, packet integrity and scoped native playback pass;
+  recording overhead remains unmeasured. Production source/defaults unchanged.
+  See `docs/autonomous-survival-campaign.md`; no commit or release.
+
 - Resume isolated native stateful qualification with actual child-display proof:
   micro 13/13, edge 4/4, full comparison 6/6 and identity repetition 4/4 GO.
   Preserve incomplete spatial cohorts, setup failure and terminal reflection

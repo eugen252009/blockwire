@@ -1,5 +1,34 @@
 # Strategic LLM runtime — development prototype
 
+## Four concurrent autonomous campaigns
+
+[Parallel-002](autonomous-survival-parallel-campaigns.md) executed four genuinely
+independent LLM/native Survival loops with separate worlds, journals, actors and
+recordings. Four-agent overlap was 690.885 seconds; 77 decisions and 150 observed
+walk goals passed, while resource acquisition/development remained blocked.
+No tools, shelter or long-term autonomy qualification. Capture passed 4/4; short
+native playback passed 3/4, with a separate launcher blocker for the fourth.
+This is new evidence, not a reinterpretation of the historical scaling attempt.
+
+## Parallel scaling preflight follow-up
+
+The [16-client attempt](autonomous-survival-parallel.md) prepared 16 isolated clean
+worlds, measured real 2/4/8-client readiness and stopped at CPU/RPC overload at eight.
+Four passed the short readiness gates; 16 clients and every autonomous campaign
+in that historical cohort remain NOT RUN. Readiness replays/worlds and all failed stages are preserved; no
+sequential/smaller gameplay cohort was substituted. This does not supersede the
+single-agent gameplay results below or qualify multi-agent Survival.
+
+## Open-ended campaign follow-up
+
+The [first open-ended Peaceful campaign](autonomous-survival-campaign.md) used a
+real external LLM, fresh normal-generation world and the existing BCL/TLS/native
+runtime without a progression script. It independently acquired timber, crafted
+and placed a workbench, then stopped at its eight-failure budget: no home/shelter
+or long-term Survival qualification. World and SQLite memory persist. ReplayMod
+capture and scoped native playback passed separately. Earlier evidence below is
+unchanged; see the new campaign evidence and limitations.
+
 ## Persistent project follow-up
 
 See [projects](projects.md) for the current generic project data/host, Stage-B

@@ -312,6 +312,62 @@ Each observation has readable `text` plus structured JSON. No arbitrary NBT,
 hidden-container inspection, server-world scanning or shell execution.
 Explicit Minecraft slash-command submission is available; see [commands](docs/commands.md). Names supplied by worlds/servers are **untrusted data**.
 
+## Supervised soak prerequisites (development)
+
+The [soak prerequisite follow-up](docs/autonomous-survival-soak.md) fixes optional
+empty-BCL host decisions without changing BCL/1 syntax. Native held-input cancel,
+normal save/memory/replay finalization and a representative viewer sample pass.
+The eight-hour campaign is **BLOCKED**, not run: complete fault-shutdown, current
+capacity and hard model token/cost accounting gates are still required.
+
+## Bounded subscription multiplayer (development)
+
+[Operational model limits](docs/blockwire-llm-budget-qualification.md) qualify a
+specific existing pi GPT-6-luna subscription path, not hard token/billing ceilings.
+The [two-agent Survival run](docs/blockwire-cooperation-qualification.md) executed
+30 decisions per agent: A collected four dirt, B remained empty; **no verified
+shared project**. Both replays finalized, one received native viewer sampling,
+and owned resources closed. This exception does not unblock the eight-hour soak.
+
+The [stagnation investigation](docs/blockwire-autonomous-stagnation-analysis.md)
+reconstructs all 60 decisions and fixes lost navigation/harvesting feedback.
+724 tests and 137 mutations pass. Earlier CPU/handshake failures are preserved.
+A fresh C run with retained native leases completed 17 independent Luna decisions:
+A gathered three logs and crafted planks, sticks and a table; B retained nothing.
+Both replays passed short actual Viewer playback. Shared progress/reliable autonomy
+remain unqualified. The private lease handoff adds 17 host tests / 11 mutations.
+
+An opt-in [two-hour session profile](docs/blockwire-two-hour-sessions.md) now
+coordinates 7200s gameplay, 720 requests / 9000 operations per actor, shared durable
+limits and bounded cooldown/replanning after known goal blocks. Uncertain outcomes
+still stop without retry. Legacy defaults remain unchanged. A fresh private host
+was prepared without activation. The separately authorized [live run has now
+started](docs/blockwire-two-hour-session-run.md); **completion and native two-hour
+qualification remain pending**.
+
+## Feature feedback and controlled LLM inputs (development)
+
+[Private feature feedback](docs/feedback.md) lets authorized LLM clients request
+capabilities without installing code or granting themselves rights. Opt-in MCP /
+BCL gateway storage records inputs and rejections, enforces persistent operation
+budgets and supports operator-only review. The default controlled MCP profile
+denies raw commands/menu automation; stop/cancel/status remain available.
+Feedback is host-side data, not a Minecraft planner or gameplay-success receipt.
+
+## Opt-in automatic native events (development)
+
+The [automatic event dispatcher](docs/blockwire-auto-event-dispatcher.md) routes
+incoming player chat and observable player/Monster enter/leave transitions through
+existing BCL subscriptions and the same TLS event stream. Explicit gateway
+`--auto-events` opt-in and matching mod are required; normal signed chat sending
+is available via Python/MCP/CLI. Real single-client chat, hostile visibility and
+chat-during-BCL-walk tests pass. The separate
+[MP04 localhost/offline multiplayer qualification](docs/blockwire-multiplayer-qualification.md)
+passes 18/18 cases: two real players, both chat directions, player proximity,
+chat/proximity during movement, isolation and independent LLM communication.
+This is not two online-authenticated accounts or long-term Survival qualification.
+No peer broker, cross-world relay or automatic execution of chat instructions.
+
 ## Minecraft commands (development checkout)
 
 Submit a single explicitly authorized command through the native client:

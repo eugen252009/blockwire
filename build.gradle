@@ -84,6 +84,11 @@ tasks.register("commandContractTest", JavaExec) {
     classpath = sourceSets.contractTest.runtimeClasspath
     mainClass = "dev.blockwire.CommandContractTest"
 }
+tasks.register("creativeBuildContractTest", JavaExec) {
+    dependsOn contractTestClasses
+    classpath = sourceSets.contractTest.runtimeClasspath
+    mainClass = "dev.blockwire.CreativeBuildContractTest"
+}
 tasks.register("inventoryContractTest", JavaExec) {
     dependsOn contractTestClasses
     classpath = sourceSets.contractTest.runtimeClasspath
@@ -114,4 +119,4 @@ tasks.register("autoEventsContractTest", JavaExec) {
     classpath = sourceSets.contractTest.runtimeClasspath
     mainClass = 'dev.blockwire.AutoEventsContractTest'
 }
-check.dependsOn searchContractTest, autoEventsContractTest, contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest, controllerContractTest, commandContractTest, inventoryContractTest, terrainContractTest, motionTraceContractTest, rotationContractTest, play2CodeContractTest
+check.dependsOn creativeBuildContractTest, searchContractTest, autoEventsContractTest, contractTest, tlsContractTest, visibilityContractTest, settingsContractTest, modMenuContractTest, controllerContractTest, commandContractTest, inventoryContractTest, terrainContractTest, motionTraceContractTest, rotationContractTest, play2CodeContractTest

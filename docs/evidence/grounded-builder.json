@@ -1,0 +1,166 @@
+{
+  "format": "blockwire-grounded-builder-evidence-v1",
+  "status": "CONTRACT_PASS_EXPERIMENTAL_EXECUTOR_GRAPHICAL_NOT_RUN",
+  "scope": "Grounded Creative execution candidate, not acceptance of a completed house",
+  "parent_milestone": "docs/evidence/schematic-compiler.json",
+  "profile": "grounded_creative_v1",
+  "source_schematic": {
+    "path": "schemas/starter house.litematic",
+    "sha256": "31c374eebd93ffb53a92809b8f978e3e6b23379adb9ed430d7b140fc3563fbd7",
+    "desired_states": 658,
+    "compiled_placement_groups": 656,
+    "input_unchanged": true,
+    "built": false
+  },
+  "implementation": {
+    "entrypoint": "blockwire-build / python -m blockwire.grounded_build",
+    "local_operator_opt_in": true,
+    "new_mcp_skill": false,
+    "new_bcl_opcode": false,
+    "planning": "Python goal orchestration, existing actor-fenced walking motor, bounded native mechanics",
+    "creative_material": "Vanilla Creative search text/tab and slot SWAP; initially empty owned hotbar slot; observed 64-item stack",
+    "world_actions": [
+      "native useItemOn placement",
+      "native door interaction",
+      "native startDestroyBlock on recorded owned cobblestone"
+    ],
+    "state_verification": "Explicit bounded client-known tickets; exact positive targets, deferred neighbor states, owned-scaffold air and grounded return",
+    "scaffold_material": "minecraft:cobblestone",
+    "scaffolds_require_explicit_opt_in": true,
+    "no_flight": "Opt-in native Creative look/drive guards and rising-jump native double-tap-timer fence; no ability/position/timer writes",
+    "no_replay": "Fresh durable ledger; original Bridge socket pinned; uncertain effects/transport loss stop; no reconnect, replay, rescue or resumption",
+    "controls_cleanup": "Same actor, newer native client_tick, all-false inputs and empty remote ownership, or not_confirmed retained",
+    "survival_contracts_changed": false,
+    "transport_security_changed": false,
+    "positive_voxel_goal_only": true,
+    "source_air_clearing": false,
+    "compiled_plan_execution_ready": false
+  },
+  "bounds": {
+    "targets": 1024,
+    "working_rpc_admissions": 100000,
+    "audit_bytes": 33554432,
+    "duration_default_seconds": 1800,
+    "duration_max_seconds": 7200,
+    "native_ray_blocks": 3,
+    "native_watch_distance_blocks": 64,
+    "native_watch_tickets": 4096,
+    "native_movement_lease_ticks": 8,
+    "scaffolds_default": 128,
+    "scaffolds_max": 256,
+    "scaffold_margin_default": 3,
+    "scaffold_margin_max": 8
+  },
+  "checks": {
+    "python": {
+      "status": "PASS",
+      "count": 926
+    },
+    "builder_python_contracts": {
+      "status": "PASS",
+      "count": 41,
+      "fixture": "Independent small voxel fixture with walking, GUI and native placement mocked"
+    },
+    "native_builder_assertions": {
+      "status": "PASS",
+      "count": 65,
+      "scope": "Parser, native block-state serialization, pure policy, API signatures and labelled STATIC wiring; no GUI/mixin or movement execution"
+    },
+    "gradle_check_build": "PASS",
+    "tls_interoperability": {
+      "status": "PASS",
+      "count": 10,
+      "scope": "Isolated fixture, not Minecraft"
+    },
+    "builder_mutations": {
+      "status": "KILLED",
+      "count": 37,
+      "python": 26,
+      "native": 11,
+      "compilation_or_import_errors_count_as_kills": false
+    },
+    "regression_mutations": {
+      "status": "KILLED",
+      "skills": 209,
+      "native_security_validation": 54,
+      "schematic": 27
+    },
+    "total_mutations_killed": 327,
+    "diff_check": "PASS",
+    "ccc_index": "PASS",
+    "final_source_freeze": "build/grounded-builder/checks-003/source-freeze-private.json"
+  },
+  "retained_development_failures": [
+    "checks-001/python-focused-01.log: test expected timeout rather than the existing timed_out status; corrected expectation",
+    "checks-001/gradle-01.log: rotation wiring test expected the old exact look field list; expanded to grounded_creative and strengthened guard ordering",
+    "checks-001/builder-mutations: the original cancel-before-read mutation survived because another earlier check masked it; added a direct backend admission assertion, final mutation killed",
+    "checks-002 is an intermediate source scope; final complete target-coverage assertion and its regression/mutation were qualified in checks-003"
+  ],
+  "non_acceptance": [
+    "Graphical Minecraft execution NOT_RUN; no client or world started by this work",
+    "Creative GUI/mixin runtime behavior and flight avoidance NOT_RUN",
+    "Supplied house placement, axes/stairs/panes/doors and full scaffold route/removal acceptance NOT_RUN",
+    "Access heuristic is incomplete; no certified arbitrary-geometry scaffold/return schedule",
+    "A run may stop with a partial structure or remaining/uncertain scaffolds",
+    "Client-known state readbacks are sequential, may be occluded or predicted, and are not an atomic server/save certificate",
+    "No independently verified source-air interior or multiplayer causal attribution",
+    "No world/actor/build site selected; the old preview origin is not authorization",
+    "Survival benchmark remains separately paused; no restoration of the authorized external data volume demonstrated"
+  ],
+  "preservation": {
+    "head": "a7462ff3fe9486d834db456e0b4683b74f5b2961",
+    "baseline_dirty_files": 78,
+    "byte_identical_baseline_files": 77,
+    "intentional_overlap": "python/pyproject.toml: exactly one additional blockwire-build entry point; all previous bytes otherwise preserved",
+    "historical_evidence_and_source_schematic_unchanged": true,
+    "index_empty": true,
+    "commit": false,
+    "push": false,
+    "release": false
+  },
+  "source_sha256": {
+    "src/main/java/dev/blockwire/CreativeBuild.java": "488c0474d29bf53dbaa3ba00e59b65fe946a6a3304547387e05a5e30545b8865",
+    "src/main/java/dev/blockwire/Blockwire.java": "c0083e1a3e96b31897bd17fbacadfcee29531a6d953e0cafdb692794489e0489",
+    "src/main/java/dev/blockwire/Observations.java": "cd8b713441d39f02e9a7c97028a2321aff230f18008146828ca8cb5facbbe412",
+    "src/main/java/dev/blockwire/mixin/CreativeInventoryAccess.java": "bac18a4ccdaa06e418472c2f4728a0c7a9889ba5690e8b5f36caa252b2fff556",
+    "src/main/java/dev/blockwire/mixin/PlayerJumpAccess.java": "9fa63604ff944f275a6e91d95f62de2a2e7ce045fae9ffca55cea6389aa060e6",
+    "src/main/resources/blockwire.mixins.json": "873d63deda3c27d65db81bc739316e0a9549b894a033d121b41fa1406e561e43",
+    "src/contractTest/java/dev/blockwire/CreativeBuildContractTest.java": "294b0a54ea40dcd641fc189e803372f54715482aad69d2595089c407a28b0b72",
+    "src/contractTest/java/dev/blockwire/RotationContractTest.java": "148dd9eb92d7ebf8a2cab491ad7016b5a84355d6818d64c0e6b9df563b59be09",
+    "build.gradle": "2588e9a5bce35e6748b0ecd18aa6e30814f4028a2274488651c8b39827f8692c",
+    "python/src/blockwire/creative.py": "b2391ac6e74b66b27d851132afd19355d2fe6be5be970b33b04f57a404f1f493",
+    "python/src/blockwire/grounded_build.py": "482fff17079d7b529bb2c215149b6e703ea2910a3832e8d29cfb0229208298ce",
+    "python/src/blockwire/client.py": "1fb84bbe3826fcfa18b1abb4a538c5bd0c5a2a1f8abab9c9f692e0a4c7d34f6f",
+    "python/pyproject.toml": "9412125a8bbbca1c565c510c5ea0b0c2427725d06e7256e04e1dce794346fd4b",
+    "python/tests/test_grounded_build.py": "3c521fa6061d35fc5517b347b426fb11cc3e61135adb62ab186d0a32ac351a74",
+    "tests/run_grounded_build_mutations.py": "a64d50cf04136dd6683b2950e3184c18a2ec4aa0ae566ed226ee338286dfea38",
+    "docs/grounded-builder.md": "3b5f6a85db9bf33812b17c5b2d94c737f3977f536822c8ede378fcaad80dd602"
+  },
+  "check_artifact_sha256": {
+    "build/grounded-builder/checks-003/source-freeze-private.json": "b3b35dfc0cc990df4f923aedd36d43b33510b19b070cba6aaf45c861370c1cb0",
+    "build/grounded-builder/checks-003/python.log": "610a5880787735d2b66f999dc3c0a284b61b352bd3e9d66ca248780eb9774a58",
+    "build/grounded-builder/checks-003/python.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-003/mutations.log": "822be58786a7f45f544a76896b4a9301b65c22761fe6beeda4c1aed8a0cac555",
+    "build/grounded-builder/checks-003/mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-003/mutations/results.json": "b37197aea8730ac30ff8e6168f791f5d6c32170259e0badb123ae7d5c3f24e6f",
+    "build/grounded-builder/checks-003/mutations/python-baseline.log": "84cc56e6169326f867c9f421b30b32ff0e150261a35cdfdbc8ae986dbe0ebced",
+    "build/grounded-builder/checks-003/mutations/native-baseline.log": "3ffecc10f851d03d8fc5e98ec8b35da34a669b9427db518a9935438f63086e46",
+    "build/grounded-builder/checks-003/gradle.log": "2134f4af168597ac4926e39a000637a1a5d55c55df80c80b2c42e43552791c73",
+    "build/grounded-builder/checks-003/gradle.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-003/tls.log": "425c6fbae2fd4e3ecd7bfbd27e6c3e49ff24e06eede2a88a529a3db7e2b9804f",
+    "build/grounded-builder/checks-003/tls.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-003/tls/interop.json": "ae775fc80051183978efb0cc018ca8402f6f0d622af44c4c396e2017e00fd813",
+    "build/grounded-builder/checks-003/ccc.log": "1ebbe4d78a535a4a713b3fdce28d378be627f14c33dfdba3f691d15405c2fdb6",
+    "build/grounded-builder/checks-003/ccc.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-001/skill-regression/skill-mutations/results.json": "562a824a8bbe5356120b557142e71bda8353706459819a3616f917846c9b77b2",
+    "build/grounded-builder/checks-001/skill-mutations.log": "562a824a8bbe5356120b557142e71bda8353706459819a3616f917846c9b77b2",
+    "build/grounded-builder/checks-001/skill-mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-001/native-regression/mutations/results.json": "86ed9bfc8f22c09c40e86572a7756b134f08f4ed2af644d05dbbf93788779509",
+    "build/grounded-builder/checks-001/native-regression.log": "86ed9bfc8f22c09c40e86572a7756b134f08f4ed2af644d05dbbf93788779509",
+    "build/grounded-builder/checks-001/native-regression.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-001/schematic-mutations/results.json": "0b1ad075ec801281c1093c68a93e7ee14f11a01f8f68a735568231b15cb4c16a",
+    "build/grounded-builder/checks-001/schematic-mutations.log": "e4c36e3d0166d8b3934cf20b6feda162942094bc70946475a07d2e290ab37f0e",
+    "build/grounded-builder/checks-001/schematic-mutations.exit": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "build/grounded-builder/checks-001/CHECKS_FINISHED": "c19463ab7ffe983ad163746ba5be1dabb9ac23bd51e2f381f6f5cc795b89352a"
+  }
+}

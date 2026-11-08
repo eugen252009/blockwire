@@ -153,6 +153,14 @@ No implicit rebind, reconnect or respawn; historical remembered targets are not 
 current world map. Windows, complete Survival and long-running operation are not
 qualified. See the linked document for activation and remaining acceptance gates.
 
+The opt-in [two-hour host profile](blockwire-two-hour-sessions.md) coordinates
+ModelLimits, gateway admission, gameplay/outer deadlines and bounded model pacing.
+A terminal known goal block can prompt a new model decision after cooldown; no
+route/action is selected or retried by the host. An observed-state fingerprint
+limits repeated known failed frames, not native physics or progress verification.
+Uncertain outcomes/actor loss remain terminal. Legacy policies are not widened;
+no Java/protocol change or long-session reliability claim is implied.
+
 ## BCL/1 interface boundary
 
 [BCL](bcl.md) adds a bounded offline compiler, declarative skill-derived registry

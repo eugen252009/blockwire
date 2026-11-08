@@ -126,7 +126,12 @@ occluded-log and short-range checks correctly returned no sampled match. All102
 native pages were independently audited against the closed synthetic fixture.
 No production change was needed. This is not natural-world forestry acceptance.
 
-**Ordinary-MCP graphical search, natural Survival exploration, harvesting, general
-runtime performance and64-log acceptance remain NOT RUN.** Earlier hidden-display
-`look_around` evidence retains its original source/scope; it is not retroactively
-relabelled as search acceptance.
+A later [model-chosen natural-world test](search-model-test.md) also passed its
+narrow perception scope: without a prescribed call sequence or fixture, the LLM
+chose two searches and a camera turn, observing18 distinct spruce-log blocks
+independently confirmed in the closed save. It did not walk or harvest.
+
+**Ordinary-MCP graphical search, natural Survival walking/exploration, harvesting,
+general runtime performance and64-log acceptance remain NOT RUN.** Earlier
+hidden-display `look_around` evidence retains its original source/scope; it is not
+retroactively relabelled as search acceptance.

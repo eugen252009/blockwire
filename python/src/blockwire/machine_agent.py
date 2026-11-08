@@ -11,12 +11,14 @@ from .machine_perception import describe_events
 from .machine_composition import operation_cost
 
 
-async def run(client,decider,goal,directory,*,duration=600.,max_decisions=20,model_timeout=30.,max_actions=100):
+async def run(client,decider,goal,directory,*,duration=600.,max_decisions=20,model_timeout=30.,max_actions=100,extended_run=False):
     if client.profile!='machine-v1':raise ValueError('Machine gateway required')
     if not isinstance(goal,str) or not 1<=len(goal)<=2048:raise ValueError('Bounded explicit goal required')
-    if type(max_actions)is not int or not 1<=max_actions<=1000:raise ValueError('Action budget required')
-    if type(max_decisions)is not int or not 1<=max_decisions<=100:raise ValueError('Decision budget required')
-    if type(duration) not in (int,float) or not 1<=duration<=1800:raise ValueError('Bounded duration required')
+    if type(extended_run)is not bool:raise ValueError('Explicit boolean extended-run authorization required')
+    duration_cap,decision_cap,operation_cap=(86400,1000,1000000) if extended_run else (1800,100,1000)
+    if type(max_actions)is not int or not 1<=max_actions<=operation_cap:raise ValueError('Action budget required')
+    if type(max_decisions)is not int or not 1<=max_decisions<=decision_cap:raise ValueError('Decision budget required')
+    if type(duration) not in (int,float) or not 1<=duration<=duration_cap:raise ValueError('Bounded duration required')
     if type(model_timeout) not in (int,float) or not .1<=model_timeout<=60:raise ValueError('Bounded model timeout')
     path=Path(directory)
     path.mkdir(mode=0o700,parents=True,exist_ok=True)
@@ -32,6 +34,8 @@ async def run(client,decider,goal,directory,*,duration=600.,max_decisions=20,mod
         with (path/name).open('x') as f:
             os.chmod(path/name,0o600);json.dump(data,f,allow_nan=False);f.flush();os.fsync(f.fileno())
         sync_directory()
+    record('limits.json',{'extended_run':extended_run,'duration_seconds':duration,'max_decisions':max_decisions,
+                         'max_operations':max_actions,'model_timeout_seconds':model_timeout})
     inbox=EventInbox(client.bind['actor_session']);deadline=time.monotonic()+duration;history=[];calls=0;operations=0;plan=MachinePlan(notes='').model_dump()
     result={'status':'stopped','goal_verified':False,'reason':'decision_budget_exhausted'}
     invalid_streak=0;search_pages=0
@@ -74,7 +78,8 @@ async def run(client,decider,goal,directory,*,duration=600.,max_decisions=20,mod
                 remaining=deadline-time.monotonic()
                 if remaining<model_timeout+1:result['reason']='insufficient_request_deadline';break
                 context={'goal':goal,'plan':plan,'plan_is_unverified':True,'events':describe_events(inbox.drain()),'control_state':client.control_state,'recent_requests':history[-8:],
-                         'remaining_seconds':remaining,'remaining_action_budget':max_actions-operations-search_pages,'active_tasks':task_context(),
+                         'remaining_seconds':remaining,'remaining_model_calls':max_decisions-calls,
+                         'remaining_action_budget':max_actions-operations-search_pages,'active_tasks':task_context(),
                          'rules':'Actions are low-level inputs, NOT pathfinding or verified gameplay outcomes. Compose independently. Interrupt cancels old work; explicit resume requires control.released.'}
                 # Charge/record BEFORE inference. A timed-out request is never repeated.
                 record(f'{step:03d}-request.json',context);calls+=1
@@ -177,6 +182,7 @@ def main(argv=None):
     parser.add_argument('--max-decisions',type=int,default=20)
     parser.add_argument('--max-actions',type=int,default=100)
     parser.add_argument('--model-timeout',type=float,default=30.)
+    parser.add_argument('--extended-run',action='store_true',help='Explicitly allow up to 24h, 1000 decisions and 1000000 operations; defaults and per-action/queue bounds stay unchanged.')
     args=parser.parse_args(argv);token=Path(args.token_file)
     if token.is_symlink() or token.stat().st_mode&0o077:raise ValueError('Private token file required')
     registry=action_registry()
@@ -186,7 +192,7 @@ def main(argv=None):
         agent_id=args.agent_id,world_id=args.world_id,player_uuid=args.player_uuid,
         actor_session=args.actor_session,profile='machine-v1')
     result=asyncio.run(run(client,decider,args.goal,args.state_directory,duration=args.duration,
-        max_decisions=args.max_decisions,model_timeout=args.model_timeout,max_actions=args.max_actions))
+        max_decisions=args.max_decisions,model_timeout=args.model_timeout,max_actions=args.max_actions,extended_run=args.extended_run))
     print(json.dumps(result,indent=2));return 0 if result['status']=='stopped' else 2
 
 if __name__=='__main__':raise SystemExit(main())

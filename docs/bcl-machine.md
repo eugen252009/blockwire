@@ -99,6 +99,36 @@ critical control must not be silently discarded. No durable event replay.
   reported as `reserved_search_pages` separately from action operations. Failed or
   unused reservations are not reclaimed. Internal action safety reads remain separate.
 
+### Explicit extended runs
+
+Defaults and ordinary limits remain unchanged (maximum1,800s,100 decisions,
+1,000 operations). `machine_agent --extended-run` / `run(..., extended_run=True)`
+explicitly permits up to **86,400s,1,000 decisions and1,000,000 operations**.
+Set `--duration`, `--max-decisions` and `--max-actions` as well: the flag alone
+never raises their small defaults. Limits are persisted before inference, and
+remaining model calls, operations and time are supplied as context. This is an
+operator-selected execution envelope, not a currency/token quota or a guarantee
+of progress, uptime or provider availability. `finish_session` can still end early.
+
+For an external MCP facade, explicitly select `--max-session-tasks 1000`
+(`create_machine_server(..., max_session_tasks=1000)`). Its default lifetime bound
+remains128 task IDs. This is **not queue capacity**: the existing action FIFO,
+active-task, wire, event, native lease and per-command timeout bounds stay intact.
+Admission accounting is serialized across primitive/composition calls, without
+locking interrupt or cached status. Old task results may still be evicted from
+the bounded SDK cache; missing results never authorize replay.
+
+Long runs require an independently supervised hardware/storage/lifecycle stop and
+an explicitly authorized model. Use fresh private directories; never restart a
+used ledger, auto-respawn/rebind or replay uncertain work. F8, actor fencing,
+release confirmation and terminal uncertainty rules are unchanged. A generous
+budget is not permission to weaken these protections. Extended offline contracts
+are in `python/tests/test_machine_extended.py`; a1,000-decision simulated scan loop
+is **not**1,000 real-model calls or a24-hour graphical qualification.
+The [first real extended allocation](machine-extended-runs.md) ended after18
+model-selected calls despite ample remaining budget; its server-save timeout is
+retained separately. It does not qualify1,000 real calls or collection success.
+
 After SDK reinstall, the equivalent scripts are `blockwire-machine-mcp` and
 `blockwire-machine-agent`. Existing entry points remain explicitly **legacy**;
 no previously configured host or frozen campaign is silently switched.

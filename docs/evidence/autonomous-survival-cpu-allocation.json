@@ -1,0 +1,3200 @@
+{
+  "allocation": {
+    "exclusive_reservation": false,
+    "inference_cpus": [
+      7,
+      15
+    ],
+    "lscpu": {
+      "cpus": [
+        {
+          "core": 0,
+          "cpu": 0,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 1,
+          "cpu": 1,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 2,
+          "cpu": 2,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 3,
+          "cpu": 3,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 4,
+          "cpu": 4,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 5,
+          "cpu": 5,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 6,
+          "cpu": 6,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 7,
+          "cpu": 7,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 0,
+          "cpu": 8,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 1,
+          "cpu": 9,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 2,
+          "cpu": 10,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 3,
+          "cpu": 11,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 4,
+          "cpu": 12,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 5,
+          "cpu": 13,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 6,
+          "cpu": 14,
+          "online": true,
+          "socket": 0
+        },
+        {
+          "core": 7,
+          "cpu": 15,
+          "online": true,
+          "socket": 0
+        }
+      ]
+    },
+    "minecraft_cpus": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "os_spare_cpus": [
+      0,
+      8
+    ],
+    "physical_cores": [
+      [
+        0,
+        0,
+        [
+          0,
+          8
+        ]
+      ],
+      [
+        0,
+        1,
+        [
+          1,
+          9
+        ]
+      ],
+      [
+        0,
+        2,
+        [
+          2,
+          10
+        ]
+      ],
+      [
+        0,
+        3,
+        [
+          3,
+          11
+        ]
+      ],
+      [
+        0,
+        4,
+        [
+          4,
+          12
+        ]
+      ],
+      [
+        0,
+        5,
+        [
+          5,
+          13
+        ]
+      ],
+      [
+        0,
+        6,
+        [
+          6,
+          14
+        ]
+      ],
+      [
+        0,
+        7,
+        [
+          7,
+          15
+        ]
+      ]
+    ],
+    "system_services_modified": false
+  },
+  "artifacts": {
+    "agent03_window_close_world_and_recording_check": "PASS_INDEPENDENT_CLOSED_NBT_AND_REPLAY_CHECKS",
+    "archive": [
+      {
+        "agent_id": "survival-cpu-01",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 4212947,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 1790915,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-01/replay/readiness-01-2026_11_04_15_48_01.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 1790915,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 375254,
+            "sha256": "6a84c9bf3880430bb604c19316d1dc0ba4527ac036167b1cffcb98f6d88a64de",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "c173d7620be30b033f069129ef12c585cc94488f46e6df2cd5cf037fb7d9874c"
+      },
+      {
+        "agent_id": "survival-cpu-02",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 3014073,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 1043440,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-02/replay/readiness-01-2026_11_04_16_01_34.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 1043440,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 186235,
+            "sha256": "a77a4605dc086f07a2e77b66fac4d2aacdbcc6ac2f5b8d6d3d42f0c21eaea95f",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "d9877f25a9ddcee487a3a2c38c0ac17bd92fa16eec384580ca03631729810338"
+      },
+      {
+        "agent_id": "survival-cpu-03",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 3386135,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 1110240,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-03/replay/readiness-01-2026_11_04_16_05_42.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 1110240,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 241599,
+            "sha256": "c6a31cb95d85d82d378ff0a687ebb9526a3878f92355a9f08c1384f19043f80d",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "b42210be0508f44ce1eeb2bab441160ad16b2467ab1b4560b05b95479651cd4b"
+      },
+      {
+        "agent_id": "survival-cpu-04",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 2973034,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 889084,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-04/replay/readiness-01-2026_11_04_16_07_08.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 889084,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 179529,
+            "sha256": "23b332b8fe4a794b55592968bc966fc27dc4821b384a5d8d7e295d6e29911431",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "912d62cf58b4bf9c4589f2097e28831b7edb265682d7ea22953611dbe10aa959"
+      },
+      {
+        "agent_id": "survival-cpu-05",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 2393109,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 191818,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-05/replay/readiness-01-2026_11_04_16_11_04.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 191818,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 64616,
+            "sha256": "680e1a7356ddc73339cf2248427d399ca3263365432ad9891d94d6869b23e360",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "e747a21cba8199b06c084d6baa8f3c44f054b844d21c2c8e36a0dbc7c05ffbe1"
+      },
+      {
+        "agent_id": "survival-cpu-06",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 2312024,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 159857,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-06/replay/readiness-01-2026_11_04_16_11_35.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 159857,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 54579,
+            "sha256": "a0c6e6aa67921237ad9cd9192167186c21be63da072df529efc876de698a3d1b",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "94dc996cac8bb4307dcf2b5087d00e0fed843642564b58a59d48f3bce3ead2e2"
+      },
+      {
+        "agent_id": "survival-cpu-07",
+        "autonomous_campaign": false,
+        "health": 20,
+        "hunger": 20,
+        "inventory": {},
+        "native_readiness_tested": true,
+        "no_mining_crafting_or_placement": true,
+        "original_world_preserved": true,
+        "position": [
+          -1.5,
+          93.0,
+          5.5
+        ],
+        "replays": [
+          {
+            "bytes": 2831167,
+            "complete_monotonic_packet_framing": true,
+            "duration_ms": 371785,
+            "file": "build/autonomous-survival/parallel-cpu-001/agent-07/replay/readiness-01-2026_11_04_16_22_48.mcpr",
+            "first_packet_ms": 0,
+            "last_packet_ms": 371785,
+            "native_playback": "NOT_RUN_THIS_COHORT",
+            "packets": 145787,
+            "sha256": "a2ec4e355c19aac63fed730ddfd159681c942adf7892489e6be57362247dbfc0",
+            "unmodified_original_copy": true,
+            "zip_crc_valid": true
+          }
+        ],
+        "saved_profile": {
+          "graphicsPreset": "\"custom\"",
+          "inactivityFpsLimit": "\"minimized\"",
+          "maxFps": "30",
+          "pauseOnLostFocus": "false",
+          "renderDistance": "8",
+          "simulationDistance": "5"
+        },
+        "world_identity": "55948386ba0a3ea518b520715c2ab5abe2fc958e03440f66c95cae75b0d41f31"
+      },
+      {
+        "agent_id": "survival-cpu-08",
+        "autonomous_campaign": false,
+        "native_readiness_tested": false,
+        "original_world_preserved": true,
+        "replays": []
+      }
+    ],
+    "integrity": "ALL_ZIP_CRC_AND_COMPLETE_MONOTONIC_PACKET_FRAMING_PASS",
+    "new_native_replay_playback": "NOT_RUN_THIS_COHORT; no inference from historical viewer tests",
+    "readiness_replay_count": 7,
+    "worlds_and_original_replays_preserved": true
+  },
+  "baseline_commit": "a9a7405",
+  "capacity": {
+    "boundary_refinement": "Tested five after four GO/six NO_GO rather than assuming a physical-core-to-instance mapping",
+    "eight_resource_block_preserved": {
+      "not_assumed_equal_to_physical_core_count": true,
+      "reason": "Six-instance pool mean 0.8553049645375077 exceeds prospective 0.85 headroom rule; 8 requires six resource pass",
+      "requested_instances": 8,
+      "six_full_resource_qualification": false,
+      "six_tps_rpc_and_bcl_passed": true,
+      "status": "NOT_RUN_RESOURCE_GATE",
+      "timestamp": 1793805386.22614
+    },
+    "five_never_tested_as_a_long_running_survival_fleet": true,
+    "five_used_instance_numbers": [
+      1,
+      2,
+      3,
+      4,
+      7
+    ],
+    "fresh_instance_07_used_as_fifth": true,
+    "only_values_for_tested_workload_background_load_and_graphics_config": true,
+    "qualified_maximum": 5,
+    "six_mc_pool_mean": 0.8553049645375077,
+    "six_not_described_as_crash_or_tick_failure": true,
+    "six_threshold_excess_percentage_points": 0.5304964537507728
+  },
+  "cleanup": {
+    "all_control_disabled": true,
+    "all_owned_java_closed": true,
+    "all_ports_closed": true,
+    "hidden_display_running": false,
+    "no_system_wide_affinity_changes": true,
+    "owned_idle_launcher_terminated_after_all_games_closed": [],
+    "timestamp": 1793806754.4829943,
+    "unrelated_services_or_processes_modified": false
+  },
+  "cohort": "parallel-cpu-001",
+  "implementation": {
+    "cgroup_root_not_writable": true,
+    "inference_scope": "Local probe dispatcher and every sampled CLI thread on 7,15. Existing model backend is remote; its processors/weights are not controlled or counted as a local model.",
+    "mechanism": "Linux sched_setaffinity per owned process thread plus inherited/taskset launch masks, not system-wide cpusets",
+    "minecraft_scope": "Java/Netty/GC/render threads, Blockwire BCL worker/monitor threads, owned Prism and Xephyr/supervisor",
+    "no_os_service_affinity_changes": true,
+    "os_spare_pair": "Not used by benchmark processes; unrestricted background/OS work may run anywhere",
+    "sampling": "About once per second. Exact UID/cwd/start-time proof required before any owned-thread affinity change; caller/other-service changes rejected.",
+    "startup_caveat": "Some initial Java threads had broader masks despite inherited affinity (retained proof). All threads were corrected and verified before native connection/world measurement. No observed escape in measurement; affinity is not an adversarial sandbox."
+  },
+  "limitations": [
+    "Affinity is not exclusive reservation: system/background processes remain unrestricted; reported core utilization includes them",
+    "Small-sample/readiness capacity is not a universal hardware maximum or long-term autonomous reliability",
+    "Six was close to the prospective headroom boundary and functionally passed; the boundary was not relaxed after observation",
+    "Eight and sixteen not qualified, no 16-agent gameplay launched",
+    "Startup mask correction was needed before measurement; kernel affinity is checked, not a hard security cpuset",
+    "Only BCL camera actions were added to the resource workload, not concurrent mining/walking/crafting acceptance",
+    "Model probes ran during active-world/observe measurements; camera probes occur later in the same phase, not guaranteed to overlap the model requests"
+  ],
+  "no_commit_push_deploy": true,
+  "phases": [
+    {
+      "actual_all_client_overlap_seconds": 120.19378590583801,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 303,
+          "all_rpc_seconds": {
+            "p50": 0.05160111899749609,
+            "p95": 0.0903097499976866,
+            "p99": 0.09969367399753537
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 4.991055562997644,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 19.999248449058488,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.04569885099772364,
+            "p95": 0.0817312450017198,
+            "p99": 0.09194241999648511
+          },
+          "observe_samples": 257,
+          "observed_game_tps": 19.99092236727287,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2403
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 304,
+          "all_rpc_seconds": {
+            "p50": 0.05056002699711826,
+            "p95": 0.08177636400068877,
+            "p99": 0.10258936799800722
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 4.5385227229999145,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 19.997391986073755,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.04377992700028699,
+            "p95": 0.07886698199581588,
+            "p99": 0.0836963490000926
+          },
+          "observe_samples": 258,
+          "observed_game_tps": 19.997391986073755,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2404
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00014941999688744545,
+          "p95": 6.328381836996414,
+          "p99": 6.328381836996414
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00014941999688744545,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.325746333997813,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 193,
+              "output": 70,
+              "reasoning": 0,
+              "totalTokens": 263
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.00014077000378165394,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.723696116998326,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 188,
+              "output": 53,
+              "reasoning": 0,
+              "totalTokens": 241
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 5.725529308998375,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.61976196699834,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 192,
+              "output": 68,
+              "reasoning": 0,
+              "totalTokens": 260
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 6.328381836996414,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.219737724000879,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 192,
+              "output": 53,
+              "reasoning": 0,
+              "totalTokens": 245
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 6.219737724000879,
+          "p95": 6.61976196699834,
+          "p99": 6.61976196699834
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2
+      ],
+      "instances": 2,
+      "local_inference_rss_peak_bytes": 285491200,
+      "mc_java_aux_monitor_rss_peak_bytes": 8216227840,
+      "mem_available_min_bytes": 50558042112,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.26,
+          "normalized_pool_fraction": 0.0010934149338172625,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 425.73,
+          "normalized_pool_fraction": 0.29839714088078406,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.11481482980098719,
+          "peak": 0.4571428571428572
+        },
+        "1": {
+          "mean": 0.4541628687167496,
+          "peak": 0.696078431372549
+        },
+        "10": {
+          "mean": 0.18115176768254984,
+          "peak": 0.5660377358490566
+        },
+        "11": {
+          "mean": 0.34027009887609366,
+          "peak": 0.7333333333333334
+        },
+        "12": {
+          "mean": 0.23025662155531754,
+          "peak": 0.5327102803738317
+        },
+        "13": {
+          "mean": 0.18617486267784858,
+          "peak": 0.6509433962264151
+        },
+        "14": {
+          "mean": 0.412510701640568,
+          "peak": 0.7647058823529411
+        },
+        "15": {
+          "mean": 0.12543984869961158,
+          "peak": 0.5728155339805825
+        },
+        "2": {
+          "mean": 0.22075938076195453,
+          "peak": 0.5
+        },
+        "3": {
+          "mean": 0.45132336463020156,
+          "peak": 0.6761904761904762
+        },
+        "4": {
+          "mean": 0.3779987739265137,
+          "peak": 0.5700000000000001
+        },
+        "5": {
+          "mean": 0.29331447867627064,
+          "peak": 0.5428571428571429
+        },
+        "6": {
+          "mean": 0.4383697294342843,
+          "peak": 0.6699999999999999
+        },
+        "7": {
+          "mean": 0.10993807393419848,
+          "peak": 0.6
+        },
+        "8": {
+          "mean": 0.14997035841705567,
+          "peak": 0.2621359223300971
+        },
+        "9": {
+          "mean": 0.4957071093108226,
+          "peak": 0.75
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.13239259410902143,
+          "peak_smt_mean": 0.3126835781041389
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.4749349890137861,
+          "peak_smt_mean": 0.6299019607843137
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.2009555742222522,
+          "peak_smt_mean": 0.43205732946298986
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.3957967317531476,
+          "peak_smt_mean": 0.6142857142857143
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.30412769774091564,
+          "peak_smt_mean": 0.4680159192389827
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.23974467067705962,
+          "peak_smt_mean": 0.42773109243697477
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.42544021553742617,
+          "peak_smt_mean": 0.546973158195317
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.11768896131690504,
+          "peak_smt_mean": 0.5864077669902912
+        }
+      },
+      "phase": "C02",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.11768896131690504,
+          "peak_smt_mean": 0.5864077669902912
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.34016664649076456,
+          "peak_smt_mean": 0.4622049672406243
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.13239259410902143,
+          "peak_smt_mean": 0.3126835781041389
+        }
+      },
+      "problems": [],
+      "requested_seconds": 120,
+      "status": "GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.05160111899749609,
+        "p95": 0.0903097499976866,
+        "p99": 0.10258936799800722
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.04569885099772364,
+        "p95": 0.0817312450017198,
+        "p99": 0.09194241999648511
+      }
+    },
+    {
+      "actual_all_client_overlap_seconds": 120.24792981147766,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 301,
+          "all_rpc_seconds": {
+            "p50": 0.06461050500365673,
+            "p95": 0.1048292439954821,
+            "p99": 0.11408531599590788
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 5.920855782002036,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.005941577815577,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.0528681180003332,
+            "p95": 0.09706051299872342,
+            "p99": 0.10685666700010188
+          },
+          "observe_samples": 255,
+          "observed_game_tps": 19.997623098989042,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2406
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 300,
+          "all_rpc_seconds": {
+            "p50": 0.06746644800296053,
+            "p95": 0.10747504699975252,
+            "p99": 0.11618418100260897
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.057767692000198,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.01005590439259,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.05827498500002548,
+            "p95": 0.09802191299968399,
+            "p99": 0.10918653899716446
+          },
+          "observe_samples": 255,
+          "observed_game_tps": 20.01005590439259,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2407
+        },
+        {
+          "agent_id": "survival-cpu-03",
+          "all_rpc_samples": 303,
+          "all_rpc_seconds": {
+            "p50": 0.05499178000172833,
+            "p95": 0.10065959700295934,
+            "p99": 0.11589828899741406
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 5.124311936000595,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.005041911483872,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.04528871700313175,
+            "p95": 0.09134748300130013,
+            "p99": 0.10065959700295934
+          },
+          "observe_samples": 257,
+          "observed_game_tps": 19.996771947899134,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2420
+        },
+        {
+          "agent_id": "survival-cpu-04",
+          "all_rpc_samples": 300,
+          "all_rpc_seconds": {
+            "p50": 0.06533256500551943,
+            "p95": 0.10609555499831913,
+            "p99": 0.12067778700293275
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.063169420995109,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.007837032665073,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.057268691998615395,
+            "p95": 0.09724353199999314,
+            "p99": 0.10948658100096509
+          },
+          "observe_samples": 255,
+          "observed_game_tps": 20.007837032665073,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2417
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00015034000534797087,
+          "p95": 7.5347076820035,
+          "p99": 7.5347076820035
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00015034000534797087,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.627756230998784,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 191,
+              "output": 58,
+              "reasoning": 0,
+              "totalTokens": 249
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.00014524000289384276,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 7.532262778993754,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 190,
+              "output": 57,
+              "reasoning": 0,
+              "totalTokens": 247
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 6.629894503996184,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.22502896199876,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 192,
+              "output": 64,
+              "reasoning": 0,
+              "totalTokens": 256
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 7.5347076820035,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.520563177997246,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 193,
+              "output": 70,
+              "reasoning": 0,
+              "totalTokens": 263
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 6.22502896199876,
+          "p95": 7.532262778993754,
+          "p99": 7.532262778993754
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "instances": 4,
+      "local_inference_rss_peak_bytes": 287174656,
+      "mc_java_aux_monitor_rss_peak_bytes": 16312553472,
+      "mem_available_min_bytes": 42617294848,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.79,
+          "normalized_pool_fraction": 0.0033199456863370626,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 837.07,
+          "normalized_pool_fraction": 0.5862926024603724,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.19041832989149426,
+          "peak": 0.3679245283018868
+        },
+        "1": {
+          "mean": 0.642565918948024,
+          "peak": 0.780952380952381
+        },
+        "10": {
+          "mean": 0.5795791132374539,
+          "peak": 0.8090909090909091
+        },
+        "11": {
+          "mean": 0.6509768871117578,
+          "peak": 0.8113207547169812
+        },
+        "12": {
+          "mean": 0.6441296014009849,
+          "peak": 0.8256880733944953
+        },
+        "13": {
+          "mean": 0.614653843921987,
+          "peak": 0.8
+        },
+        "14": {
+          "mean": 0.6598809871826926,
+          "peak": 0.8504672897196262
+        },
+        "15": {
+          "mean": 0.19717880249572434,
+          "peak": 0.5833333333333333
+        },
+        "2": {
+          "mean": 0.602114853290014,
+          "peak": 0.7777777777777778
+        },
+        "3": {
+          "mean": 0.606824256218109,
+          "peak": 0.7314814814814814
+        },
+        "4": {
+          "mean": 0.605902763700895,
+          "peak": 0.7850467289719626
+        },
+        "5": {
+          "mean": 0.5969154194210213,
+          "peak": 0.7636363636363637
+        },
+        "6": {
+          "mean": 0.6203120162583518,
+          "peak": 0.8018867924528301
+        },
+        "7": {
+          "mean": 0.18805142945319317,
+          "peak": 0.6168224299065421
+        },
+        "8": {
+          "mean": 0.2261396448943422,
+          "peak": 0.41747572815533984
+        },
+        "9": {
+          "mean": 0.6731365843487751,
+          "peak": 0.9439252336448598
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.20827898739291822,
+          "peak_smt_mean": 0.39098085473187555
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.6578512516483995,
+          "peak_smt_mean": 0.7990654205607477
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.590846983263734,
+          "peak_smt_mean": 0.7375178917234992
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.6289005716649334,
+          "peak_smt_mean": 0.7371729527692831
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.6250161825509399,
+          "peak_smt_mean": 0.766617621602908
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.6057846316715041,
+          "peak_smt_mean": 0.732285471537808
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.6400965017205222,
+          "peak_smt_mean": 0.7553307322384538
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.19261511597445874,
+          "peak_smt_mean": 0.6000778816199377
+        }
+      },
+      "phase": "C04b",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.19261511597445874,
+          "peak_smt_mean": 0.6000778816199377
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.6247493537533388,
+          "peak_smt_mean": 0.7270701239651454
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.20827898739291822,
+          "peak_smt_mean": 0.39098085473187555
+        }
+      },
+      "problems": [],
+      "requested_seconds": 120,
+      "status": "GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.06746644800296053,
+        "p95": 0.10747504699975252,
+        "p99": 0.12067778700293275
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.05827498500002548,
+        "p95": 0.09802191299968399,
+        "p99": 0.10948658100096509
+      }
+    },
+    {
+      "actual_all_client_overlap_seconds": 120.05945301055908,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 296,
+          "all_rpc_seconds": {
+            "p50": 0.08490293100476265,
+            "p95": 0.1410578409995651,
+            "p99": 0.15840380499867024
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.7171050460019615,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.006247695621756,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06974586000433192,
+            "p95": 0.12946677400032058,
+            "p99": 0.149785604000499
+          },
+          "observe_samples": 251,
+          "observed_game_tps": 20.022905687041924,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2403
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 297,
+          "all_rpc_seconds": {
+            "p50": 0.0755610069973045,
+            "p95": 0.12601166999957059,
+            "p99": 0.14270570399821736
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.479888706999191,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.009260704297304,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06718442599958507,
+            "p95": 0.11810924800374778,
+            "p99": 0.13277708899840945
+          },
+          "observe_samples": 252,
+          "observed_game_tps": 20.01755985846748,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2412
+        },
+        {
+          "agent_id": "survival-cpu-03",
+          "all_rpc_samples": 297,
+          "all_rpc_seconds": {
+            "p50": 0.07389724499807926,
+            "p95": 0.12824648300011177,
+            "p99": 0.1793942660005996
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.357792653005163,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.01192966645991,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06368641100561945,
+            "p95": 0.11500137399707455,
+            "p99": 0.131776638001611
+          },
+          "observe_samples": 252,
+          "observed_game_tps": 20.020233371715705,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2411
+        },
+        {
+          "agent_id": "survival-cpu-04",
+          "all_rpc_samples": 297,
+          "all_rpc_seconds": {
+            "p50": 0.08402133000345202,
+            "p95": 0.12672918199677952,
+            "p99": 0.1575123939983314
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.395467155998631,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.00725443204625,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.07410040500690229,
+            "p95": 0.12059195100300713,
+            "p99": 0.13133520699921064
+          },
+          "observe_samples": 252,
+          "observed_game_tps": 20.015563092524673,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2409
+        },
+        {
+          "agent_id": "survival-cpu-05",
+          "all_rpc_samples": 297,
+          "all_rpc_seconds": {
+            "p50": 0.07384066400118172,
+            "p95": 0.12814227299531922,
+            "p99": 0.14674200899753487
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.148282424997888,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.01245687839607,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06366659099876415,
+            "p95": 0.11642119599855505,
+            "p99": 0.13716585600195685
+          },
+          "observe_samples": 252,
+          "observed_game_tps": 20.01245687839607,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2418
+        },
+        {
+          "agent_id": "survival-cpu-06",
+          "all_rpc_samples": 297,
+          "all_rpc_seconds": {
+            "p50": 0.0832691879986669,
+            "p95": 0.13035036600194871,
+            "p99": 0.1525499569979729
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.186701710001216,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.005477758607388,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.07042056100181071,
+            "p95": 0.11843293900165008,
+            "p99": 0.13730407499679131
+          },
+          "observe_samples": 252,
+          "observed_game_tps": 20.005477758607388,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2419
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00019389999943086877,
+          "p95": 8.258995596996101,
+          "p99": 8.258995596996101
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00019389999943086877,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 8.252535097999498,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 190,
+              "output": 60,
+              "reasoning": 0,
+              "totalTokens": 250
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.00017112999921664596,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 8.043643149001582,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 191,
+              "output": 61,
+              "reasoning": 0,
+              "totalTokens": 252
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 8.047016543001519,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.625607428999501,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 189,
+              "output": 66,
+              "reasoning": 0,
+              "totalTokens": 255
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 8.258995596996101,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.126435473001038,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 192,
+              "output": 60,
+              "reasoning": 0,
+              "totalTokens": 252
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 6.126435473001038,
+          "p95": 8.252535097999498,
+          "p99": 8.252535097999498
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "instances": 6,
+      "local_inference_rss_peak_bytes": 283107328,
+      "mc_java_aux_monitor_rss_peak_bytes": 24401453056,
+      "mem_available_min_bytes": 33327054848,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.28,
+          "normalized_pool_fraction": 0.0011685752195906066,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 1186.23,
+          "normalized_pool_fraction": 0.825118442104146,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.24592359962388632,
+          "peak": 0.5877192982456141
+        },
+        "1": {
+          "mean": 0.8623481847914614,
+          "peak": 0.9375
+        },
+        "10": {
+          "mean": 0.8588002375168787,
+          "peak": 0.9189189189189189
+        },
+        "11": {
+          "mean": 0.8643875495007268,
+          "peak": 0.9375
+        },
+        "12": {
+          "mean": 0.862468696696572,
+          "peak": 0.9469026548672567
+        },
+        "13": {
+          "mean": 0.8589529890779458,
+          "peak": 0.9363636363636364
+        },
+        "14": {
+          "mean": 0.866594417893891,
+          "peak": 0.9636363636363636
+        },
+        "15": {
+          "mean": 0.24419446213698223,
+          "peak": 0.7321428571428572
+        },
+        "2": {
+          "mean": 0.8520352258508948,
+          "peak": 0.9351851851851852
+        },
+        "3": {
+          "mean": 0.8400956782630805,
+          "peak": 0.9375
+        },
+        "4": {
+          "mean": 0.8492963341770736,
+          "peak": 0.9203539823008849
+        },
+        "5": {
+          "mean": 0.8434505531691983,
+          "peak": 0.9099099099099099
+        },
+        "6": {
+          "mean": 0.8433728815308189,
+          "peak": 0.9298245614035088
+        },
+        "7": {
+          "mean": 0.23887484430731856,
+          "peak": 0.7232142857142857
+        },
+        "8": {
+          "mean": 0.2733224496652813,
+          "peak": 0.7345132743362832
+        },
+        "9": {
+          "mean": 0.8618568259815508,
+          "peak": 0.9196428571428571
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.2596230246445838,
+          "peak_smt_mean": 0.6230096919349255
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.8621025053865061,
+          "peak_smt_mean": 0.9252717391304348
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.8554177316838867,
+          "peak_smt_mean": 0.927052052052052
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.8522416138819037,
+          "peak_smt_mean": 0.9156526548672567
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.8558825154368228,
+          "peak_smt_mean": 0.9239017778840788
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.851201771123572,
+          "peak_smt_mean": 0.9141277641277641
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.854983649712355,
+          "peak_smt_mean": 0.9232596232596233
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.2415346532221504,
+          "peak_smt_mean": 0.7276785714285714
+        }
+      },
+      "phase": "C06",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.2415346532221504,
+          "peak_smt_mean": 0.7276785714285714
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.8553049645375077,
+          "peak_smt_mean": 0.9122462194457033
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.2596230246445838,
+          "peak_smt_mean": 0.6230096919349255
+        }
+      },
+      "problems": [
+        "minecraft_pool_cpu_headroom"
+      ],
+      "requested_seconds": 120,
+      "status": "NO_GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.08490293100476265,
+        "p95": 0.1410578409995651,
+        "p99": 0.1793942660005996
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.07410040500690229,
+        "p95": 0.12946677400032058,
+        "p99": 0.149785604000499
+      }
+    },
+    {
+      "actual_all_client_overlap_seconds": 180.22206473350525,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 425,
+          "all_rpc_seconds": {
+            "p50": 0.058353874999738764,
+            "p95": 0.10811238199676154,
+            "p99": 0.11999517399817705
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.413117695999972,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 19.999523002661633,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.052811061999818776,
+            "p95": 0.09610862699628342,
+            "p99": 0.11090091799997026
+          },
+          "observe_samples": 374,
+          "observed_game_tps": 20.005073800053434,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3604
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 426,
+          "all_rpc_seconds": {
+            "p50": 0.059824885000125505,
+            "p95": 0.10290562999580288,
+            "p99": 0.11371405799582135
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.160890160004783,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.00262459737372,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.053581617001327686,
+            "p95": 0.09710885900130961,
+            "p99": 0.10301991699816426
+          },
+          "observe_samples": 375,
+          "observed_game_tps": 20.00262459737372,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3609
+        },
+        {
+          "agent_id": "survival-cpu-03",
+          "all_rpc_samples": 426,
+          "all_rpc_seconds": {
+            "p50": 0.059037959996203426,
+            "p95": 0.10363010300352471,
+            "p99": 0.11199512500024866
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.179778344005172,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.008269761730954,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.05231857600301737,
+            "p95": 0.09484423799585784,
+            "p99": 0.10297788999741897
+          },
+          "observe_samples": 375,
+          "observed_game_tps": 20.002725769001184,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3610
+        },
+        {
+          "agent_id": "survival-cpu-04",
+          "all_rpc_samples": 428,
+          "all_rpc_seconds": {
+            "p50": 0.058082655996258836,
+            "p95": 0.09849788800056558,
+            "p99": 0.11276846499822568
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 5.224070666998159,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.00508535650122,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.052530271001160145,
+            "p95": 0.09392676800052868,
+            "p99": 0.10171840200200677
+          },
+          "observe_samples": 377,
+          "observed_game_tps": 19.999546850034857,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3613
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00020605199824785814,
+          "p95": 6.527422487997683,
+          "p99": 6.527422487997683
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00020605199824785814,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.521661129998392,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 189,
+              "output": 54,
+              "reasoning": 0,
+              "totalTokens": 243
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.00019317199621582404,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.5248578239989,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 193,
+              "output": 58,
+              "reasoning": 0,
+              "totalTokens": 251
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 5.524154863000149,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.930748920000042,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 190,
+              "output": 57,
+              "reasoning": 0,
+              "totalTokens": 247
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 6.527422487997683,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.42284537100204,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 193,
+              "output": 63,
+              "reasoning": 0,
+              "totalTokens": 256
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 5.521661129998392,
+          "p95": 6.5248578239989,
+          "p99": 6.5248578239989
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "instances": 4,
+      "local_inference_rss_peak_bytes": 283938816,
+      "mc_java_aux_monitor_rss_peak_bytes": 16484970496,
+      "mem_available_min_bytes": 42140983296,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.19,
+          "normalized_pool_fraction": 0.0005300211590809225,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 1251.37,
+          "normalized_pool_fraction": 0.5818005068763982,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.1721285411847877,
+          "peak": 0.7115384615384616
+        },
+        "1": {
+          "mean": 0.6421301661946036,
+          "peak": 0.8363636363636364
+        },
+        "10": {
+          "mean": 0.5691224146632219,
+          "peak": 0.7314814814814814
+        },
+        "11": {
+          "mean": 0.6462803950495923,
+          "peak": 0.9065420560747663
+        },
+        "12": {
+          "mean": 0.6318866380012279,
+          "peak": 0.7889908256880733
+        },
+        "13": {
+          "mean": 0.6092629083816639,
+          "peak": 0.7614678899082569
+        },
+        "14": {
+          "mean": 0.6825776406208082,
+          "peak": 1.0
+        },
+        "15": {
+          "mean": 0.17467903871217638,
+          "peak": 0.8679245283018868
+        },
+        "2": {
+          "mean": 0.5966454421991625,
+          "peak": 0.7706422018348624
+        },
+        "3": {
+          "mean": 0.5994318713930349,
+          "peak": 0.7222222222222222
+        },
+        "4": {
+          "mean": 0.6151567791629423,
+          "peak": 0.787037037037037
+        },
+        "5": {
+          "mean": 0.6008004168902081,
+          "peak": 0.7767857142857143
+        },
+        "6": {
+          "mean": 0.619431994480231,
+          "peak": 0.7663551401869159
+        },
+        "7": {
+          "mean": 0.18139219382097257,
+          "peak": 0.7339449541284404
+        },
+        "8": {
+          "mean": 0.1578906148135176,
+          "peak": 0.5480769230769231
+        },
+        "9": {
+          "mean": 0.6663708176106975,
+          "peak": 1.0
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.16500957799915267,
+          "peak_smt_mean": 0.5607692307692308
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.6542504919026506,
+          "peak_smt_mean": 0.8142857142857143
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.5828839284311922,
+          "peak_smt_mean": 0.7485286480872425
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.6228561332213136,
+          "peak_smt_mean": 0.7928936695468172
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.6235217085820851,
+          "peak_smt_mean": 0.7662457912457912
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.605031662635936,
+          "peak_smt_mean": 0.744248712998713
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.6510048175505196,
+          "peak_smt_mean": 0.8271028037383178
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.1780356162665745,
+          "peak_smt_mean": 0.6095238095238096
+        }
+      },
+      "phase": "CONFIRM04",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.1780356162665745,
+          "peak_smt_mean": 0.6095238095238096
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.6232581237206162,
+          "peak_smt_mean": 0.7485881548853969
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.16500957799915267,
+          "peak_smt_mean": 0.5607692307692308
+        }
+      },
+      "problems": [],
+      "requested_seconds": 180,
+      "status": "GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.059824885000125505,
+        "p95": 0.10811238199676154,
+        "p99": 0.11999517399817705
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.053581617001327686,
+        "p95": 0.09710885900130961,
+        "p99": 0.11090091799997026
+      }
+    },
+    {
+      "actual_all_client_overlap_seconds": 120.17986178398132,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 300,
+          "all_rpc_seconds": {
+            "p50": 0.06431914499989944,
+            "p95": 0.1160072489947197,
+            "p99": 0.14478813100140542
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.489229744998738,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.00907895769372,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.0547517620070721,
+            "p95": 0.1079375519984751,
+            "p99": 0.1277124560001539
+          },
+          "observe_samples": 254,
+          "observed_game_tps": 20.000772988844535,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2410
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 298,
+          "all_rpc_seconds": {
+            "p50": 0.074607388000004,
+            "p95": 0.11718499500420876,
+            "p99": 0.13490461699984735
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.81826549199468,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.01357616076999,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.0615943469965714,
+            "p95": 0.11057715200149687,
+            "p99": 0.124912678002147
+          },
+          "observe_samples": 253,
+          "observed_game_tps": 20.00525104589446,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2405
+        },
+        {
+          "agent_id": "survival-cpu-03",
+          "all_rpc_samples": 299,
+          "all_rpc_seconds": {
+            "p50": 0.07470703199942363,
+            "p95": 0.1126757340025506,
+            "p99": 0.13639777400385356
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.6762273570057005,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.000845463694137,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.0631525920034619,
+            "p95": 0.10818186099641025,
+            "p99": 0.11508962500374764
+          },
+          "observe_samples": 254,
+          "observed_game_tps": 20.000845463694137,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2412
+        },
+        {
+          "agent_id": "survival-cpu-04",
+          "all_rpc_samples": 300,
+          "all_rpc_seconds": {
+            "p50": 0.0680961429970921,
+            "p95": 0.11303149800369283,
+            "p99": 0.12409439399925759
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.274194764999265,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.008000539791368,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.055830238001362886,
+            "p95": 0.10479748199577443,
+            "p99": 0.12257647999649635
+          },
+          "observe_samples": 255,
+          "observed_game_tps": 20.008000539791368,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2410
+        },
+        {
+          "agent_id": "survival-cpu-07",
+          "all_rpc_samples": 299,
+          "all_rpc_seconds": {
+            "p50": 0.06730470900220098,
+            "p95": 0.11352880000049481,
+            "p99": 0.13379138299933402
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.619252125005005,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.008301128635473,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.05759656900045229,
+            "p95": 0.10362847299984423,
+            "p99": 0.11252150699874619
+          },
+          "observe_samples": 254,
+          "observed_game_tps": 20.000033235607113,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 2421
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00020290099928388372,
+          "p95": 6.340528765998897,
+          "p99": 6.340528765998897
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00020290099928388372,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.338934028004587,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 193,
+              "output": 60,
+              "reasoning": 0,
+              "totalTokens": 253
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.00014697099686600268,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.526009959001385,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 186,
+              "output": 51,
+              "reasoning": 0,
+              "totalTokens": 237
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 5.528140821996203,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.222035450999101,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 191,
+              "output": 69,
+              "reasoning": 0,
+              "totalTokens": 260
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 6.340528765998897,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.7187279099962325,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 190,
+              "output": 64,
+              "reasoning": 0,
+              "totalTokens": 254
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 5.7187279099962325,
+          "p95": 6.338934028004587,
+          "p99": 6.338934028004587
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2,
+        3,
+        4,
+        7
+      ],
+      "instances": 5,
+      "local_inference_rss_peak_bytes": 287170560,
+      "mc_java_aux_monitor_rss_peak_bytes": 20009439232,
+      "mem_available_min_bytes": 38492057600,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.3,
+          "normalized_pool_fraction": 0.0012673106948016691,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 1037.33,
+          "normalized_pool_fraction": 0.7303441127992306,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.18225453844017211,
+          "peak": 0.5596330275229358
+        },
+        "1": {
+          "mean": 0.7767563226501454,
+          "peak": 0.963963963963964
+        },
+        "10": {
+          "mean": 0.7609270382172291,
+          "peak": 0.875
+        },
+        "11": {
+          "mean": 0.7741699384077103,
+          "peak": 0.9736842105263158
+        },
+        "12": {
+          "mean": 0.7670639989079968,
+          "peak": 0.8648648648648649
+        },
+        "13": {
+          "mean": 0.7688724100990021,
+          "peak": 0.8807339449541285
+        },
+        "14": {
+          "mean": 0.7853301591871975,
+          "peak": 0.962962962962963
+        },
+        "15": {
+          "mean": 0.17981497266932425,
+          "peak": 0.5636363636363637
+        },
+        "2": {
+          "mean": 0.7569275464550647,
+          "peak": 0.8727272727272728
+        },
+        "3": {
+          "mean": 0.7470145435965098,
+          "peak": 0.8448275862068966
+        },
+        "4": {
+          "mean": 0.7526228963622514,
+          "peak": 0.8695652173913043
+        },
+        "5": {
+          "mean": 0.7403583427417807,
+          "peak": 0.8454545454545455
+        },
+        "6": {
+          "mean": 0.755639095645097,
+          "peak": 0.8611111111111112
+        },
+        "7": {
+          "mean": 0.18108430512298612,
+          "peak": 0.6153846153846154
+        },
+        "8": {
+          "mean": 0.18642765942148648,
+          "peak": 0.6168224299065421
+        },
+        "9": {
+          "mean": 0.786488514877882,
+          "peak": 0.9727272727272728
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.18434109893082928,
+          "peak_smt_mean": 0.5882277287147389
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.7816224187640137,
+          "peak_smt_mean": 0.8926962676962678
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.7589272923361469,
+          "peak_smt_mean": 0.8616071428571428
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.76059224100211,
+          "peak_smt_mean": 0.8975563909774436
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.7598434476351241,
+          "peak_smt_mean": 0.859561369757599
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.7546153764203913,
+          "peak_smt_mean": 0.8596642096642096
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.7704846274161472,
+          "peak_smt_mean": 0.8897383622154265
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.18044963889615517,
+          "peak_smt_mean": 0.55496632996633
+        }
+      },
+      "phase": "C05",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.18044963889615517,
+          "peak_smt_mean": 0.55496632996633
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.7643475672623222,
+          "peak_smt_mean": 0.8718871485316955
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.18434109893082928,
+          "peak_smt_mean": 0.5882277287147389
+        }
+      },
+      "problems": [],
+      "requested_seconds": 120,
+      "status": "GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.07470703199942363,
+        "p95": 0.11718499500420876,
+        "p99": 0.14478813100140542
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.0631525920034619,
+        "p95": 0.11057715200149687,
+        "p99": 0.1277124560001539
+      }
+    },
+    {
+      "actual_all_client_overlap_seconds": 180.21080040931702,
+      "affinity_escape_observed": false,
+      "clients": [
+        {
+          "agent_id": "survival-cpu-01",
+          "all_rpc_samples": 422,
+          "all_rpc_seconds": {
+            "p50": 0.07714600199687993,
+            "p95": 0.13495705900277244,
+            "p99": 0.15552283699798863
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.83885594199819,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.005766081333817,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06904525899881264,
+            "p95": 0.12597188100335188,
+            "p99": 0.1506135550007457
+          },
+          "observe_samples": 371,
+          "observed_game_tps": 20.005766081333817,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3604
+        },
+        {
+          "agent_id": "survival-cpu-02",
+          "all_rpc_samples": 424,
+          "all_rpc_seconds": {
+            "p50": 0.06483936899894616,
+            "p95": 0.12463858100090874,
+            "p99": 0.16343305299960775
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.063255230998038,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.007647126690042,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.05720586200186517,
+            "p95": 0.10911527999996906,
+            "p99": 0.13665697500255192
+          },
+          "observe_samples": 373,
+          "observed_game_tps": 20.018737840174904,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3609
+        },
+        {
+          "agent_id": "survival-cpu-03",
+          "all_rpc_samples": 424,
+          "all_rpc_seconds": {
+            "p50": 0.0670121779985493,
+            "p95": 0.11976100000174483,
+            "p99": 0.14412872400134802
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 6.9648273549973965,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.001971669750205,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.059515090004424565,
+            "p95": 0.10889060400222661,
+            "p99": 0.12470601499808254
+          },
+          "observe_samples": 373,
+          "observed_game_tps": 20.001971669750205,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3606
+        },
+        {
+          "agent_id": "survival-cpu-04",
+          "all_rpc_samples": 424,
+          "all_rpc_seconds": {
+            "p50": 0.073258144002466,
+            "p95": 0.12646885299909627,
+            "p99": 0.15856340499885846
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.0954850720008835,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.004833815097534,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06539627200254472,
+            "p95": 0.11546654199628392,
+            "p99": 0.13720873100101016
+          },
+          "observe_samples": 373,
+          "observed_game_tps": 20.004833815097534,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3611
+        },
+        {
+          "agent_id": "survival-cpu-07",
+          "all_rpc_samples": 424,
+          "all_rpc_seconds": {
+            "p50": 0.07092562899924815,
+            "p95": 0.12726057400141144,
+            "p99": 0.1553056960037793
+          },
+          "bcl_probe": {
+            "cleanup": "released",
+            "elapsed_seconds": 7.13482979600667,
+            "operations": 2,
+            "program_verified": true,
+            "status": "succeeded"
+          },
+          "client_tps": 20.00386730278162,
+          "health": 20.0,
+          "observe_rpc_seconds": {
+            "p50": 0.06194785499974387,
+            "p95": 0.11725825900066411,
+            "p99": 0.13630664499942213
+          },
+          "observe_samples": 373,
+          "observed_game_tps": 20.00386730278162,
+          "on_ground": true,
+          "status": "GO",
+          "trace_samples": 3611
+        }
+      ],
+      "inference": {
+        "concurrent_cli_cap": 2,
+        "pool_cpus": [
+          7,
+          15
+        ],
+        "queue_quantiles_seconds": {
+          "p50": 0.00017105099686887115,
+          "p95": 9.500402912002755,
+          "p99": 9.500402912002755
+        },
+        "requests": [
+          {
+            "queue_seconds": 0.00017105099686887115,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.637895801002742,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 196,
+              "output": 66,
+              "reasoning": 0,
+              "totalTokens": 262
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 0.0001681709982221946,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 9.487336040001537,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 188,
+              "output": 58,
+              "reasoning": 0,
+              "totalTokens": 246
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 5.640641844001948,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 6.03801282299537,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 191,
+              "output": 56,
+              "reasoning": 0,
+              "totalTokens": 247
+            },
+            "status": "GO"
+          },
+          {
+            "queue_seconds": 9.500402912002755,
+            "reported_model": "gpt-6.1-sol",
+            "roundtrip_seconds": 5.634968929000024,
+            "sdk_reported_tokens": {
+              "cacheRead": 0,
+              "cacheWrite": 0,
+              "input": 189,
+              "output": 56,
+              "reasoning": 0,
+              "totalTokens": 245
+            },
+            "status": "GO"
+          }
+        ],
+        "roundtrip_quantiles_seconds": {
+          "p50": 5.637895801002742,
+          "p95": 9.487336040001537,
+          "p99": 9.487336040001537
+        },
+        "scope": "Native-summary read-only probes during the same active-Minecraft measurement, not autonomous gameplay or isolated remote service compute time"
+      },
+      "instance_numbers": [
+        1,
+        2,
+        3,
+        4,
+        7
+      ],
+      "instances": 5,
+      "local_inference_rss_peak_bytes": 288210944,
+      "mc_java_aux_monitor_rss_peak_bytes": 20069257216,
+      "mem_available_min_bytes": 37691478016,
+      "owned_process_cpu_sampling": {
+        "inference_processes": {
+          "approx_sampled_cpu_seconds": 0.32,
+          "normalized_pool_fraction": 0.0008952429869441545,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        },
+        "mc_processes": {
+          "approx_sampled_cpu_seconds": 1484.72,
+          "normalized_pool_fraction": 0.6922839414456902,
+          "scope": "Sampled live-PID intersection; short-lived process intervals can be missed, not exact billing"
+        }
+      },
+      "per_logical_cpu": {
+        "0": {
+          "mean": 0.34868088866329333,
+          "peak": 0.8288288288288288
+        },
+        "1": {
+          "mean": 0.7886852594347125,
+          "peak": 0.9473684210526316
+        },
+        "10": {
+          "mean": 0.7711946128271019,
+          "peak": 0.9107142857142857
+        },
+        "11": {
+          "mean": 0.7906493365503995,
+          "peak": 0.963963963963964
+        },
+        "12": {
+          "mean": 0.7881871546592263,
+          "peak": 0.9292035398230089
+        },
+        "13": {
+          "mean": 0.7777386550793369,
+          "peak": 0.9292035398230089
+        },
+        "14": {
+          "mean": 0.796418096058416,
+          "peak": 0.981651376146789
+        },
+        "15": {
+          "mean": 0.35682561041182054,
+          "peak": 0.8392857142857143
+        },
+        "2": {
+          "mean": 0.7724392579191396,
+          "peak": 0.9310344827586207
+        },
+        "3": {
+          "mean": 0.7536758615155809,
+          "peak": 0.9159663865546218
+        },
+        "4": {
+          "mean": 0.7610319286455487,
+          "peak": 0.9272727272727272
+        },
+        "5": {
+          "mean": 0.7514186852681898,
+          "peak": 0.9181818181818182
+        },
+        "6": {
+          "mean": 0.766732680397876,
+          "peak": 0.926605504587156
+        },
+        "7": {
+          "mean": 0.34007862120306537,
+          "peak": 0.8584070796460177
+        },
+        "8": {
+          "mean": 0.36518433435591546,
+          "peak": 0.8434782608695652
+        },
+        "9": {
+          "mean": 0.7949029252616722,
+          "peak": 0.9727272727272728
+        }
+      },
+      "per_physical_core_smt_mean": {
+        "0": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.3569326115096044,
+          "peak_smt_mean": 0.836153544849197
+        },
+        "1": {
+          "cpus": [
+            1,
+            9
+          ],
+          "mean": 0.7917940923481923,
+          "peak_smt_mean": 0.9348911070780399
+        },
+        "2": {
+          "cpus": [
+            2,
+            10
+          ],
+          "mean": 0.7718169353731208,
+          "peak_smt_mean": 0.9056881815502504
+        },
+        "3": {
+          "cpus": [
+            3,
+            11
+          ],
+          "mean": 0.7721625990329901,
+          "peak_smt_mean": 0.9365274365274365
+        },
+        "4": {
+          "cpus": [
+            4,
+            12
+          ],
+          "mean": 0.7746095416523875,
+          "peak_smt_mean": 0.9181818181818182
+        },
+        "5": {
+          "cpus": [
+            5,
+            13
+          ],
+          "mean": 0.7645786701737634,
+          "peak_smt_mean": 0.9136363636363636
+        },
+        "6": {
+          "cpus": [
+            6,
+            14
+          ],
+          "mean": 0.781575388228146,
+          "peak_smt_mean": 0.9223936613844871
+        },
+        "7": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.34845211580744295,
+          "peak_smt_mean": 0.848846396965866
+        }
+      },
+      "phase": "CONFIRM05",
+      "pools": {
+        "inference": {
+          "cpus": [
+            7,
+            15
+          ],
+          "mean": 0.34845211580744295,
+          "peak_smt_mean": 0.848846396965866
+        },
+        "minecraft": {
+          "cpus": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14
+          ],
+          "mean": 0.7760895378014333,
+          "peak_smt_mean": 0.9154772627849881
+        },
+        "os_spare": {
+          "cpus": [
+            0,
+            8
+          ],
+          "mean": 0.3569326115096044,
+          "peak_smt_mean": 0.836153544849197
+        }
+      },
+      "problems": [],
+      "requested_seconds": 180,
+      "status": "GO",
+      "swap_growth_bytes": 0,
+      "worst_per_client_all_rpc_seconds": {
+        "p50": 0.07714600199687993,
+        "p95": 0.13495705900277244,
+        "p99": 0.16343305299960775
+      },
+      "worst_per_client_observe_rpc_seconds": {
+        "p50": 0.06904525899881264,
+        "p95": 0.12597188100335188,
+        "p99": 0.1506135550007457
+      }
+    }
+  ],
+  "production_python_and_java_changed": false,
+  "prospective_gates": {
+    "all_owned_benchmark_thread_affinities_checked": true,
+    "cpu_denominator": "Twelve logical SMT siblings of six physical MC cores, not the whole 16-thread host",
+    "min_free_disk_bytes": 21474836480,
+    "min_mem_available_bytes": 8589934592,
+    "minecraft_pool_host_mean_utilization_max": 0.85,
+    "minimum_native_client_and_game_tps": 18.0,
+    "native_actor_health_ground_and_input_checks": true,
+    "no_swap_growth": true,
+    "observe_rpc_p95_max_seconds": 0.15,
+    "per_core_mean": "Mean busy fraction of the two SMT siblings; not a claim of doubled physical throughput or exclusive CPU ownership",
+    "percentiles": "Nearest-rank ceil(p*n); RPC p50/p95/p99 all reported, p95 observe is the admission rule",
+    "watchdog_10_interval_mc_pool_mean_max": 0.95
+  },
+  "qa": {
+    "cpu_allocation_contracts": "7/7 PASS (included in full suite)",
+    "gradle": "PASS",
+    "movement_211_suite": "NOT_RERUN_UNCHANGED_PRODUCTION_SOURCE_NO_MOVEMENT_QUALIFICATION",
+    "mutations": {
+      "bcl": {
+        "killed": 50,
+        "total": 50
+      },
+      "cpu_guards": {
+        "killed": 7,
+        "total": 7
+      },
+      "play2code": {
+        "killed": 47,
+        "total": 47
+      },
+      "skills": {
+        "killed": 209,
+        "total": 209
+      }
+    },
+    "physical_f8_injection": "NOT_RUN_IMPLEMENTATION_AND_CONTRACTS_UNCHANGED",
+    "python": "610/610 PASS",
+    "tls_interop": {
+      "checks": [
+        "certificate_and_hostname_verification_enabled",
+        "encrypted_authorized_exchange",
+        "wrong_instance_certificate",
+        "wrong_service_hostname",
+        "unknown_certificate_rejected_by_default",
+        "api_key_still_required",
+        "plaintext_http_rejected",
+        "invalid_peers_never_dispatched",
+        "TLSv1_2",
+        "TLSv1_3"
+      ],
+      "status": "PASS"
+    }
+  },
+  "qualification": {
+    "6_plus_1_plus_1_affinity": "PASS_MEASURED_THREADS",
+    "cpu_topology": "VERIFIED_LSCPU_AND_SYSFS_SMT",
+    "eight": "NOT_RUN_SIX_RESOURCE_GATE_FAILED",
+    "five_windows": [
+      "120_SECONDS_C05",
+      "180_SECONDS_CONFIRM05"
+    ],
+    "live_render_simulation_8_5": "PASS_ALL_SEVEN_LAUNCHED_CLIENTS_BEFORE_AND_AFTER",
+    "long_term_autonomy": "NOT_QUALIFIED",
+    "maximum_qualified_concurrent_instances": 5,
+    "scope": "Observed readiness, bounded existing-runtime camera BCL and short remote-model probes under prospective headroom criteria, not 30-minute Survival",
+    "six": "FUNCTIONAL_TPS_RPC_BCL_PASS_CPU_HEADROOM_NO_GO",
+    "sixteen_agent_campaign": "NOT_RUN_NO_16_INSTANCE_CAPACITY_PROOF"
+  },
+  "resource_summary": {
+    "all_tested_clients_renderer": "llvmpipe_CPU_on_authenticated_hidden_Xephyr",
+    "autonomous_gameplay_decisions": 0,
+    "bcl_camera_programs": 26,
+    "gpu_samples_global_not_per_process_attribution": {
+      "NVIDIA GeForce RTX 2080 SUPER": {
+        "memory_used_peak_mib": 794,
+        "utilization_peak_percent": 46
+      },
+      "NVIDIA GeForce RTX 3060": {
+        "memory_used_peak_mib": 12,
+        "utilization_peak_percent": 0
+      }
+    },
+    "inference_latency_includes": "CLI startup, network, remote service and local parsing; not separated forward-pass latency",
+    "inference_total_readonly_requests": 24,
+    "local_model": "Remote provider; no local weights loaded. CLI/dispatcher memory and CPU measured",
+    "model_tail_sample_size": "Four requests per phase; p95/p99 are small-sample extrema, not a service SLA",
+    "observed_camera_skill_operations": 52,
+    "ram_metrics": "Summed Java/aux/monitor RSS can double-count mappings; host MemAvailable and swap independently measured",
+    "rendered_fps_and_exact_server_mspt": "NOT_INSTRUMENTED; native ticks/game-time are reported separately",
+    "sixteen_campaign_started": false
+  },
+  "retained_diagnostics": {
+    "C04": "SETUP_NOT_RUN: exclusive native-controller HTTP409 before agent03 live-settings proof; incomplete C04 directory retained. C04b is a separate successful measurement after a fresh setup proof and release interval.",
+    "native_safety_or_tls_timeouts_weakened": false,
+    "post_confirm_agent03": "TLS/WebSocket handshake timed out before shutdown RPC. No new control connection/replay attempted for that client; exact owned-window normal WM_DELETE used, then world save and replay independently validated."
+  },
+  "schema": "blockwire.parallel-survival.cpu-allocation.v1",
+  "settings": {
+    "experimental_reuse": "OFF",
+    "graphicsPreset": "custom",
+    "heap_max_mib": 2048,
+    "inactivityFpsLimit": "minimized",
+    "live_proofs": [
+      {
+        "instance": 1,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 2,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 3,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 4,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 5,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 6,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      },
+      {
+        "instance": 7,
+        "labels": [
+          "Preset: Custom",
+          "Render Distance: 8 Chunks",
+          "Simulation Distance: 5 Chunks",
+          "Max Framerate: 30 fps",
+          "Reduce fps when: Minimized"
+        ],
+        "live_after": true,
+        "live_before": true
+      }
+    ],
+    "maxFps": 30,
+    "pauseOnLostFocus": false,
+    "preset_root_cause": "Minecraft 26.3 GraphicsPreset.apply FANCY writes 16/12; CUSTOM takes no preset overwrite branch. Bytecode inspected privately, live native UI verified.",
+    "recording": "ReplayMod 26.3-2.6.28, passive, renameDialog=false",
+    "renderDistance": 8,
+    "simulationDistance": 5,
+    "window": [
+      640,
+      360
+    ],
+    "world_seed": "74219031427",
+    "worlds": "New independent clean-snapshot clones; earlier campaign/parallel worlds never modified"
+  }
+}
